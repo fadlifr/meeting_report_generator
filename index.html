@@ -24,15 +24,15 @@
 
   <div style="max-width:1500px;margin:0 auto;">
     <div class="tab-bar">
-      <button class="tab-btn active" onclick="switchTab('manual')">✏️ Manual Report</button>
-      <button class="tab-btn" onclick="switchTab('auto')">⚡ Daily Auto Report</button>
+      <button class="tab-btn" onclick="switchTab('manual')">✏️ Manual Report</button>
+      <button class="tab-btn active" onclick="switchTab('auto')">⚡ Daily Auto Report</button>
     </div>
   </div>
 
   <div class="app-layout">
 
     <!-- TAB: MANUAL -->
-    <div id="tab-manual" class="tab-content active">
+    <div id="tab-manual" class="tab-content">
       <aside class="sidebar">
         <div class="card">
           <div class="card-title">Class Information</div>
@@ -45,24 +45,8 @@
         </div>
         <div class="card">
           <div class="card-title">Documentation Photos</div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Photo 1</label>
-              <div class="photo-input-group">
-                <input type="file" id="input-photo1" accept="image/*" onchange="handlePhoto(event,'photo1')">
-                <button type="button" class="btn-del-photo" id="btndel-photo1" onclick="removePhoto('photo1')"
-                  title="Remove Photo" style="display:none;">✕</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Photo 2</label>
-              <div class="photo-input-group">
-                <input type="file" id="input-photo2" accept="image/*" onchange="handlePhoto(event,'photo2')">
-                <button type="button" class="btn-del-photo" id="btndel-photo2" onclick="removePhoto('photo2')"
-                  title="Remove Photo" style="display:none;">✕</button>
-              </div>
-            </div>
-          </div>
+          <div class="photo-upload-list" id="manual-photo-inputs"></div>
+          <button class="btn-add-photo" id="manual-add-photo-btn" onclick="addManualPhoto()">+ Add Photo</button>
         </div>
         <div class="card">
           <div class="card-title">Student Data & Progress</div>
@@ -120,19 +104,12 @@
               </div>
             </div>
 
-            <!-- Documentation Activity Photos -->
-            <div class="rpt-section rc">
+            <!-- Documentation Activity Photos (dynamic) -->
+            <div class="rpt-section rc" id="manual-photo-section" style="display:none;">
               <div class="rpt-section-header">
                 <span>📸</span><span>Classroom Activity Snapshots</span>
               </div>
-              <div class="rpt-photos">
-                <div class="rpt-photo-wrap" id="photo1-wrap">
-                  <div class="photo-empty-label"><span class="icon">▢</span><span>Photo 1</span></div>
-                </div>
-                <div class="rpt-photo-wrap" id="photo2-wrap">
-                  <div class="photo-empty-label"><span class="icon">▢</span><span>Photo 2</span></div>
-                </div>
-              </div>
+              <div class="rpt-photos" id="manual-photos-grid"></div>
             </div>
 
             <!-- Student Progress Stream -->
@@ -157,7 +134,7 @@
     </div>
 
     <!-- TAB: AUTO RAPOR -->
-    <div id="tab-auto" class="tab-content">
+    <div id="tab-auto" class="tab-content active">
       <aside class="sidebar">
         <div class="card">
           <div class="card-title">Class Information</div>
@@ -179,24 +156,8 @@
 
         <div class="card">
           <div class="card-title">Documentation Photos</div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Photo 1</label>
-              <div class="photo-input-group">
-                <input type="file" id="input-aphoto1" accept="image/*" onchange="handleAutoPhoto(event,'aphoto1')">
-                <button type="button" class="btn-del-photo" id="btndel-aphoto1" onclick="removeAutoPhoto('aphoto1')"
-                  title="Remove Photo" style="display:none;">✕</button>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Photo 2</label>
-              <div class="photo-input-group">
-                <input type="file" id="input-aphoto2" accept="image/*" onchange="handleAutoPhoto(event,'aphoto2')">
-                <button type="button" class="btn-del-photo" id="btndel-aphoto2" onclick="removeAutoPhoto('aphoto2')"
-                  title="Remove Photo" style="display:none;">✕</button>
-              </div>
-            </div>
-          </div>
+          <div class="photo-upload-list" id="auto-photo-inputs"></div>
+          <button class="btn-add-photo" id="auto-add-photo-btn" onclick="addAutoPhoto()">+ Add Photo</button>
         </div>
 
         <div class="card">
@@ -257,21 +218,12 @@
               </div>
             </div>
 
-            <!-- Documentation Activity Photos -->
-            <div class="rpt-section rc">
+            <!-- Documentation Activity Photos (dynamic) -->
+            <div class="rpt-section rc" id="auto-photo-section" style="display:none;">
               <div class="rpt-section-header">
                 <span>📸</span><span id="auto-photo-sec-title">Classroom Activity Snapshots</span>
               </div>
-              <div class="rpt-photos">
-                <div class="rpt-photo-wrap" id="aphoto1-wrap">
-                  <div class="photo-empty-label"><span class="icon">▢</span><span id="auto-photo1-label">Photo 1</span>
-                  </div>
-                </div>
-                <div class="rpt-photo-wrap" id="aphoto2-wrap">
-                  <div class="photo-empty-label"><span class="icon">▢</span><span id="auto-photo2-label">Photo 2</span>
-                  </div>
-                </div>
-              </div>
+              <div class="rpt-photos" id="auto-photos-grid"></div>
             </div>
 
             <!-- Student Progress Stream -->
@@ -298,7 +250,7 @@
 
   <footer class="app-footer">
     <div>© 2026 <strong>Timedoor Academy</strong> — Meeting Report Generator</div>
-    <div>All Rights Reserved &middot; Created by <strong>FFR</strong> ☕🧑&zwj;💻</div>
+    <div>All Rights Reserved &middot; Created by <strong>Alif &amp; FFR</strong> ☕🧑&zwj;💻 &middot; Powered by <strong>Antigravity</strong> 🚀</div>
   </footer>
 
   <div id="toast">Processing...</div>

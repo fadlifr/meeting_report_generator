@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Review — All Reports | Timedoor Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #16a34a; --green-dark: #14532d; --green-light: #f0fdf4;
+      --green-border: #bbf7d0; --slate: #1e293b; --slate2: #334155;
+      --muted: #64748b; --border: #e2e8f0; --white: #ffffff; --bg: #f8fafc;
+      --amber: #d97706; --amber-light: #fffbeb;
+      --blue: #2563eb; --blue-light: #eff6ff;
+      --purple: #7c3aed; --purple-light: #f5f3ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--slate);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    .topnav {
+      background: linear-gradient(135deg, #14532d, #16a34a);
+      padding: 0 32px; height: 64px;
+      display: flex; align-items: center; gap: 16px;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 4px 20px rgba(21,128,61,.35);
+    }
+    .topnav img { height: 36px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.15)); }
+    .topnav h1 { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -.3px; }
+    .topnav-div { width: 1px; height: 24px; background: rgba(255,255,255,.3); }
+    .topnav-sub { font-size: 12px; color: rgba(255,255,255,.75); font-weight: 500; }
+
+    /* INTRO */
+    .page-intro {
+      max-width: 1400px; margin: 0 auto; padding: 28px 32px 16px;
+    }
+    .intro-card {
+      background: var(--white); border: 1.5px solid var(--green-border);
+      border-radius: 16px; padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .intro-icon { font-size: 28px; flex-shrink: 0; line-height: 1; }
+    .intro-title { font-size: 16px; font-weight: 800; color: var(--green-dark); margin-bottom: 6px; }
+    .intro-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .intro-desc strong { color: var(--slate2); }
+    .intro-desc code { background: var(--bg); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+    /* TOC */
+    .toc-wrap { max-width: 1400px; margin: 0 auto; padding: 0 32px 20px; }
+    .toc-inner {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 14px; padding: 18px 22px;
+    }
+    .toc-title { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 12px; }
+    .toc-levels { display: flex; gap: 32px; flex-wrap: wrap; }
+    .toc-level-group { display: flex; flex-direction: column; gap: 3px; }
+    .toc-level-label {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px;
+      margin-bottom: 5px;
+    }
+    .toc-level-label.junior { color: var(--purple); }
+    .toc-level-label.kids { color: var(--blue); }
+    .toc-level-label.teens { color: var(--amber); }
+    .toc-link {
+      font-size: 12px; font-weight: 600; color: var(--green);
+      text-decoration: none; padding: 3px 8px;
+      border-radius: 6px; transition: background .15s;
+      display: inline-block;
+    }
+    .toc-link:hover { background: var(--green-light); }
+
+    /* MAIN CONTENT */
+    .content { max-width: 1400px; margin: 0 auto; padding: 0 32px 100px; }
+
+    /* LEVEL SECTION */
+    .level-section { margin-bottom: 52px; }
+    .level-header {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 22px; border-radius: 16px; margin-bottom: 24px;
+    }
+    .level-header.junior { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
+    .level-header.kids   { background: linear-gradient(135deg, #1d4ed8, #2563eb); }
+    .level-header.teens  { background: linear-gradient(135deg, #b45309, #d97706); }
+    .level-emoji { font-size: 28px; }
+    .level-title { font-size: 22px; font-weight: 800; color: white; }
+    .level-sub { font-size: 12px; color: rgba(255,255,255,.75); font-weight: 600; margin-left: auto; }
+
+    /* COURSE BLOCK */
+    .course-block { margin-bottom: 40px; scroll-margin-top: 80px; }
+    .course-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px; padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .course-pill {
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .6px;
+      padding: 4px 12px; border-radius: 20px; flex-shrink: 0;
+    }
+    .junior .course-pill { background: var(--purple-light); color: var(--purple); }
+    .kids   .course-pill { background: var(--blue-light); color: var(--blue); }
+    .teens  .course-pill { background: var(--amber-light); color: var(--amber); }
+    .course-name { font-size: 17px; font-weight: 800; color: var(--slate); }
+    .lesson-count { font-size: 12px; color: var(--muted); font-weight: 600; margin-left: auto; white-space: nowrap; }
+
+    /* HEADER COLUMNS */
+    .col-headers {
+      display: grid; grid-template-columns: 52px 1fr 1fr;
+      gap: 12px; margin-bottom: 8px; padding: 0 2px;
+    }
+    .col-label {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .7px; color: var(--muted); padding: 0 4px;
+    }
+    .col-label:first-child { text-align: center; }
+
+    /* LESSON ROW */
+    .lesson-row {
+      display: grid; grid-template-columns: 52px 1fr 1fr;
+      gap: 12px; margin-bottom: 6px; align-items: stretch;
+    }
+    .lesson-num {
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: 14px;
+    }
+    .lesson-badge {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 800; flex-shrink: 0;
+      background: var(--border); color: var(--muted);
+    }
+    .lesson-cell {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 14px 16px;
+      font-size: 13px; line-height: 1.7; color: var(--slate2);
+    }
+    .lesson-cell.en { border-left: 3px solid #2563eb; }
+    .lesson-cell.id { border-left: 3px solid #16a34a; }
+    .lang-flag {
+      display: inline-block; font-size: 10px; font-weight: 800;
+      padding: 2px 7px; border-radius: 4px; margin-bottom: 8px;
+    }
+    .lang-flag.en { background: #dbeafe; color: #1d4ed8; }
+    .lang-flag.id { background: #dcfce7; color: #15803d; }
+
+    /* LESSON TITLE ROW */
+    .lesson-title-row {
+      font-size: 11px; color: var(--muted); font-weight: 600;
+      padding: 2px 4px 12px 64px; font-style: italic;
+    }
+
+    /* MISSING */
+    .missing-cell {
+      background: #fef9c3; border: 1.5px dashed #fbbf24;
+      border-radius: 12px; padding: 14px 16px;
+      font-size: 12px; color: #92400e; font-style: italic;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* STATS BAR */
+    .stats-bar {
+      position: fixed; bottom: 20px; right: 24px;
+      background: var(--slate); color: white;
+      border-radius: 14px; padding: 12px 18px;
+      font-size: 12px; font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,.2);
+      display: flex; gap: 16px; align-items: center;
+      z-index: 200;
+    }
+    .stat-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .stat-num { font-size: 18px; font-weight: 800; }
+    .stat-label { font-size: 9px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; }
+    .stat-divider { width: 1px; height: 30px; background: rgba(255,255,255,.2); }
+
+    @media (max-width: 900px) {
+      .lesson-row, .col-headers { grid-template-columns: 40px 1fr; }
+      .lesson-row .lesson-cell.id,
+      .col-headers .col-label:last-child { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="topnav">
+  <img src="timedoor_logo_putih.png" alt="Timedoor Academy">
+  <div class="topnav-div"></div>
+  <h1>Template Review — All Reports</h1>
+  <span class="topnav-sub" style="margin-left:auto;">Student: Qianru &nbsp;·&nbsp; Status: Completed 1 Lesson</span>
+</nav>
+
+<div class="page-intro">
+  <div class="intro-card">
+    <div class="intro-icon">🔍</div>
+    <div>
+      <div class="intro-title">Review Semua Template Progress Report</div>
+      <div class="intro-desc">
+        Halaman ini menampilkan <strong>semua template progress report</strong> untuk setiap lesson di setiap course,
+        dengan nama siswa <strong>Qianru</strong> dan status <strong>Selesai 1 Lesson</strong>.
+        Template ditampilkan <strong>berdampingan (English | Indonesia)</strong>, dikelompokkan per level dan course.
+        Tandai teks yang terasa terlalu "AI" atau kaku untuk diperbaiki di <code>js/templates.js</code>.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toc-wrap">
+  <div class="toc-inner">
+    <div class="toc-title">📋 Daftar Isi — Jump to Course</div>
+    <div class="toc-levels" id="toc-container"></div>
+  </div>
+</div>
+
+<div class="content" id="main-content">
+  <div style="text-align:center;padding:60px 0;color:var(--muted);font-size:14px;">
+    ⏳ Memuat data...
+  </div>
+</div>
+
+<div class="stats-bar" id="stats-bar" style="display:none;">
+  <div class="stat-item">
+    <div class="stat-num" id="stat-total">—</div>
+    <div class="stat-label">Total Lessons</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-num" id="stat-courses">—</div>
+    <div class="stat-label">Courses</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat-item">
+    <div class="stat-num" id="stat-missing">—</div>
+    <div class="stat-label">Missing EN/ID</div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/templates.js"></script>
+<script>
+const STUDENT = 'Qianru';
+
+const LEVELS = [
+  { key: 'junior', label: 'Junior', emoji: '🌱', courses: COURSE_MAP['Junior'] },
+  { key: 'kids',   label: 'Kids',   emoji: '🎮', courses: COURSE_MAP['Kids'] },
+  { key: 'teens',  label: 'Teens',  emoji: '🚀', courses: COURSE_MAP['Teens'] },
+];
+
+function applyName(str) {
+  return str ? str.replace(/\{nama\}/g, STUDENT) : null;
+}
+
+function getEN(course, num) {
+  return (TEMPLATES_EN && TEMPLATES_EN[course]) ? applyName(TEMPLATES_EN[course][String(num)]) : null;
+}
+
+function getID(course, num) {
+  return (TEMPLATES && TEMPLATES[course]) ? applyName(TEMPLATES[course][String(num)]) : null;
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildReview() {
+  if (typeof TEMPLATES === 'undefined' || typeof TEMPLATES_EN === 'undefined') {
+    document.getElementById('main-content').innerHTML = `
+      <div style="padding:60px;text-align:center;color:#dc2626;font-weight:700;font-size:15px;">
+        ❌ Data files tidak bisa dimuat. Buka file ini melalui Live Server di VS Code (bukan langsung dari file explorer).
+      </div>`;
+    return;
+  }
+
+  const toc = document.getElementById('toc-container');
+  const content = document.getElementById('main-content');
+  content.innerHTML = '';
+
+  let totalLessons = 0, totalCourses = 0, totalMissing = 0;
+
+  LEVELS.forEach(level => {
+    // TOC group
+    const tocGroup = document.createElement('div');
+    tocGroup.className = 'toc-level-group';
+    tocGroup.innerHTML = `<div class="toc-level-label ${level.key}">${level.emoji} ${level.label}</div>`;
+    level.courses.forEach(course => {
+      const anchor = 'c-' + course.replace(/[^a-zA-Z0-9]/g, '-');
+      const a = document.createElement('a');
+      a.className = 'toc-link';
+      a.href = '#' + anchor;
+      a.textContent = course;
+      tocGroup.appendChild(a);
+    });
+    toc.appendChild(tocGroup);
+
+    // Level section
+    const levelSec = document.createElement('div');
+    levelSec.className = 'level-section';
+    levelSec.innerHTML = `
+      <div class="level-header ${level.key}">
+        <span class="level-emoji">${level.emoji}</span>
+        <div class="level-title">${level.label}</div>
+        <div class="level-sub">${level.courses.length} courses</div>
+      </div>`;
+
+    level.courses.forEach(course => {
+      totalCourses++;
+      const anchor = 'c-' + course.replace(/[^a-zA-Z0-9]/g, '-');
+      const lessons = COURSE_DATA[course] || [];
+
+      const courseBlock = document.createElement('div');
+      courseBlock.className = `course-block ${level.key}`;
+      courseBlock.id = anchor;
+
+      let html = `
+        <div class="course-header">
+          <span class="course-pill">${level.label}</span>
+          <span class="course-name">${esc(course)}</span>
+          <span class="lesson-count">${lessons.length} lessons</span>
+        </div>
+        <div class="col-headers">
+          <div class="col-label">#</div>
+          <div class="col-label">🇬🇧 English</div>
+          <div class="col-label">🇮🇩 Indonesia</div>
+        </div>
+      `;
+
+      lessons.forEach(lesson => {
+        totalLessons++;
+        const en = getEN(course, lesson.num);
+        const id = getID(course, lesson.num);
+        if (!en) totalMissing++;
+        if (!id) totalMissing++;
+
+        const enCell = en
+          ? `<div class="lesson-cell en"><div class="lang-flag en">EN</div><div>${esc(en)}</div></div>`
+          : `<div class="missing-cell">⚠️ Template EN belum tersedia</div>`;
+
+        const idCell = id
+          ? `<div class="lesson-cell id"><div class="lang-flag id">ID</div><div>${esc(id)}</div></div>`
+          : `<div class="missing-cell">⚠️ Template ID belum tersedia</div>`;
+
+        html += `
+          <div class="lesson-row">
+            <div class="lesson-num"><div class="lesson-badge">${lesson.num}</div></div>
+            ${enCell}
+            ${idCell}
+          </div>
+          <div class="lesson-title-row">${esc(lesson.title)}</div>
+        `;
+      });
+
+      courseBlock.innerHTML = html;
+      levelSec.appendChild(courseBlock);
+    });
+
+    content.appendChild(levelSec);
+  });
+
+  document.getElementById('stat-total').textContent = totalLessons;
+  document.getElementById('stat-courses').textContent = totalCourses;
+  document.getElementById('stat-missing').textContent = totalMissing;
+  document.getElementById('stats-bar').style.display = 'flex';
+}
+
+document.addEventListener('DOMContentLoaded', buildReview);
+</script>
+</body>
+</html>

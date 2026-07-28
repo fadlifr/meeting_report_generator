@@ -104,7 +104,73 @@ let students = [
   {nama:"Aysha",progress:"Aysha learned about creating AR games on Delightex with animal themes (*Lesson 14*). Also studied drone logic on Tynker.\n\nNote: Aysha completed all tasks very well and is starting to understand loop concepts."},
   {nama:"Puan",progress:"Puan is currently working on *Lesson 14* (Introduction to Variables). Puan understood the main concepts well and will continue in our next class."}
 ];
-const photoData = {photo1:null,photo2:null};
+// Dynamic photo arrays (each entry: {src: dataURL})
+let photoList = [];       // Manual tab
+let autoPhotoList = [];   // Auto tab
+
+// ---- Manual Photo Management ----
+function renderManualPhotoInputs() {
+  const container = document.getElementById('manual-photo-inputs');
+  if (!container) return;
+  container.innerHTML = '';
+  photoList.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'photo-input-row';
+    row.innerHTML = `
+      <label>Photo ${i + 1}</label>
+      <div class="photo-input-group">
+        <input type="file" id="manual-file-${i}" accept="image/*" onchange="onManualPhotoChange(event,${i})">
+        <button type="button" class="btn-del-photo" onclick="removeManualPhoto(${i})" title="Remove Photo">✕</button>
+      </div>
+      ${p.src ? `<div class="photo-thumb-preview"><img src="${p.src}" alt="Photo ${i+1}"></div>` : ''}
+    `;
+    container.appendChild(row);
+  });
+}
+function addManualPhoto() {
+  photoList.push({src: null});
+  renderManualPhotoInputs();
+  // Scroll newly added row into view
+  const rows = document.querySelectorAll('#manual-photo-inputs .photo-input-row');
+  if (rows.length) rows[rows.length - 1].scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function onManualPhotoChange(e, i) {
+  const file = e.target.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    photoList[i].src = ev.target.result;
+    renderManualPhotoInputs();
+    renderManualPhotoPreview();
+  };
+  reader.readAsDataURL(file);
+}
+function removeManualPhoto(i) {
+  photoList.splice(i, 1);
+  renderManualPhotoInputs();
+  renderManualPhotoPreview();
+  toast('Photo removed', 'success');
+}
+function renderManualPhotoPreview() {
+  const section = document.getElementById('manual-photo-section');
+  const grid = document.getElementById('manual-photos-grid');
+  if (!section || !grid) return;
+  const uploaded = photoList.filter(p => p.src);
+  if (uploaded.length === 0) {
+    section.style.display = 'none';
+    grid.innerHTML = '';
+    fitPreviewScale();
+    return;
+  }
+  section.style.display = 'flex';
+  grid.innerHTML = '';
+  uploaded.forEach((p, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'rpt-photo-wrap has-photo';
+    wrap.innerHTML = `<img src="${p.src}" alt="Photo ${i+1}">`;
+    grid.appendChild(wrap);
+  });
+  fitPreviewScale();
+}
 
 function buildWAMessage(){
   const tgl = document.getElementById('input-tanggal').value;
@@ -194,49 +260,67 @@ function removeStudent(i){
   students.splice(i,1);
   renderInputs();
 }
-function handlePhoto(e,key){
-  const file = e.target.files[0]; if(!file) return;
+// ---- Auto Photo Management ----
+function renderAutoPhotoInputs() {
+  const container = document.getElementById('auto-photo-inputs');
+  if (!container) return;
+  container.innerHTML = '';
+  autoPhotoList.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'photo-input-row';
+    const label = autoLang === 'id' ? `Foto ${i + 1}` : `Photo ${i + 1}`;
+    row.innerHTML = `
+      <label>${label}</label>
+      <div class="photo-input-group">
+        <input type="file" id="auto-file-${i}" accept="image/*" onchange="onAutoPhotoChange(event,${i})">
+        <button type="button" class="btn-del-photo" onclick="removeAutoPhoto(${i})" title="Remove Photo">✕</button>
+      </div>
+      ${p.src ? `<div class="photo-thumb-preview"><img src="${p.src}" alt="${label}"></div>` : ''}
+    `;
+    container.appendChild(row);
+  });
+}
+function addAutoPhoto() {
+  autoPhotoList.push({src: null});
+  renderAutoPhotoInputs();
+  const rows = document.querySelectorAll('#auto-photo-inputs .photo-input-row');
+  if (rows.length) rows[rows.length - 1].scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function onAutoPhotoChange(e, i) {
+  const file = e.target.files[0]; if (!file) return;
   const reader = new FileReader();
-  reader.onload = ev => {photoData[key]=ev.target.result;renderPhoto(key,ev.target.result);};
+  reader.onload = ev => {
+    autoPhotoList[i].src = ev.target.result;
+    renderAutoPhotoInputs();
+    renderAutoPhotoPreview();
+  };
   reader.readAsDataURL(file);
 }
-function renderPhoto(key,src){
-  const wrap = document.getElementById(key+'-wrap');
-  if(!wrap) return;
-  const isAuto = key.startsWith('a');
-  const removeFn = isAuto ? `removeAutoPhoto('${key}')` : `removePhoto('${key}')`;
-  wrap.innerHTML = `<img src="${src}" alt="Photo"><button type="button" class="btn-photo-overlay-del" data-html2canvas-ignore="true" onclick="${removeFn}" title="Remove Photo">✕</button>`;
-  wrap.classList.add('has-photo');
-  const btnDel = document.getElementById('btndel-' + key);
-  if(btnDel) btnDel.style.display = 'flex';
-  fitPreviewScale();
+function removeAutoPhoto(i) {
+  autoPhotoList.splice(i, 1);
+  renderAutoPhotoInputs();
+  renderAutoPhotoPreview();
+  toast('Photo removed', 'success');
 }
-function removePhoto(key){
-  photoData[key] = null;
-  const input = document.getElementById('input-' + key);
-  if(input) input.value = '';
-  const btnDel = document.getElementById('btndel-' + key);
-  if(btnDel) btnDel.style.display = 'none';
-  resetPhotoPreview(key);
-  toast('Photo removed','success');
-}
-function removeAutoPhoto(key){
-  autoPhotoData[key] = null;
-  const input = document.getElementById('input-' + key);
-  if(input) input.value = '';
-  const btnDel = document.getElementById('btndel-' + key);
-  if(btnDel) btnDel.style.display = 'none';
-  resetPhotoPreview(key);
-  toast('Photo removed','success');
-}
-function resetPhotoPreview(key){
-  const wrap = document.getElementById(key+'-wrap');
-  if(!wrap) return;
-  const isAuto = key.startsWith('a');
-  const num = key.endsWith('1')?'1':'2';
-  const labelText = isAuto ? (LANG_UI[autoLang]['photo'+num]) : `Photo ${num}`;
-  wrap.innerHTML = `<div class="photo-empty-label"><span class="icon">▢</span><span>${labelText}</span></div>`;
-  wrap.classList.remove('has-photo');
+function renderAutoPhotoPreview() {
+  const section = document.getElementById('auto-photo-section');
+  const grid = document.getElementById('auto-photos-grid');
+  if (!section || !grid) return;
+  const uploaded = autoPhotoList.filter(p => p.src);
+  if (uploaded.length === 0) {
+    section.style.display = 'none';
+    grid.innerHTML = '';
+    fitPreviewScale();
+    return;
+  }
+  section.style.display = 'flex';
+  grid.innerHTML = '';
+  uploaded.forEach((p, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'rpt-photo-wrap has-photo';
+    wrap.innerHTML = `<img src="${p.src}" alt="Photo ${i+1}">`;
+    grid.appendChild(wrap);
+  });
   fitPreviewScale();
 }
 
@@ -318,7 +402,7 @@ async function downloadPDF(){
     const tanggal=formatDate(document.getElementById('input-tanggal').value);
     await buildAndSavePDF({
       kelas, tanggal,
-      photoStore: photoData,
+      photoStore: photoList.filter(p => p.src).map(p => p.src),
       students,
       labels: {
         title: 'Student Progress Report',
@@ -339,7 +423,6 @@ async function downloadPDF(){
 // ============================================================
 let autoStudents = [];
 let autoLang = 'en'; // Default English
-const autoPhotoData = {aphoto1:null,aphoto2:null};
 
 const LANG_UI = {
   id: {
@@ -452,10 +535,8 @@ function setLang(lang){
   if(autoLabelKelas) autoLabelKelas.textContent = L.labelKelas;
   const autoLabelTanggal = document.getElementById('auto-label-tanggal');
   if(autoLabelTanggal) autoLabelTanggal.textContent = L.labelTanggal;
-  const autoPhoto1Label = document.getElementById('auto-photo1-label');
-  if(autoPhoto1Label) autoPhoto1Label.textContent = L.photo1;
-  const autoPhoto2Label = document.getElementById('auto-photo2-label');
-  if(autoPhoto2Label) autoPhoto2Label.textContent = L.photo2;
+  // Re-render photo inputs with updated language labels
+  renderAutoPhotoInputs();
   
   const photoSecTitle = document.getElementById('auto-photo-sec-title');
   if(photoSecTitle) photoSecTitle.textContent = lang === 'id' ? 'Foto Dokumentasi Kegiatan' : 'Classroom Activity Snapshots';
@@ -751,13 +832,6 @@ function autoUpdateWA(){
   document.getElementById('auto-wa-bubble').textContent = buildAutoWAMessage();
 }
 
-function handleAutoPhoto(e,key){
-  const file = e.target.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => { autoPhotoData[key]=ev.target.result; renderPhoto(key, ev.target.result); };
-  reader.readAsDataURL(file);
-}
-
 // Shared PDF builder — used by both manual and auto tab
 async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   const {jsPDF}=window.jspdf;
@@ -774,16 +848,25 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(240,253,244);doc.text(labels.labelKelas + kelas,W-22,23,{align:'right'});
   doc.text(labels.labelTanggal + tanggal,W-22,30,{align:'right'});
   
-  const MARGIN=14,GAP=8,PHOTO_W=(W-MARGIN*2-GAP)/2,PHOTO_H=Math.round(PHOTO_W*(9/16)),PHOTO_Y=44;
-  for(let i=1;i<=2;i++){
-    const px=MARGIN+(i-1)*(PHOTO_W+GAP);
-    const src=photoStore[Object.keys(photoStore)[i-1]];
-    if(src){const fmt=src.startsWith('data:image/png')?'PNG':'JPEG';doc.addImage(src,fmt,px,PHOTO_Y,PHOTO_W,PHOTO_H);}
-    else{doc.setFillColor(...G_LIGHT);doc.roundedRect(px,PHOTO_Y,PHOTO_W,PHOTO_H,3,3,'F');doc.setFont('helvetica','italic');doc.setFontSize(9);doc.setTextColor(...MUTED);doc.text(labels.photoEmpty(i),px+PHOTO_W/2,PHOTO_Y+PHOTO_H/2,{align:'center'});}
+  // Photos section — dynamic array
+  const MARGIN=14,GAP=8,PHOTO_Y=44;
+  const photoSrcs = Array.isArray(photoStore) ? photoStore : Object.values(photoStore).filter(Boolean);
+  let photoSectionBottom = PHOTO_Y;
+  if (photoSrcs.length > 0) {
+    const count = photoSrcs.length;
+    const totalGap = GAP * (count - 1);
+    const PW = (W - MARGIN * 2 - totalGap) / count;
+    const PH = Math.round(PW * (9 / 16));
+    photoSrcs.forEach((src, idx) => {
+      const px = MARGIN + idx * (PW + GAP);
+      const fmt = src.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+      doc.addImage(src, fmt, px, PHOTO_Y, PW, PH);
+    });
+    photoSectionBottom = PHOTO_Y + PH;
   }
   
   const TABLE_X=MARGIN,TABLE_W=W-MARGIN*2,COL_NAME_W=44,COL_LESSON_W=32;
-  let rowY=PHOTO_Y+PHOTO_H+8;const HEADER_H=9;
+  let rowY=photoSectionBottom+8;const HEADER_H=9;
   doc.setFillColor(...G_DARK);doc.roundedRect(TABLE_X,rowY,TABLE_W,HEADER_H,2,2,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(...WHITE);
   doc.text('STATUS',TABLE_X+4,rowY+6);
@@ -827,7 +910,7 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   });
   
   doc.setDrawColor(...G_MED);doc.setLineWidth(0.5);
-  doc.roundedRect(TABLE_X,PHOTO_Y+PHOTO_H+8,TABLE_W,rowY-(PHOTO_Y+PHOTO_H+8),2,2,'S');
+  doc.roundedRect(TABLE_X,photoSectionBottom+8,TABLE_W,rowY-(photoSectionBottom+8),2,2,'S');
   doc.save(`${labels.fileName.replace(/\s+/g,'_')}.pdf`);
 }
 
@@ -884,7 +967,7 @@ async function downloadAutoPDF(){
     const tanggal=formatDate(document.getElementById('auto-tanggal').value);
     await buildAndSavePDF({
       kelas, tanggal,
-      photoStore: autoPhotoData,
+      photoStore: autoPhotoList.filter(p => p.src).map(p => p.src),
       students: autoStudents,
       labels: {
         title: L.pdfTitle,
