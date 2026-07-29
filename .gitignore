@@ -1,3 +1,12 @@
-*.bak
+# Development notes
+PROMPT_BESOK.md
+CARA_DEPLOY_CLOUDFLARE.md
+
+# Raw data and scripts (DO NOT DEPLOY)
+_source/
+scratch/
+
+# OS/Editor config
+.vscode/
 .DS_Store
 Thumbs.db

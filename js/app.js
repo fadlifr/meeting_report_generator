@@ -6,6 +6,19 @@
 let isAutoFit = { manual: true, auto: true };
 
 function fitPreviewScale() {
+  // Get width from the currently active tab so we can pre-scale the hidden tab
+  let containerWidth = 0;
+  const activeScroll = document.querySelector('.tab-content.active .preview-scroll');
+  if (activeScroll) containerWidth = activeScroll.clientWidth;
+  
+  if (containerWidth === 0) {
+    // Retry if width is 0 (happens on very early initial load)
+    if (!fitPreviewScale.attempts) fitPreviewScale.attempts = 0;
+    if (fitPreviewScale.attempts++ < 10) setTimeout(fitPreviewScale, 100);
+    return;
+  }
+  fitPreviewScale.attempts = 0;
+
   ['manual', 'auto'].forEach(tab => {
     const previewId = tab === 'manual' ? 'report-preview' : 'auto-report-preview';
     const wrapperId = 'wrapper-' + tab;
@@ -19,10 +32,10 @@ function fitPreviewScale() {
 
     if (!el || !wrapper || !scroll) return;
 
-    const containerWidth = scroll.clientWidth;
     const targetWidth = 1000;
 
-    if (isAutoFit[tab] && containerWidth > 0 && containerWidth < targetWidth) {
+    if (isAutoFit[tab]) {
+      // Fit to container exactly (shrink or enlarge to fit width)
       const scale = containerWidth / targetWidth;
       el.style.transform = `scale(${scale})`;
       el.style.transformOrigin = 'top left';
@@ -31,6 +44,7 @@ function fitPreviewScale() {
       scroll.style.overflowX = 'hidden';
       if (btn) btn.innerHTML = '🔍 100% Size';
     } else {
+      // 100% Size mode
       el.style.transform = 'none';
       wrapper.style.height = 'auto';
       wrapper.style.width = '1000px';
@@ -46,6 +60,14 @@ function toggleZoomMode(tab) {
 }
 
 window.addEventListener('resize', fitPreviewScale);
+
+// Bulletproof scaling listener for when elements become visible or resize
+const resizeObserver = new ResizeObserver(() => {
+  fitPreviewScale();
+});
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.preview-scroll').forEach(el => resizeObserver.observe(el));
+});
 
 function switchTab(tab) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -77,6 +99,12 @@ function formatDate(s) {
   if(!s) return '—';
   const [y,m,d] = s.split('-');
   return `${d}-${m}-${y}`;
+}
+function formatDateFile(s, lang = 'id') {
+  if(!s) return '';
+  const [y,m,d] = s.split('-');
+  const b = lang === 'en' ? BULAN_EN : BULAN_ID;
+  return `${parseInt(d,10)}${b[parseInt(m,10)-1]}${y}`;
 }
 function escHtml(s) {
   if (!s) return '';
@@ -362,7 +390,9 @@ async function downloadPNG(){
     const canvas = await capturePNG('report-preview');
     const link = document.createElement('a');
     const kelas = document.getElementById('input-kelas').value.replace(/\s+/g,'_')||'Report';
-    link.download=`Progress_${kelas}.png`; link.href=canvas.toDataURL('image/png'); link.click();
+    const rawTgl = document.getElementById('input-tanggal').value;
+    const tanggalFile = formatDateFile(rawTgl, autoLang);
+    link.download=`Meeting Report_${kelas}_${tanggalFile}.png`; link.href=canvas.toDataURL('image/png'); link.click();
     toast('PNG downloaded!','success');
   }catch(err){toast('Failed: '+err.message,'error');}
   finally{btn.disabled=false; btn.textContent='Download PNG';}
@@ -373,7 +403,8 @@ async function openWhatsApp(){
     const canvas = await capturePNG('report-preview');
     const link = document.createElement('a');
     const kelas = document.getElementById('input-kelas').value.replace(/\s+/g,'_')||'Report';
-    link.download=`Progress_${kelas}.png`; link.href=canvas.toDataURL('image/png'); link.click();
+    const tanggal = formatDate(document.getElementById('input-tanggal').value);
+    link.download=`Meeting Report_${kelas}_${tanggal}.png`; link.href=canvas.toDataURL('image/png'); link.click();
     await new Promise(r=>setTimeout(r,800));
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(buildWAMessage()),'_blank');
     toast('Done!','success');
@@ -409,8 +440,8 @@ async function downloadPDF(){
         labelKelas: 'Class: ', offsetKelas: 30,
         labelTanggal: 'Date: ', offsetTanggal: 34,
         colName: 'STUDENT NAME', colProgress: "TODAY'S PROGRESS",
-        photoEmpty: (i) => `Photo ${i} not uploaded`,
-        fileName: `Progress_${kelas.replace(/\s+/g,'_')}`
+        photoEmpty: (i) => `Foto ${i} belum diupload`,
+        fileName: `Meeting_Report_${kelas.replace(/\s+/g,'_')}_${formatDateFile(document.getElementById('input-tanggal').value, autoLang)}`
       }
     });
     toast('PDF downloaded!','success');
@@ -465,7 +496,7 @@ const LANG_UI = {
     pdfLabelTanggal: 'Tanggal: ', pdfOffsetTanggal: 38,
     pdfColName: 'NAMA SISWA', pdfColProgress: 'PROGRESS HARI INI',
     pdfPhotoEmpty: (i) => `Foto ${i} belum diupload`,
-    fileName: (kelas) => `Rapor_${kelas}`,
+    fileName: (kelas, tgl) => `Meeting Report_${kelas}_${tgl}`,
   },
   en: {
     cardTitle: 'Student Data & Generate Report',
@@ -507,7 +538,7 @@ const LANG_UI = {
     pdfLabelTanggal: 'Date: ', pdfOffsetTanggal: 28,
     pdfColName: 'STUDENT NAME', pdfColProgress: "TODAY'S PROGRESS",
     pdfPhotoEmpty: (i) => `Photo ${i} not uploaded`,
-    fileName: (kelas) => `Report_${kelas}`,
+    fileName: (kelas, tgl) => `Meeting Report_${kelas}_${tgl}`,
   }
 };
 
@@ -922,7 +953,8 @@ async function downloadAutoPNG(){
     const link = document.createElement('a');
     const L = LANG_UI[autoLang];
     const kelas = document.getElementById('auto-kelas').value.replace(/\s+/g,'_')||'Report';
-    link.download=`${L.fileName(kelas)}.png`; link.href=canvas.toDataURL('image/png'); link.click();
+    const tanggal = formatDate(document.getElementById('auto-tanggal').value);
+    link.download=`${L.fileName(kelas, tanggal)}.png`; link.href=canvas.toDataURL('image/png'); link.click();
     toast('PNG downloaded!','success');
   }catch(err){toast('Error: '+err.message,'error');}
   finally{btn.disabled=false;btn.textContent='Download PNG';}
@@ -935,7 +967,8 @@ async function openAutoWhatsApp(){
     const canvas = await capturePNG('auto-report-preview');
     const link = document.createElement('a');
     const kelas = document.getElementById('auto-kelas').value.replace(/\s+/g,'_')||'Report';
-    link.download=`${L.fileName(kelas)}.png`; link.href=canvas.toDataURL('image/png'); link.click();
+    const tanggal = formatDate(document.getElementById('auto-tanggal').value);
+    link.download=`${L.fileName(kelas, tanggal)}.png`; link.href=canvas.toDataURL('image/png'); link.click();
     await new Promise(r=>setTimeout(r,800));
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(buildAutoWAMessage()),'_blank');
     toast('Done!','success');
@@ -975,7 +1008,7 @@ async function downloadAutoPDF(){
         labelTanggal: L.pdfLabelTanggal, offsetTanggal: L.pdfOffsetTanggal,
         colName: L.pdfColName, colProgress: L.pdfColProgress,
         photoEmpty: L.pdfPhotoEmpty,
-        fileName: L.fileName(kelas.replace(/\s+/g,'_'))
+        fileName: L.fileName(kelas.replace(/\s+/g,'_'), formatDateFile(document.getElementById('auto-tanggal').value, autoLang))
       }
     });
     toast('PDF downloaded!','success');

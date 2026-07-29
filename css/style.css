@@ -141,7 +141,7 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .live-dot{width:8px;height:8px;background:var(--g500);border-radius:50%;animation:dotPulse 2s cubic-bezier(.4,0,.6,1) infinite;box-shadow:0 0 8px rgba(34,197,94,.4);}
 @keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.8)}}
 .preview-scroll{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow-xl);background:white;position:relative;transition:all .2s ease;}
-.preview-scale-wrapper{width:100%;overflow:hidden;position:relative;transition:height .15s ease-out;}
+.preview-scale-wrapper{width:100%;overflow:hidden;position:relative;}
 
 /* Redesigned Timedoor Executive Class Report Card Canvas (1000px Fixed Landscape) */
 #report-preview, #auto-report-preview {
@@ -156,7 +156,6 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
   gap: 22px;
   border-radius: 24px;
   transform-origin: top left;
-  transition: transform .15s ease-out;
 }
 .blob{position:absolute;z-index:0;pointer-events:none;animation:blobFloat 8s ease-in-out infinite;}
 @keyframes blobFloat{0%,100%{transform:translate(0,0)}25%{transform:translate(10px,-10px)}50%{transform:translate(-5px,15px)}75%{transform:translate(8px,5px)}}
