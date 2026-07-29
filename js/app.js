@@ -101,8 +101,8 @@ function toast(msg, type='') {
 // MANUAL TAB
 // ============================================================
 let students = [
-  {nama:"Aysha",progress:"Aysha learned about creating AR games on Delightex with animal themes (*Lesson 14*). Also studied drone logic on Tynker.\n\nNote: Aysha completed all tasks very well and is starting to understand loop concepts."},
-  {nama:"Puan",progress:"Puan is currently working on *Lesson 14* (Introduction to Variables). Puan understood the main concepts well and will continue in our next class."}
+  {nama:"Iron Man",progress:"Iron Man learned about creating AR games on Delightex with animal themes (*Lesson 14*). Also studied drone logic on Tynker.\n\nNote: Iron Man completed all tasks very well and is starting to understand loop concepts."},
+  {nama:"Spider-Man",progress:"Spider-Man is currently working on *Lesson 14* (Introduction to Variables). Spider-Man understood the main concepts well and will continue in our next class."}
 ];
 // Dynamic photo arrays (each entry: {src: dataURL})
 let photoList = [];       // Manual tab
@@ -998,7 +998,10 @@ renderInputs();
 updatePreview();
 
 // Init auto tab with sample student in English
-autoStudents = [{nama:'Eymar',progress:'',criteria:'Kids',course:'Code and Design with Roblox',lesson:'14',status:'done',lang:'en'}];
+autoStudents = [
+  {nama:'Batman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'12',status:'done',lang:'en'},
+  {nama:'Superman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'13',status:'in progress',lang:'en'}
+];
 setLang('en');
 autoUpdatePreview();
 setTimeout(fitPreviewScale, 100);
