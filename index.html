@@ -7,6 +7,7 @@
   <title>Meeting Report Generator — Timedoor Academy</title>
   <meta name="description"
     content="Generate meeting reports and daily student progress reports for Timedoor Academy classes. Export to PNG, PDF, or share via WhatsApp.">
+  <meta name="robots" content="noindex, nofollow">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -255,9 +256,9 @@
 
   <div id="toast">Processing...</div>
 
-  <!-- Static data: course list, lesson objectives, templates -->
-  <script src="js/data.js"></script>
-  <script src="js/templates.js"></script>
+  <!-- Secured static data and auth -->
+  <script src="js/secure_data.js"></script>
+  <script src="js/auth.js"></script>
   <!-- App logic: all UI functions, language switching, PDF/PNG export -->
   <script src="js/app.js"></script>
 

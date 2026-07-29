@@ -986,22 +986,24 @@ async function downloadAutoPDF(){
 // ============================================================
 // INIT
 // ============================================================
-const _t = new Date();
-const _mm = String(_t.getMonth()+1).padStart(2,'0');
-const _dd = String(_t.getDate()).padStart(2,'0');
-const todayVal = _t.getFullYear()+'-'+_mm+'-'+_dd;
+window.initApp = function() {
+  const _t = new Date();
+  const _mm = String(_t.getMonth()+1).padStart(2,'0');
+  const _dd = String(_t.getDate()).padStart(2,'0');
+  const todayVal = _t.getFullYear()+'-'+_mm+'-'+_dd;
 
-document.getElementById('input-tanggal').value = todayVal;
-document.getElementById('auto-tanggal').value = todayVal;
+  document.getElementById('input-tanggal').value = todayVal;
+  document.getElementById('auto-tanggal').value = todayVal;
 
-renderInputs();
-updatePreview();
+  renderInputs();
+  updatePreview();
 
-// Init auto tab with sample student in English
-autoStudents = [
-  {nama:'Batman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'12',status:'done',lang:'en'},
-  {nama:'Superman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'13',status:'in progress',lang:'en'}
-];
-setLang('en');
-autoUpdatePreview();
-setTimeout(fitPreviewScale, 100);
+  // Init auto tab with sample student in English
+  autoStudents = [
+    {nama:'Batman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'12',status:'done',lang:'en'},
+    {nama:'Superman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'13',status:'in progress',lang:'en'}
+  ];
+  setLang('en');
+  autoUpdatePreview();
+  setTimeout(fitPreviewScale, 100);
+};
