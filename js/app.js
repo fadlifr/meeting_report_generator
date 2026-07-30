@@ -5,6 +5,46 @@
 
 let isAutoFit = { manual: true, auto: true };
 
+const PROPER_NOUNS_MAP = {};
+[
+  'Scratch', 'ScratchJr', 'Roblox', 'Python', 'OpenCV', 'Kodu', 'Delightex', 'DelightEx',
+  'Cue', 'Dash', 'Micro:bit', 'Maqueen', 'Construct', 'Numpy', 'Tensorflow',
+  'Discord', 'Google', 'Colab', 'Seaborn', 'Pandas', 'Plotly', 'React',
+  'Native', 'Android', 'JavaScript', 'HTML', 'CSS', 'MIT', 'App', 'Inventor',
+  'AI', 'VR', 'AR', '3D', 'RNG', 'GUI', 'UI', 'UX', 'IoT', 'API', 'OOP', 'SSD',
+  'ANPR', 'OCR', 'KNN', 'NLP', 'NLTK', 'Canny', 'Mediapipe', 'Pygame', 'Netlify',
+  'Construct', 'Merge', 'Cube', 'Edu', 'Osmo', 'Block', 'Blocks',
+  'Bluetooth', 'Wifi', 'Internet', 'YouTube', 'Line', 'WhatsApp', 'Zoom'
+].forEach(w => PROPER_NOUNS_MAP[w.toLowerCase()] = w);
+
+function toSentenceCase(str) {
+  if (!str) return str;
+  let sentence = str.replace(/\b([A-Z][a-z]+)\b/g, (match) => {
+    const lowerMatch = match.toLowerCase();
+    return PROPER_NOUNS_MAP[lowerMatch] ? PROPER_NOUNS_MAP[lowerMatch] : lowerMatch;
+  });
+  if (sentence.length > 1 && sentence[0] === sentence[0].toUpperCase() && sentence[1] === sentence[1].toLowerCase()) {
+    sentence = sentence.charAt(0).toLowerCase() + sentence.slice(1);
+  }
+  return sentence;
+}
+
+function getPartialObjectives(objectives) {
+  if (!objectives || objectives.length === 0) return [];
+  if (objectives.length === 1) return objectives;
+  return objectives.slice(0, Math.ceil(objectives.length / 2));
+}
+
+function formatObjectives(objectives, lang) {
+  if (!objectives || objectives.length === 0) return '';
+  const obj = objectives.map(o => toSentenceCase(o));
+  if (obj.length === 1) return obj[0];
+  const last = obj.pop();
+  const andWord = lang === 'en' ? 'and' : 'dan';
+  return obj.join(', ') + `, ${andWord} ` + last;
+}
+
+
 function fitPreviewScale() {
   // Get width from the currently active tab so we can pre-scale the hidden tab
   let containerWidth = 0;
@@ -215,6 +255,7 @@ function updatePreview(){
   document.getElementById('prev-kelas').textContent = kelas;
   document.getElementById('prev-tanggal').textContent = formatDate(tgl);
   updateWAPreview();
+  if (typeof updateMascots === 'function') updateMascots();
 }
 function getLessonTag(s) {
   if (!s) return '';
@@ -485,9 +526,20 @@ const LANG_UI = {
     errLesson: 'Pilih lesson terlebih dahulu!',
     errLesson2: 'Pilih lesson ke-2 terlebih dahulu!',
     errMinStudent: 'Minimum 1 siswa.',
-    fallbackProgress: (nama, lessonNum, course) => `${nama} telah menyelesaikan *Lesson ${lessonNum}* pada course ${course}.`,
-    inProgressText: (nama, lessonNum, lessonTitle) => `${nama} sedang mempelajari *Lesson ${lessonNum}* (${lessonTitle}). ${nama} telah memahami konsep dasarnya dan akan melanjutkan penyelesaian projek pada pertemuan berikutnya.`,
-    oneAndHalfText: (nama, l1Num, t1, l2Num, l2Title) => `${nama} menyelesaikan *Lesson ${l1Num}* hari ini — ${t1} Selanjutnya, ${nama} mulai memasuki materi *Lesson ${l2Num}* (${l2Title}), yang akan dilanjutkan pada pertemuan berikutnya.`,
+    fallbackProgress: (nama, lessonNum, course, objectives) => {
+      if (!objectives || objectives.length === 0) return `${nama} telah menyelesaikan *Lesson ${lessonNum}* pada course ${course}.`;
+      return `Pada pertemuan ini, ${nama} telah menyelesaikan *Lesson ${lessonNum}*. ${nama} berhasil ${formatObjectives(objectives, 'id')}.`;
+    },
+    inProgressText: (nama, lessonNum, lessonTitle, objectives) => {
+      if (!objectives || objectives.length === 0) return `${nama} sedang mempelajari *${lessonTitle}*. ${nama} telah memahami konsep dasarnya dan akan melanjutkan penyelesaian projek pada pertemuan berikutnya.`;
+      const partial = getPartialObjectives(objectives);
+      return `${nama} sedang mempelajari *${lessonTitle}*. Pada sesi ini, ${nama} sudah mulai memahami cara ${formatObjectives(partial, 'id')}. Sisa materi dan project akan dilanjutkan pada pertemuan berikutnya.`;
+    },
+    oneAndHalfText: (nama, l1Num, t1, l2Num, l2Title, obj2) => {
+      if (!obj2 || obj2.length === 0) return `${nama} menyelesaikan *Lesson ${l1Num}* hari ini — ${t1} Selanjutnya, ${nama} mulai memasuki materi *${l2Title}*, yang akan dilanjutkan pada pertemuan berikutnya.`;
+      const partial = getPartialObjectives(obj2);
+      return `${nama} menyelesaikan *Lesson ${l1Num}* hari ini — ${t1} Selanjutnya, ${nama} mulai memasuki materi *${l2Title}* dan sudah mulai memahami cara ${formatObjectives(partial, 'id')}. Materi ini akan dilanjutkan pada pertemuan berikutnya.`;
+    },
     doubleText: (nama, l1Num, t1, l2Num, t2) => `${nama} telah menyelesaikan 2 lesson pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*).\n\n• *Lesson ${l1Num}*: ${t1}\n• *Lesson ${l2Num}*: ${t2}`,
     waGreeting: (kelas, tgl) => `Selamat siang Bapak/Ibu Parents, ✨\n\nBerikut adalah laporan ringkas mengenai aktivitas dan perkembangan belajar anak-anak pada pertemuan kelas hari ini:\n\n📌 *Kelas:* ${kelas}\n📅 *Tanggal:* ${tgl}`,
     waClose: 'Terima kasih atas perhatian dan dukungan Bapak/Ibu. Jika ada pertanyaan mengenai materi hari ini, jangan ragu untuk menghubungi kami.\n\nSemoga harinya menyenangkan! 😊',
@@ -527,9 +579,20 @@ const LANG_UI = {
     errLesson: 'Please select a lesson first!',
     errLesson2: 'Please select the 2nd lesson first!',
     errMinStudent: 'Minimum 1 student.',
-    fallbackProgress: (nama, lessonNum, course) => `${nama} completed *Lesson ${lessonNum}* in the ${course} course today.`,
-    inProgressText: (nama, lessonNum, lessonTitle) => `${nama} is currently working on *Lesson ${lessonNum}* (${lessonTitle}). ${nama} has understood the core concepts and will continue the project in the next session.`,
-    oneAndHalfText: (nama, l1Num, t1, l2Num, l2Title) => `${nama} completed *Lesson ${l1Num}* today — ${t1} ${nama} then started *Lesson ${l2Num}* (${l2Title}), which will be continued in the next session.`,
+    fallbackProgress: (nama, lessonNum, course, objectives) => {
+      if (!objectives || objectives.length === 0) return `${nama} completed *Lesson ${lessonNum}* in the ${course} course today.`;
+      return `In today's session, ${nama} completed *Lesson ${lessonNum}*. ${nama} successfully learned to ${formatObjectives(objectives, 'en')}.`;
+    },
+    inProgressText: (nama, lessonNum, lessonTitle, objectives) => {
+      if (!objectives || objectives.length === 0) return `${nama} is currently working on *${lessonTitle}*. ${nama} has understood the core concepts and will continue the project in the next session.`;
+      const partial = getPartialObjectives(objectives);
+      return `${nama} is currently working on *${lessonTitle}*. In this session, ${nama} has started learning how to ${formatObjectives(partial, 'en')}. The remaining materials and project will be continued in the next session.`;
+    },
+    oneAndHalfText: (nama, l1Num, t1, l2Num, l2Title, obj2) => {
+      if (!obj2 || obj2.length === 0) return `${nama} completed *Lesson ${l1Num}* today — ${t1} ${nama} then started *${l2Title}*, which will be continued in the next session.`;
+      const partial = getPartialObjectives(obj2);
+      return `${nama} completed *Lesson ${l1Num}* today — ${t1} ${nama} then started *${l2Title}* and has begun learning how to ${formatObjectives(partial, 'en')}. This will be continued in the next session.`;
+    },
     doubleText: (nama, l1Num, t1, l2Num, t2) => `${nama} completed 2 lessons in today's session (*Lesson ${l1Num}* & *Lesson ${l2Num}*).\n\n• *Lesson ${l1Num}*: ${t1}\n• *Lesson ${l2Num}*: ${t2}`,
     waGreeting: (kelas, tgl) => `Good afternoon parents, ✨\n\nHere is a quick update on our students' progress in today's class:\n\n📌 *Class:* ${kelas}\n📅 *Date:* ${tgl}`,
     waClose: 'Thank you for your continued support! If you have any questions about today\'s lesson, feel free to reach out.\n\nHave a wonderful day! 😊',
@@ -683,20 +746,20 @@ function generateProgress(idx) {
   const templateMap = sLang === 'en' ? TEMPLATES_EN : TEMPLATES;
   const t1 = (templateMap[s.course] && templateMap[s.course][s.lesson])
     ? templateMap[s.course][s.lesson].replace(/{nama}/g, s.nama)
-    : L.fallbackProgress(s.nama, s.lesson, s.course);
+    : L.fallbackProgress(s.nama, s.lesson, s.course, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
 
   if (s.status === 'done') {
     text = t1;
   } else if (s.status === 'in_progress') {
     const lessonTitle = l1Obj ? l1Obj.title : `Lesson ${s.lesson}`;
-    text = L.inProgressText(s.nama, s.lesson, lessonTitle);
+    text = L.inProgressText(s.nama, s.lesson, lessonTitle, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
   } else if (s.status === 'one_and_half') {
     const l2Title = l2Obj ? l2Obj.title : `Lesson ${s.lesson2}`;
-    text = L.oneAndHalfText(s.nama, s.lesson, t1, s.lesson2, l2Title);
+    text = L.oneAndHalfText(s.nama, s.lesson, t1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
   } else if (s.status === 'double') {
     const t2 = (templateMap[s.course] && templateMap[s.course][s.lesson2])
       ? templateMap[s.course][s.lesson2].replace(/{nama}/g, s.nama)
-      : L.fallbackProgress(s.nama, s.lesson2, s.course);
+      : L.fallbackProgress(s.nama, s.lesson2, s.course, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
     text = L.doubleText(s.nama, s.lesson, t1, s.lesson2, t2);
   }
 
@@ -838,14 +901,33 @@ function autoUpdateTable(){
   });
   autoUpdateWA();
   fitPreviewScale();
+  if (typeof updateMascots === 'function') updateMascots();
 }
 
 function autoUpdatePreview(){
-  const kelas = document.getElementById('auto-kelas').value || '—';
+  const kelas = document.getElementById('auto-kelas').value || '-';
   const tgl = document.getElementById('auto-tanggal').value;
   document.getElementById('aprev-kelas').textContent = kelas;
   document.getElementById('aprev-tanggal').textContent = formatDate(tgl);
   autoUpdateWA();
+  updateMascots();
+}
+
+function updateMascots() {
+  let criteria = 'Teens'; // default
+  
+  if (typeof autoStudents !== 'undefined' && autoStudents.length > 0 && autoStudents[0].criteria) {
+     criteria = autoStudents[0].criteria;
+  }
+  
+  let mascotSrc = 'img/cobee2.png'; // Teens (Default)
+  if (criteria === 'Junior') mascotSrc = 'img/cobee4.png';
+  if (criteria === 'Kids') mascotSrc = 'img/cobee5.png';
+  
+  const m1 = document.getElementById('manual-mascot');
+  const m2 = document.getElementById('auto-mascot');
+  if (m1) m1.src = mascotSrc;
+  if (m2) m2.src = mascotSrc;
 }
 
 function buildAutoWAMessage(){

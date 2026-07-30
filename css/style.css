@@ -163,6 +163,19 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .blob-tr{top:-60px;right:-70px;width:240px;height:240px;background:var(--g400);border-radius:45% 55% 40% 60% / 55% 45% 55% 45%;opacity:.06;animation-delay:1s;}
 .blob-br{bottom:-70px;right:-60px;width:260px;height:260px;background:var(--g200);border-radius:55% 45% 60% 40% / 40% 55% 45% 60%;opacity:.08;animation-delay:2s;}
 .blob-bl{bottom:-50px;left:-50px;width:200px;height:200px;background:var(--slate);opacity:.04;border-radius:40% 60% 50% 50% / 60% 40% 60% 40%;animation-delay:1.5s;}
+
+/* Front Mascot */
+.mascot-front {
+  position: absolute;
+  bottom: -15px;
+  left: -15px;
+  height: 130px;
+  width: auto;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(3px 8px 12px rgba(0,0,0,0.2));
+  animation: blobFloat 8s ease-in-out infinite;
+}
 .rc{position:relative;z-index:2;}
 
 /* Executive Header */
@@ -511,6 +524,19 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
   .preview-scroll {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Peeking Mascot Styling */
+  .rpt-mascot-corner {
+    position: absolute;
+    bottom: -15px;
+    right: 25px;
+    height: 180px;
+    width: auto;
+    z-index: 1; /* Below the text cards (.rc has z-index: 2) */
+    opacity: 1; /* Solid, vibrant colors */
+    pointer-events: none;
+    filter: drop-shadow(-5px 10px 15px rgba(0,0,0,0.12));
   }
   /* DO NOT modify .rpt-header, .rpt-photos, or #report-preview width inside media queries so export canvas is never distorted on mobile! */
 }

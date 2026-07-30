@@ -2,29 +2,67 @@
   const STYLES = `
     #auth-overlay {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      z-index: 99999; display: flex; align-items: center; justify-content: center;
+      background: #ffffff;
+      z-index: 99999; display: flex; flex-direction: row;
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
+    .auth-left {
+      flex: 1; background: linear-gradient(135deg, #f0fdf4, #ccfbf1);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px; position: relative; overflow: hidden;
+    }
+    .auth-left::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30%;
+      background: linear-gradient(to top, rgba(204,251,241,0.5), transparent); pointer-events: none;
+    }
+    .auth-left img {
+      width: 100%; max-width: 600px; height: auto; object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15)); z-index: 2;
+    }
+    .auth-right {
+      flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px; background: #ffffff;
+    }
+    .auth-container {
+      max-width: 420px; width: 100%;
+    }
+    .auth-header {
+      margin-bottom: 32px; text-align: left;
+    }
+    .auth-header h1 {
+      font-size: 36px; font-weight: 800; color: #0f172a; margin: 0 0 12px;
+      letter-spacing: -1px; line-height: 1.2;
+    }
+    .auth-header p {
+      font-size: 16px; color: #64748b; margin: 0; line-height: 1.6;
+    }
     .auth-card {
-      background: white; padding: 40px; border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4); text-align: center; max-width: 400px; width: 90%;
+      background: #ffffff; width: 100%;
     }
-    .auth-card h2 { margin: 0 0 10px; color: #1e293b; font-size: 24px; font-weight: 800; }
-    .auth-card p { color: #64748b; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+    .auth-card h2 { margin: 0 0 8px; color: #1e293b; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+    .auth-card p { color: #94a3b8; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
     .auth-card input {
-      width: 100%; padding: 14px 16px; border: 2px solid #e2e8f0; border-radius: 12px;
-      font-size: 16px; font-family: inherit; margin-bottom: 16px; transition: border 0.3s;
-      box-sizing: border-box; text-align: center; letter-spacing: 2px;
+      width: 100%; padding: 16px 20px; border: 2px solid #e2e8f0; border-radius: 12px;
+      font-size: 18px; font-family: inherit; margin-bottom: 24px; transition: all 0.3s ease;
+      box-sizing: border-box; text-align: left; letter-spacing: 2px;
+      background: #f8fafc;
     }
-    .auth-card input:focus { border-color: #22c55e; outline: none; }
+    .auth-card input:focus { border-color: #22c55e; background: white; outline: none; box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.1); }
     .auth-card button {
-      width: 100%; padding: 14px; background: linear-gradient(135deg, #22c55e, #16a34a);
+      width: 100%; padding: 18px; background: linear-gradient(135deg, #22c55e, #16a34a);
       color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 700;
-      cursor: pointer; transition: transform 0.2s;
+      cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.25);
     }
-    .auth-card button:hover { filter: brightness(1.1); transform: scale(0.98); }
-    .auth-error { color: #ef4444; font-size: 13px; font-weight: 700; margin-top: 12px; display: none; }
+    .auth-card button:hover { filter: brightness(1.05); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3); }
+    .auth-error { color: #ef4444; font-size: 14px; font-weight: 700; margin-top: 16px; display: none; }
+    @media (max-width: 900px) {
+      #auth-overlay { flex-direction: column; }
+      .auth-left { flex: none; height: 35vh; padding: 20px; }
+      .auth-left img { max-height: 100%; max-width: 80%; }
+      .auth-right { flex: 1; padding: 24px; justify-content: flex-start; padding-top: 40px; }
+      .auth-header { text-align: center; }
+      .auth-card input { text-align: center; }
+    }
   `;
 
   function initAuth() {
@@ -35,14 +73,24 @@
     const overlay = document.createElement('div');
     overlay.id = 'auth-overlay';
     overlay.innerHTML = `
-      <div class="auth-card">
-        <h2>Timedoor Internal</h2>
-        <p>Please enter the access password to view curriculum templates.</p>
-        <form id="auth-form">
-          <input type="password" id="auth-pass" placeholder="••••••••" required autofocus>
-          <button type="submit">Unlock</button>
-          <div id="auth-error" class="auth-error">Incorrect password. Access denied.</div>
-        </form>
+      <div class="auth-left">
+        <img src="img/cobee_cover.png" alt="Cobee Mascot">
+      </div>
+      <div class="auth-right">
+        <div class="auth-container">
+          <div class="auth-header">
+            <h1>Meeting Report Generator</h1>
+            <p>Streamline your class progress reporting and generate daily student updates instantly.</p>
+          </div>
+          <div class="auth-card">
+            <h2>For Internal Timedoor Use Only</h2>
+            <form id="auth-form">
+              <input type="password" id="auth-pass" placeholder="Enter password" required autofocus>
+              <button type="submit">Unlock Access</button>
+              <div id="auth-error" class="auth-error">Incorrect password. Access denied.</div>
+            </form>
+          </div>
+        </div>
       </div>
     `;
     document.body.appendChild(overlay);

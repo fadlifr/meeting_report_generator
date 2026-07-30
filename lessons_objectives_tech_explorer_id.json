@@ -1,0 +1,229 @@
+[
+	{
+		"lesson": "Lesson 1",
+		"title": "Introduction to Coding and Algorithms",
+		"objectives": [
+			"Memahami Kecanduan Game Loop",
+			"Memahami Coding sebagai Bahasa Komputer",
+			"Menyusun Kode dengan Algoritma yang Tepat"
+		]
+	},
+	{
+		"lesson": "Lesson 2",
+		"title": "Introduction to the Cue/Dash Robot",
+		"objectives": [
+			"Memahami Konsep Probabilitas (RNG) dalam Permainan",
+			"Memahami Konsep Event sebagai Pemicu dalam Coding",
+			"Membuat Blok Code Berdasarkan Event dan Tindakan"
+		]
+	},
+	{
+		"lesson": "Lesson 3",
+		"title": "Introducing Virtual Reality",
+		"objectives": [
+			"Memahami Strategi Top Up Game yang Tepat",
+			"Memahami Virtual Reality"
+		]
+	},
+	{
+		"lesson": "Lesson 4",
+		"title": "Introduction to the World of Augmented Reality",
+		"objectives": [
+			"Memahami konsep scrolling tanpa batas dan cara mengatasinya",
+			"Mampu mendesain bagian Merge Cube dalam AR",
+			"Mampu membuat kuis untuk objek di DelightEx edu",
+			"Mampu mengunggah video dan menampilkannya di Merge Cube"
+		]
+	},
+	{
+		"lesson": "Lesson 5",
+		"title": "What is Loop?",
+		"objectives": [
+			" Memahami Bahaya Buble Information",
+			"Mempelajari Konsep Loop dalam Osmo Coding"
+		]
+	},
+	{
+		"lesson": "Lesson 6",
+		"title": "Explore Design VR Lebih Advance",
+		"objectives": [
+			"Mencegah FOMO Selama Event Game Online",
+			"Membuat Proyek VR yang Lebih Canggih"
+		]
+	},
+	{
+		"lesson": "Lesson 7",
+		"title": "Explore Design AR Lebih Advance",
+		"objectives": [
+			"Mampu memahami konsep login harian dalam permainan video serta cara menghindari kecanduan permainan video",
+			"Memahami konsep desain rumah sederhana",
+			"Memahami Konsep Warna dalam Desain 3D",
+			"Menambahkan animasi dan teks ke Delightex Edu"
+		]
+	},
+	{
+		"lesson": "Lesson 8",
+		"title": "Exam",
+		"objectives": [
+			"Overview Meeting 1-7",
+			"Exam Level Xplorer 1"
+		]
+	},
+	{
+		"lesson": "Lesson 9",
+		"title": "Learning Online Safety Using Scratch",
+		"objectives": [
+			"Mengidentifikasi Bahaya \"Stranger Danger\" di Dunia Maya",
+			"Mengoperasikan Antarmuka Dasar Scratch",
+			"Mengimplementasikan Kode Event dan Loop pada Animasi"
+		]
+	},
+	{
+		"lesson": "Lesson 10",
+		"title": "Motion in Scratch",
+		"objectives": [
+			"Memahami Definisi dari Block Coding Motion pada Scratch",
+			"Mengidentifikasi Block Coding Motion yang Tersedia di Scratch",
+			"Mengidentifikasi Kapan Harus Menggunakan Block Coding Motion pada Scratch",
+			"Membuat Project pada Scratch Menggunakan Block Coding Motion"
+		]
+	},
+	{
+		"lesson": "Lesson 11",
+		"title": "Understanding AI Using Looks Coding",
+		"objectives": [
+			"Mengenal Block Coding yang Ada pada Tab Looks pada Scratch",
+			"Mengidentifikasi Kegunaan Setiap Block Coding pada Tab Looks",
+			"Mengidentifikasi Kondisi Kapan Block Coding pada Tab Looks Digunakan",
+			"Menerapkan Block Coding pada Tab Looks dalam Contoh Proyek Sederhana"
+		]
+	},
+	{
+		"lesson": "Lesson 12",
+		"title": "Sounds in Scratch",
+		"objectives": [
+			"Memahami Apa Definisi Dari Block Coding Sound pada Scratch",
+			"Dapat Mengidentifikasi Block Coding Sound yang Tersedia di Scratch",
+			"Dapat Mengidentifikasi Kapan Harus Menggunakan Block Coding Sound pada Scratch",
+			"Mampu Membuat Project pada Scratch Menggunakan Block Coding Motion",
+			"Mampu Melakukan Editing Sound pada Scratch"
+		]
+	},
+	{
+		"lesson": "Lesson 13",
+		"title": "Events in Scratch",
+		"objectives": [
+			"Menganalisis Keamanan Digital Melalui QR Code",
+			"Memahami Struktur Blok Event pada Scratch",
+			"Menguasai Logika Komunikasi Antar-Karakter (Broadcast)"
+		]
+	},
+	{
+		"lesson": "Lesson 14",
+		"title": "Control in Scratch",
+		"objectives": [
+			"Memahami Manfaat dan Keamanan Cloud Storage",
+			"Menguasai Logika Perulangan (Looping Control)",
+			"Menerapkan Percabangan Kondisional (Conditional Logic)"
+		]
+	},
+	{
+		"lesson": "Lesson 15",
+		"title": "Sensing in Scratch",
+		"objectives": [
+			"Memahami Konsep dari Search Engine",
+			"Memahami Apa Definisi Dari Block Coding Sensing pada Scratch",
+			"Dapat Mengidentifikasi Block Coding Sensing yang Tersedia di Scratch",
+			"Dapat Mengidentifikasi Kapan Harus Menggunakan Block Coding Sensing pada Scratch",
+			"Mampu Membuat Project pada Scratch Menggunakan Block Coding Sensing"
+		]
+	},
+	{
+		"lesson": "Lesson 16",
+		"title": "Exam 2",
+		"objectives": [
+			"Memahami Manfaat dan Keamanan Cloud Storage",
+			"Overview Meeting 9-15",
+			"Written Exam",
+			"Coding Exam"
+		]
+	},
+	{
+		"lesson": "Lesson 17",
+		"title": "Operator in Scratch",
+		"objectives": [
+			"Mampu Membuat Password yang Kuat",
+			"Memahami Apa Definisi dari Block Coding Operator pada Scratch",
+			"Dapat Mengidentifikasi Block Coding Operator yang Tersedia di Scratch",
+			"Dapat Mengidentifikasi Kapan Harus Menggunakan Block Coding Operator pada Scratch",
+			"Mampu Membuat Project pada Scratch Menggunakan Block Coding Operator"
+		]
+	},
+	{
+		"lesson": "Lesson 18",
+		"title": "Variable in Scratch",
+		"objectives": [
+			"Memahami Konsep Deepfake",
+			"Memahami Apa Definisi dari Block Coding Variable pada Scratch",
+			"Dapat Mengidentifikasi Block Coding Variable yang Tersedia di Scratch",
+			"Dapat Mengidentifikasi Kapan Harus Menggunakan Block Coding Variable pada Scratch",
+			"Mampu Membuat Project pada Scratch Menggunakan Block Coding Variable",
+			"Pengenalan Variable dan List"
+		]
+	},
+	{
+		"lesson": "Lesson 19",
+		"title": "My Blocks in Scratch",
+		"objectives": [
+			"Memahami Konsep Otomasi dalam Kehidupan Sehari-hari",
+			"Mengenal Konsep Function dalam Coding",
+			"Mengenal Block Coding My Blocks Pada Scratch"
+		]
+	},
+	{
+		"lesson": "Lesson 20",
+		"title": "AI Edu Delightex",
+		"objectives": [
+			"Memahami Dasar Teknologi Generative AI",
+			"Menguasai Teknik Prompting yang Efektif",
+			"Menerapkan Etika dan Kejujuran dalam Karya AI",
+			"Mengintegrasikan AI Buddy ke dalam Lingkungan VR Edu Delightex"
+		]
+	},
+	{
+		"lesson": "Lesson 21",
+		"title": "Collecting Game Assets with AI Tools",
+		"objectives": [
+			"Memahami Apa Fungsi Slide Presentasi",
+			"Memahami Cara Mendapatkan Ide Project Game",
+			"Mengumpulkan Asset Project Game Baik dari Internet Maupun AI"
+		]
+	},
+	{
+		"lesson": "Lesson 22",
+		"title": "AI Voice Maker",
+		"objectives": [
+			"Memahami Teknologi di Balik AI Voice",
+			"Mengintegrasikan Aset Audio ke dalam Desain Proyek Digital",
+			"Melanjutkan Proses Desain dari Asset Game yang Telah Dikumpulkan"
+		]
+	},
+	{
+		"lesson": "Lesson 23",
+		"title": "AI Ethics",
+		"objectives": [
+			"Menanggapi Konsep Kepemilikian pada Seni AI",
+			"Menyelesaikan Tahap Coding pada Project Final ",
+			"Mengerti Apa Saja yang Harus Dilakukan Saat Coding Project Final"
+		]
+	},
+	{
+		"lesson": "Lesson 24",
+		"title": "Presenting Digital Projects",
+		"objectives": [
+			"Memahami Poin Penting Apa Saja yang Ada pada Presentasi",
+			"Mengerjakan Written Exam dengan Seksama ",
+			"Mempresentasikan Project dengan Baik"
+		]
+	}
+]
