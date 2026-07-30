@@ -948,7 +948,8 @@ function buildAutoWAMessage(){
       if ((s.status === 'double' || s.status === 'one_and_half') && s.lesson2) {
          shortSummary = `Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
       } else if (l1Obj) {
-         shortSummary = `Lesson ${s.lesson}: ${l1Obj.title} ${statusText}`;
+         let cleanTitle = l1Obj.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
+         shortSummary = `Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
       }
     }
     
