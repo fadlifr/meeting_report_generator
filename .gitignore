@@ -10,3 +10,9 @@ scratch/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Adhoc scripts and raw data
+*.py
+*.txt
+*.json
+encrypt_script.js
