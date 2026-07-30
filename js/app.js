@@ -933,10 +933,26 @@ function updateMascots() {
 function buildAutoWAMessage(){
   const L = LANG_UI[autoLang];
   const tgl = document.getElementById('auto-tanggal').value;
-  const kelas = document.getElementById('auto-kelas').value || '—';
+  const kelas = document.getElementById('auto-kelas').value || '-';
   const studentLines = autoStudents.map(s => {
     if(!s.nama && !s.progress) return '';
-    return `*${s.nama||'—'}*\n${s.progress||'—'}`;
+    
+    let shortSummary = s.progress || '-';
+    if (s.course && s.lesson) {
+      const courseList = COURSE_DATA[s.course];
+      const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
+      
+      const isDone = (s.status === 'done' || s.status === 'double');
+      const statusText = isDone ? (autoLang==='en'?'(Completed)':'(Selesai)') : (autoLang==='en'?'(In Progress)':'(Sedang Dikerjakan)');
+      
+      if ((s.status === 'double' || s.status === 'one_and_half') && s.lesson2) {
+         shortSummary = `Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
+      } else if (l1Obj) {
+         shortSummary = `Lesson ${s.lesson}: ${l1Obj.title} ${statusText}`;
+      }
+    }
+    
+    return `*${s.nama||'-'}*\n${shortSummary}`;
   }).filter(Boolean).join('\n\n');
   return `${L.waGreeting(kelas, formatDateLong(tgl, autoLang))}\n\n${studentLines}\n\n${L.waClose}`;
 }
