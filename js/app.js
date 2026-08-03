@@ -1085,29 +1085,31 @@ function addGCalReminder() {
   const tglInput = document.getElementById('auto-tanggal').value;
   const baseDate = tglInput ? new Date(tglInput) : new Date();
   
-  // Add 5 days and set time to 10:00 AM
-  baseDate.setDate(baseDate.getDate() + 5);
-  baseDate.setHours(10, 0, 0, 0);
+  // Add 3 days and set time to 20:00 (8 PM)
+  baseDate.setDate(baseDate.getDate() + 3);
+  baseDate.setHours(20, 0, 0, 0);
   
   const yyyy = baseDate.getFullYear();
   const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
   const dd = String(baseDate.getDate()).padStart(2, '0');
   
   const endDate = new Date(baseDate);
-  endDate.setMinutes(30);
+  endDate.setHours(21); // End at 21:00 (9 PM)
+  endDate.setMinutes(0);
   const endYyyy = endDate.getFullYear();
   const endMm = String(endDate.getMonth() + 1).padStart(2, '0');
   const endDd = String(endDate.getDate()).padStart(2, '0');
   const endHH = String(endDate.getHours()).padStart(2, '0');
   const endMin = String(endDate.getMinutes()).padStart(2, '0');
   
-  const dateString = `${yyyy}${mm}${dd}T100000/${endYyyy}${endMm}${endDd}T${endHH}${endMin}00`;
+  const dateString = `${yyyy}${mm}${dd}T200000/${endYyyy}${endMm}${endDd}T210000`;
   
   const names = pendingExamStudents.map(s => s.nama || 'Unnamed').join(', ');
   const title = encodeURIComponent(`📝 Deadline Exam Report: ${names}`);
   const details = encodeURIComponent(`Pengingat otomatis untuk pembuatan Exam Report.\nSiswa: ${names}`);
+  const recur = encodeURIComponent('RRULE:FREQ=DAILY;INTERVAL=3;COUNT=2');
   
-  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dateString}`;
+  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dateString}&recur=${recur}`;
   window.open(url, '_blank');
 }
 
