@@ -1057,7 +1057,9 @@ function checkExamReminder(callback) {
   pendingExamStudents = autoStudents.filter(s => {
     const l1 = parseInt(s.lesson) || 0;
     const l2 = parseInt(s.lesson2) || 0;
-    return (l1 == 8 || l1 == 16 || l1 == 24 || l2 == 8 || l2 == 16 || l2 == 24);
+    const isExam = (l1 == 8 || l1 == 16 || l1 == 24 || l2 == 8 || l2 == 16 || l2 == 24);
+    const isFinished = s.status !== 'in_progress';
+    return isExam && isFinished;
   });
   
   if (pendingExamStudents.length > 0) {
