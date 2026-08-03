@@ -1044,7 +1044,84 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   doc.save(`${labels.fileName.replace(/\s+/g,'_')}.pdf`);
 }
 
-async function downloadAutoPNG(){
+let examReminderShown = false;
+let pendingExamStudents = [];
+let pendingAction = null;
+
+function checkExamReminder(callback) {
+  if (examReminderShown) {
+    callback();
+    return;
+  }
+  
+  pendingExamStudents = autoStudents.filter(s => {
+    const l1 = parseInt(s.lesson) || 0;
+    const l2 = parseInt(s.lesson2) || 0;
+    return (l1 == 8 || l1 == 16 || l1 == 24 || l2 == 8 || l2 == 16 || l2 == 24);
+  });
+  
+  if (pendingExamStudents.length > 0) {
+    pendingAction = callback;
+    const ul = document.getElementById('exam-student-names');
+    ul.innerHTML = '';
+    pendingExamStudents.forEach(s => {
+      const li = document.createElement('li');
+      li.textContent = `${s.nama || 'Unnamed Student'} (Lesson ${s.lesson})`;
+      ul.appendChild(li);
+    });
+    document.getElementById('exam-reminder-modal').style.display = 'flex';
+  } else {
+    callback();
+  }
+}
+
+function sendWAReminder() {
+  const names = pendingExamStudents.map(s => s.nama || 'Unnamed').join(', ');
+  const text = encodeURIComponent(`⚠️ *PENGINGAT UJIAN*\n\nJangan lupa membuat dan mengirimkan Exam Report untuk siswa berikut:\n- ${names}\n\nTarget maksimal 5 hari dari hari ini.`);
+  window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+function addGCalReminder() {
+  const tglInput = document.getElementById('auto-tanggal').value;
+  const baseDate = tglInput ? new Date(tglInput) : new Date();
+  
+  // Add 5 days and set time to 10:00 AM
+  baseDate.setDate(baseDate.getDate() + 5);
+  baseDate.setHours(10, 0, 0, 0);
+  
+  const yyyy = baseDate.getFullYear();
+  const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
+  const dd = String(baseDate.getDate()).padStart(2, '0');
+  
+  const endDate = new Date(baseDate);
+  endDate.setMinutes(30);
+  const endYyyy = endDate.getFullYear();
+  const endMm = String(endDate.getMonth() + 1).padStart(2, '0');
+  const endDd = String(endDate.getDate()).padStart(2, '0');
+  const endHH = String(endDate.getHours()).padStart(2, '0');
+  const endMin = String(endDate.getMinutes()).padStart(2, '0');
+  
+  const dateString = `${yyyy}${mm}${dd}T100000/${endYyyy}${endMm}${endDd}T${endHH}${endMin}00`;
+  
+  const names = pendingExamStudents.map(s => s.nama || 'Unnamed').join(', ');
+  const title = encodeURIComponent(`📝 Deadline Exam Report: ${names}`);
+  const details = encodeURIComponent(`Pengingat otomatis untuk pembuatan Exam Report.\nSiswa: ${names}`);
+  
+  const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dateString}`;
+  window.open(url, '_blank');
+}
+
+function closeExamReminder() {
+  examReminderShown = true;
+  document.getElementById('exam-reminder-modal').style.display = 'none';
+  if (pendingAction) {
+    pendingAction();
+    pendingAction = null;
+  }
+}
+
+function downloadAutoPNG(){
+  checkExamReminder(async () => {
   const btn=document.getElementById('abtn-png'); btn.disabled=true; btn.textContent='Processing...';
   toast('Creating PNG...');
   try{
@@ -1057,9 +1134,11 @@ async function downloadAutoPNG(){
     toast('PNG downloaded!','success');
   }catch(err){toast('Error: '+err.message,'error');}
   finally{btn.disabled=false;btn.textContent='Download PNG';}
+  });
 }
 
-async function openAutoWhatsApp(){
+function openAutoWhatsApp(){
+  checkExamReminder(async () => {
   const L = LANG_UI[autoLang];
   const btn=document.getElementById('abtn-wa'); btn.disabled=true; btn.textContent='Preparing...';
   try{
@@ -1073,6 +1152,7 @@ async function openAutoWhatsApp(){
     toast('Done!','success');
   }catch(err){toast('Error: '+err.message,'error');}
   finally{btn.disabled=false;btn.textContent=L.waBtn;}
+  });
 }
 
 async function copyAutoWAMessage() {
@@ -1090,7 +1170,8 @@ async function copyAutoWAMessage() {
   }
 }
 
-async function downloadAutoPDF(){
+function downloadAutoPDF(){
+  checkExamReminder(async () => {
   const btn=document.getElementById('abtn-pdf'); btn.disabled=true; btn.textContent='Processing...';
   toast('Creating PDF...');
   try{
@@ -1113,6 +1194,7 @@ async function downloadAutoPDF(){
     toast('PDF downloaded!','success');
   }catch(err){toast('PDF Error: '+err.message,'error');}
   finally{btn.disabled=false;btn.textContent='Export PDF';}
+  });
 }
 
 // ============================================================

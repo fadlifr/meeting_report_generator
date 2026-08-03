@@ -265,6 +265,19 @@
   <!-- App logic: all UI functions, language switching, PDF/PNG export -->
   <script src="js/app.js"></script>
 
+  <!-- Exam Reminder Modal -->
+  <div id="exam-reminder-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-box">
+      <h3>⚠️ Exam Report Reminder</h3>
+      <p>You have students taking an Exam Lesson today. Don't forget to prepare and send their Exam Reports!</p>
+      <ul id="exam-student-names"></ul>
+      <div class="modal-buttons">
+        <button onclick="sendWAReminder()" class="btn-wa">📱 WA Reminder to Myself</button>
+        <button onclick="addGCalReminder()" class="btn-cal">📅 Google Calendar Alarm (in 5 Days)</button>
+        <button onclick="closeExamReminder()" class="btn-close">Close & Continue</button>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
