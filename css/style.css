@@ -56,17 +56,19 @@ select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%
 input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--muted);}
 .photo-input-group{display:flex;align-items:center;gap:6px;}
 .photo-input-group input[type="file"]{flex:1;min-width:0;}
-.btn-del-photo{width:38px;height:38px;background:#fee2e2;color:#dc2626;border:1.5px solid #fca5a5;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;transition:all .2s ease;}
-.btn-del-photo:hover{background:#ef4444;color:white;border-color:#dc2626;transform:scale(1.05);}
-.btn-photo-overlay-del{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(220,38,38,0.85);color:white;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;box-shadow:0 2px 6px rgba(0,0,0,0.25);transition:all .2s ease;z-index:10;}
-.btn-photo-overlay-del:hover{background:#dc2626;transform:scale(1.1);}
 
-/* Dynamic photo upload list */
-.photo-upload-list{display:flex;flex-direction:column;gap:12px;margin-bottom:10px;}
-.photo-input-row{display:flex;flex-direction:column;gap:6px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:12px;}
-.photo-input-row label{margin-bottom:0;}
-.photo-thumb-preview{width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--g200);}
-.photo-thumb-preview img{width:100%;height:100%;object-fit:cover;display:block;}
+/* Dynamic photo upload grid */
+.photo-upload-list{margin-bottom:10px;}
+.photo-grid-upload{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.photo-grid-thumb{position:relative;aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:1.5px solid var(--g200);background:var(--bg);cursor:pointer;}
+.photo-grid-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease;}
+.photo-grid-thumb:hover img{transform:scale(1.05);}
+.photo-grid-thumb .btn-del-overlay{position:absolute;top:5px;right:5px;width:24px;height:24px;background:rgba(220,38,38,0.88);color:white;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;line-height:1;box-shadow:0 2px 6px rgba(0,0,0,0.3);transition:all .2s ease;z-index:10;opacity:0;}
+.photo-grid-thumb:hover .btn-del-overlay{opacity:1;}
+.photo-grid-thumb .btn-del-overlay:hover{background:#b91c1c;transform:scale(1.15);}
+.photo-grid-add{aspect-ratio:4/3;border-radius:10px;border:2px dashed var(--g400);background:linear-gradient(135deg,var(--g50),#fff);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all .25s ease;color:var(--g600);font-size:11px;font-weight:700;}
+.photo-grid-add:hover{background:linear-gradient(135deg,var(--g100),var(--g50));border-color:var(--g600);transform:translateY(-2px);box-shadow:0 4px 12px rgba(34,197,94,.15);}
+.photo-grid-add-icon{font-size:22px;line-height:1;}
 .btn-add-photo{width:100%;padding:10px;background:linear-gradient(135deg,var(--g100),var(--g50));color:var(--g700);border:2px dashed var(--g400);border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .3s;margin-top:2px;}
 .btn-add-photo:hover{background:linear-gradient(135deg,var(--g200),var(--g100));border-color:var(--g600);transform:translateY(-2px);box-shadow:0 4px 12px rgba(34,197,94,.15);}
 
@@ -281,24 +283,24 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .rpt-photos {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow: hidden;
 }
 .rpt-photo-wrap {
-  flex: 1;
-  min-width: 280px;
-  aspect-ratio: 16 / 9;
-  border-radius: 16px;
+  flex: 1 1 0;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(135deg, var(--g50), #ffffff);
   border: 2px dashed var(--g300);
   position: relative;
-  flex-shrink: 0;
   transition: all 0.3s;
 }
 .rpt-photo-wrap.has-photo {
   border: 1.5px solid #bbf7d0;
-  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.12);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.12);
 }
 .rpt-photo-wrap img {
   width: 100%;

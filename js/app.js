@@ -107,6 +107,9 @@ const resizeObserver = new ResizeObserver(() => {
 });
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.preview-scroll').forEach(el => resizeObserver.observe(el));
+  // Init photo grids so the "+" tile shows immediately
+  renderManualPhotoInputs();
+  renderAutoPhotoInputs();
 });
 
 function switchTab(tab) {
@@ -181,36 +184,67 @@ function renderManualPhotoInputs() {
   const container = document.getElementById('manual-photo-inputs');
   if (!container) return;
   container.innerHTML = '';
+
+  // Hidden multi-file input
+  const hiddenInput = document.createElement('input');
+  hiddenInput.type = 'file';
+  hiddenInput.accept = 'image/*';
+  hiddenInput.multiple = true;
+  hiddenInput.id = 'manual-file-hidden';
+  hiddenInput.style.display = 'none';
+  hiddenInput.addEventListener('change', onManualPhotoChange);
+  container.appendChild(hiddenInput);
+
+  // Photo grid
+  const grid = document.createElement('div');
+  grid.className = 'photo-grid-upload';
+
   photoList.forEach((p, i) => {
-    const row = document.createElement('div');
-    row.className = 'photo-input-row';
-    row.innerHTML = `
-      <label>Photo ${i + 1}</label>
-      <div class="photo-input-group">
-        <input type="file" id="manual-file-${i}" accept="image/*" onchange="onManualPhotoChange(event,${i})">
-        <button type="button" class="btn-del-photo" onclick="removeManualPhoto(${i})" title="Remove Photo">✕</button>
-      </div>
-      ${p.src ? `<div class="photo-thumb-preview"><img src="${p.src}" alt="Photo ${i+1}"></div>` : ''}
+    if (!p.src) return;
+    const thumb = document.createElement('div');
+    thumb.className = 'photo-grid-thumb';
+    thumb.innerHTML = `
+      <img src="${p.src}" alt="Photo ${i+1}">
+      <button type="button" class="btn-del-overlay" onclick="removeManualPhoto(${i})" title="Remove">✕</button>
     `;
-    container.appendChild(row);
+    grid.appendChild(thumb);
   });
+
+  // Add tile
+  const addTile = document.createElement('div');
+  addTile.className = 'photo-grid-add';
+  addTile.title = 'Add photos';
+  addTile.innerHTML = '<span class="photo-grid-add-icon">+</span><span>Add Photo</span>';
+  addTile.addEventListener('click', () => document.getElementById('manual-file-hidden').click());
+  grid.appendChild(addTile);
+
+  container.appendChild(grid);
 }
 function addManualPhoto() {
-  photoList.push({src: null});
-  renderManualPhotoInputs();
-  // Scroll newly added row into view
-  const rows = document.querySelectorAll('#manual-photo-inputs .photo-input-row');
-  if (rows.length) rows[rows.length - 1].scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-function onManualPhotoChange(e, i) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    photoList[i].src = ev.target.result;
+  // Trigger the hidden input (kept for btn-add-photo button compatibility)
+  const input = document.getElementById('manual-file-hidden');
+  if (input) { input.click(); } else {
     renderManualPhotoInputs();
-    renderManualPhotoPreview();
-  };
-  reader.readAsDataURL(file);
+    setTimeout(() => document.getElementById('manual-file-hidden')?.click(), 50);
+  }
+}
+function onManualPhotoChange(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  let loaded = 0;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      photoList.push({src: ev.target.result});
+      loaded++;
+      if (loaded === files.length) {
+        renderManualPhotoInputs();
+        renderManualPhotoPreview();
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = ''; // reset so same files can be re-selected
 }
 function removeManualPhoto(i) {
   photoList.splice(i, 1);
@@ -334,36 +368,67 @@ function renderAutoPhotoInputs() {
   const container = document.getElementById('auto-photo-inputs');
   if (!container) return;
   container.innerHTML = '';
+
+  // Hidden multi-file input
+  const hiddenInput = document.createElement('input');
+  hiddenInput.type = 'file';
+  hiddenInput.accept = 'image/*';
+  hiddenInput.multiple = true;
+  hiddenInput.id = 'auto-file-hidden';
+  hiddenInput.style.display = 'none';
+  hiddenInput.addEventListener('change', onAutoPhotoChange);
+  container.appendChild(hiddenInput);
+
+  // Photo grid
+  const grid = document.createElement('div');
+  grid.className = 'photo-grid-upload';
+
   autoPhotoList.forEach((p, i) => {
-    const row = document.createElement('div');
-    row.className = 'photo-input-row';
+    if (!p.src) return;
     const label = autoLang === 'id' ? `Foto ${i + 1}` : `Photo ${i + 1}`;
-    row.innerHTML = `
-      <label>${label}</label>
-      <div class="photo-input-group">
-        <input type="file" id="auto-file-${i}" accept="image/*" onchange="onAutoPhotoChange(event,${i})">
-        <button type="button" class="btn-del-photo" onclick="removeAutoPhoto(${i})" title="Remove Photo">✕</button>
-      </div>
-      ${p.src ? `<div class="photo-thumb-preview"><img src="${p.src}" alt="${label}"></div>` : ''}
+    const thumb = document.createElement('div');
+    thumb.className = 'photo-grid-thumb';
+    thumb.innerHTML = `
+      <img src="${p.src}" alt="${label}">
+      <button type="button" class="btn-del-overlay" onclick="removeAutoPhoto(${i})" title="Remove">✕</button>
     `;
-    container.appendChild(row);
+    grid.appendChild(thumb);
   });
+
+  // Add tile
+  const addTile = document.createElement('div');
+  addTile.className = 'photo-grid-add';
+  addTile.title = 'Add photos';
+  addTile.innerHTML = '<span class="photo-grid-add-icon">+</span><span>Add Photo</span>';
+  addTile.addEventListener('click', () => document.getElementById('auto-file-hidden').click());
+  grid.appendChild(addTile);
+
+  container.appendChild(grid);
 }
 function addAutoPhoto() {
-  autoPhotoList.push({src: null});
-  renderAutoPhotoInputs();
-  const rows = document.querySelectorAll('#auto-photo-inputs .photo-input-row');
-  if (rows.length) rows[rows.length - 1].scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-function onAutoPhotoChange(e, i) {
-  const file = e.target.files[0]; if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    autoPhotoList[i].src = ev.target.result;
+  const input = document.getElementById('auto-file-hidden');
+  if (input) { input.click(); } else {
     renderAutoPhotoInputs();
-    renderAutoPhotoPreview();
-  };
-  reader.readAsDataURL(file);
+    setTimeout(() => document.getElementById('auto-file-hidden')?.click(), 50);
+  }
+}
+function onAutoPhotoChange(e) {
+  const files = Array.from(e.target.files);
+  if (!files.length) return;
+  let loaded = 0;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      autoPhotoList.push({src: ev.target.result});
+      loaded++;
+      if (loaded === files.length) {
+        renderAutoPhotoInputs();
+        renderAutoPhotoPreview();
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value = '';
 }
 function removeAutoPhoto(i) {
   autoPhotoList.splice(i, 1);
@@ -394,13 +459,13 @@ function renderAutoPhotoPreview() {
 }
 
 // Canvas capture helper
-async function capturePNG(elementId) {
+async function captureImage(elementId) {
   const el = document.getElementById(elementId);
   const originalOverflow = el.style.overflow;
   el.style.overflow = 'visible';
   
   const canvas = await html2canvas(el, {
-    scale: 2,
+    scale: 1.5,
     useCORS: true,
     allowTaint: true,
     backgroundColor: '#ffffff',
@@ -424,28 +489,41 @@ async function capturePNG(elementId) {
   return canvas;
 }
 
+// Compress canvas to JPEG blob for small file size
+function canvasToJpegBlob(canvas, quality = 0.82) {
+  return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
+}
+
 async function downloadPNG(){
   const btn=document.getElementById('btn-png'); btn.disabled=true; btn.textContent='Processing...';
-  toast('Creating PNG...');
+  toast('Creating image...');
   try{
-    const canvas = await capturePNG('report-preview');
+    const canvas = await captureImage('report-preview');
+    const blob = await canvasToJpegBlob(canvas, 0.82);
     const link = document.createElement('a');
     const kelas = document.getElementById('input-kelas').value.replace(/\s+/g,'_')||'Report';
     const rawTgl = document.getElementById('input-tanggal').value;
     const tanggalFile = formatDateFile(rawTgl, autoLang);
-    link.download=`Meeting Report_${kelas}_${tanggalFile}.png`; link.href=canvas.toDataURL('image/png'); link.click();
-    toast('PNG downloaded!','success');
+    link.download=`Meeting Report_${kelas}_${tanggalFile}.jpg`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+    toast('Downloaded! (compressed JPEG)','success');
   }catch(err){toast('Failed: '+err.message,'error');}
   finally{btn.disabled=false; btn.textContent='Download PNG';}
 }
 async function openWhatsApp(){
   const btn=document.getElementById('btn-wa'); btn.disabled=true; btn.textContent='Preparing...';
   try{
-    const canvas = await capturePNG('report-preview');
+    const canvas = await captureImage('report-preview');
+    const blob = await canvasToJpegBlob(canvas, 0.82);
     const link = document.createElement('a');
     const kelas = document.getElementById('input-kelas').value.replace(/\s+/g,'_')||'Report';
     const tanggal = formatDate(document.getElementById('input-tanggal').value);
-    link.download=`Meeting Report_${kelas}_${tanggal}.png`; link.href=canvas.toDataURL('image/png'); link.click();
+    link.download=`Meeting Report_${kelas}_${tanggal}.jpg`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
     await new Promise(r=>setTimeout(r,800));
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(buildWAMessage()),'_blank');
     toast('Done!','success');
@@ -1127,15 +1205,19 @@ function closeExamReminder() {
 function downloadAutoPNG(){
   checkExamReminder(async () => {
   const btn=document.getElementById('abtn-png'); btn.disabled=true; btn.textContent='Processing...';
-  toast('Creating PNG...');
+  toast('Creating image...');
   try{
-    const canvas = await capturePNG('auto-report-preview');
+    const canvas = await captureImage('auto-report-preview');
+    const blob = await canvasToJpegBlob(canvas, 0.82);
     const link = document.createElement('a');
     const L = LANG_UI[autoLang];
     const kelas = document.getElementById('auto-kelas').value.replace(/\s+/g,'_')||'Report';
     const tanggal = formatDate(document.getElementById('auto-tanggal').value);
-    link.download=`${L.fileName(kelas, tanggal)}.png`; link.href=canvas.toDataURL('image/png'); link.click();
-    toast('PNG downloaded!','success');
+    link.download=`${L.fileName(kelas, tanggal)}.jpg`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+    toast('Downloaded! (compressed JPEG)','success');
   }catch(err){toast('Error: '+err.message,'error');}
   finally{btn.disabled=false;btn.textContent='Download PNG';}
   });
@@ -1146,11 +1228,15 @@ function openAutoWhatsApp(){
   const L = LANG_UI[autoLang];
   const btn=document.getElementById('abtn-wa'); btn.disabled=true; btn.textContent='Preparing...';
   try{
-    const canvas = await capturePNG('auto-report-preview');
+    const canvas = await captureImage('auto-report-preview');
+    const blob = await canvasToJpegBlob(canvas, 0.82);
     const link = document.createElement('a');
     const kelas = document.getElementById('auto-kelas').value.replace(/\s+/g,'_')||'Report';
     const tanggal = formatDate(document.getElementById('auto-tanggal').value);
-    link.download=`${L.fileName(kelas, tanggal)}.png`; link.href=canvas.toDataURL('image/png'); link.click();
+    link.download=`${L.fileName(kelas, tanggal)}.jpg`;
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
     await new Promise(r=>setTimeout(r,800));
     window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(buildAutoWAMessage()),'_blank');
     toast('Done!','success');
