@@ -59,7 +59,15 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 
 /* Dynamic photo upload grid */
 .photo-upload-list{margin-bottom:10px;}
+/* Default: 3 columns. Shrink to 2 columns when ≤3 photos + 1 add tile (total 4 cells = ≤4 items) */
 .photo-grid-upload{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+/* Sidebar grid: 1 photo → 2 cols (thumb + add tile), 2 photos → 3 cols, 3+ photos → 3 cols */
+.photo-grid-upload[data-count="1"]{grid-template-columns:repeat(2,1fr);}
+.photo-grid-upload[data-count="2"]{grid-template-columns:repeat(2,1fr);}
+.photo-grid-upload[data-count="3"]{grid-template-columns:repeat(3,1fr);}
+.photo-grid-upload[data-count="4"]{grid-template-columns:repeat(3,1fr);}
+.photo-grid-upload[data-count="5"]{grid-template-columns:repeat(3,1fr);}
+.photo-grid-upload[data-count="6"]{grid-template-columns:repeat(3,1fr);}
 .photo-grid-thumb{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;border:1.5px solid var(--g200);background:var(--bg);cursor:pointer;}
 .photo-grid-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s ease;}
 .photo-grid-thumb:hover img{transform:scale(1.05);}
@@ -279,16 +287,33 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
   letter-spacing: 0.8px;
 }
 
-/* Documentation Gallery Photos */
+/* Documentation Gallery Photos — Dynamic layout by photo count */
 .rpt-photos {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
+  display: grid;
   gap: 10px;
   overflow: hidden;
+  /* Default (1–3 photos): single row, equal columns */
+  grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+  grid-template-rows: 1fr;
 }
+/* 1 photo → full width single col */
+.rpt-photos[data-count="1"] { grid-template-columns: 1fr; }
+/* 2 photos → 2 equal cols, 1 row */
+.rpt-photos[data-count="2"] { grid-template-columns: repeat(2, 1fr); }
+/* 3 photos → 3 equal cols, 1 row */
+.rpt-photos[data-count="3"] { grid-template-columns: repeat(3, 1fr); }
+/* 4 photos → 2 cols × 2 rows */
+.rpt-photos[data-count="4"] { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); }
+/* 5 photos → 3 cols: row1 has 3, row2 has 2 (left-aligned, last item spans naturally) */
+.rpt-photos[data-count="5"] { grid-template-columns: repeat(6, 1fr); }
+/* Use col-span tricks: each item spans 2 of 6 cols = 3 per row; last 2 items offset by 1 col to center them */
+.rpt-photos[data-count="5"] .rpt-photo-wrap { grid-column: span 2; }
+.rpt-photos[data-count="5"] .rpt-photo-wrap:nth-child(4) { grid-column: 2 / span 2; }
+.rpt-photos[data-count="5"] .rpt-photo-wrap:nth-child(5) { grid-column: 4 / span 2; }
+/* 6 photos → 3 cols × 2 rows */
+.rpt-photos[data-count="6"] { grid-template-columns: repeat(3, 1fr); }
+
 .rpt-photo-wrap {
-  flex: 1 1 0;
   min-width: 0;
   aspect-ratio: 16 / 9;
   border-radius: 12px;

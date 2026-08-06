@@ -198,6 +198,7 @@ function renderManualPhotoInputs() {
   // Photo grid
   const grid = document.createElement('div');
   grid.className = 'photo-grid-upload';
+  grid.dataset.count = photoList.length; // for CSS dynamic columns
 
   photoList.forEach((p, i) => {
     if (!p.src) return;
@@ -265,6 +266,7 @@ function renderManualPhotoPreview() {
   }
   section.style.display = 'flex';
   grid.innerHTML = '';
+  grid.dataset.count = uploaded.length; // for CSS dynamic grid layout
   uploaded.forEach((p, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'rpt-photo-wrap has-photo';
@@ -382,6 +384,7 @@ function renderAutoPhotoInputs() {
   // Photo grid
   const grid = document.createElement('div');
   grid.className = 'photo-grid-upload';
+  grid.dataset.count = autoPhotoList.length; // for CSS dynamic columns
 
   autoPhotoList.forEach((p, i) => {
     if (!p.src) return;
@@ -449,6 +452,7 @@ function renderAutoPhotoPreview() {
   }
   section.style.display = 'flex';
   grid.innerHTML = '';
+  grid.dataset.count = uploaded.length; // for CSS dynamic grid layout
   uploaded.forEach((p, i) => {
     const wrap = document.createElement('div');
     wrap.className = 'rpt-photo-wrap has-photo';
