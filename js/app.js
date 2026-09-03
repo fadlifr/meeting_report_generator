@@ -179,6 +179,64 @@ let students = [
 let photoList = [];       // Manual tab
 let autoPhotoList = [];   // Auto tab
 
+// Smart photo processor: center-crops image to target aspect ratio (16:9)
+// and scales down large camera images (max 1920px) to prevent stretch & ensure sharp, memory-lean rendering
+function processPhotoFile(file, targetRatio = 16 / 9, maxDimension = 1920) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Failed to read photo file'));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Failed to load image'));
+      img.onload = () => {
+        const nw = img.naturalWidth || img.width;
+        const nh = img.naturalHeight || img.height;
+        if (!nw || !nh) {
+          resolve(e.target.result);
+          return;
+        }
+
+        // Calculate center-crop coordinates to match target aspect ratio (object-fit: cover)
+        let sw, sh, sx, sy;
+        const imgRatio = nw / nh;
+        if (imgRatio > targetRatio) {
+          // Image wider than target: crop sides
+          sh = nh;
+          sw = nh * targetRatio;
+          sx = (nw - sw) / 2;
+          sy = 0;
+        } else {
+          // Image taller than target (e.g. 4:3 from mobile camera): crop top & bottom
+          sw = nw;
+          sh = nw / targetRatio;
+          sx = 0;
+          sy = (nh - sh) / 2;
+        }
+
+        // Scale down if larger than maxDimension
+        let dw = Math.round(sw);
+        let dh = Math.round(sh);
+        if (dw > maxDimension) {
+          dh = Math.round((maxDimension / dw) * dh);
+          dw = maxDimension;
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = dw;
+        canvas.height = dh;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, dw, dh);
+
+        resolve(canvas.toDataURL('image/jpeg', 0.92));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 // ---- Manual Photo Management ----
 function renderManualPhotoInputs() {
   const container = document.getElementById('manual-photo-inputs');
@@ -229,22 +287,21 @@ function addManualPhoto() {
     setTimeout(() => document.getElementById('manual-file-hidden')?.click(), 50);
   }
 }
-function onManualPhotoChange(e) {
+async function onManualPhotoChange(e) {
   const files = Array.from(e.target.files);
   if (!files.length) return;
-  let loaded = 0;
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = ev => {
-      photoList.push({src: ev.target.result});
-      loaded++;
-      if (loaded === files.length) {
-        renderManualPhotoInputs();
-        renderManualPhotoPreview();
-      }
-    };
-    reader.readAsDataURL(file);
-  });
+  toast('Processing photos...');
+  try {
+    for (const file of files) {
+      const src = await processPhotoFile(file, 16 / 9);
+      photoList.push({src});
+    }
+    renderManualPhotoInputs();
+    renderManualPhotoPreview();
+    toast('Photos added!', 'success');
+  } catch (err) {
+    toast('Error loading photos: ' + err.message, 'error');
+  }
   e.target.value = ''; // reset so same files can be re-selected
 }
 function removeManualPhoto(i) {
@@ -415,22 +472,21 @@ function addAutoPhoto() {
     setTimeout(() => document.getElementById('auto-file-hidden')?.click(), 50);
   }
 }
-function onAutoPhotoChange(e) {
+async function onAutoPhotoChange(e) {
   const files = Array.from(e.target.files);
   if (!files.length) return;
-  let loaded = 0;
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = ev => {
-      autoPhotoList.push({src: ev.target.result});
-      loaded++;
-      if (loaded === files.length) {
-        renderAutoPhotoInputs();
-        renderAutoPhotoPreview();
-      }
-    };
-    reader.readAsDataURL(file);
-  });
+  toast('Processing photos...');
+  try {
+    for (const file of files) {
+      const src = await processPhotoFile(file, 16 / 9);
+      autoPhotoList.push({src});
+    }
+    renderAutoPhotoInputs();
+    renderAutoPhotoPreview();
+    toast('Photos added!', 'success');
+  } catch (err) {
+    toast('Error loading photos: ' + err.message, 'error');
+  }
   e.target.value = '';
 }
 function removeAutoPhoto(i) {
@@ -485,6 +541,47 @@ async function captureImage(elementId) {
           clonedEl.parentElement.style.width = '1000px';
           clonedEl.parentElement.style.overflow = 'visible';
         }
+
+        // Fix: html2canvas does not support CSS object-fit: cover on <img> tags.
+        // Ensure any photo inside .rpt-photo-wrap is properly center-cropped to 16:9 before export.
+        const origWraps = el ? el.querySelectorAll('.rpt-photo-wrap') : [];
+        const clonedWraps = clonedEl.querySelectorAll('.rpt-photo-wrap');
+        clonedWraps.forEach((cWrap, idx) => {
+          const cImg = cWrap.querySelector('img');
+          const oWrap = origWraps[idx];
+          const oImg = oWrap ? oWrap.querySelector('img') : null;
+          const imgToUse = oImg || cImg;
+          if (!cImg || !imgToUse) return;
+
+          const nw = imgToUse.naturalWidth || imgToUse.width;
+          const nh = imgToUse.naturalHeight || imgToUse.height;
+          if (!nw || !nh) return;
+
+          const targetRatio = 16 / 9;
+          const imgRatio = nw / nh;
+          // If aspect ratio differs by > 1%, crop it onto a temporary canvas
+          if (Math.abs(imgRatio - targetRatio) > 0.01) {
+            let sw, sh, sx, sy;
+            if (imgRatio > targetRatio) {
+              sh = nh;
+              sw = nh * targetRatio;
+              sx = (nw - sw) / 2;
+              sy = 0;
+            } else {
+              sw = nw;
+              sh = nw / targetRatio;
+              sx = 0;
+              sy = (nh - sh) / 2;
+            }
+
+            const tempCanvas = document.createElement('canvas');
+            tempCanvas.width = Math.round(sw);
+            tempCanvas.height = Math.round(sh);
+            const ctx = tempCanvas.getContext('2d');
+            ctx.drawImage(imgToUse, sx, sy, sw, sh, 0, 0, tempCanvas.width, tempCanvas.height);
+            cImg.src = tempCanvas.toDataURL('image/jpeg', 0.95);
+          }
+        });
       }
     }
   });

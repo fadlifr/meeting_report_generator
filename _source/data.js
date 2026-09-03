@@ -557,7 +557,7 @@ const COURSE_DATA = {
       ]
     }
   ],
-  "Adcanced Lua Programming on Roblox": [
+  "Advanced Lua Programming on Roblox": [
     {
       "num": 1,
       "title": "Lesson 1 - Intro to Battle Royale",
@@ -3765,7 +3765,7 @@ const COURSE_MAP = {
     "Code and Design with Roblox",
     "Interactive Mechanics on Roblox",
     "Full Stack Programming on Roblox",
-    "Adcanced Lua Programming on Roblox"
+    "Advanced Lua Programming on Roblox"
   ],
   "Teens": [
     "AI Computer Vision",
