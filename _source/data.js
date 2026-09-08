@@ -3748,6 +3748,284 @@ const COURSE_DATA = {
         "Membuat presentasi project"
       ]
     }
+  ],
+  "Teens Programmer": [
+    {
+      "num": 1,
+      "title": "Lesson 1 - What is Coding & Algorithm?",
+      "objectives": [
+        "Mengetahui apa itu coding dan cakupannya",
+        "Mengetahui algoritma dalam coding",
+        "Mengetahui pentingnya belajar coding"
+      ],
+      "objectives_en": [
+        "Introduction to coding and its scope",
+        "Get to know about algorithm in coding",
+        "The importance of learning coding"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Event in Coding",
+      "objectives": [
+        "Memahami konsep event dalam coding"
+      ],
+      "objectives_en": [
+        "Understanding the concept of event in coding"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Problem Solving Loop",
+      "objectives": [
+        "Mengetahui cara menyelesaikan masalah",
+        "Mengetahui konsep loop dalam coding"
+      ],
+      "objectives_en": [
+        "Knowing the problem solving process",
+        "Knowing the concept of loops in coding"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - For Loop",
+      "objectives": [
+        "Mempraktekkan cara menyelesaikan masalah",
+        "Mengetahui konsep for loop dalam coding"
+      ],
+      "objectives_en": [
+        "Practice solving a problem",
+        "Know the concept of for loop in coding"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - For Loop in Robot",
+      "objectives": [
+        "Menggunakan konsep for loop JavaScript",
+        "Memprogram Cue Robot dengan JavaScript"
+      ],
+      "objectives_en": [
+        "Coding exercise in Repl.it",
+        "Programming the Cue Robot with JavaScript"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Conditional What If?",
+      "objectives": [
+        "Mengetahui konsep conditional dalam coding",
+        "Implementasi conditional dalam micro:bit"
+      ],
+      "objectives_en": [
+        "Knowing the concept of conditionals in coding",
+        "Implementation of conditionals in micro:bit"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Hoax, What If JavaScript",
+      "objectives": [
+        "Memahami cara mengidentifikasi hoax",
+        "Implementasi conditional dalam JavaScript"
+      ],
+      "objectives_en": [
+        "Understand how to identify Hoaxes",
+        "Implementation of conditionals in JavaScript"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - What Have We Learned?",
+      "objectives": [
+        "Review materi pertemuan 1 - 7",
+        "Beginner 1 Test"
+      ],
+      "objectives_en": [
+        "Meeting 1 - 7 Overview",
+        "Beginner 1 Test"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Cyberbullying and Conditional Loop",
+      "objectives": [
+        "Mengetahui cara mengatasi Cyberbullying",
+        "Mengetahui konsep conditional loop"
+      ],
+      "objectives_en": [
+        "Knowing how to prevent Cyberbullying",
+        "Knowing the concept of conditional loops"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Media Balance Do While",
+      "objectives": [
+        "Mengarahkan siswa untuk mempunyai kehidupan yang seimbang",
+        "Menggunakan conditional loop dalam JavaScript"
+      ],
+      "objectives_en": [
+        "Directing students to have a balance life",
+        "Using conditional loops in JavaScript"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Variable and Data Type",
+      "objectives": [
+        "Memahami konsep variable dalam coding",
+        "Implementasi konsep variable dalam Scratch"
+      ],
+      "objectives_en": [
+        "Understand the concept of variables in coding",
+        "Implementation of the variable in Scratch"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Variable and Data Type in JavaScript",
+      "objectives": [
+        "Mengetahui bagaimana mendeklarasikan variable dalam JavaScript"
+      ],
+      "objectives_en": [
+        "Using variables and data types in JavaScript"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Operator and Expression",
+      "objectives": [
+        "Memahami konsep operator dan expression dalam coding",
+        "Membuat Project Maqueen"
+      ],
+      "objectives_en": [
+        "Understand the concept of operators and expressions in coding",
+        "Create Project Maqueen"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Storing Multiple Values in List",
+      "objectives": [
+        "Memahami konsep list untuk menyimpan data dalam coding"
+      ],
+      "objectives_en": [
+        "Understand the concept of lists to store data in coding"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Storing Value in JavaScript Array",
+      "objectives": [
+        "Memahami konsep array untuk menyimpan data dalam JavaScript"
+      ],
+      "objectives_en": [
+        "Understand the concept of arrays for storing data in JavaScript"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Review and Exam",
+      "objectives": [
+        "Review materi pertemuan 9 - 15",
+        "Beginner 2 Test"
+      ],
+      "objectives_en": [
+        "Review meeting 9-15",
+        "Beginner 2 Test"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Broadcast and Clone",
+      "objectives": [
+        "Mengetahui tentang broadcast dan clone",
+        "Menggunakan broadcast dan clone untuk game Scratch"
+      ],
+      "objectives_en": [
+        "Know about broadcast and clone",
+        "Using broadcast and clone for Scratch games"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Function, Real or Fake?",
+      "objectives": [
+        "Mengetahui tentang manipulasi gambar/video",
+        "Mengetahui tentang konsep function dalam JavaScript"
+      ],
+      "objectives_en": [
+        "Understanding the image/video manipulation",
+        "Learning about the function concept in JavaScript"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Copyright, Function in JavaScript",
+      "objectives": [
+        "Mengetahui tentang perlindungan hak cipta",
+        "Menggunakan function dalam JavaScript"
+      ],
+      "objectives_en": [
+        "Understanding the copyright protection",
+        "Using functions in JavaScript"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Function with Parameter",
+      "objectives": [
+        "Mengetahui konsep function dengan parameter dalam coding"
+      ],
+      "objectives_en": [
+        "Knowing the concept of function with parameters in coding"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Break the Breaking News",
+      "objectives": [
+        "Menanggapi breaking news",
+        "Menggunakan function parameter di JavaScript"
+      ],
+      "objectives_en": [
+        "Respond to breaking news",
+        "Using function parameters in JavaScript"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Code Your Own Game",
+      "objectives": [
+        "Menggunakan konsep coding untuk membuat game dengan block coding"
+      ],
+      "objectives_en": [
+        "Create a simple project"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - The Final Code",
+      "objectives": [
+        "Menyelesaikan project game"
+      ],
+      "objectives_en": [
+        "Completing game projects"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Launch and Exam",
+      "objectives": [
+        "Presentasi hasil game",
+        "Test JavaScript Beginner 3"
+      ],
+      "objectives_en": [
+        "Project presentation",
+        "Beginner 3 JavaScript Exam"
+      ]
+    }
   ]
 };
 
@@ -3776,8 +4054,7 @@ const COURSE_MAP = {
     "Android Developer",
     "Python for AI",
     "Python Game Developer",
-    "Python Coder"
+    "Python Coder",
+    "Teens Programmer"
   ]
 };
-
-// English templates — friendly language for parents (non-native teachers)
