@@ -4031,10 +4031,10 @@ const COURSE_DATA = {
 
 const COURSE_MAP = {
   "Junior": [
+    "Little Programmer",
     "3D ANIMATOR",
     "Website Designer",
-    "Virtual World Maker",
-    "Little Programmer"
+    "Virtual World Maker"
   ],
   "Kids": [
     "Coding Explorer",
@@ -4043,18 +4043,18 @@ const COURSE_MAP = {
     "Code and Design with Roblox",
     "Interactive Mechanics on Roblox",
     "Full Stack Programming on Roblox",
-    "Advanced Lua Programming on Roblox"
+    "Advanced Lua Programming on Roblox",
+    "Python Coder",
+    "Python Game Developer",
+    "Python for AI"
   ],
   "Teens": [
-    "AI Computer Vision",
-    "Python for Data Science",
-    "AI Machine Learning",
+    "Teens Programmer",
     "JavaScript Developer",
     "Web Developer Teens",
     "Android Developer",
-    "Python for AI",
-    "Python Game Developer",
-    "Python Coder",
-    "Teens Programmer"
+    "Python for Data Science",
+    "AI Computer Vision",
+    "AI Machine Learning"
   ]
 };
