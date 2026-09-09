@@ -3,7 +3,7 @@
 // Depends on: data.js, templates.js
 // ============================================================
 
-let isAutoFit = { manual: true, auto: true };
+let isAutoFit = true;
 
 const PROPER_NOUNS_MAP = {};
 [
@@ -46,56 +46,42 @@ function formatObjectives(objectives, lang) {
 
 
 function fitPreviewScale() {
-  // Get width from the currently active tab so we can pre-scale the hidden tab
-  let containerWidth = 0;
-  const activeScroll = document.querySelector('.tab-content.active .preview-scroll');
-  if (activeScroll) containerWidth = activeScroll.clientWidth;
-  
+  const scroll = document.getElementById('scroll-auto');
+  const el = document.getElementById('auto-report-preview');
+  const wrapper = document.getElementById('wrapper-auto');
+  const btn = document.getElementById('btn-zoom-auto');
+
+  if (!el || !wrapper || !scroll) return;
+
+  const containerWidth = scroll.clientWidth;
   if (containerWidth === 0) {
-    // Retry if width is 0 (happens on very early initial load)
     if (!fitPreviewScale.attempts) fitPreviewScale.attempts = 0;
     if (fitPreviewScale.attempts++ < 10) setTimeout(fitPreviewScale, 100);
     return;
   }
   fitPreviewScale.attempts = 0;
 
-  ['manual', 'auto'].forEach(tab => {
-    const previewId = tab === 'manual' ? 'report-preview' : 'auto-report-preview';
-    const wrapperId = 'wrapper-' + tab;
-    const scrollId = 'scroll-' + tab;
-    const btnId = 'btn-zoom-' + tab;
+  const targetWidth = 1000;
 
-    const el = document.getElementById(previewId);
-    const wrapper = document.getElementById(wrapperId);
-    const scroll = document.getElementById(scrollId);
-    const btn = document.getElementById(btnId);
-
-    if (!el || !wrapper || !scroll) return;
-
-    const targetWidth = 1000;
-
-    if (isAutoFit[tab]) {
-      // Fit to container exactly (shrink or enlarge to fit width)
-      const scale = containerWidth / targetWidth;
-      el.style.transform = `scale(${scale})`;
-      el.style.transformOrigin = 'top left';
-      wrapper.style.height = Math.ceil(el.offsetHeight * scale) + 'px';
-      wrapper.style.width = '100%';
-      scroll.style.overflowX = 'hidden';
-      if (btn) btn.innerHTML = '🔍 100% Size';
-    } else {
-      // 100% Size mode
-      el.style.transform = 'none';
-      wrapper.style.height = 'auto';
-      wrapper.style.width = '1000px';
-      scroll.style.overflowX = 'auto';
-      if (btn) btn.innerHTML = '🔍 Fit to Screen';
-    }
-  });
+  if (isAutoFit) {
+    const scale = containerWidth / targetWidth;
+    el.style.transform = `scale(${scale})`;
+    el.style.transformOrigin = 'top left';
+    wrapper.style.height = Math.ceil(el.offsetHeight * scale) + 'px';
+    wrapper.style.width = '100%';
+    scroll.style.overflowX = 'hidden';
+    if (btn) btn.innerHTML = '🔍 100% Size';
+  } else {
+    el.style.transform = 'none';
+    wrapper.style.height = 'auto';
+    wrapper.style.width = '1000px';
+    scroll.style.overflowX = 'auto';
+    if (btn) btn.innerHTML = '🔍 Fit to Screen';
+  }
 }
 
-function toggleZoomMode(tab) {
-  isAutoFit[tab] = !isAutoFit[tab];
+function toggleZoomMode(tab = 'auto') {
+  isAutoFit = !isAutoFit;
   fitPreviewScale();
 }
 
@@ -107,17 +93,11 @@ const resizeObserver = new ResizeObserver(() => {
 });
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.preview-scroll').forEach(el => resizeObserver.observe(el));
-  // Init photo grids so the "+" tile shows immediately
-  renderManualPhotoInputs();
   renderAutoPhotoInputs();
 });
 
 function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  if (window.event && window.event.target) window.event.target.classList.add('active');
-  setTimeout(fitPreviewScale, 50);
+  // No-op kept for backwards compatibility
 }
 
 // ============================================================
@@ -168,16 +148,8 @@ function toast(msg, type='') {
   el._t = setTimeout(() => el.className = '', 3000);
 }
 
-// ============================================================
-// MANUAL TAB
-// ============================================================
-let students = [
-  {nama:"Iron Man",progress:"Iron Man learned about creating AR games on Delightex with animal themes (*Lesson 14*). Also studied drone logic on Tynker.\n\nNote: Iron Man completed all tasks very well and is starting to understand loop concepts."},
-  {nama:"Spider-Man",progress:"Spider-Man is currently working on *Lesson 14* (Introduction to Variables). Spider-Man understood the main concepts well and will continue in our next class."}
-];
-// Dynamic photo arrays (each entry: {src: dataURL})
-let photoList = [];       // Manual tab
-let autoPhotoList = [];   // Auto tab
+// Dynamic photo array (each entry: {src: dataURL})
+let autoPhotoList = [];
 
 // Smart photo processor: center-crops image to target aspect ratio (16:9)
 // and scales down large camera images (max 1920px) to prevent stretch & ensure sharp, memory-lean rendering
@@ -237,119 +209,6 @@ function processPhotoFile(file, targetRatio = 16 / 9, maxDimension = 1920) {
   });
 }
 
-// ---- Manual Photo Management ----
-function renderManualPhotoInputs() {
-  const container = document.getElementById('manual-photo-inputs');
-  if (!container) return;
-  container.innerHTML = '';
-
-  // Hidden multi-file input
-  const hiddenInput = document.createElement('input');
-  hiddenInput.type = 'file';
-  hiddenInput.accept = 'image/*';
-  hiddenInput.multiple = true;
-  hiddenInput.id = 'manual-file-hidden';
-  hiddenInput.style.display = 'none';
-  hiddenInput.addEventListener('change', onManualPhotoChange);
-  container.appendChild(hiddenInput);
-
-  // Photo grid
-  const grid = document.createElement('div');
-  grid.className = 'photo-grid-upload';
-  grid.dataset.count = photoList.length; // for CSS dynamic columns
-
-  photoList.forEach((p, i) => {
-    if (!p.src) return;
-    const thumb = document.createElement('div');
-    thumb.className = 'photo-grid-thumb';
-    thumb.innerHTML = `
-      <img src="${p.src}" alt="Photo ${i+1}">
-      <button type="button" class="btn-del-overlay" onclick="removeManualPhoto(${i})" title="Remove">✕</button>
-    `;
-    grid.appendChild(thumb);
-  });
-
-  // Add tile
-  const addTile = document.createElement('div');
-  addTile.className = 'photo-grid-add';
-  addTile.title = 'Add photos';
-  addTile.innerHTML = '<span class="photo-grid-add-icon">+</span><span>Add Photo</span>';
-  addTile.addEventListener('click', () => document.getElementById('manual-file-hidden').click());
-  grid.appendChild(addTile);
-
-  container.appendChild(grid);
-}
-function addManualPhoto() {
-  // Trigger the hidden input (kept for btn-add-photo button compatibility)
-  const input = document.getElementById('manual-file-hidden');
-  if (input) { input.click(); } else {
-    renderManualPhotoInputs();
-    setTimeout(() => document.getElementById('manual-file-hidden')?.click(), 50);
-  }
-}
-async function onManualPhotoChange(e) {
-  const files = Array.from(e.target.files);
-  if (!files.length) return;
-  toast('Processing photos...');
-  try {
-    for (const file of files) {
-      const src = await processPhotoFile(file, 16 / 9);
-      photoList.push({src});
-    }
-    renderManualPhotoInputs();
-    renderManualPhotoPreview();
-    toast('Photos added!', 'success');
-  } catch (err) {
-    toast('Error loading photos: ' + err.message, 'error');
-  }
-  e.target.value = ''; // reset so same files can be re-selected
-}
-function removeManualPhoto(i) {
-  photoList.splice(i, 1);
-  renderManualPhotoInputs();
-  renderManualPhotoPreview();
-  toast('Photo removed', 'success');
-}
-function renderManualPhotoPreview() {
-  const section = document.getElementById('manual-photo-section');
-  const grid = document.getElementById('manual-photos-grid');
-  if (!section || !grid) return;
-  const uploaded = photoList.filter(p => p.src);
-  if (uploaded.length === 0) {
-    section.style.display = 'none';
-    grid.innerHTML = '';
-    fitPreviewScale();
-    return;
-  }
-  section.style.display = 'flex';
-  grid.innerHTML = '';
-  grid.dataset.count = uploaded.length; // for CSS dynamic grid layout
-  uploaded.forEach((p, i) => {
-    const wrap = document.createElement('div');
-    wrap.className = 'rpt-photo-wrap has-photo';
-    wrap.innerHTML = `<img src="${p.src}" alt="Photo ${i+1}">`;
-    grid.appendChild(wrap);
-  });
-  fitPreviewScale();
-}
-
-function buildWAMessage(){
-  const tgl = document.getElementById('input-tanggal').value;
-  const kelas = document.getElementById('input-kelas').value || '—';
-  const studentLines = students.map(s=>`*${s.nama}*\n${s.progress}`).join('\n\n');
-  return `Good afternoon parents, ✨\n\nHere is a quick update on our students' progress in today's class:\n\n📌 *Class:* ${kelas}\n📅 *Date:* ${formatDateLong(tgl, 'en')}\n\n${studentLines}\n\nThank you for your continued support! If you have any questions about today's lesson, feel free to reach out.\n\nHave a wonderful day! 😊`;
-}
-function updateWAPreview(){
-  document.getElementById('wa-bubble-text').textContent = buildWAMessage();
-}
-function updatePreview(){
-  const kelas = document.getElementById('input-kelas').value || '—';
-  const tgl = document.getElementById('input-tanggal').value;
-  document.getElementById('prev-kelas').textContent = kelas;
-  document.getElementById('prev-tanggal').textContent = formatDate(tgl);
-  updateWAPreview();
-  if (typeof updateMascots === 'function') updateMascots();
-}
 function getLessonTag(s) {
   if (!s) return '';
   if (s.lesson) {
@@ -360,67 +219,6 @@ function getLessonTag(s) {
   }
   const match = (s.progress || '').match(/Lesson\s+(\d+(?:\s*(?:&|and|,)\s*\d+)?)/i);
   return match ? match[0] : '';
-}
-
-function renderTable(){
-  const tbody = document.getElementById('prev-tbody');
-  tbody.innerHTML = '';
-  students.forEach(s => {
-    if(!s.nama && !s.progress) return;
-    
-    // Status dot: green = done, yellow = in progress / absent
-    const isInProgress = /in progress|working on|belum|excused|absent/i.test(s.progress || '');
-    const dotClass = isInProgress ? 'dot-progress' : 'dot-done';
-    
-    const lessonTag = getLessonTag(s);
-    
-    const div = document.createElement('div');
-    div.className = 'rpt-student-card';
-    div.innerHTML = `
-      <div class="card-status-col">
-        <div class="timeline-node"><span class="timeline-dot ${dotClass}"></span></div>
-      </div>
-      <div class="card-name-col">
-        <span class="student-name-text">${escHtml(s.nama) || '<em style="color:#94a3b8">—</em>'}</span>
-      </div>
-      <div class="card-lesson-col">
-        ${lessonTag ? `<span class="lesson-pill">${escHtml(lessonTag)}</span>` : ''}
-      </div>
-      <div class="card-progress-col">
-        ${formatProgressHTML(s.progress)}
-      </div>
-    `;
-    tbody.appendChild(div);
-  });
-  fitPreviewScale();
-}
-function renderInputs(){
-  const c = document.getElementById('students-container');
-  c.innerHTML = '';
-  students.forEach((s,i) => {
-    const div = document.createElement('div');
-    div.className = 'student-card';
-    div.innerHTML = `
-      <div class="student-card-header">
-        <div class="student-num">${i+1}</div>
-        <input type="text" placeholder="Student name…" value="${escHtml(s.nama)}" oninput="students[${i}].nama=this.value;renderTable()">
-        <button class="btn-del" onclick="removeStudent(${i})" title="Remove">×</button>
-      </div>
-      <textarea placeholder="Progress details or notes…" oninput="students[${i}].progress=this.value;renderTable()">${escHtml(s.progress)}</textarea>`;
-    c.appendChild(div);
-  });
-  renderTable();
-}
-function addStudent(){
-  students.push({nama:'',progress:''});
-  renderInputs();
-  const cards = document.querySelectorAll('#students-container .student-card');
-  if(cards.length) cards[cards.length-1].scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function removeStudent(i){
-  if(students.length<=1){toast('Minimum 1 student required.','error');return;}
-  students.splice(i,1);
-  renderInputs();
 }
 // ---- Auto Photo Management ----
 function renderAutoPhotoInputs() {
@@ -595,79 +393,11 @@ function canvasToJpegBlob(canvas, quality = 0.82) {
   return new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', quality));
 }
 
-async function downloadPNG(){
-  const btn=document.getElementById('btn-png'); btn.disabled=true; btn.textContent='Processing...';
-  toast('Creating image...');
-  try{
-    const canvas = await captureImage('report-preview');
-    const blob = await canvasToJpegBlob(canvas, 0.82);
-    const link = document.createElement('a');
-    const kelas = document.getElementById('input-kelas').value.replace(/\s+/g,'_')||'Report';
-    const rawTgl = document.getElementById('input-tanggal').value;
-    const tanggalFile = formatDateFile(rawTgl, autoLang);
-    link.download=`Meeting Report_${kelas}_${tanggalFile}.jpg`;
-    link.href = URL.createObjectURL(blob);
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
-    toast('Downloaded! (compressed JPEG)','success');
-  }catch(err){toast('Failed: '+err.message,'error');}
-  finally{btn.disabled=false; btn.textContent='Download PNG';}
-}
-async function openWhatsApp(){
-  const btn=document.getElementById('btn-wa'); btn.disabled=true; btn.textContent='Preparing...';
-  try{
-    const canvas = await captureImage('report-preview');
-    const blob = await canvasToJpegBlob(canvas, 0.82);
-    const link = document.createElement('a');
-    const kelas = document.getElementById('input-kelas').value.replace(/\s+/g,'_')||'Report';
-    const tanggal = formatDate(document.getElementById('input-tanggal').value);
-    link.download=`Meeting Report_${kelas}_${tanggal}.jpg`;
-    link.href = URL.createObjectURL(blob);
-    link.click();
-    setTimeout(() => URL.revokeObjectURL(link.href), 5000);
-    await new Promise(r=>setTimeout(r,800));
-    window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(buildWAMessage()),'_blank');
-    toast('Done!','success');
-  }catch(err){toast('Failed: '+err.message,'error');}
-  finally{btn.disabled=false; btn.textContent='Send to WhatsApp';}
-}
-async function copyWAMessage() {
-  try {
-    await navigator.clipboard.writeText(buildWAMessage());
-    toast('WhatsApp message copied!', 'success');
-  } catch(e) {
-    const ta = document.createElement('textarea');
-    ta.value = buildWAMessage();
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    toast('WhatsApp message copied!', 'success');
-  }
-}
-async function downloadPDF(){
-  const btn=document.getElementById('btn-pdf'); btn.disabled=true; btn.textContent='Processing...';
-  toast('Creating PDF...');
-  try{
-    const kelas=document.getElementById('input-kelas').value||'—';
-    const tanggal=formatDate(document.getElementById('input-tanggal').value);
-    await buildAndSavePDF({
-      kelas, tanggal,
-      photoStore: photoList.filter(p => p.src).map(p => p.src),
-      students,
-      labels: {
-        title: 'Student Progress Report',
-        labelKelas: 'Class: ', offsetKelas: 30,
-        labelTanggal: 'Date: ', offsetTanggal: 34,
-        colName: 'STUDENT NAME', colProgress: "TODAY'S PROGRESS",
-        photoEmpty: (i) => `Foto ${i} belum diupload`,
-        fileName: `Meeting_Report_${kelas.replace(/\s+/g,'_')}_${formatDateFile(document.getElementById('input-tanggal').value, autoLang)}`
-      }
-    });
-    toast('PDF downloaded!','success');
-  }catch(err){toast('Failed: '+err.message,'error');}
-  finally{btn.disabled=false; btn.textContent='Export PDF';}
-}
+// Aliases for export functions
+function downloadPNG() { return downloadAutoPNG(); }
+function openWhatsApp() { return openAutoWhatsApp(); }
+function copyWAMessage() { return copyAutoWAMessage(); }
+function downloadPDF() { return downloadAutoPDF(); }
 
 // ============================================================
 // AUTO TAB
@@ -1103,9 +833,7 @@ function updateMascots() {
   if (criteria === 'Junior') mascotSrc = 'img/cobee4.png';
   if (criteria === 'Kids') mascotSrc = 'img/cobee5.png';
   
-  const m1 = document.getElementById('manual-mascot');
   const m2 = document.getElementById('auto-mascot');
-  if (m1) m1.src = mascotSrc;
   if (m2) m2.src = mascotSrc;
 }
 
