@@ -44,6 +44,37 @@ function formatObjectives(objectives, lang) {
   return obj.join(', ') + `, ${andWord} ` + last;
 }
 
+function extractAction(template, nama, lang) {
+  if (!template) return '';
+  let t = template.trim();
+  if (lang === 'id') {
+    t = t.replace(/^(?:Pada pertemuan ini|Dalam sesi ini|Di pertemuan kali ini|Pada sesi kali ini|Dalam pertemuan kali ini|Di sesi ini),?\s*\{nama\}\s*/i, '');
+    t = t.replace(/^\{nama\}\s*/i, '');
+  } else {
+    t = t.replace(/^(?:In today's class|Today|In this session|In this class|In this final session|In this final class),?\s*\{nama\}\s*/i, '');
+    t = t.replace(/^\{nama\}\s*/i, '');
+  }
+  t = t.replace(/\{nama\}/g, nama);
+  if (t && t.length > 1) {
+    const firstWord = t.split(/\s+/)[0];
+    if (!/^[A-Z0-9]{2,}$/.test(firstWord)) {
+      t = t.charAt(0).toLowerCase() + t.slice(1);
+    }
+  }
+  return t;
+}
+
+function ensurePeriod(str) {
+  if (!str) return '';
+  return str.trim().replace(/\.+$/, '') + '.';
+}
+
+function pickVariant(variants, idx = 0, seed = 0) {
+  if (!variants || variants.length === 0) return '';
+  const i = Math.abs(((parseInt(idx) || 0) + (parseInt(seed) || 0)) % variants.length);
+  return variants[i];
+}
+
 
 function fitPreviewScale() {
   const scroll = document.getElementById('scroll-auto');
@@ -423,6 +454,7 @@ const LANG_UI = {
     lessonPlaceholder: '— Lesson —',
     lesson2Placeholder: '— Lesson ke-2 —',
     statusDone: '✓ Selesai 1 Lesson',
+    statusContinuedDone: '🔄 Selesai Melanjutkan (Lanjutan Minggu Lalu)',
     statusInProgress: '⏳ Belum Selesai (1 Lesson In Progress)',
     statusOneAndHalf: '🌖 Selesai 1.5 Lesson (1 Selesai + 1 Lanjut)',
     statusDouble: '🚀 Selesai 2 Lesson',
@@ -436,20 +468,54 @@ const LANG_UI = {
     errLesson2: 'Pilih lesson ke-2 terlebih dahulu!',
     errMinStudent: 'Minimum 1 siswa.',
     fallbackProgress: (nama, lessonNum, course, objectives) => {
-      if (!objectives || objectives.length === 0) return `${nama} telah menyelesaikan *Lesson ${lessonNum}* pada course ${course}.`;
-      return `Pada pertemuan ini, ${nama} telah menyelesaikan *Lesson ${lessonNum}*. ${nama} berhasil ${formatObjectives(objectives, 'id')}.`;
+      if (!objectives || objectives.length === 0) return `berhasil menyelesaikan *Lesson ${lessonNum}* pada course ${course}.`;
+      return `berhasil ${formatObjectives(objectives, 'id')}.`;
     },
-    inProgressText: (nama, lessonNum, lessonTitle, objectives) => {
-      if (!objectives || objectives.length === 0) return `${nama} sedang mempelajari *${lessonTitle}*. ${nama} telah memahami konsep dasarnya dan akan melanjutkan penyelesaian projek pada pertemuan berikutnya.`;
+    doneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+      const variants = [
+        `Pada pertemuan hari ini, ${nama} berhasil menyelesaikan *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `Dalam sesi ini, ${nama} telah menuntaskan materi *${lessonTitle}* dengan sangat baik. ${nama} ${ensurePeriod(action)}`,
+        `Di pertemuan kali ini, ${nama} menyelesaikan seluruh projek pada *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
+      ];
+      return pickVariant(variants, idx, seed);
+    },
+    continuedDoneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+      const variants = [
+        `Pada pertemuan hari ini, ${nama} melanjutkan dan menuntaskan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `Dalam sesi ini, ${nama} melanjutkan pengerjaan projek *${lessonTitle}* hingga tuntas. ${nama} ${ensurePeriod(action)}`,
+        `Di pertemuan kali ini, ${nama} berhasil menyelesaikan kelanjutan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `Pada pertemuan ini, ${nama} menuntaskan sisa materi dan projek *${lessonTitle}* dengan baik. ${nama} ${ensurePeriod(action)}`
+      ];
+      return pickVariant(variants, idx, seed);
+    },
+    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0) => {
       const partial = getPartialObjectives(objectives);
-      return `${nama} sedang mempelajari *${lessonTitle}*. Pada sesi ini, ${nama} sudah mulai memahami cara ${formatObjectives(partial, 'id')}. Sisa materi dan project akan dilanjutkan pada pertemuan berikutnya.`;
+      if (!objectives || objectives.length === 0) {
+        const variants = [
+          `${nama} saat ini sedang mempelajari *${lessonTitle}*. ${nama} telah memahami konsep dasarnya dan memulai projek, yang akan dilanjutkan pada pertemuan berikutnya.`,
+          `Dalam pertemuan hari ini, ${nama} tengah mengerjakan materi *${lessonTitle}*. ${nama} telah memahami konsep utamanya dan akan melanjutkan pengerjaannya di sesi berikutnya.`,
+          `Pada pertemuan ini, ${nama} mulai mengerjakan projek *${lessonTitle}*. Konsep dasar telah dipahami dengan baik dan akan diteruskan pada sesi selanjutnya.`
+        ];
+        return pickVariant(variants, idx, lessonNum);
+      }
+      const variants = [
+        `${nama} saat ini sedang mempelajari *${lessonTitle}*. Pada sesi ini, ${nama} sudah mulai memahami cara ${formatObjectives(partial, 'id')}. Projek ini akan dilanjutkan pada pertemuan berikutnya.`,
+        `Dalam sesi ini, ${nama} tengah mengerjakan projek *${lessonTitle}*. ${nama} sudah mulai mempelajari cara ${formatObjectives(partial, 'id')}, dan akan menyelesaikannya pada pertemuan berikutnya.`,
+        `Pada pertemuan kali ini, ${nama} mulai mempelajari materi *${lessonTitle}* dan memahami cara ${formatObjectives(partial, 'id')}. Sisa materi dan projek akan dilanjutkan pada pertemuan selanjutnya.`
+      ];
+      return pickVariant(variants, idx, lessonNum);
     },
-    oneAndHalfText: (nama, l1Num, t1, l2Num, l2Title, obj2) => {
-      if (!obj2 || obj2.length === 0) return `${nama} menyelesaikan *Lesson ${l1Num}* hari ini — ${t1} Selanjutnya, ${nama} mulai memasuki materi *${l2Title}*, yang akan dilanjutkan pada pertemuan berikutnya.`;
-      const partial = getPartialObjectives(obj2);
-      return `${nama} menyelesaikan *Lesson ${l1Num}* hari ini — ${t1} Selanjutnya, ${nama} mulai memasuki materi *${l2Title}* dan sudah mulai memahami cara ${formatObjectives(partial, 'id')}. Materi ini akan dilanjutkan pada pertemuan berikutnya.`;
+    oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0) => {
+      const variants = [
+        `Pada pertemuan hari ini, ${nama} berhasil menyelesaikan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Selanjutnya, ${nama} mulai mempelajari *${l2Title}*, yang akan dilanjutkan pada pertemuan berikutnya.`,
+        `Dalam sesi ini, ${nama} telah menuntaskan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Setelah itu, ${nama} langsung melangkah ke materi *${l2Title}* yang akan diteruskan pada sesi mendatang.`,
+        `Di pertemuan kali ini, ${nama} menyelesaikan *${l1Title}* dengan baik. ${nama} ${ensurePeriod(action1)} ${nama} kemudian mulai mengerjakan *${l2Title}*, dan akan melanjutkannya di pertemuan berikutnya.`
+      ];
+      return pickVariant(variants, idx, l1Num);
     },
-    doubleText: (nama, l1Num, t1, l2Num, t2) => `${nama} telah menyelesaikan 2 lesson pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*).\n\n• *Lesson ${l1Num}*: ${t1}\n• *Lesson ${l2Num}*: ${t2}`,
+    doubleText: (nama, l1Num, l1Title, action1, l2Num, l2Title, action2) => {
+      return `${nama} telah menyelesaikan 2 lesson pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`;
+    },
     waGreeting: (kelas, tgl) => `Selamat siang Bapak/Ibu Parents, ✨\n\nBerikut adalah laporan ringkas mengenai aktivitas dan perkembangan belajar anak-anak pada pertemuan kelas hari ini:\n\n📌 *Kelas:* ${kelas}\n📅 *Tanggal:* ${tgl}`,
     waClose: 'Terima kasih atas perhatian dan dukungan Bapak/Ibu. Jika ada pertanyaan mengenai materi hari ini, jangan ragu untuk menghubungi kami.\n\nSemoga harinya menyenangkan! 😊',
     pdfTitle: 'Laporan Progress Siswa',
@@ -476,6 +542,7 @@ const LANG_UI = {
     lessonPlaceholder: '— Lesson —',
     lesson2Placeholder: '— 2nd Lesson —',
     statusDone: '✓ Completed 1 Lesson',
+    statusContinuedDone: '🔄 Continued & Completed (From Previous Session)',
     statusInProgress: '⏳ In Progress (1 Unfinished Lesson)',
     statusOneAndHalf: '🌖 Completed 1.5 Lessons (1 Finished + 1 In Progress)',
     statusDouble: '🚀 Completed 2 Lessons',
@@ -489,20 +556,54 @@ const LANG_UI = {
     errLesson2: 'Please select the 2nd lesson first!',
     errMinStudent: 'Minimum 1 student.',
     fallbackProgress: (nama, lessonNum, course, objectives) => {
-      if (!objectives || objectives.length === 0) return `${nama} completed *Lesson ${lessonNum}* in the ${course} course today.`;
-      return `In today's session, ${nama} completed *Lesson ${lessonNum}*. ${nama} successfully learned to ${formatObjectives(objectives, 'en')}.`;
+      if (!objectives || objectives.length === 0) return `completed *Lesson ${lessonNum}* in the ${course} course.`;
+      return `successfully learned to ${formatObjectives(objectives, 'en')}.`;
     },
-    inProgressText: (nama, lessonNum, lessonTitle, objectives) => {
-      if (!objectives || objectives.length === 0) return `${nama} is currently working on *${lessonTitle}*. ${nama} has understood the core concepts and will continue the project in the next session.`;
+    doneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+      const variants = [
+        `In today's session, ${nama} successfully completed *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `In this session, ${nama} completed *${lessonTitle}* with great progress. ${nama} ${ensurePeriod(action)}`,
+        `In today's class, ${nama} finished all the materials in *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
+      ];
+      return pickVariant(variants, idx, seed);
+    },
+    continuedDoneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+      const variants = [
+        `In today's session, ${nama} continued and successfully completed the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `In this session, ${nama} resumed and finished up *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `In today's class, ${nama} continued working on *${lessonTitle}* and successfully wrapped it up. ${nama} ${ensurePeriod(action)}`,
+        `Today, ${nama} finalized the remaining parts of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
+      ];
+      return pickVariant(variants, idx, seed);
+    },
+    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0) => {
       const partial = getPartialObjectives(objectives);
-      return `${nama} is currently working on *${lessonTitle}*. In this session, ${nama} has started learning how to ${formatObjectives(partial, 'en')}. The remaining materials and project will be continued in the next session.`;
+      if (!objectives || objectives.length === 0) {
+        const variants = [
+          `${nama} is currently working on *${lessonTitle}*. ${nama} has understood the core concepts and started the project, which will be continued in the next session.`,
+          `In today's session, ${nama} is learning *${lessonTitle}*. ${nama} has grasped the key concepts and will continue the project in the next class.`,
+          `${nama} has started working on *${lessonTitle}* today. The core ideas were well understood, and the project will be continued in the next meeting.`
+        ];
+        return pickVariant(variants, idx, lessonNum);
+      }
+      const variants = [
+        `${nama} is currently working on *${lessonTitle}*. In this session, ${nama} has started learning how to ${formatObjectives(partial, 'en')}. The project will be continued in the next session.`,
+        `In today's session, ${nama} is learning *${lessonTitle}*. ${nama} has begun exploring how to ${formatObjectives(partial, 'en')}, which will be continued in the next class.`,
+        `${nama} is progressing through *${lessonTitle}* today and started learning how to ${formatObjectives(partial, 'en')}. The remaining project will be completed in the next meeting.`
+      ];
+      return pickVariant(variants, idx, lessonNum);
     },
-    oneAndHalfText: (nama, l1Num, t1, l2Num, l2Title, obj2) => {
-      if (!obj2 || obj2.length === 0) return `${nama} completed *Lesson ${l1Num}* today — ${t1} ${nama} then started *${l2Title}*, which will be continued in the next session.`;
-      const partial = getPartialObjectives(obj2);
-      return `${nama} completed *Lesson ${l1Num}* today — ${t1} ${nama} then started *${l2Title}* and has begun learning how to ${formatObjectives(partial, 'en')}. This will be continued in the next session.`;
+    oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0) => {
+      const variants = [
+        `In today's session, ${nama} successfully completed *${l1Title}*. ${nama} ${ensurePeriod(action1)} ${nama} then began working on *${l2Title}*, which will be continued in the next session.`,
+        `In this session, ${nama} finished *${l1Title}*. ${nama} ${ensurePeriod(action1)} Afterward, ${nama} moved on to *${l2Title}*, which will be continued in the next class.`,
+        `In today's class, ${nama} completed *${l1Title}* with great enthusiasm. ${nama} ${ensurePeriod(action1)} ${nama} then started exploring *${l2Title}*, to be continued in the next meeting.`
+      ];
+      return pickVariant(variants, idx, l1Num);
     },
-    doubleText: (nama, l1Num, t1, l2Num, t2) => `${nama} completed 2 lessons in today's session (*Lesson ${l1Num}* & *Lesson ${l2Num}*).\n\n• *Lesson ${l1Num}*: ${t1}\n• *Lesson ${l2Num}*: ${t2}`,
+    doubleText: (nama, l1Num, l1Title, action1, l2Num, l2Title, action2) => {
+      return `${nama} completed 2 lessons in today's session (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`;
+    },
     waGreeting: (kelas, tgl) => `Good afternoon parents, ✨\n\nHere is a quick update on our students' progress in today's class:\n\n📌 *Class:* ${kelas}\n📅 *Date:* ${tgl}`,
     waClose: 'Thank you for your continued support! If you have any questions about today\'s lesson, feel free to reach out.\n\nHave a wonderful day! 😊',
     pdfTitle: 'Student Progress Report',
@@ -651,25 +752,34 @@ function generateProgress(idx) {
   const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
   const l2Obj = (courseList && s.lesson2) ? courseList.find(item => item.num == s.lesson2) : null;
 
-  let text = '';
+  const l1Title = l1Obj ? l1Obj.title : `Lesson ${s.lesson}`;
+  const l2Title = l2Obj ? l2Obj.title : `Lesson ${s.lesson2}`;
+
   const templateMap = sLang === 'en' ? TEMPLATES_EN : TEMPLATES;
-  const t1 = (templateMap[s.course] && templateMap[s.course][s.lesson])
-    ? templateMap[s.course][s.lesson].replace(/{nama}/g, s.nama)
+  const raw1 = (templateMap[s.course] && templateMap[s.course][s.lesson])
+    ? templateMap[s.course][s.lesson]
+    : '';
+  const action1 = raw1
+    ? extractAction(raw1, s.nama, sLang)
     : L.fallbackProgress(s.nama, s.lesson, s.course, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
 
+  let text = '';
   if (s.status === 'done') {
-    text = t1;
+    text = L.doneText(s.nama, l1Title, action1, idx, s.lesson);
+  } else if (s.status === 'continued_done') {
+    text = L.continuedDoneText(s.nama, l1Title, action1, idx, s.lesson);
   } else if (s.status === 'in_progress') {
-    const lessonTitle = l1Obj ? l1Obj.title : `Lesson ${s.lesson}`;
-    text = L.inProgressText(s.nama, s.lesson, lessonTitle, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
+    text = L.inProgressText(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], idx);
   } else if (s.status === 'one_and_half') {
-    const l2Title = l2Obj ? l2Obj.title : `Lesson ${s.lesson2}`;
-    text = L.oneAndHalfText(s.nama, s.lesson, t1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
+    text = L.oneAndHalfText(s.nama, s.lesson, l1Title, action1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : [], idx);
   } else if (s.status === 'double') {
-    const t2 = (templateMap[s.course] && templateMap[s.course][s.lesson2])
-      ? templateMap[s.course][s.lesson2].replace(/{nama}/g, s.nama)
+    const raw2 = (templateMap[s.course] && templateMap[s.course][s.lesson2])
+      ? templateMap[s.course][s.lesson2]
+      : '';
+    const action2 = raw2
+      ? extractAction(raw2, s.nama, sLang)
       : L.fallbackProgress(s.nama, s.lesson2, s.course, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
-    text = L.doubleText(s.nama, s.lesson, t1, s.lesson2, t2);
+    text = L.doubleText(s.nama, s.lesson, l1Title, action1, s.lesson2, l2Title, action2);
   }
 
   s.progress = text;
@@ -739,6 +849,7 @@ function renderAutoInputs(){
           </select>
           <select id="auto-status-${i}" onchange="onStatusChange(${i},this)" style="flex:1.4;min-width:140px;">
             <option value="done" ${sStatus==='done'?'selected':''}>${L.statusDone}</option>
+            <option value="continued_done" ${sStatus==='continued_done'?'selected':''}>${L.statusContinuedDone}</option>
             <option value="in_progress" ${sStatus==='in_progress'?'selected':''}>${L.statusInProgress}</option>
             <option value="one_and_half" ${sStatus==='one_and_half'?'selected':''}>${L.statusOneAndHalf}</option>
             <option value="double" ${sStatus==='double'?'selected':''}>${L.statusDouble}</option>
@@ -785,7 +896,7 @@ function autoUpdateTable(){
     if(!s.nama && !s.progress) return;
     
     // Status dot color
-    const isDone = s.status === 'done' || s.status === 'double';
+    const isDone = s.status === 'done' || s.status === 'double' || s.status === 'continued_done';
     const dotClass = isDone ? 'dot-done' : 'dot-progress';
     
     const lessonTag = getLessonTag(s);
@@ -849,14 +960,24 @@ function buildAutoWAMessage(){
       const courseList = COURSE_DATA[s.course];
       const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
       
-      const isDone = (s.status === 'done' || s.status === 'double');
-      const statusText = isDone ? (autoLang==='en'?'(Completed)':'(Selesai)') : (autoLang==='en'?'(In Progress)':'(Sedang Dikerjakan)');
+      let statusText = '';
+      if (s.status === 'done' || s.status === 'continued_done') {
+        statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
+      } else if (s.status === 'in_progress') {
+        statusText = autoLang === 'en' ? '(In Progress)' : '(Sedang Dikerjakan)';
+      } else if (s.status === 'double') {
+        statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
+      }
       
-      if ((s.status === 'double' || s.status === 'one_and_half') && s.lesson2) {
-         shortSummary = `Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
+      if (s.status === 'double' && s.lesson2) {
+        shortSummary = `Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
+      } else if (s.status === 'one_and_half' && s.lesson2) {
+        const l1Status = autoLang === 'en' ? 'Completed' : 'Selesai';
+        const l2Status = autoLang === 'en' ? 'In Progress' : 'Sedang Dikerjakan';
+        shortSummary = `Lesson ${s.lesson} (${l1Status}) & Lesson ${s.lesson2} (${l2Status})`;
       } else if (l1Obj) {
-         let cleanTitle = l1Obj.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
-         shortSummary = `Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
+        let cleanTitle = l1Obj.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
+        shortSummary = `Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
       }
     }
     
@@ -923,7 +1044,7 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     doc.setDrawColor(226,232,240);doc.setLineWidth(0.2);doc.line(TABLE_X,rowY+cellH,TABLE_X+TABLE_W,rowY+cellH);
     
     // Status dot
-    const isDone = s.status === 'done' || s.status === 'double' || !/in progress|working on|belum|absent/i.test(s.progress||'');
+    const isDone = s.status === 'done' || s.status === 'double' || s.status === 'continued_done' || !/in progress|working on|sedang mempelajari|belum|absent/i.test(s.progress||'');
     doc.setFillColor(...(isDone ? [22,163,74] : [245,158,11]));
     doc.circle(TABLE_X+8,rowY+7,2.5,'F');
     
