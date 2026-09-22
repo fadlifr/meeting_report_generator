@@ -25,6 +25,8 @@
 | 8 | Python Coder | 16 lesson |
 | 9 | Python Game Developer | 16 lesson |
 | 10 | Python for AI | 16 lesson |
+| 11 | IoT Robotic 2024 | 16 lesson |
+| 12 | IoT Smart City | 24 lesson |
 
 ## Level: Teens
 
@@ -38,31 +40,50 @@
 | 6 | AI Computer Vision | 16 lesson |
 | 7 | AI Machine Learning | 16 lesson |
 
+## Level: Design
+
+| No | Course | Jumlah Lesson |
+|----|--------|---------------|
+| 1 | Teens Design Basic | 16 lesson |
+| 2 | Branding | 24 lesson |
+| 3 | Kids Animation Basic | 32 lesson |
+| 4 | Teens Animation | 24 lesson |
+| 5 | Advanced Animation | 24 lesson |
+| 6 | UI/UX | 24 lesson |
+
 ---
 
-**Total: 21 course, 440 lesson keseluruhan**
+**Total: 29 course, 624 lesson keseluruhan**
 
 ## Ringkasan (Plain Text)
 
 ```
 3D ANIMATOR: 24 lesson
+Advanced Animation: 24 lesson
 Advanced Lua Programming on Roblox: 24 lesson
 AI Computer Vision: 16 lesson
 AI Machine Learning: 16 lesson
 Android Developer: 16 lesson
+Branding: 24 lesson
 Code and Design with Roblox: 24 lesson
 Coding Explorer: 32 lesson
 Full Stack Programming on Roblox: 24 lesson
 Game Developer: 24 lesson
 Interactive Mechanics on Roblox: 24 lesson
+IoT Robotic 2024: 16 lesson
+IoT Smart City: 24 lesson
 JavaScript Developer: 16 lesson
+Kids Animation Basic: 32 lesson
 Little Programmer: 24 lesson
 Python Coder: 16 lesson
 Python for AI: 16 lesson
 Python for Data Science: 16 lesson
 Python Game Developer: 16 lesson
 Tech Explorer: 24 lesson
+Teens Animation: 24 lesson
+Teens Design Basic: 16 lesson
 Teens Programmer: 24 lesson
+UI/UX: 24 lesson
 Virtual World Maker: 24 lesson
 Web Developer Teens: 24 lesson
 Website Designer: 16 lesson

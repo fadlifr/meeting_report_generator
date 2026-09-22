@@ -843,6 +843,7 @@ function renderAutoInputs(){
             <option value="Junior" ${s.criteria==='Junior'?'selected':''}>Junior</option>
             <option value="Kids" ${s.criteria==='Kids'?'selected':''}>Kids</option>
             <option value="Teens" ${s.criteria==='Teens'?'selected':''}>Teens</option>
+            <option value="Design" ${s.criteria==='Design'?'selected':''}>Design</option>
           </select>
           <select id="auto-course-${i}" onchange="onCourseChange(${i},this)" style="flex:1.8;min-width:130px;">
             <option value="">${L.coursePlaceholder}</option>
@@ -943,6 +944,7 @@ function updateMascots() {
   let mascotSrc = 'img/cobee2.png'; // Teens (Default)
   if (criteria === 'Junior') mascotSrc = 'img/cobee4.png';
   if (criteria === 'Kids') mascotSrc = 'img/cobee5.png';
+  if (criteria === 'Design') mascotSrc = 'img/cobee2.png';
   
   const m2 = document.getElementById('auto-mascot');
   if (m2) m2.src = mascotSrc;
@@ -1085,7 +1087,7 @@ function checkExamReminder(callback) {
   pendingExamStudents = autoStudents.filter(s => {
     const l1 = parseInt(s.lesson) || 0;
     const l2 = parseInt(s.lesson2) || 0;
-    const isExam = (l1 == 8 || l1 == 16 || l1 == 24 || l2 == 8 || l2 == 16 || l2 == 24);
+    const isExam = (l1 == 8 || l1 == 16 || l1 == 24 || l1 == 32 || l2 == 8 || l2 == 16 || l2 == 24 || l2 == 32);
     const isFinished = s.status !== 'in_progress';
     return isExam && isFinished;
   });

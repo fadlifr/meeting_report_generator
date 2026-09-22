@@ -514,6 +514,7 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .badge-junior{background:#fef3c7;color:#92400e;}
 .badge-kids{background:#dbeafe;color:#1e40af;}
 .badge-teens{background:#ede9fe;color:#5b21b6;}
+.badge-design{background:#fce7f3;color:#9d174d;}
 
 /* Responsive Web Layout */
 @media (max-width: 1200px) {

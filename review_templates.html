@@ -67,6 +67,7 @@
     .toc-level-label.junior { color: var(--purple); }
     .toc-level-label.kids { color: var(--blue); }
     .toc-level-label.teens { color: var(--amber); }
+    .toc-level-label.design { color: #db2777; }
     .toc-link {
       font-size: 12px; font-weight: 600; color: var(--green);
       text-decoration: none; padding: 3px 8px;
@@ -87,6 +88,7 @@
     .level-header.junior { background: linear-gradient(135deg, #7c3aed, #6d28d9); }
     .level-header.kids   { background: linear-gradient(135deg, #1d4ed8, #2563eb); }
     .level-header.teens  { background: linear-gradient(135deg, #b45309, #d97706); }
+    .level-header.design { background: linear-gradient(135deg, #db2777, #be185d); }
     .level-emoji { font-size: 28px; }
     .level-title { font-size: 22px; font-weight: 800; color: white; }
     .level-sub { font-size: 12px; color: rgba(255,255,255,.75); font-weight: 600; margin-left: auto; }
@@ -105,6 +107,7 @@
     .junior .course-pill { background: var(--purple-light); color: var(--purple); }
     .kids   .course-pill { background: var(--blue-light); color: var(--blue); }
     .teens  .course-pill { background: var(--amber-light); color: var(--amber); }
+    .design .course-pill { background: #fce7f3; color: #db2777; }
     .course-name { font-size: 17px; font-weight: 800; color: var(--slate); }
     .lesson-count { font-size: 12px; color: var(--muted); font-weight: 600; margin-left: auto; white-space: nowrap; }
 
@@ -247,6 +250,7 @@ const LEVELS = [
   { key: 'junior', label: 'Junior', emoji: '🌱', courses: COURSE_MAP['Junior'] },
   { key: 'kids',   label: 'Kids',   emoji: '🎮', courses: COURSE_MAP['Kids'] },
   { key: 'teens',  label: 'Teens',  emoji: '🚀', courses: COURSE_MAP['Teens'] },
+  { key: 'design', label: 'Design', emoji: '🎨', courses: COURSE_MAP['Design'] },
 ];
 
 function applyName(str) {
