@@ -901,6 +901,11 @@ function autoUpdateTable(){
     const dotClass = isDone ? 'dot-done' : 'dot-progress';
     
     const lessonTag = getLessonTag(s);
+    let courseName = s.course || '';
+    if (!courseName && s.progress && typeof COURSE_DATA !== 'undefined') {
+      const found = Object.keys(COURSE_DATA).find(c => s.progress.includes(c));
+      if (found) courseName = found;
+    }
     
     const div = document.createElement('div');
     div.className = 'rpt-student-card';
@@ -912,6 +917,7 @@ function autoUpdateTable(){
         <span class="student-name-text">${escHtml(s.nama) || '<em style="color:#94a3b8">—</em>'}</span>
       </div>
       <div class="card-lesson-col">
+        ${courseName ? `<div class="card-course-title">${escHtml(courseName)}</div>` : ''}
         ${lessonTag ? `<span class="lesson-pill">${escHtml(lessonTag)}</span>` : ''}
       </div>
       <div class="card-progress-col">
@@ -971,15 +977,16 @@ function buildAutoWAMessage(){
         statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
       }
       
+      const coursePrefix = s.course ? `${s.course} - ` : '';
       if (s.status === 'double' && s.lesson2) {
-        shortSummary = `Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
+        shortSummary = `${coursePrefix}Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
       } else if (s.status === 'one_and_half' && s.lesson2) {
         const l1Status = autoLang === 'en' ? 'Completed' : 'Selesai';
         const l2Status = autoLang === 'en' ? 'In Progress' : 'Sedang Dikerjakan';
-        shortSummary = `Lesson ${s.lesson} (${l1Status}) & Lesson ${s.lesson2} (${l2Status})`;
+        shortSummary = `${coursePrefix}Lesson ${s.lesson} (${l1Status}) & Lesson ${s.lesson2} (${l2Status})`;
       } else if (l1Obj) {
         let cleanTitle = l1Obj.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
-        shortSummary = `Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
+        shortSummary = `${coursePrefix}Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
       }
     }
     
@@ -1025,13 +1032,13 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     photoSectionBottom = PHOTO_Y + PH;
   }
   
-  const TABLE_X=MARGIN,TABLE_W=W-MARGIN*2,COL_NAME_W=44,COL_LESSON_W=32;
+  const TABLE_X=MARGIN,TABLE_W=W-MARGIN*2,COL_NAME_W=38,COL_LESSON_W=48;
   let rowY=photoSectionBottom+8;const HEADER_H=9;
   doc.setFillColor(...G_DARK);doc.roundedRect(TABLE_X,rowY,TABLE_W,HEADER_H,2,2,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(8.5);doc.setTextColor(...WHITE);
   doc.text('STATUS',TABLE_X+4,rowY+6);
   doc.text(labels.colName,TABLE_X+18,rowY+6);
-  doc.text('LESSON',TABLE_X+18+COL_NAME_W,rowY+6);
+  doc.text('COURSE & LESSON',TABLE_X+18+COL_NAME_W,rowY+6);
   doc.text(labels.colProgress,TABLE_X+18+COL_NAME_W+COL_LESSON_W,rowY+6);
   rowY+=HEADER_H;
   
@@ -1040,7 +1047,17 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     if(!s.nama&&!s.progress)return;
     const plainText = (s.progress||'—').replace(/\*/g,'');
     const lines=doc.splitTextToSize(plainText,TABLE_W-COL_NAME_W-COL_LESSON_W-24);
-    const cellH=Math.max(12,lines.length*5+8);
+    
+    let courseName = s.course || '';
+    if (!courseName && s.progress && typeof COURSE_DATA !== 'undefined') {
+      const found = Object.keys(COURSE_DATA).find(c => s.progress.includes(c));
+      if (found) courseName = found;
+    }
+    const lessonTag = getLessonTag(s);
+    const courseLines = courseName ? doc.splitTextToSize(courseName, COL_LESSON_W - 4) : [];
+    const minH = Math.max(12, courseLines.length * 3.8 + (lessonTag ? 8 : 4));
+    const cellH = Math.max(minH, lines.length * 5 + 8);
+    
     if(rowY+cellH>H-20){doc.addPage();rowY=20;}
     if(idx%2===0){doc.setFillColor(...G_LIGHT);doc.rect(TABLE_X,rowY,TABLE_W,cellH,'F');}
     doc.setDrawColor(226,232,240);doc.setLineWidth(0.2);doc.line(TABLE_X,rowY+cellH,TABLE_X+TABLE_W,rowY+cellH);
@@ -1054,13 +1071,21 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     doc.setFont('helvetica','bold');doc.setTextColor(...G_DARK);
     doc.text(s.nama||'—',TABLE_X+18,rowY+6.5);
     
-    // Lesson Pill
-    const lessonTag = getLessonTag(s);
+    // Course & Lesson
+    let curY = rowY + 5.5;
+    if (courseName && courseLines.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(30, 41, 59);
+      doc.text(courseLines, TABLE_X + 18 + COL_NAME_W, curY);
+      curY += courseLines.length * 3.8 + 1.5;
+    }
     if(lessonTag){
-      doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(21,128,61);
+      doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(21,128,61);
       doc.setFillColor(240,253,244);
-      doc.roundedRect(TABLE_X+18+COL_NAME_W,rowY+3.5,doc.getTextWidth(lessonTag)+6,5,1.5,1.5,'F');
-      doc.text(lessonTag,TABLE_X+21+COL_NAME_W,rowY+7);
+      const pillW = doc.getTextWidth(lessonTag) + 5;
+      doc.roundedRect(TABLE_X+18+COL_NAME_W, curY - 3, pillW, 4.5, 1.2, 1.2, 'F');
+      doc.text(lessonTag, TABLE_X + 20 + COL_NAME_W, curY);
       doc.setFontSize(9);
     }
     
