@@ -1,0 +1,9 @@
+# Cloudflare Pages Custom Headers to prevent browser cache holding stale assets
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/js/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/css/*
+  Cache-Control: no-cache, no-store, must-revalidate
