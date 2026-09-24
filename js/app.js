@@ -240,6 +240,83 @@ function processPhotoFile(file, targetRatio = 16 / 9, maxDimension = 1920) {
   });
 }
 
+function getStudentCourse(s) {
+  if (!s) return '';
+  if (s.course && typeof s.course === 'string' && s.course.trim()) {
+    return s.course.trim();
+  }
+
+  // Fallback: Infer from s.progress
+  if (s.progress && typeof COURSE_DATA !== 'undefined') {
+    const progLower = s.progress.toLowerCase();
+
+    // 1. Check exact / case-insensitive course names from COURSE_DATA (longest first)
+    const courseKeys = Object.keys(COURSE_DATA).sort((a, b) => b.length - a.length);
+    for (const c of courseKeys) {
+      if (progLower.includes(c.toLowerCase())) {
+        return c;
+      }
+    }
+
+    // 2. Check common variations and aliases
+    const aliases = [
+      { key: 'Interactive Mechanics on Roblox', terms: ['interactive mechanics on roblox', 'interactive mechanics', 'mechanics on roblox'] },
+      { key: 'Code and Design with Roblox', terms: ['code and design with roblox', 'code and design'] },
+      { key: 'Full Stack Programming on Roblox', terms: ['full stack programming on roblox', 'full stack programming', 'full stack on roblox'] },
+      { key: 'Advanced Lua Programming on Roblox', terms: ['advanced lua programming on roblox', 'advanced lua programming', 'advanced lua'] },
+      { key: 'Game Developer', terms: ['game developer', 'game dev'] },
+      { key: 'Coding Explorer', terms: ['coding explorer'] },
+      { key: 'Tech Explorer', terms: ['tech explorer'] },
+      { key: 'Python Coder', terms: ['python coder'] },
+      { key: 'Python Game Developer', terms: ['python game developer'] },
+      { key: 'Python for AI', terms: ['python for ai', 'python ai'] },
+      { key: 'IoT Robotic 2024', terms: ['iot robotic 2024', 'iot robotic'] },
+      { key: 'IoT Smart City', terms: ['iot smart city'] },
+      { key: 'Little Programmer', terms: ['little programmer'] },
+      { key: '3D ANIMATOR', terms: ['3d animator', '3d animation'] },
+      { key: 'Website Designer', terms: ['website designer'] },
+      { key: 'Virtual World Maker', terms: ['virtual world maker'] },
+      { key: 'Teens Programmer', terms: ['teens programmer'] },
+      { key: 'JavaScript Developer', terms: ['javascript developer', 'javascript dev'] },
+      { key: 'Web Developer Teens', terms: ['web developer teens', 'web developer'] },
+      { key: 'Android Developer', terms: ['android developer'] },
+      { key: 'Python for Data Science', terms: ['python for data science', 'data science'] },
+      { key: 'AI Computer Vision', terms: ['ai computer vision', 'computer vision'] },
+      { key: 'AI Machine Learning', terms: ['ai machine learning', 'machine learning'] },
+      { key: 'Teens Design Basic', terms: ['teens design basic', 'design basic'] },
+      { key: 'Branding', terms: ['branding'] },
+      { key: 'Kids Animation Basic', terms: ['kids animation basic', 'kids animation'] },
+      { key: 'Teens Animation', terms: ['teens animation'] },
+      { key: 'Advanced Animation', terms: ['advanced animation'] },
+      { key: 'UI/UX', terms: ['ui/ux', 'ui ux', 'uiux'] }
+    ];
+
+    for (const a of aliases) {
+      for (const term of a.terms) {
+        if (progLower.includes(term)) {
+          return a.key;
+        }
+      }
+    }
+
+    // 3. Check unique lesson titles in COURSE_DATA
+    for (const [cName, lessons] of Object.entries(COURSE_DATA)) {
+      if (Array.isArray(lessons)) {
+        for (const l of lessons) {
+          if (l.title) {
+            const cleanTitle = l.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '').trim();
+            if (cleanTitle.length > 5 && progLower.includes(cleanTitle.toLowerCase())) {
+              return cName;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return '';
+}
+
 function getLessonTag(s) {
   if (!s) return '';
   if (s.lesson) {
@@ -248,8 +325,11 @@ function getLessonTag(s) {
     }
     return `Lesson ${s.lesson}`;
   }
-  const match = (s.progress || '').match(/Lesson\s+(\d+(?:\s*(?:&|and|,)\s*\d+)?)/i);
-  return match ? match[0] : '';
+  const match = (s.progress || '').match(/Lesson\s+(\d+(?:\s*(?:&|and|dan|,)\s*\d+)?)/i);
+  if (match) {
+    return match[0].replace(/\s*(?:and|dan)\s*/i, ' & ');
+  }
+  return '';
 }
 // ---- Auto Photo Management ----
 function renderAutoPhotoInputs() {
@@ -893,7 +973,8 @@ function removeAutoStudent(i){
 function autoUpdateTable(){
   const tbody = document.getElementById('aprev-tbody');
   tbody.innerHTML = '';
-  autoStudents.forEach(s => {
+  autoStudents.forEach((s, idx) => {
+    syncStudentFromDOM(idx);
     if(!s.nama && !s.progress) return;
     
     // Status dot color
@@ -901,11 +982,7 @@ function autoUpdateTable(){
     const dotClass = isDone ? 'dot-done' : 'dot-progress';
     
     const lessonTag = getLessonTag(s);
-    let courseName = s.course || '';
-    if (!courseName && s.progress && typeof COURSE_DATA !== 'undefined') {
-      const found = Object.keys(COURSE_DATA).find(c => s.progress.includes(c));
-      if (found) courseName = found;
-    }
+    const courseName = getStudentCourse(s);
     
     const div = document.createElement('div');
     div.className = 'rpt-student-card';
@@ -964,8 +1041,11 @@ function buildAutoWAMessage(){
     if(!s.nama && !s.progress) return '';
     
     let shortSummary = s.progress || '-';
-    if (s.course && s.lesson) {
-      const courseList = COURSE_DATA[s.course];
+    const courseName = getStudentCourse(s);
+    const lessonTag = getLessonTag(s);
+    
+    if (courseName && s.lesson) {
+      const courseList = (typeof COURSE_DATA !== 'undefined') ? COURSE_DATA[courseName] : null;
       const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
       
       let statusText = '';
@@ -977,7 +1057,7 @@ function buildAutoWAMessage(){
         statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
       }
       
-      const coursePrefix = s.course ? `${s.course} - ` : '';
+      const coursePrefix = courseName ? `${courseName} - ` : '';
       if (s.status === 'double' && s.lesson2) {
         shortSummary = `${coursePrefix}Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
       } else if (s.status === 'one_and_half' && s.lesson2) {
@@ -988,6 +1068,8 @@ function buildAutoWAMessage(){
         let cleanTitle = l1Obj.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
         shortSummary = `${coursePrefix}Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
       }
+    } else if (courseName && lessonTag) {
+      shortSummary = `${courseName} - ${lessonTag}`;
     }
     
     return `*${s.nama||'-'}*\n${shortSummary}`;
@@ -1048,11 +1130,7 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     const plainText = (s.progress||'—').replace(/\*/g,'');
     const lines=doc.splitTextToSize(plainText,TABLE_W-COL_NAME_W-COL_LESSON_W-24);
     
-    let courseName = s.course || '';
-    if (!courseName && s.progress && typeof COURSE_DATA !== 'undefined') {
-      const found = Object.keys(COURSE_DATA).find(c => s.progress.includes(c));
-      if (found) courseName = found;
-    }
+    const courseName = getStudentCourse(s);
     const lessonTag = getLessonTag(s);
     const courseLines = courseName ? doc.splitTextToSize(courseName, COL_LESSON_W - 4) : [];
     const minH = Math.max(12, courseLines.length * 3.8 + (lessonTag ? 8 : 4));
@@ -1273,18 +1351,19 @@ window.initApp = function() {
   const _dd = String(_t.getDate()).padStart(2,'0');
   const todayVal = _t.getFullYear()+'-'+_mm+'-'+_dd;
 
-  document.getElementById('input-tanggal').value = todayVal;
-  document.getElementById('auto-tanggal').value = todayVal;
+  const tglInput = document.getElementById('auto-tanggal');
+  if (tglInput) tglInput.value = todayVal;
 
-  renderInputs();
-  updatePreview();
-
-  // Init auto tab with sample student in English
+  // Init auto tab with sample students matching user's courses
   autoStudents = [
-    {nama:'Batman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'12',status:'done',lang:'en'},
-    {nama:'Superman',progress:'',criteria:'Teens',course:'Game Developer',lesson:'13',status:'in progress',lang:'en'}
+    {nama:'Student One',progress:'',criteria:'Kids',course:'Interactive Mechanics on Roblox',lesson:'1',status:'done',lang:'en'},
+    {nama:'Student Two',progress:'',criteria:'Kids',course:'Game Developer',lesson:'18',lesson2:'19',status:'double',lang:'en'}
   ];
   setLang('en');
+  if (typeof generateProgress === 'function') {
+    generateProgress(0);
+    generateProgress(1);
+  }
   autoUpdatePreview();
   setTimeout(fitPreviewScale, 100);
 };
