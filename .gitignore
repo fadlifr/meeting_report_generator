@@ -1,7 +1,13 @@
 # Development notes
 PROMPT_BESOK*.md
+promt_besok*.md
 CARA_DEPLOY_CLOUDFLARE.md
 DAFTAR_COURSE_LESSON.md
+PHOTO_GALLERY_ANTI_STRETCH.md
+
+# Template exports & standalone scripts
+TEMPLATE_REPORT*
+export_templates.js
 
 # Raw data and scripts (DO NOT DEPLOY)
 _source/
@@ -17,3 +23,4 @@ Thumbs.db
 *.txt
 *.json
 encrypt_script.js
+
