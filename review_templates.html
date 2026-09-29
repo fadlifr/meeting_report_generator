@@ -68,6 +68,7 @@
     .toc-level-label.kids { color: var(--blue); }
     .toc-level-label.teens { color: var(--amber); }
     .toc-level-label.design { color: #db2777; }
+    .toc-level-label.pro { color: #0d9488; }
     .toc-link {
       font-size: 12px; font-weight: 600; color: var(--green);
       text-decoration: none; padding: 3px 8px;
@@ -89,6 +90,7 @@
     .level-header.kids   { background: linear-gradient(135deg, #1d4ed8, #2563eb); }
     .level-header.teens  { background: linear-gradient(135deg, #b45309, #d97706); }
     .level-header.design { background: linear-gradient(135deg, #db2777, #be185d); }
+    .level-header.pro    { background: linear-gradient(135deg, #0d9488, #0f766e); }
     .level-emoji { font-size: 28px; }
     .level-title { font-size: 22px; font-weight: 800; color: white; }
     .level-sub { font-size: 12px; color: rgba(255,255,255,.75); font-weight: 600; margin-left: auto; }
@@ -108,6 +110,7 @@
     .kids   .course-pill { background: var(--blue-light); color: var(--blue); }
     .teens  .course-pill { background: var(--amber-light); color: var(--amber); }
     .design .course-pill { background: #fce7f3; color: #db2777; }
+    .pro    .course-pill { background: #ccfbf1; color: #0f766e; }
     .course-name { font-size: 17px; font-weight: 800; color: var(--slate); }
     .lesson-count { font-size: 12px; color: var(--muted); font-weight: 600; margin-left: auto; white-space: nowrap; }
 
@@ -241,28 +244,57 @@
   </div>
 </div>
 
-<script src="js/secure_data.js?v=2.2.2"></script>
-<script src="js/auth.js?v=2.2.2"></script>
+<script src="js/secure_data.js?v=2.2.6"></script>
+<script src="js/auth.js?v=2.2.6"></script>
 <script>
 const STUDENT = 'Qianru';
 
 const LEVELS = [
-  { key: 'junior', label: 'Junior', emoji: '🌱', courses: COURSE_MAP['Junior'] },
+  { key: 'juniors', label: 'Juniors', emoji: '🌱', courses: COURSE_MAP['Juniors'] || COURSE_MAP['Junior'] },
   { key: 'kids',   label: 'Kids',   emoji: '🎮', courses: COURSE_MAP['Kids'] },
   { key: 'teens',  label: 'Teens',  emoji: '🚀', courses: COURSE_MAP['Teens'] },
   { key: 'design', label: 'Design', emoji: '🎨', courses: COURSE_MAP['Design'] },
+  { key: 'pro',    label: 'Pro',    emoji: '💻', courses: COURSE_MAP['Pro'] },
 ];
+
+const COURSE_LANG_NAMES = {
+  'Basic Website': { id: 'Website Basic', en: 'Website Development' },
+  'Website Basic': { id: 'Website Basic', en: 'Website Development' },
+  'Frontend Development': { id: 'Frontend Development', en: 'Frontend Development' },
+  'Backend Development': { id: 'Backend Development', en: 'Backend Development' },
+  'Mobile App Development': { id: 'Mobile App Development', en: 'Mobile App Development' },
+  'AI Development': { id: 'AI Development', en: 'AI Development' },
+  '3D ANIMATOR': { id: '3D Animator', en: '3D Animator' }
+};
+
+function getCourseNameLang(c, lang) {
+  if (COURSE_LANG_NAMES[c] && COURSE_LANG_NAMES[c][lang]) {
+    return COURSE_LANG_NAMES[c][lang];
+  }
+  return c;
+}
+
+function getCourseHeaderName(c) {
+  if (COURSE_LANG_NAMES[c] && COURSE_LANG_NAMES[c].id !== COURSE_LANG_NAMES[c].en) {
+    return `${COURSE_LANG_NAMES[c].en} (EN) / ${COURSE_LANG_NAMES[c].id} (ID)`;
+  }
+  return c;
+}
 
 function applyName(str) {
   return str ? str.replace(/\{nama\}/g, STUDENT) : null;
 }
 
 function getEN(course, num) {
-  return (TEMPLATES_EN && TEMPLATES_EN[course]) ? applyName(TEMPLATES_EN[course][String(num)]) : null;
+  if (!TEMPLATES_EN) return null;
+  const t = TEMPLATES_EN[course] || TEMPLATES_EN[getCourseNameLang(course, 'en')] || TEMPLATES_EN['Basic Website'];
+  return (t && t[String(num)]) ? applyName(t[String(num)]) : null;
 }
 
 function getID(course, num) {
-  return (TEMPLATES && TEMPLATES[course]) ? applyName(TEMPLATES[course][String(num)]) : null;
+  if (!TEMPLATES) return null;
+  const t = TEMPLATES[course] || TEMPLATES[getCourseNameLang(course, 'id')] || TEMPLATES['Basic Website'];
+  return (t && t[String(num)]) ? applyName(t[String(num)]) : null;
 }
 
 function esc(s) {
@@ -294,7 +326,7 @@ function buildReview() {
       const a = document.createElement('a');
       a.className = 'toc-link';
       a.href = '#' + anchor;
-      a.textContent = course;
+      a.textContent = getCourseHeaderName(course);
       tocGroup.appendChild(a);
     });
     toc.appendChild(tocGroup);
@@ -313,6 +345,8 @@ function buildReview() {
       totalCourses++;
       const anchor = 'c-' + course.replace(/[^a-zA-Z0-9]/g, '-');
       const lessons = COURSE_DATA[course] || [];
+      const courseEn = getCourseNameLang(course, 'en');
+      const courseId = getCourseNameLang(course, 'id');
 
       const courseBlock = document.createElement('div');
       courseBlock.className = `course-block ${level.key}`;
@@ -321,13 +355,13 @@ function buildReview() {
       let html = `
         <div class="course-header">
           <span class="course-pill">${level.label}</span>
-          <span class="course-name">${esc(course)}</span>
+          <span class="course-name">${esc(getCourseHeaderName(course))}</span>
           <span class="lesson-count">${lessons.length} lessons</span>
         </div>
         <div class="col-headers">
           <div class="col-label">#</div>
-          <div class="col-label">🇬🇧 English</div>
-          <div class="col-label">🇮🇩 Indonesia</div>
+          <div class="col-label">🇬🇧 English: <strong>${esc(courseEn)}</strong></div>
+          <div class="col-label">🇮🇩 Indonesia: <strong>${esc(courseId)}</strong></div>
         </div>
       `;
 
@@ -338,12 +372,15 @@ function buildReview() {
         if (!en) totalMissing++;
         if (!id) totalMissing++;
 
+        const titleEn = lesson.title_en || lesson.title;
+        const titleId = lesson.title_id || lesson.title;
+
         const enCell = en
-          ? `<div class="lesson-cell en"><div class="lang-flag en">EN</div><div>${esc(en)}</div></div>`
+          ? `<div class="lesson-cell en"><div class="lang-flag en">EN</div><div><div style="font-weight:700;font-size:12px;color:#1e3a8a;margin-bottom:6px;">${esc(titleEn)}</div>${esc(en)}</div></div>`
           : `<div class="missing-cell">⚠️ Template EN belum tersedia</div>`;
 
         const idCell = id
-          ? `<div class="lesson-cell id"><div class="lang-flag id">ID</div><div>${esc(id)}</div></div>`
+          ? `<div class="lesson-cell id"><div class="lang-flag id">ID</div><div><div style="font-weight:700;font-size:12px;color:#14532d;margin-bottom:6px;">${esc(titleId)}</div>${esc(id)}</div></div>`
           : `<div class="missing-cell">⚠️ Template ID belum tersedia</div>`;
 
         html += `
@@ -352,9 +389,17 @@ function buildReview() {
             ${enCell}
             ${idCell}
           </div>
-          <div class="lesson-title-row">${esc(lesson.title)}</div>
+          <div class="lesson-title-row">
+            <span style="font-weight:600;color:var(--slate2);">🇬🇧 ${esc(titleEn)}</span>
+            <span style="color:var(--muted);margin:0 8px;">•</span>
+            <span style="font-weight:600;color:var(--slate2);">🇮🇩 ${esc(titleId)}</span>
+          </div>
         `;
       });
+
+      if (lessons.length === 0) {
+        html += `<div style="padding:16px 20px;color:var(--muted);font-size:13px;font-style:italic;background:#f8fafc;border-radius:8px;margin-top:8px;">Data lesson belum tersedia (menunggu pembaruan kurikulum).</div>`;
+      }
 
       courseBlock.innerHTML = html;
       levelSec.appendChild(courseBlock);

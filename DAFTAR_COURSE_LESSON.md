@@ -2,7 +2,7 @@
 
 > Sumber: `_source/data.js` — Meeting Report Generator
 
-## Level: Junior
+## Level: Juniors (Junior)
 
 | No | Course | Jumlah Lesson |
 |----|--------|---------------|
@@ -51,9 +51,19 @@
 | 5 | Advanced Animation | 24 lesson |
 | 6 | UI/UX | 24 lesson |
 
+## Level: Pro
+
+| No | Course (EN / ID) | Jumlah Lesson |
+|----|------------------|---------------|
+| 1 | Website Development / Website Basic | 16 lesson |
+| 2 | Frontend Development | 32 lesson |
+| 3 | Backend Development | 32 lesson |
+| 4 | Mobile App Development | Menunggu data (0 lesson) |
+| 5 | AI Development | Menunggu data (0 lesson) |
+
 ---
 
-**Total: 29 course, 624 lesson keseluruhan**
+**Total: 34 course, 704 lesson keseluruhan**
 
 ## Ringkasan (Plain Text)
 
@@ -62,11 +72,15 @@
 Advanced Animation: 24 lesson
 Advanced Lua Programming on Roblox: 24 lesson
 AI Computer Vision: 16 lesson
+AI Development: 0 lesson
 AI Machine Learning: 16 lesson
 Android Developer: 16 lesson
+Backend Development: 32 lesson
+Basic Website: 16 lesson
 Branding: 24 lesson
 Code and Design with Roblox: 24 lesson
 Coding Explorer: 32 lesson
+Frontend Development: 32 lesson
 Full Stack Programming on Roblox: 24 lesson
 Game Developer: 24 lesson
 Interactive Mechanics on Roblox: 24 lesson
@@ -75,6 +89,7 @@ IoT Smart City: 24 lesson
 JavaScript Developer: 16 lesson
 Kids Animation Basic: 32 lesson
 Little Programmer: 24 lesson
+Mobile App Development: 0 lesson
 Python Coder: 16 lesson
 Python for AI: 16 lesson
 Python for Data Science: 16 lesson
@@ -88,3 +103,4 @@ Virtual World Maker: 24 lesson
 Web Developer Teens: 24 lesson
 Website Designer: 16 lesson
 ```
+

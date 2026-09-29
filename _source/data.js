@@ -6207,10 +6207,1206 @@ const COURSE_DATA = {
               "Submitting and presenting the final IoT Smart City project"
           ]
       }
-  ]
+  ],
+  "Basic Website": [
+    {
+        "num": 1,
+        "title": "Lesson 1 - Introduction to Coding & HTML",
+        "title_id": "Lesson 1 - Apa Itu Koding & Pengenalan HTML",
+        "objectives": [
+            "Memahami koding sebagai bahasa komputer dan logika pemrograman",
+            "Mengenal HTML, Doctype, serta struktur dasar tag <head> dan <body>",
+            "Menampilkan dan mendekorasi konten teks pada website",
+            "Membuat list berurut (ol) dan tak berurut (ul) menggunakan tag HTML"
+        ],
+        "objectives_en": [
+            "Understanding coding as a computer language and programming logic",
+            "Learning HTML, Doctype, and basic structure of <head> and <body> tags",
+            "Displaying and decorating text content on the website",
+            "Creating ordered lists (ol) and unordered lists (ul) using HTML tags"
+        ],
+        "title_en": "Lesson 1 - Introduction to Coding & HTML"
+    },
+    {
+        "num": 2,
+        "title": "Lesson 2 - Images, Links, and Layout Partitions",
+        "title_id": "Lesson 2 - Konten Gambar, Link, dan Partisi Layout",
+        "objectives": [
+            "Menampilkan gambar dan link alternatif pada website",
+            "Mengatur text-transform dan text-decoration untuk estetika teks",
+            "Menggunakan tag span dan properti font-size",
+            "Membagi konten dengan tag div, float, background-color, dan nested div"
+        ],
+        "objectives_en": [
+            "Displaying images and alternative links on the website",
+            "Applying text-transform and text-decoration for text aesthetics",
+            "Using span tags and font-size properties",
+            "Dividing content using div tags, float, background-color, and nested divs"
+        ],
+        "title_en": "Lesson 2 - Images, Links, and Layout Partitions"
+    },
+    {
+        "num": 3,
+        "title": "Lesson 3 - Tables and Website Structure",
+        "title_id": "Lesson 3 - Tabel dan Struktur Website",
+        "objectives": [
+            "Membuat tabel pada website serta mengatur letak konten dengan vertical-align",
+            "Menerapkan table merging menggunakan colspan dan rowspan",
+            "Menyusun struktur web semantik (header, main, dan footer)",
+            "Mengatur layout konten website dengan properti margin, border, dan padding"
+        ],
+        "objectives_en": [
+            "Creating tables on the website and adjusting content alignment with vertical-align",
+            "Applying table merging using colspan and rowspan",
+            "Structuring semantic web layouts (header, main, and footer)",
+            "Arranging website layout using margin, border, and padding properties"
+        ],
+        "title_en": "Lesson 3 - Tables and Website Structure"
+    },
+    {
+        "num": 4,
+        "title": "Lesson 4 - Cascading Style Sheets (CSS) and Navigation",
+        "title_id": "Lesson 4 - Cascading Style Sheets (CSS) dan Navigasi",
+        "objectives": [
+            "Mengenal jenis CSS: Internal CSS dan Eksternal CSS",
+            "Menerapkan selector ID, Class, Double Selector, dan Pseudo-class Hover",
+            "Membuat file CSS terpisah dan merapikan kode HTML & CSS",
+            "Membuat menu navigasi website menggunakan tag nav dan list tak berurut"
+        ],
+        "objectives_en": [
+            "Understanding types of CSS: Internal CSS and External CSS",
+            "Applying ID, Class, Double selectors, and Hover pseudo-class",
+            "Creating separate CSS files and organizing HTML & CSS code",
+            "Building website navigation menus using nav tags and unordered lists"
+        ],
+        "title_en": "Lesson 4 - Cascading Style Sheets (CSS) and Navigation"
+    },
+    {
+        "num": 5,
+        "title": "Lesson 5 - Backgrounds and Dropdown Menus",
+        "title_id": "Lesson 5 - Background dan Dropdown Menu",
+        "objectives": [
+            "Mengatur background website dan menggunakan teknik background shorthand",
+            "Membuat menu navigasi dropdown interaktif",
+            "Membuat daftar pilihan dropdown menggunakan elemen select dan option",
+            "Menampilkan elemen form input dan button pada website"
+        ],
+        "objectives_en": [
+            "Styling website backgrounds and using background shorthand techniques",
+            "Creating interactive navigation dropdown menus",
+            "Building dropdown selection lists using select and option elements",
+            "Displaying form input elements and buttons on the website"
+        ],
+        "title_en": "Lesson 5 - Backgrounds and Dropdown Menus"
+    },
+    {
+        "num": 6,
+        "title": "Lesson 6 - Final Exam Part 1",
+        "title_id": "Lesson 6 - Final Exam Part 1",
+        "objectives": [
+            "Mengikuti Final Exam Part 1 untuk menguji pemahaman materi HTML dan CSS dasar",
+            "Menyusun struktur kode HTML dan styling CSS secara mandiri"
+        ],
+        "objectives_en": [
+            "Taking Final Exam Part 1 to evaluate fundamental HTML and CSS knowledge",
+            "Writing HTML structure and CSS styling independently"
+        ],
+        "title_en": "Lesson 6 - Final Exam Part 1"
+    },
+    {
+        "num": 7,
+        "title": "Lesson 7 - Final Exam Part 2",
+        "title_id": "Lesson 7 - Final Exam Part 2",
+        "objectives": [
+            "Menyelesaikan Final Exam Part 2 proyek pembuatan website",
+            "Melakukan pengujian layout, navigasi, dan perbaikan tampilan (debugging)"
+        ],
+        "objectives_en": [
+            "Completing Final Exam Part 2 of the website project",
+            "Testing layout, navigation, and visual debugging"
+        ],
+        "title_en": "Lesson 7 - Final Exam Part 2"
+    },
+    {
+        "num": 8,
+        "title": "Lesson 8 - Responsive Web Design",
+        "title_id": "Lesson 8 - Responsive Web Design",
+        "objectives": [
+            "Memahami konsep Responsive Web Design untuk berbagai ukuran layar",
+            "Menerapkan instruksi proyek responsive web pada website"
+        ],
+        "objectives_en": [
+            "Understanding Responsive Web Design concepts for various screen sizes",
+            "Implementing responsive web project instructions on the website"
+        ],
+        "title_en": "Lesson 8 - Responsive Web Design"
+    },
+    {
+        "num": 9,
+        "title": "Lesson 9 - Introduction to Bootstrap",
+        "title_id": "Lesson 9 - Perkenalan Bootstrap",
+        "objectives": [
+            "Mengenal CSS Framework dan instalasi Bootstrap menggunakan CDN",
+            "Memahami layouting, components, form control, dan utilities pada Bootstrap",
+            "Membuat header navigation modern menggunakan Bootstrap"
+        ],
+        "objectives_en": [
+            "Introduction to CSS Frameworks and Bootstrap CDN installation",
+            "Understanding Bootstrap layouting, components, form control, and utilities",
+            "Creating modern header navigation using Bootstrap"
+        ],
+        "title_en": "Lesson 9 - Introduction to Bootstrap"
+    },
+    {
+        "num": 10,
+        "title": "Lesson 10 - Font Awesome & Student Project Part 1",
+        "title_id": "Lesson 10 - Font Awesome & Student Project Part 1",
+        "objectives": [
+            "Menambahkan ikon ke header dan elemen web menggunakan Font Awesome",
+            "Menampilkan daftar konten / resep makanan dan membuat footer website",
+            "Memulai pengerjaan Student Project Part 1"
+        ],
+        "objectives_en": [
+            "Adding icons into headers and web elements using Font Awesome",
+            "Displaying recipe content lists and building website footers",
+            "Starting Student Project Part 1"
+        ],
+        "title_en": "Lesson 10 - Font Awesome & Student Project Part 1"
+    },
+    {
+        "num": 11,
+        "title": "Lesson 11 - Student Project Part 2",
+        "title_id": "Lesson 11 - Student Project Part 2",
+        "objectives": [
+            "Melanjutkan pengembangan fitur dan tampilan pada Student Project Part 2",
+            "Menyempurnakan komponen Bootstrap dan tata letak halaman"
+        ],
+        "objectives_en": [
+            "Continuing feature development and styling on Student Project Part 2",
+            "Refining Bootstrap components and page layouts"
+        ],
+        "title_en": "Lesson 11 - Student Project Part 2"
+    },
+    {
+        "num": 12,
+        "title": "Lesson 12 - Student Project Part 3",
+        "title_id": "Lesson 12 - Student Project Part 3",
+        "objectives": [
+            "Menyelesaikan Student Project Part 3 hingga siap dipublikasikan",
+            "Melakukan review hasil proyek dan debugging kode CSS"
+        ],
+        "objectives_en": [
+            "Completing Student Project Part 3 for publication",
+            "Reviewing project deliverables and debugging CSS code"
+        ],
+        "title_en": "Lesson 12 - Student Project Part 3"
+    },
+    {
+        "num": 13,
+        "title": "Lesson 13 - JavaScript Fundamentals & Variables",
+        "title_id": "Lesson 13 - JavaScript Dasar & Variabel",
+        "objectives": [
+            "Mengenal JavaScript internal & eksternal untuk membuat website dinamis",
+            "Memahami variabel (let, const), tipe data, dan array pada JavaScript",
+            "Mengenal konsep function dan penerapannya pada website"
+        ],
+        "objectives_en": [
+            "Learning internal & external JavaScript to build dynamic websites",
+            "Understanding variables (let, const), data types, and arrays in JavaScript",
+            "Understanding function concepts and practical web implementation"
+        ],
+        "title_en": "Lesson 13 - JavaScript Fundamentals & Variables"
+    },
+    {
+        "num": 14,
+        "title": "Lesson 14 - Functions, Events & Modals",
+        "title_id": "Lesson 14 - Function, Event & Modal",
+        "objectives": [
+            "Membuat event JavaScript dan HTML Event untuk interaktivitas",
+            "Membuat komponen modal popup interaktif menggunakan HTML, CSS, dan JavaScript",
+            "Menguasai integrasi function dan event pada tombol website"
+        ],
+        "objectives_en": [
+            "Creating JavaScript events and HTML Events for interactivity",
+            "Building interactive modal popup components with HTML, CSS, and JavaScript",
+            "Mastering function and event integration on website buttons"
+        ],
+        "title_en": "Lesson 14 - Functions, Events & Modals"
+    },
+    {
+        "num": 15,
+        "title": "Lesson 15 - Conditional Statements & Loops",
+        "title_id": "Lesson 15 - Conditional Statement & Perulangan (Loop)",
+        "objectives": [
+            "Memahami expression, operator, dan conditional statement (if-else)",
+            "Mempelajari konsep loop dan perulangan do-while pada JavaScript",
+            "Menerapkan logika percabangan untuk kontrol alur website"
+        ],
+        "objectives_en": [
+            "Understanding expressions, operators, and conditional statements (if-else)",
+            "Learning loop concepts and do-while loops in JavaScript",
+            "Applying branching logic for website flow control"
+        ],
+        "title_en": "Lesson 15 - Conditional Statements & Loops"
+    },
+    {
+        "num": 16,
+        "title": "Lesson 16 - Dynamic Content Loops & Objects",
+        "title_id": "Lesson 16 - Loop Konten & Pengenalan Object",
+        "objectives": [
+            "Menampilkan konten website secara dinamis menggunakan perulangan loop",
+            "Mengenal konsep Object pada JavaScript untuk menyimpan data terstruktur",
+            "Mengintegrasikan conditional statement, loop, dan object pada website"
+        ],
+        "objectives_en": [
+            "Rendering website content dynamically using loops",
+            "Understanding JavaScript Object concepts to store structured data",
+            "Integrating conditional statements, loops, and objects on the website"
+        ],
+        "title_en": "Lesson 16 - Dynamic Content Loops & Objects"
+    }
+],
+  "Frontend Development": [
+    {
+        "num": 1,
+        "title": "Lesson 1 - Array Manipulation",
+        "title_id": "Lesson 1 - Manipulasi Array",
+        "objectives": [
+            "Memahami JavaScript scope, template literal, dan konsep Array of Objects",
+            "Menggunakan method push, pop, reverse, join, concat, slice, dan splice",
+            "Menerapkan manipulasi array pada proyek website"
+        ],
+        "objectives_en": [
+            "Understanding JavaScript scope, template literals, and Array of Objects",
+            "Using push, pop, reverse, join, concat, slice, and splice methods",
+            "Applying array manipulation in website projects"
+        ],
+        "title_en": "Lesson 1 - Array Manipulation"
+    },
+    {
+        "num": 2,
+        "title": "Lesson 2 - Sort & Arrow Functions",
+        "title_id": "Lesson 2 - Sort & Arrow Function",
+        "objectives": [
+            "Mempelajari dan menerapkan method sort untuk mengurutkan data array",
+            "Membuat fungsi modern menggunakan Arrow Function dan return statement",
+            "Mengintegrasikan sorting dan arrow function pada proyek web"
+        ],
+        "objectives_en": [
+            "Learning and applying the sort method to organize array data",
+            "Creating modern functions using Arrow Functions and return statements",
+            "Integrating sorting and arrow functions into web projects"
+        ],
+        "title_en": "Lesson 2 - Sort & Arrow Functions"
+    },
+    {
+        "num": 3,
+        "title": "Lesson 3 - Array Iteration (Map, Filter, Find)",
+        "title_id": "Lesson 3 - Iterasi Array (Map, Filter, Find)",
+        "objectives": [
+            "Menguasai perulangan array dengan map dan forEach",
+            "Memfilter dan mencari elemen array menggunakan filter, find, indexOf, dan lastIndexOf",
+            "Menerapkan array iteration untuk menampilkan data dinamis"
+        ],
+        "objectives_en": [
+            "Mastering array iteration with map and forEach",
+            "Filtering and finding array elements using filter, find, indexOf, and lastIndexOf",
+            "Applying array iteration to display dynamic data"
+        ],
+        "title_en": "Lesson 3 - Array Iteration (Map, Filter, Find)"
+    },
+    {
+        "num": 4,
+        "title": "Lesson 4 - Final Exam: TODO App Part 1",
+        "title_id": "Lesson 4 - Final Exam: Pembuatan TODO App Part 1",
+        "objectives": [
+            "Memulai Final Exam pembuatan aplikasi TODO App dengan JavaScript",
+            "Menyusun struktur data array dan logika penambahan item tugas"
+        ],
+        "objectives_en": [
+            "Starting the Final Exam: building a TODO App with JavaScript",
+            "Structuring array data and logic for adding task items"
+        ],
+        "title_en": "Lesson 4 - Final Exam: TODO App Part 1"
+    },
+    {
+        "num": 5,
+        "title": "Lesson 5 - Final Exam: TODO App Part 2",
+        "title_id": "Lesson 5 - Final Exam: Pembuatan TODO App Part 2",
+        "objectives": [
+            "Melanjutkan Final Exam TODO App dengan fitur update dan delete task",
+            "Menerapkan filter status dan manipulasi array of objects pada aplikasi"
+        ],
+        "objectives_en": [
+            "Continuing the TODO App Final Exam with task update and delete features",
+            "Implementing status filters and array of objects manipulation"
+        ],
+        "title_en": "Lesson 5 - Final Exam: TODO App Part 2"
+    },
+    {
+        "num": 6,
+        "title": "Lesson 6 - Final Exam: TODO App Part 3",
+        "title_id": "Lesson 6 - Final Exam: Pembuatan TODO App Part 3",
+        "objectives": [
+            "Menyelesaikan Final Exam TODO App dan melakukan validasi kode",
+            "Mempresentasikan hasil pengerjaan aplikasi TODO App"
+        ],
+        "objectives_en": [
+            "Completing the TODO App Final Exam and validating code",
+            "Presenting the completed TODO App project"
+        ],
+        "title_en": "Lesson 6 - Final Exam: TODO App Part 3"
+    },
+    {
+        "num": 7,
+        "title": "Lesson 7 - Introduction to Vue.js & Data Binding",
+        "title_id": "Lesson 7 - Pengenalan Vue.js & Data Binding",
+        "objectives": [
+            "Mengenal framework Vue.js, instalasi, dan penulisan Expression",
+            "Memahami dan mempraktikkan konsep Data Binding pada Vue.js",
+            "Menerapkan Class & Style Binding untuk mengubah tampilan secara reaktif"
+        ],
+        "objectives_en": [
+            "Introduction to Vue.js framework, installation, and Expressions",
+            "Understanding and practicing Data Binding concepts in Vue.js",
+            "Applying Class & Style Binding to dynamically update styles"
+        ],
+        "title_en": "Lesson 7 - Introduction to Vue.js & Data Binding"
+    },
+    {
+        "num": 8,
+        "title": "Lesson 8 - Event Handling & Modifiers",
+        "title_id": "Lesson 8 - Event Handling & Modifiers",
+        "objectives": [
+            "Menerapkan penanganan Event pada Vue.js (v-on / @)",
+            "Menggunakan event modifiers dan key modifiers pada input form",
+            "Membangun interaktivitas website berbasis event Vue.js"
+        ],
+        "objectives_en": [
+            "Implementing Event handling in Vue.js (v-on / @)",
+            "Using event modifiers and key modifiers on form inputs",
+            "Building website interactivity based on Vue.js events"
+        ],
+        "title_en": "Lesson 8 - Event Handling & Modifiers"
+    },
+    {
+        "num": 9,
+        "title": "Lesson 9 - Conditional Rendering & Two-Way Binding",
+        "title_id": "Lesson 9 - Conditional Rendering & Two-Way Binding",
+        "objectives": [
+            "Menguasai Conditional Rendering menggunakan direktif v-if, v-else-if, dan v-else",
+            "Menerapkan Two-Way Data Binding menggunakan v-model pada input form",
+            "Menggabungkan conditional rendering dan two-way binding pada komponen web"
+        ],
+        "objectives_en": [
+            "Mastering Conditional Rendering with v-if, v-else-if, and v-else directives",
+            "Applying Two-Way Data Binding using v-model on form inputs",
+            "Combining conditional rendering and two-way binding on web components"
+        ],
+        "title_en": "Lesson 9 - Conditional Rendering & Two-Way Binding"
+    },
+    {
+        "num": 10,
+        "title": "Lesson 10 - List Rendering & Object Rendering",
+        "title_id": "Lesson 10 - List Rendering & Object Rendering",
+        "objectives": [
+            "Menampilkan koleksi data menggunakan List Rendering (v-for)",
+            "Melakukan manipulasi array dan render data object secara dinamis",
+            "Menyempurnakan antarmuka proyek website dengan list rendering"
+        ],
+        "objectives_en": [
+            "Rendering data collections using List Rendering (v-for)",
+            "Manipulating arrays and rendering object data dynamically",
+            "Polishing website project interface with list rendering"
+        ],
+        "title_en": "Lesson 10 - List Rendering & Object Rendering"
+    },
+    {
+        "num": 11,
+        "title": "Lesson 11 - Final Exam Vue.js Part 1",
+        "title_id": "Lesson 11 - Final Exam Vue.js Part 1",
+        "objectives": [
+            "Memulai Final Exam Vue.js untuk menguji pemahaman konsep dasar reaktivitas",
+            "Membangun struktur antarmuka aplikasi berbasis Vue.js"
+        ],
+        "objectives_en": [
+            "Starting the Vue.js Final Exam to test core reactivity concepts",
+            "Building application interface structure with Vue.js"
+        ],
+        "title_en": "Lesson 11 - Final Exam Vue.js Part 1"
+    },
+    {
+        "num": 12,
+        "title": "Lesson 12 - Final Exam Vue.js Part 2",
+        "title_id": "Lesson 12 - Final Exam Vue.js Part 2",
+        "objectives": [
+            "Melanjutkan Final Exam Vue.js dengan integrasi event dan two-way binding",
+            "Mengimplementasikan list rendering dan conditional rendering pada fitur utama"
+        ],
+        "objectives_en": [
+            "Continuing the Vue.js Final Exam with event and two-way binding integration",
+            "Implementing list and conditional rendering for main features"
+        ],
+        "title_en": "Lesson 12 - Final Exam Vue.js Part 2"
+    },
+    {
+        "num": 13,
+        "title": "Lesson 13 - Final Exam Vue.js Part 3",
+        "title_id": "Lesson 13 - Final Exam Vue.js Part 3",
+        "objectives": [
+            "Menuntaskan Final Exam Vue.js dan memperbaiki bug pada aplikasi",
+            "Mempresentasikan proyek aplikasi Vue.js yang telah diselesaikan"
+        ],
+        "objectives_en": [
+            "Finishing the Vue.js Final Exam and debugging the application",
+            "Presenting the completed Vue.js application project"
+        ],
+        "title_en": "Lesson 13 - Final Exam Vue.js Part 3"
+    },
+    {
+        "num": 14,
+        "title": "Lesson 14 - Vue Component & Composition API",
+        "title_id": "Lesson 14 - Komponen Vue & Composition API",
+        "objectives": [
+            "Memahami struktur folder proyek Vue dan pembuatan Single File Components",
+            "Mengenal Composition API dan Lifecycle Hooks pada Vue 3",
+            "Membuat halaman web resep dengan memanggil komponen modular"
+        ],
+        "objectives_en": [
+            "Understanding Vue project folder structure and Single File Components",
+            "Introduction to Composition API and Lifecycle Hooks in Vue 3",
+            "Building a recipe web page by invoking modular components"
+        ],
+        "title_en": "Lesson 14 - Vue Component & Composition API"
+    },
+    {
+        "num": 15,
+        "title": "Lesson 15 - Props & Vue Routing",
+        "title_id": "Lesson 15 - Props & Routing Vue",
+        "objectives": [
+            "Menerapkan Props untuk mengirim data antar-komponen",
+            "Mengenal Vue Router untuk navigasi multi-halaman SPA",
+            "Membuat halaman Home, Login, dan Signup menggunakan routing"
+        ],
+        "objectives_en": [
+            "Applying Props to pass data between components",
+            "Introduction to Vue Router for multi-page SPA navigation",
+            "Building Home, Login, and Signup pages using routing"
+        ],
+        "title_en": "Lesson 15 - Props & Vue Routing"
+    },
+    {
+        "num": 16,
+        "title": "Lesson 16 - State Management (Vuex) & Axios API",
+        "title_id": "Lesson 16 - State Management (Vuex) & Axios API",
+        "objectives": [
+            "Mengenal konsep State Management terpusat dengan Vuex",
+            "Memahami async/await pada JavaScript dan HTTP client Axios",
+            "Menghubungkan aplikasi ke Firebase dan menampilkan data resep dari API"
+        ],
+        "objectives_en": [
+            "Introduction to centralized State Management with Vuex",
+            "Understanding async/await in JavaScript and Axios HTTP client",
+            "Connecting the application to Firebase and fetching recipe data via API"
+        ],
+        "title_en": "Lesson 16 - State Management (Vuex) & Axios API"
+    },
+    {
+        "num": 17,
+        "title": "Lesson 17 - Dynamic Route",
+        "title_id": "Lesson 17 - Dynamic Route",
+        "objectives": [
+            "Membuat Dynamic Route dengan parameter URL pada Vue Router",
+            "Menampilkan detail resep makanan berdasarkan ID parameter di halaman detail"
+        ],
+        "objectives_en": [
+            "Creating Dynamic Routes with URL parameters in Vue Router",
+            "Displaying recipe details based on ID parameter in detail page"
+        ],
+        "title_en": "Lesson 17 - Dynamic Route"
+    },
+    {
+        "num": 18,
+        "title": "Lesson 18 - User Registration & Cookies",
+        "title_id": "Lesson 18 - Registrasi Pengguna & Cookies",
+        "objectives": [
+            "Memahami penyimpanan token sesi menggunakan Web Cookies",
+            "Membangun fitur registrasi akun pengguna baru (Register)",
+            "Menerapkan Dynamic Component untuk menu profil pada navbar"
+        ],
+        "objectives_en": [
+            "Understanding session token storage using Web Cookies",
+            "Building new user registration features",
+            "Applying Dynamic Components for profile menus in the navbar"
+        ],
+        "title_en": "Lesson 18 - User Registration & Cookies"
+    },
+    {
+        "num": 19,
+        "title": "Lesson 19 - Login, Logout & Custom Events",
+        "title_id": "Lesson 19 - Login, Logout & Custom Event",
+        "objectives": [
+            "Membuat komunikasi antar-komponen menggunakan Custom Events",
+            "Membangun fitur otentikasi Login dan Logout pengguna",
+            "Membuat halaman User Dashboard untuk menampilkan profil pengguna"
+        ],
+        "objectives_en": [
+            "Creating component communication using Custom Events",
+            "Building user Login and Logout authentication features",
+            "Developing User Dashboard pages to show user profiles"
+        ],
+        "title_en": "Lesson 19 - Login, Logout & Custom Events"
+    },
+    {
+        "num": 20,
+        "title": "Lesson 20 - Middleware & Authorization",
+        "title_id": "Lesson 20 - Middleware & Hak Akses Pengguna",
+        "objectives": [
+            "Menerapkan Route Middleware / Navigation Guards untuk proteksi halaman",
+            "Mengatur hak akses pengguna berdasarkan status otentikasi",
+            "Membuat form halaman untuk menambahkan resep baru"
+        ],
+        "objectives_en": [
+            "Applying Route Middleware / Navigation Guards for page protection",
+            "Managing user authorization based on authentication status",
+            "Creating form pages to add new recipes"
+        ],
+        "title_en": "Lesson 20 - Middleware & Authorization"
+    },
+    {
+        "num": 21,
+        "title": "Lesson 21 - Data Management: Add & Delete Recipe",
+        "title_id": "Lesson 21 - Manajemen Data: Tambah & Hapus Resep",
+        "objectives": [
+            "Menyelesaikan fitur simpan resep baru ke Firebase database",
+            "Menampilkan daftar resep milik pengguna di dashboard",
+            "Mengimplementasikan fitur Delete untuk menghapus data resep"
+        ],
+        "objectives_en": [
+            "Completing the feature to save new recipes to Firebase database",
+            "Displaying user's recipe collection on dashboard",
+            "Implementing Delete feature to remove recipe records"
+        ],
+        "title_en": "Lesson 21 - Data Management: Add & Delete Recipe"
+    },
+    {
+        "num": 22,
+        "title": "Lesson 22 - Recipe Edit Feature",
+        "title_id": "Lesson 22 - Fitur Edit Resep",
+        "objectives": [
+            "Membuat halaman edit resep dengan form data pre-filled",
+            "Mengirimkan data hasil pembaruan (update) ke Firebase backend"
+        ],
+        "objectives_en": [
+            "Building recipe edit pages with pre-filled form data",
+            "Sending updated data to the Firebase backend"
+        ],
+        "title_en": "Lesson 22 - Recipe Edit Feature"
+    },
+    {
+        "num": 23,
+        "title": "Lesson 23 - Final Project: Architecture & Planning",
+        "title_id": "Lesson 23 - Final Project: Persiapan & Perencanaan",
+        "objectives": [
+            "Menentukan tema dan arsitektur komponen proyek akhir Vue.js",
+            "Mempersiapkan state management, routing, dan skema database"
+        ],
+        "objectives_en": [
+            "Defining theme and component architecture for the Vue.js final project",
+            "Setting up state management, routing, and database schema"
+        ],
+        "title_en": "Lesson 23 - Final Project: Architecture & Planning"
+    },
+    {
+        "num": 24,
+        "title": "Lesson 24 - Final Project: UI Layout & Components",
+        "title_id": "Lesson 24 - Final Project: Layouting & Komponen Utama",
+        "objectives": [
+            "Membangun layout antarmuka utama dan navigasi aplikasi",
+            "Menyusun komponen-komponen UI yang dapat digunakan kembali"
+        ],
+        "objectives_en": [
+            "Building main UI layout and application navigation",
+            "Assembling reusable UI components"
+        ],
+        "title_en": "Lesson 24 - Final Project: UI Layout & Components"
+    },
+    {
+        "num": 25,
+        "title": "Lesson 25 - Final Project: Authentication Flow",
+        "title_id": "Lesson 25 - Final Project: Integrasi Autentikasi",
+        "objectives": [
+            "Mengimplementasikan fitur registrasi, login, dan logout pada proyek",
+            "Menjaga sesi pengguna dengan token cookies dan middleware"
+        ],
+        "objectives_en": [
+            "Implementing register, login, and logout features in the project",
+            "Maintaining user session using token cookies and route middleware"
+        ],
+        "title_en": "Lesson 25 - Final Project: Authentication Flow"
+    },
+    {
+        "num": 26,
+        "title": "Lesson 26 - Final Project: CRUD Operations Part 1",
+        "title_id": "Lesson 26 - Final Project: CRUD Operasi Part 1",
+        "objectives": [
+            "Membangun fitur Create dan Read data melalui API database",
+            "Menampilkan daftar data secara responsif dengan list rendering"
+        ],
+        "objectives_en": [
+            "Building Create and Read data features via database API",
+            "Displaying data lists responsively using list rendering"
+        ],
+        "title_en": "Lesson 26 - Final Project: CRUD Operations Part 1"
+    },
+    {
+        "num": 27,
+        "title": "Lesson 27 - Final Project: CRUD Operations Part 2",
+        "title_id": "Lesson 27 - Final Project: CRUD Operasi Part 2",
+        "objectives": [
+            "Membangun fitur Update dan Delete data dengan konfirmasi aksi",
+            "Menangani validasi input form dan feedback pesan sukses/gagal"
+        ],
+        "objectives_en": [
+            "Building Update and Delete data features with confirmation prompts",
+            "Handling form input validation and success/error feedback messages"
+        ],
+        "title_en": "Lesson 27 - Final Project: CRUD Operations Part 2"
+    },
+    {
+        "num": 28,
+        "title": "Lesson 28 - Final Project: Search & Filter Features",
+        "title_id": "Lesson 28 - Final Project: Fitur Pencarian & Filter",
+        "objectives": [
+            "Menambahkan fitur search dan filter kategori pada koleksi data",
+            "Menyempurnakan reaktivitas tampilan saat pencarian data berlangsung"
+        ],
+        "objectives_en": [
+            "Adding search and category filter features on data collections",
+            "Refining UI reactivity during real-time data search"
+        ],
+        "title_en": "Lesson 28 - Final Project: Search & Filter Features"
+    },
+    {
+        "num": 29,
+        "title": "Lesson 29 - Final Project: Styling & Responsive Polish",
+        "title_id": "Lesson 29 - Final Project: Polishing & Responsive Styling",
+        "objectives": [
+            "Menyesuaikan styling CSS agar tampilan sempurna di mobile dan desktop",
+            "Menambahkan transisi animasi dan micro-interactions pada komponen"
+        ],
+        "objectives_en": [
+            "Adjusting CSS styling for flawless mobile and desktop experience",
+            "Adding animated transitions and micro-interactions to components"
+        ],
+        "title_en": "Lesson 29 - Final Project: Styling & Responsive Polish"
+    },
+    {
+        "num": 30,
+        "title": "Lesson 30 - Final Project: Testing & Debugging",
+        "title_id": "Lesson 30 - Final Project: Testing & Debugging",
+        "objectives": [
+            "Melakukan pengujian menyeluruh (end-to-end testing) alur aplikasi",
+            "Memperbaiki bug fungsional, performa, dan validasi kode"
+        ],
+        "objectives_en": [
+            "Conducting comprehensive end-to-end testing on application flows",
+            "Fixing functional bugs, performance bottlenecks, and code validation"
+        ],
+        "title_en": "Lesson 30 - Final Project: Testing & Debugging"
+    },
+    {
+        "num": 31,
+        "title": "Lesson 31 - Final Project: Deployment to Cloud",
+        "title_id": "Lesson 31 - Final Project: Deployment",
+        "objectives": [
+            "Mempersiapkan production build aplikasi Vue.js",
+            "Mendeploy aplikasi web ke layanan hosting cloud agar dapat diakses publik"
+        ],
+        "objectives_en": [
+            "Preparing production build for the Vue.js application",
+            "Deploying the web app to cloud hosting services for public access"
+        ],
+        "title_en": "Lesson 31 - Final Project: Deployment to Cloud"
+    },
+    {
+        "num": 32,
+        "title": "Lesson 32 - Final Project: Presentation & Evaluation",
+        "title_id": "Lesson 32 - Final Project: Presentasi & Evaluasi",
+        "objectives": [
+            "Mempresentasikan hasil proyek akhir frontend development",
+            "Menerima evaluasi, feedback, dan sertifikasi penyelesaian course"
+        ],
+        "objectives_en": [
+            "Presenting the final frontend development project",
+            "Receiving project evaluation, feedback, and course completion review"
+        ],
+        "title_en": "Lesson 32 - Final Project: Presentation & Evaluation"
+    }
+],
+  "Backend Development": [
+    {
+        "num": 1,
+        "title": "Lesson 1 - Intro to PHP & Laragon",
+        "title_id": "Lesson 1 - Pengenalan PHP & Laragon",
+        "objectives": [
+            "Mengenal lingkungan pengembangan PHP dan instalasi Laragon",
+            "Membuat program PHP pertama dan memahami sintaks dasar PHP"
+        ],
+        "objectives_en": [
+            "Introduction to PHP development environment and Laragon installation",
+            "Writing the first PHP program and understanding basic syntax"
+        ],
+        "title_en": "Lesson 1 - Intro to PHP & Laragon"
+    },
+    {
+        "num": 2,
+        "title": "Lesson 2 - PHP Integration with HTML",
+        "title_id": "Lesson 2 - Integrasi PHP dengan HTML",
+        "objectives": [
+            "Mengintegrasikan skrip PHP ke dalam struktur halaman HTML",
+            "Memahami variabel, tipe data, operator aritmatika, dan operator assignment"
+        ],
+        "objectives_en": [
+            "Integrating PHP scripts into HTML page structures",
+            "Understanding variables, data types, arithmetic, and assignment operators"
+        ],
+        "title_en": "Lesson 2 - PHP Integration with HTML"
+    },
+    {
+        "num": 3,
+        "title": "Lesson 3 - Conditionals, Loops & Arrays",
+        "title_id": "Lesson 3 - Percabangan, Perulangan & Array",
+        "objectives": [
+            "Menerapkan logika percabangan kondisional (if-else) pada PHP",
+            "Menguasai struktur perulangan dan manipulasi array"
+        ],
+        "objectives_en": [
+            "Implementing conditional branching logic (if-else) in PHP",
+            "Mastering loop structures and array manipulation"
+        ],
+        "title_en": "Lesson 3 - Conditionals, Loops & Arrays"
+    },
+    {
+        "num": 4,
+        "title": "Lesson 4 - Functions & Form Handling",
+        "title_id": "Lesson 4 - Function & Metode Pengiriman Form",
+        "objectives": [
+            "Membuat dan menggunakan fungsi kustom (functions) pada PHP",
+            "Memahami metode pengiriman data form menggunakan method GET dan POST"
+        ],
+        "objectives_en": [
+            "Creating and using custom functions in PHP",
+            "Understanding form submission methods using GET and POST"
+        ],
+        "title_en": "Lesson 4 - Functions & Form Handling"
+    },
+    {
+        "num": 5,
+        "title": "Lesson 5 - OOP: Classes & Objects",
+        "title_id": "Lesson 5 - OOP: Class & Object",
+        "objectives": [
+            "Memahami konsep dasar Object-Oriented Programming (OOP) pada PHP",
+            "Membuat class, property, method, dan instansiasi object"
+        ],
+        "objectives_en": [
+            "Understanding Object-Oriented Programming (OOP) fundamentals in PHP",
+            "Creating classes, properties, methods, and instantiating objects"
+        ],
+        "title_en": "Lesson 5 - OOP: Classes & Objects"
+    },
+    {
+        "num": 6,
+        "title": "Lesson 6 - OOP: Inheritance & Polymorphism",
+        "title_id": "Lesson 6 - OOP: Inheritance & Polymorphism",
+        "objectives": [
+            "Menerapkan konsep pewarisan (inheritance) antar-class pada PHP",
+            "Memahami polimorfisme dan penggunaan method overriding"
+        ],
+        "objectives_en": [
+            "Implementing class inheritance in PHP",
+            "Understanding polymorphism and using method overriding"
+        ],
+        "title_en": "Lesson 6 - OOP: Inheritance & Polymorphism"
+    },
+    {
+        "num": 7,
+        "title": "Lesson 7 - OOP: Encapsulation & Visibility",
+        "title_id": "Lesson 7 - OOP: Encapsulation & Visibility",
+        "objectives": [
+            "Menerapkan prinsip enkapsulasi dengan visibility keyword (public, protected, private)",
+            "Menggunakan getter dan setter untuk keamanan manipulasi data objek"
+        ],
+        "objectives_en": [
+            "Applying encapsulation with visibility keywords (public, protected, private)",
+            "Using getters and setters for secure object data manipulation"
+        ],
+        "title_en": "Lesson 7 - OOP: Encapsulation & Visibility"
+    },
+    {
+        "num": 8,
+        "title": "Lesson 8 - MySQL Database Connection",
+        "title_id": "Lesson 8 - Koneksi ke Database MySQL",
+        "objectives": [
+            "Membangun koneksi antara PHP dan database MySQL (PDO / MySQLi)",
+            "Menangani error koneksi database secara aman"
+        ],
+        "objectives_en": [
+            "Establishing connection between PHP and MySQL database (PDO / MySQLi)",
+            "Handling database connection errors securely"
+        ],
+        "title_en": "Lesson 8 - MySQL Database Connection"
+    },
+    {
+        "num": 9,
+        "title": "Lesson 9 - Table Relations & SQL Queries Part 1",
+        "title_id": "Lesson 9 - Relasi Tabel & SQL Query Part 1",
+        "objectives": [
+            "Memahami konsep perancangan database relasional dan relasi tabel",
+            "Mempraktikkan perintah SQL dasar (SELECT, INSERT, UPDATE, DELETE)"
+        ],
+        "objectives_en": [
+            "Understanding relational database design and table relations",
+            "Practicing basic SQL commands (SELECT, INSERT, UPDATE, DELETE)"
+        ],
+        "title_en": "Lesson 9 - Table Relations & SQL Queries Part 1"
+    },
+    {
+        "num": 10,
+        "title": "Lesson 10 - Table Relations & SQL Queries Part 2",
+        "title_id": "Lesson 10 - Relasi Tabel & SQL Query Part 2",
+        "objectives": [
+            "Menguasai SQL JOIN untuk menggabungkan data tabel berelasi",
+            "Menyelesaikan studi kasus query database relasional"
+        ],
+        "objectives_en": [
+            "Mastering SQL JOINs to combine relational table records",
+            "Solving relational database query case studies"
+        ],
+        "title_en": "Lesson 10 - Table Relations & SQL Queries Part 2"
+    },
+    {
+        "num": 11,
+        "title": "Lesson 11 - Implementing SQL in PHP",
+        "title_id": "Lesson 11 - Implementasi SQL ke PHP",
+        "objectives": [
+            "Mengeksekusi query SQL dinamis melalui skrip PHP",
+            "Mengolah dan menampilkan hasil query database ke halaman web"
+        ],
+        "objectives_en": [
+            "Executing dynamic SQL queries through PHP scripts",
+            "Processing and displaying database query results on web pages"
+        ],
+        "title_en": "Lesson 11 - Implementing SQL in PHP"
+    },
+    {
+        "num": 12,
+        "title": "Lesson 12 - Native PHP Project Part 1",
+        "title_id": "Lesson 12 - Proyek PHP Native Part 1",
+        "objectives": [
+            "Merancang arsitektur dan database untuk proyek web PHP Native",
+            "Membangun fitur Create dan Read data berbasis form web"
+        ],
+        "objectives_en": [
+            "Designing architecture and database for a native PHP web project",
+            "Building Create and Read data features with web forms"
+        ],
+        "title_en": "Lesson 12 - Native PHP Project Part 1"
+    },
+    {
+        "num": 13,
+        "title": "Lesson 13 - Native PHP Project Part 2",
+        "title_id": "Lesson 13 - Proyek PHP Native Part 2",
+        "objectives": [
+            "Menyelesaikan fitur Update dan Delete data pada proyek PHP Native",
+            "Melakukan pengujian fitur dan refactoring kode backend"
+        ],
+        "objectives_en": [
+            "Completing Update and Delete features on the native PHP project",
+            "Testing features and refactoring backend code"
+        ],
+        "title_en": "Lesson 13 - Native PHP Project Part 2"
+    },
+    {
+        "num": 14,
+        "title": "Lesson 14 - Git Version Control & Postman",
+        "title_id": "Lesson 14 - Version Control Git & API Testing Postman",
+        "objectives": [
+            "Menggunakan Git untuk version control proyek (commit, branch, push)",
+            "Mengenal Postman untuk pengujian request API dan response HTTP"
+        ],
+        "objectives_en": [
+            "Using Git for project version control (commit, branch, push)",
+            "Introduction to Postman for API request and HTTP response testing"
+        ],
+        "title_en": "Lesson 14 - Git Version Control & Postman"
+    },
+    {
+        "num": 15,
+        "title": "Lesson 15 - Introduction to Laravel Framework",
+        "title_id": "Lesson 15 - Pengenalan Framework Laravel",
+        "objectives": [
+            "Mengenal arsitektur MVC pada framework Laravel dan instalasi via Laragon",
+            "Membuat Model, Database Migration, dan Seeder",
+            "Membuat Controller dan konfigurasi API routing"
+        ],
+        "objectives_en": [
+            "Understanding MVC architecture in Laravel and installing via Laragon",
+            "Creating Models, Database Migrations, and Seeders",
+            "Creating Controllers and API routing configurations"
+        ],
+        "title_en": "Lesson 15 - Introduction to Laravel Framework"
+    },
+    {
+        "num": 16,
+        "title": "Lesson 16 - Blade Templating, Routing & Resources",
+        "title_id": "Lesson 16 - Blade Templating, Routing & Resource",
+        "objectives": [
+            "Menggunakan Blade Templating Engine untuk layouting halaman yang bersih",
+            "Mengelola routing web dan memanfaatkan Resource Controller pada Laravel"
+        ],
+        "objectives_en": [
+            "Using Blade Templating Engine for clean page layouting",
+            "Managing web routing and utilizing Laravel Resource Controllers"
+        ],
+        "title_en": "Lesson 16 - Blade Templating, Routing & Resources"
+    },
+    {
+        "num": 17,
+        "title": "Lesson 17 - Eloquent ORM",
+        "title_id": "Lesson 17 - Eloquent ORM",
+        "objectives": [
+            "Memahami dan menerapkan Eloquent ORM untuk manipulasi data database",
+            "Mengelola relasi antar-model Eloquent secara efisien"
+        ],
+        "objectives_en": [
+            "Understanding and applying Eloquent ORM for database data manipulation",
+            "Managing Eloquent model relationships efficiently"
+        ],
+        "title_en": "Lesson 17 - Eloquent ORM"
+    },
+    {
+        "num": 18,
+        "title": "Lesson 18 - Form Request Validation",
+        "title_id": "Lesson 18 - Validasi Form & Request",
+        "objectives": [
+            "Menerapkan validasi form request untuk memastikan keamanan data input",
+            "Menampilkan pesan error validasi yang informatif kepada pengguna"
+        ],
+        "objectives_en": [
+            "Implementing form request validation to secure input data",
+            "Displaying informative validation error messages to users"
+        ],
+        "title_en": "Lesson 18 - Form Request Validation"
+    },
+    {
+        "num": 19,
+        "title": "Lesson 19 - User Authentication",
+        "title_id": "Lesson 19 - Autentikasi Pengguna",
+        "objectives": [
+            "Mengimplementasikan fitur autentikasi menggunakan Laravel Auth Scaffolding",
+            "Mengatur alur registrasi, login, reset password, dan proteksi akun"
+        ],
+        "objectives_en": [
+            "Implementing authentication features using Laravel Auth Scaffolding",
+            "Configuring registration, login, password reset, and account security"
+        ],
+        "title_en": "Lesson 19 - User Authentication"
+    },
+    {
+        "num": 20,
+        "title": "Lesson 20 - Middleware",
+        "title_id": "Lesson 20 - Middleware",
+        "objectives": [
+            "Mengenal dan membuat Middleware kustom pada Laravel",
+            "Menerapkan proteksi route berdasarkan peran (role) dan status login pengguna"
+        ],
+        "objectives_en": [
+            "Understanding and creating custom Middleware in Laravel",
+            "Applying route protection based on user roles and login status"
+        ],
+        "title_en": "Lesson 20 - Middleware"
+    },
+    {
+        "num": 21,
+        "title": "Lesson 21 - Pagination",
+        "title_id": "Lesson 21 - Pagination",
+        "objectives": [
+            "Menerapkan fitur Pagination pada Eloquent ORM untuk membatasi data per halaman",
+            "Menampilkan pagination links yang responsif pada view Blade"
+        ],
+        "objectives_en": [
+            "Implementing Pagination on Eloquent ORM to limit records per page",
+            "Displaying responsive pagination links on Blade views"
+        ],
+        "title_en": "Lesson 21 - Pagination"
+    },
+    {
+        "num": 22,
+        "title": "Lesson 22 - Searching",
+        "title_id": "Lesson 22 - Searching",
+        "objectives": [
+            "Membangun fitur pencarian data dinamis berdasarkan kata kunci",
+            "Mengoptimalkan query pencarian dengan Eloquent where clause"
+        ],
+        "objectives_en": [
+            "Building dynamic data search features based on keywords",
+            "Optimizing search queries using Eloquent where clauses"
+        ],
+        "title_en": "Lesson 22 - Searching"
+    },
+    {
+        "num": 23,
+        "title": "Lesson 23 - Sorting",
+        "title_id": "Lesson 23 - Sorting",
+        "objectives": [
+            "Menerapkan fitur sorting pengurutan data berdasarkan kolom dan kriteria tertentu",
+            "Mengintegrasikan query sorting dinamis dengan parameter URL"
+        ],
+        "objectives_en": [
+            "Implementing data sorting based on specific columns and criteria",
+            "Integrating dynamic sorting queries with URL parameters"
+        ],
+        "title_en": "Lesson 23 - Sorting"
+    },
+    {
+        "num": 24,
+        "title": "Lesson 24 - Applied Laravel Project Part 1",
+        "title_id": "Lesson 24 - Latihan & Review Project Laravel Part 1",
+        "objectives": [
+            "Merancang arsitektur proyek terapan Laravel dari awal",
+            "Menyiapkan skema database, migration, dan seeding data awal"
+        ],
+        "objectives_en": [
+            "Designing applied Laravel project architecture from scratch",
+            "Setting up database schemas, migrations, and initial seed data"
+        ],
+        "title_en": "Lesson 24 - Applied Laravel Project Part 1"
+    },
+    {
+        "num": 25,
+        "title": "Lesson 25 - Applied Laravel Project Part 2",
+        "title_id": "Lesson 25 - Latihan & Review Project Laravel Part 2",
+        "objectives": [
+            "Membangun modul CRUD lengkap dengan validasi dan Eloquent ORM",
+            "Mengintegrasikan Blade view dan styling Bootstrap pada antarmuka"
+        ],
+        "objectives_en": [
+            "Building full CRUD modules with validation and Eloquent ORM",
+            "Integrating Blade views and Bootstrap styling on the interface"
+        ],
+        "title_en": "Lesson 25 - Applied Laravel Project Part 2"
+    },
+    {
+        "num": 26,
+        "title": "Lesson 26 - Applied Laravel Project Part 3",
+        "title_id": "Lesson 26 - Latihan & Review Project Laravel Part 3",
+        "objectives": [
+            "Menghubungkan fitur autentikasi, middleware proteksi, dan pencarian data",
+            "Melakukan pengujian fitur dan refactoring kode controller"
+        ],
+        "objectives_en": [
+            "Connecting authentication, protection middleware, and search features",
+            "Conducting feature testing and controller refactoring"
+        ],
+        "title_en": "Lesson 26 - Applied Laravel Project Part 3"
+    },
+    {
+        "num": 27,
+        "title": "Lesson 27 - Final Project: Specification & Planning",
+        "title_id": "Lesson 27 - Final Project: Inisialisasi & Perancangan",
+        "objectives": [
+            "Menentukan topik dan membuat spesifikasi kebutuhan proyek akhir backend",
+            "Merancang diagram database ERD dan setup repositori Git"
+        ],
+        "objectives_en": [
+            "Defining topics and requirements specification for final backend project",
+            "Designing database ERD diagrams and setting up Git repository"
+        ],
+        "title_en": "Lesson 27 - Final Project: Specification & Planning"
+    },
+    {
+        "num": 28,
+        "title": "Lesson 28 - Final Project: Database Schema & Relationships",
+        "title_id": "Lesson 28 - Final Project: Database & Model Relationship",
+        "objectives": [
+            "Mengembangkan skema database lengkap dengan migration dan relasi model",
+            "Membuat data dummy menggunakan factory dan seeder untuk pengujian"
+        ],
+        "objectives_en": [
+            "Developing database schemas with migrations and model relationships",
+            "Creating dummy data using factories and seeders for testing"
+        ],
+        "title_en": "Lesson 28 - Final Project: Database Schema & Relationships"
+    },
+    {
+        "num": 29,
+        "title": "Lesson 29 - Final Project: Controllers & Business Logic",
+        "title_id": "Lesson 29 - Final Project: Logika Bisnis & Controller",
+        "objectives": [
+            "Mengembangkan controller dan logika bisnis utama sistem backend",
+            "Menerapkan validasi request yang ketat dan penanganan exception"
+        ],
+        "objectives_en": [
+            "Developing controllers and core business logic for backend systems",
+            "Implementing strict request validation and exception handling"
+        ],
+        "title_en": "Lesson 29 - Final Project: Controllers & Business Logic"
+    },
+    {
+        "num": 30,
+        "title": "Lesson 30 - Final Project: Roles, Authorization & Security",
+        "title_id": "Lesson 30 - Final Project: Autentikasi, Role & Middleware",
+        "objectives": [
+            "Menerapkan sistem multi-role dan hak akses pengguna pada proyek",
+            "Mengamankan rute dan endpoint sistem backend"
+        ],
+        "objectives_en": [
+            "Implementing multi-role systems and user authorization on the project",
+            "Securing backend routes and endpoints"
+        ],
+        "title_en": "Lesson 30 - Final Project: Roles, Authorization & Security"
+    },
+    {
+        "num": 31,
+        "title": "Lesson 31 - Final Project: Testing & Server Deployment",
+        "title_id": "Lesson 31 - Final Project: Testing, Optimization & Deployment",
+        "objectives": [
+            "Melakukan pengujian end-to-end fitur backend dan optimasi query database",
+            "Mempersiapkan konfigurasi environment dan deployment aplikasi ke server"
+        ],
+        "objectives_en": [
+            "Performing end-to-end backend testing and database query optimization",
+            "Preparing environment configuration and server deployment"
+        ],
+        "title_en": "Lesson 31 - Final Project: Testing & Server Deployment"
+    },
+    {
+        "num": 32,
+        "title": "Lesson 32 - Final Project: Presentation & Final Review",
+        "title_id": "Lesson 32 - Final Project: Presentasi & Evaluasi Akhir",
+        "objectives": [
+            "Mempresentasikan sistem backend yang telah selesai dibangun",
+            "Melakukan demonstrasi fitur dan sesi evaluasi akhir"
+        ],
+        "objectives_en": [
+            "Presenting the completed backend application system",
+            "Demonstrating features and final evaluation session"
+        ],
+        "title_en": "Lesson 32 - Final Project: Presentation & Final Review"
+    }
+],
+  "Mobile App Development": [],
+  "AI Development": []
 };
 
 const COURSE_MAP = {
+  "Juniors": [
+    "Little Programmer",
+    "3D ANIMATOR",
+    "Website Designer",
+    "Virtual World Maker"
+  ],
   "Junior": [
     "Little Programmer",
     "3D ANIMATOR",
@@ -6247,5 +7443,13 @@ const COURSE_MAP = {
     "Teens Animation",
     "Advanced Animation",
     "UI/UX"
+  ],
+  "Pro": [
+    "Basic Website",
+    "Frontend Development",
+    "Backend Development",
+    "Mobile App Development",
+    "AI Development"
   ]
 };
+

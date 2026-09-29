@@ -436,15 +436,59 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
+  gap: 5px;
   padding-top: 1px;
 }
+.card-level-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  line-height: 1.25;
+}
+.card-level-badge.level-juniors,
+.card-level-badge.level-junior {
+  background: #f5f3ff;
+  color: #7c3aed;
+  border: 1px solid #ddd6fe;
+}
+.card-level-badge.level-kids {
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+}
+.card-level-badge.level-teens {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+.card-level-badge.level-design {
+  background: #fdf2f8;
+  color: #db2777;
+  border: 1px solid #fbcfe8;
+}
+.card-level-badge.level-pro {
+  background: #f0fdfa;
+  color: #0d9488;
+  border: 1px solid #99f6e4;
+}
 .card-course-title {
-  font-size: 12.5px;
+  display: inline-block;
+  font-size: 11.5px;
   font-weight: 700;
   color: #0f172a;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 3px 8px;
   line-height: 1.35;
   word-break: break-word;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  max-width: 100%;
 }
 .lesson-pill {
   display: inline-flex;
@@ -525,6 +569,7 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .badge-kids{background:#dbeafe;color:#1e40af;}
 .badge-teens{background:#ede9fe;color:#5b21b6;}
 .badge-design{background:#fce7f3;color:#9d174d;}
+.badge-pro{background:#ccfbf1;color:#0f766e;}
 
 /* Responsive Web Layout */
 @media (max-width: 1200px) {

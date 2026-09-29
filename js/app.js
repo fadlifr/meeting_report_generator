@@ -240,6 +240,26 @@ function processPhotoFile(file, targetRatio = 16 / 9, maxDimension = 1920) {
   });
 }
 
+const COURSE_LANG_MAP = {
+  'Basic Website': { id: 'Website Basic', en: 'Website Development' },
+  'Website Basic': { id: 'Website Basic', en: 'Website Development' },
+  'Website Development': { id: 'Website Basic', en: 'Website Development' },
+  'Frontend Development': { id: 'Frontend Development', en: 'Frontend Development' },
+  'Backend Development': { id: 'Backend Development', en: 'Backend Development' },
+  'Mobile App Development': { id: 'Mobile App Development', en: 'Mobile App Development' },
+  'AI Development': { id: 'AI Development', en: 'AI Development' },
+  '3D ANIMATOR': { id: '3D Animator', en: '3D Animator' }
+};
+
+function getLocalizedCourseName(courseName, lang = 'en') {
+  if (!courseName) return '';
+  const norm = courseName.trim();
+  if (COURSE_LANG_MAP[norm] && COURSE_LANG_MAP[norm][lang]) {
+    return COURSE_LANG_MAP[norm][lang];
+  }
+  return norm;
+}
+
 function getStudentCourse(s) {
   if (!s) return '';
   if (s.course && typeof s.course === 'string' && s.course.trim()) {
@@ -288,7 +308,12 @@ function getStudentCourse(s) {
       { key: 'Kids Animation Basic', terms: ['kids animation basic', 'kids animation'] },
       { key: 'Teens Animation', terms: ['teens animation'] },
       { key: 'Advanced Animation', terms: ['advanced animation'] },
-      { key: 'UI/UX', terms: ['ui/ux', 'ui ux', 'uiux'] }
+      { key: 'UI/UX', terms: ['ui/ux', 'ui ux', 'uiux'] },
+      { key: 'Basic Website', terms: ['basic website', 'website basic', 'website development', 'web development', 'web basic'] },
+      { key: 'Frontend Development', terms: ['frontend development', 'frontend dev', 'frontend', 'javascript fundamental'] },
+      { key: 'Backend Development', terms: ['backend development', 'backend dev', 'backend'] },
+      { key: 'Mobile App Development', terms: ['mobile app development', 'mobile app', 'mobile development'] },
+      { key: 'AI Development', terms: ['ai development', 'ai dev'] }
     ];
 
     for (const a of aliases) {
@@ -314,6 +339,28 @@ function getStudentCourse(s) {
     }
   }
 
+  return '';
+}
+
+function getStudentLevel(s) {
+  if (!s) return '';
+  if (s.criteria && s.criteria.trim()) {
+    const c = s.criteria.trim();
+    if (c.toLowerCase() === 'junior') return 'Juniors';
+    return c;
+  }
+  const course = getStudentCourse(s);
+  if (course && typeof COURSE_MAP !== 'undefined') {
+    for (const [lvl, list] of Object.entries(COURSE_MAP)) {
+      if (Array.isArray(list)) {
+        if (list.includes(course) || 
+            (COURSE_LANG_MAP[course] && (list.includes(COURSE_LANG_MAP[course].en) || list.includes(COURSE_LANG_MAP[course].id)))) {
+          if (lvl.toLowerCase() === 'junior') return 'Juniors';
+          return lvl;
+        }
+      }
+    }
+  }
   return '';
 }
 
@@ -739,11 +786,16 @@ function populateCourseDropdown(idx) {
   const courseSelect = document.getElementById(`auto-course-${idx}`);
   if (!courseSelect) return;
   const s = autoStudents[idx];
-  courseSelect.innerHTML = `<option value="">${LANG_UI[autoLang].coursePlaceholder}</option>`;
-  if (s.criteria && COURSE_MAP[s.criteria]) {
-    COURSE_MAP[s.criteria].forEach(c => {
+  const sLang = s.lang || autoLang;
+  courseSelect.innerHTML = `<option value="">${LANG_UI[sLang].coursePlaceholder}</option>`;
+  const courseList = (s.criteria && COURSE_MAP[s.criteria])
+    ? COURSE_MAP[s.criteria]
+    : ((s.criteria === 'Juniors' || s.criteria === 'Junior') ? (COURSE_MAP['Juniors'] || COURSE_MAP['Junior']) : null);
+  if (courseList) {
+    courseList.forEach(c => {
       const opt = document.createElement('option');
-      opt.value = c; opt.textContent = c;
+      opt.value = c;
+      opt.textContent = getLocalizedCourseName(c, sLang);
       if (c === s.course) opt.selected = true;
       courseSelect.appendChild(opt);
     });
@@ -755,27 +807,35 @@ function populateLessonDropdown(idx) {
   const lesson2Select = document.getElementById(`auto-lesson2-${idx}`);
   if (!lessonSelect) return;
   const s = autoStudents[idx];
+  const sLang = s.lang || autoLang;
   
-  lessonSelect.innerHTML = `<option value="">${LANG_UI[autoLang].lessonPlaceholder}</option>`;
+  lessonSelect.innerHTML = `<option value="">${LANG_UI[sLang].lessonPlaceholder}</option>`;
   if (lesson2Select) {
-    lesson2Select.innerHTML = `<option value="">${LANG_UI[autoLang].lesson2Placeholder}</option>`;
+    lesson2Select.innerHTML = `<option value="">${LANG_UI[sLang].lesson2Placeholder}</option>`;
     lesson2Select.style.display = (s.status === 'double' || s.status === 'one_and_half') ? 'block' : 'none';
   }
   
-  if (s.course && COURSE_DATA[s.course]) {
+  if (s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length > 0) {
     COURSE_DATA[s.course].forEach(l => {
+      const lTitle = (sLang === 'id' && l.title_id) ? l.title_id : (l.title_en || l.title);
       const opt1 = document.createElement('option');
-      opt1.value = l.num; opt1.textContent = `${l.title}`;
+      opt1.value = l.num; opt1.textContent = `${lTitle}`;
       if (String(l.num) === String(s.lesson)) opt1.selected = true;
       lessonSelect.appendChild(opt1);
       
       if (lesson2Select) {
         const opt2 = document.createElement('option');
-        opt2.value = l.num; opt2.textContent = `${l.title}`;
+        opt2.value = l.num; opt2.textContent = `${lTitle}`;
         if (String(l.num) === String(s.lesson2)) opt2.selected = true;
         lesson2Select.appendChild(opt2);
       }
     });
+  } else if (s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length === 0) {
+    const noOpt = document.createElement('option');
+    noOpt.value = "";
+    noOpt.textContent = sLang === 'id' ? "(Ketik progress manual)" : "(Type progress manually)";
+    noOpt.disabled = true;
+    lessonSelect.appendChild(noOpt);
   }
 }
 
@@ -825,23 +885,30 @@ function generateProgress(idx) {
 
   if (!s.nama || !s.nama.trim()) { toast(L.errName, 'error'); return; }
   if (!s.course) { toast(L.errCourse, 'error'); return; }
-  if (!s.lesson) { toast(L.errLesson, 'error'); return; }
+  if (!s.lesson) {
+    if (COURSE_DATA[s.course] && COURSE_DATA[s.course].length === 0) {
+      toast(sLang === 'id' ? 'Course ini belum memiliki data lesson otomatis. Silakan tulis progress langsung di kotak teks.' : 'This course has no automated lessons yet. Please write progress directly in the text area.', 'error');
+      return;
+    }
+    toast(L.errLesson, 'error'); return;
+  }
   if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) { toast(L.errLesson2, 'error'); return; }
 
   const courseList = COURSE_DATA[s.course];
   const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
   const l2Obj = (courseList && s.lesson2) ? courseList.find(item => item.num == s.lesson2) : null;
 
-  const l1Title = l1Obj ? l1Obj.title : `Lesson ${s.lesson}`;
-  const l2Title = l2Obj ? l2Obj.title : `Lesson ${s.lesson2}`;
+  const l1Title = l1Obj ? ((sLang === 'id' && l1Obj.title_id) ? l1Obj.title_id : (l1Obj.title_en || l1Obj.title)) : `Lesson ${s.lesson}`;
+  const l2Title = l2Obj ? ((sLang === 'id' && l2Obj.title_id) ? l2Obj.title_id : (l2Obj.title_en || l2Obj.title)) : `Lesson ${s.lesson2}`;
 
   const templateMap = sLang === 'en' ? TEMPLATES_EN : TEMPLATES;
   const raw1 = (templateMap[s.course] && templateMap[s.course][s.lesson])
     ? templateMap[s.course][s.lesson]
     : '';
+  const localizedCourse = getLocalizedCourseName(s.course, sLang);
   const action1 = raw1
     ? extractAction(raw1, s.nama, sLang)
-    : L.fallbackProgress(s.nama, s.lesson, s.course, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
+    : L.fallbackProgress(s.nama, s.lesson, localizedCourse, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
 
   let text = '';
   if (s.status === 'done') {
@@ -858,7 +925,7 @@ function generateProgress(idx) {
       : '';
     const action2 = raw2
       ? extractAction(raw2, s.nama, sLang)
-      : L.fallbackProgress(s.nama, s.lesson2, s.course, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
+      : L.fallbackProgress(s.nama, s.lesson2, localizedCourse, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
     text = L.doubleText(s.nama, s.lesson, l1Title, action1, s.lesson2, l2Title, action2);
   }
 
@@ -920,10 +987,11 @@ function renderAutoInputs(){
         <div class="auto-gen-selectors" style="flex-wrap:wrap;">
           <select id="auto-criteria-${i}" onchange="onCriteriaChange(${i},this)" style="flex:1;min-width:100px;">
             <option value="">${L.critPlaceholder}</option>
-            <option value="Junior" ${s.criteria==='Junior'?'selected':''}>Junior</option>
+            <option value="Juniors" ${s.criteria==='Juniors'||s.criteria==='Junior'?'selected':''}>Juniors</option>
             <option value="Kids" ${s.criteria==='Kids'?'selected':''}>Kids</option>
             <option value="Teens" ${s.criteria==='Teens'?'selected':''}>Teens</option>
             <option value="Design" ${s.criteria==='Design'?'selected':''}>Design</option>
+            <option value="Pro" ${s.criteria==='Pro'?'selected':''}>Pro</option>
           </select>
           <select id="auto-course-${i}" onchange="onCourseChange(${i},this)" style="flex:1.8;min-width:130px;">
             <option value="">${L.coursePlaceholder}</option>
@@ -983,6 +1051,10 @@ function autoUpdateTable(){
     
     const lessonTag = getLessonTag(s);
     const courseName = getStudentCourse(s);
+    const sLang = s.lang || autoLang;
+    const localizedCourse = getLocalizedCourseName(courseName, sLang);
+    const levelName = getStudentLevel(s);
+    const levelKey = (levelName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
     
     const div = document.createElement('div');
     div.className = 'rpt-student-card';
@@ -994,7 +1066,8 @@ function autoUpdateTable(){
         <span class="student-name-text">${escHtml(s.nama) || '<em style="color:#94a3b8">—</em>'}</span>
       </div>
       <div class="card-lesson-col">
-        ${courseName ? `<div class="card-course-title">${escHtml(courseName)}</div>` : ''}
+        ${levelName ? `<span class="card-level-badge level-${levelKey}">${escHtml(levelName)}</span>` : ''}
+        ${localizedCourse ? `<div class="card-course-title">${escHtml(localizedCourse)}</div>` : ''}
         ${lessonTag ? `<span class="lesson-pill">${escHtml(lessonTag)}</span>` : ''}
       </div>
       <div class="card-progress-col">
@@ -1025,9 +1098,10 @@ function updateMascots() {
   }
   
   let mascotSrc = 'img/cobee2.png'; // Teens (Default)
-  if (criteria === 'Junior') mascotSrc = 'img/cobee4.png';
+  if (criteria === 'Junior' || criteria === 'Juniors') mascotSrc = 'img/cobee4.png';
   if (criteria === 'Kids') mascotSrc = 'img/cobee5.png';
   if (criteria === 'Design') mascotSrc = 'img/cobee2.png';
+  if (criteria === 'Pro') mascotSrc = 'img/cobee2.png';
   
   const m2 = document.getElementById('auto-mascot');
   if (m2) m2.src = mascotSrc;
@@ -1042,7 +1116,10 @@ function buildAutoWAMessage(){
     
     let shortSummary = s.progress || '-';
     const courseName = getStudentCourse(s);
+    const localizedCourse = getLocalizedCourseName(courseName, autoLang);
     const lessonTag = getLessonTag(s);
+    const levelName = getStudentLevel(s);
+    const levelPrefix = levelName ? `${levelName} • ` : '';
     
     if (courseName && s.lesson) {
       const courseList = (typeof COURSE_DATA !== 'undefined') ? COURSE_DATA[courseName] : null;
@@ -1057,7 +1134,7 @@ function buildAutoWAMessage(){
         statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
       }
       
-      const coursePrefix = courseName ? `${courseName} - ` : '';
+      const coursePrefix = localizedCourse ? `${levelPrefix}${localizedCourse} - ` : (levelPrefix ? `${levelPrefix}` : '');
       if (s.status === 'double' && s.lesson2) {
         shortSummary = `${coursePrefix}Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
       } else if (s.status === 'one_and_half' && s.lesson2) {
@@ -1065,11 +1142,12 @@ function buildAutoWAMessage(){
         const l2Status = autoLang === 'en' ? 'In Progress' : 'Sedang Dikerjakan';
         shortSummary = `${coursePrefix}Lesson ${s.lesson} (${l1Status}) & Lesson ${s.lesson2} (${l2Status})`;
       } else if (l1Obj) {
-        let cleanTitle = l1Obj.title.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
+        const rawTitle = (autoLang === 'id' && l1Obj.title_id) ? l1Obj.title_id : (l1Obj.title_en || l1Obj.title);
+        let cleanTitle = rawTitle.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '');
         shortSummary = `${coursePrefix}Lesson ${s.lesson}: ${cleanTitle} ${statusText}`;
       }
     } else if (courseName && lessonTag) {
-      shortSummary = `${courseName} - ${lessonTag}`;
+      shortSummary = `${levelPrefix}${localizedCourse || courseName} - ${lessonTag}`;
     }
     
     return `*${s.nama||'-'}*\n${shortSummary}`;
@@ -1131,9 +1209,14 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     const lines=doc.splitTextToSize(plainText,TABLE_W-COL_NAME_W-COL_LESSON_W-24);
     
     const courseName = getStudentCourse(s);
+    const sLang = s.lang || autoLang;
+    const localizedCourse = getLocalizedCourseName(courseName, sLang);
     const lessonTag = getLessonTag(s);
-    const courseLines = courseName ? doc.splitTextToSize(courseName, COL_LESSON_W - 4) : [];
-    const minH = Math.max(12, courseLines.length * 3.8 + (lessonTag ? 8 : 4));
+    const levelName = getStudentLevel(s);
+    const courseLines = localizedCourse ? doc.splitTextToSize(localizedCourse, COL_LESSON_W - 8) : [];
+    const levelH = levelName ? 4.2 : 0;
+    const courseBoxH = (courseName && courseLines.length > 0) ? (courseLines.length * 3.8 + 2.5) : 0;
+    const minH = Math.max(12, levelH + courseBoxH + (lessonTag ? 8 : 4));
     const cellH = Math.max(minH, lines.length * 5 + 8);
     
     if(rowY+cellH>H-20){doc.addPage();rowY=20;}
@@ -1150,19 +1233,47 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     doc.text(s.nama||'—',TABLE_X+18,rowY+6.5);
     
     // Course & Lesson
-    let curY = rowY + 5.5;
+    let curY = rowY + 5.2;
+    if (levelName) {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(6.5);
+      let lvlColor = [100, 116, 139];
+      if (/junior/i.test(levelName)) lvlColor = [124, 58, 237];
+      else if (/kids/i.test(levelName)) lvlColor = [37, 99, 235];
+      else if (/teens/i.test(levelName)) lvlColor = [217, 119, 6];
+      else if (/design/i.test(levelName)) lvlColor = [219, 39, 119];
+      else if (/pro/i.test(levelName)) lvlColor = [13, 148, 136];
+      doc.setTextColor(...lvlColor);
+      doc.text(levelName.toUpperCase(), TABLE_X + 18 + COL_NAME_W, curY);
+      curY += 3.8;
+    }
     if (courseName && courseLines.length > 0) {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(7.5);
-      doc.setTextColor(30, 41, 59);
-      doc.text(courseLines, TABLE_X + 18 + COL_NAME_W, curY);
-      curY += courseLines.length * 3.8 + 1.5;
+      let maxLineW = 0;
+      courseLines.forEach(cl => {
+        const lw = doc.getTextWidth(cl);
+        if (lw > maxLineW) maxLineW = lw;
+      });
+      const boxW = Math.min(COL_LESSON_W - 4, maxLineW + 4);
+      const boxH = courseLines.length * 3.8 + 2;
+      
+      doc.setFillColor(241, 245, 249);
+      doc.setDrawColor(203, 213, 225);
+      doc.setLineWidth(0.2);
+      doc.roundedRect(TABLE_X + 18 + COL_NAME_W, curY - 2.8, boxW, boxH, 1, 1, 'FD');
+      
+      doc.setTextColor(15, 23, 42);
+      doc.text(courseLines, TABLE_X + 20 + COL_NAME_W, curY);
+      curY += boxH + 1.8;
     }
     if(lessonTag){
       doc.setFont('helvetica','bold');doc.setFontSize(7);doc.setTextColor(21,128,61);
       doc.setFillColor(240,253,244);
+      doc.setDrawColor(187, 247, 208);
+      doc.setLineWidth(0.2);
       const pillW = doc.getTextWidth(lessonTag) + 5;
-      doc.roundedRect(TABLE_X+18+COL_NAME_W, curY - 3, pillW, 4.5, 1.2, 1.2, 'F');
+      doc.roundedRect(TABLE_X+18+COL_NAME_W, curY - 2.8, pillW, 4.5, 1.2, 1.2, 'FD');
       doc.text(lessonTag, TABLE_X + 20 + COL_NAME_W, curY);
       doc.setFontSize(9);
     }
@@ -1356,7 +1467,7 @@ window.initApp = function() {
 
   // Init auto tab with sample students matching user's courses
   autoStudents = [
-    {nama:'Student One',progress:'',criteria:'Kids',course:'Interactive Mechanics on Roblox',lesson:'1',status:'done',lang:'en'},
+    {nama:'Student One',progress:'',criteria:'Pro',course:'Basic Website',lesson:'12',status:'done',lang:'en'},
     {nama:'Student Two',progress:'',criteria:'Kids',course:'Game Developer',lesson:'18',lesson2:'19',status:'double',lang:'en'}
   ];
   setLang('en');
