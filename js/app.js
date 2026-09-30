@@ -782,6 +782,95 @@ function setLang(lang){
   renderAutoInputs();
 }
 
+function setupCustomSelect(selectEl) {
+  if (!selectEl) return;
+  if (!window._cSelectListenerAdded) {
+    window._cSelectListenerAdded = true;
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.c-select')) {
+        document.querySelectorAll('.c-select.open').forEach(el => el.classList.remove('open'));
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.c-select.open').forEach(el => el.classList.remove('open'));
+      }
+    });
+  }
+
+  let wrap = selectEl.nextElementSibling;
+  const isWrap = wrap && wrap.classList && wrap.classList.contains('c-select');
+  if (!isWrap) {
+    wrap = document.createElement('div');
+    wrap.className = 'c-select';
+    wrap.dataset.for = selectEl.id;
+    if (selectEl.style.flex) wrap.style.flex = selectEl.style.flex;
+    wrap.style.minWidth = '0';
+    wrap.innerHTML = `
+      <button type="button" class="c-select-trigger">
+        <span class="c-select-text"></span>
+        <svg class="c-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none">
+          <path d="M1 1L5 5L9 1" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="c-select-dropdown">
+        <div class="c-select-options"></div>
+      </div>
+    `;
+    selectEl.classList.add('c-select-native-hidden');
+    selectEl.parentNode.insertBefore(wrap, selectEl.nextSibling);
+
+    const trigger = wrap.querySelector('.c-select-trigger');
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const wasOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.c-select.open').forEach(el => el.classList.remove('open'));
+      if (!wasOpen) {
+        wrap.classList.add('open');
+      }
+    });
+  }
+
+  wrap.style.display = selectEl.style.display === 'none' ? 'none' : (selectEl.style.flex ? 'flex' : 'block');
+
+  const triggerText = wrap.querySelector('.c-select-text');
+  const optionsContainer = wrap.querySelector('.c-select-options');
+  optionsContainer.innerHTML = '';
+
+  const opts = Array.from(selectEl.options);
+  let selectedText = '';
+
+  opts.forEach(opt => {
+    const isSelected = opt.selected;
+    if (isSelected) {
+      selectedText = opt.textContent;
+    }
+    const item = document.createElement('div');
+    item.className = 'c-select-option' + (isSelected ? ' selected' : '') + (opt.disabled ? ' disabled' : '');
+    item.dataset.value = opt.value;
+    item.textContent = opt.textContent;
+    item.title = opt.title || opt.textContent;
+
+    if (!opt.disabled) {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        selectEl.value = opt.value;
+        wrap.classList.remove('open');
+        selectEl.dispatchEvent(new Event('change', { bubbles: true }));
+      });
+    }
+    optionsContainer.appendChild(item);
+  });
+
+  const selectedOpt = opts.find(o => o.selected) || opts[0];
+  const selectedLabel = selectedOpt ? selectedOpt.textContent : '';
+  triggerText.textContent = selectedLabel;
+  const triggerBtn = wrap.querySelector('.c-select-trigger');
+  if (triggerBtn) {
+    triggerBtn.title = selectedLabel;
+  }
+}
+
 function populateCourseDropdown(idx) {
   const courseSelect = document.getElementById(`auto-course-${idx}`);
   if (!courseSelect) return;
@@ -800,6 +889,7 @@ function populateCourseDropdown(idx) {
       courseSelect.appendChild(opt);
     });
   }
+  setupCustomSelect(courseSelect);
 }
 
 function populateLessonDropdown(idx) {
@@ -837,6 +927,8 @@ function populateLessonDropdown(idx) {
     noOpt.disabled = true;
     lessonSelect.appendChild(noOpt);
   }
+  setupCustomSelect(lessonSelect);
+  if (lesson2Select) setupCustomSelect(lesson2Select);
 }
 
 function onCriteriaChange(idx, selectEl) {
@@ -844,6 +936,7 @@ function onCriteriaChange(idx, selectEl) {
   autoStudents[idx].course = '';
   autoStudents[idx].lesson = '';
   autoStudents[idx].lesson2 = '';
+  setupCustomSelect(selectEl);
   populateCourseDropdown(idx);
   populateLessonDropdown(idx);
   autoUpdateTable();
@@ -853,6 +946,7 @@ function onCourseChange(idx, selectEl) {
   autoStudents[idx].course = selectEl.value;
   autoStudents[idx].lesson = '';
   autoStudents[idx].lesson2 = '';
+  setupCustomSelect(selectEl);
   populateLessonDropdown(idx);
   autoUpdateTable();
 }
@@ -860,20 +954,24 @@ function onCourseChange(idx, selectEl) {
 function onStatusChange(idx, selectEl) {
   const status = selectEl.value;
   autoStudents[idx].status = status;
+  setupCustomSelect(selectEl);
   const lesson2Select = document.getElementById(`auto-lesson2-${idx}`);
   if (lesson2Select) {
     lesson2Select.style.display = (status === 'double' || status === 'one_and_half') ? 'block' : 'none';
+    setupCustomSelect(lesson2Select);
   }
   autoUpdateTable();
 }
 
 function onLessonChange(idx, selectEl) {
   autoStudents[idx].lesson = selectEl.value;
+  setupCustomSelect(selectEl);
   autoUpdateTable();
 }
 
 function onLesson2Change(idx, selectEl) {
   autoStudents[idx].lesson2 = selectEl.value;
+  setupCustomSelect(selectEl);
   autoUpdateTable();
 }
 
@@ -984,8 +1082,8 @@ function renderAutoInputs(){
         <button class="btn-del" onclick="removeAutoStudent(${i})" title="Remove">×</button>
       </div>
       <div class="auto-gen-row">
-        <div class="auto-gen-selectors" style="flex-wrap:wrap;">
-          <select id="auto-criteria-${i}" onchange="onCriteriaChange(${i},this)" style="flex:1;min-width:100px;">
+        <div class="auto-gen-selectors">
+          <select id="auto-criteria-${i}" onchange="onCriteriaChange(${i},this)" style="flex:1;min-width:0;">
             <option value="">${L.critPlaceholder}</option>
             <option value="Juniors" ${s.criteria==='Juniors'||s.criteria==='Junior'?'selected':''}>Juniors</option>
             <option value="Kids" ${s.criteria==='Kids'?'selected':''}>Kids</option>
@@ -993,10 +1091,12 @@ function renderAutoInputs(){
             <option value="Design" ${s.criteria==='Design'?'selected':''}>Design</option>
             <option value="Pro" ${s.criteria==='Pro'?'selected':''}>Pro</option>
           </select>
-          <select id="auto-course-${i}" onchange="onCourseChange(${i},this)" style="flex:1.8;min-width:130px;">
+          <select id="auto-course-${i}" onchange="onCourseChange(${i},this)" style="flex:1.8;min-width:0;">
             <option value="">${L.coursePlaceholder}</option>
           </select>
-          <select id="auto-status-${i}" onchange="onStatusChange(${i},this)" style="flex:1.4;min-width:140px;">
+        </div>
+        <div class="auto-gen-selectors" style="margin-top:4px;">
+          <select id="auto-status-${i}" onchange="onStatusChange(${i},this)" style="flex:1;min-width:0;">
             <option value="done" ${sStatus==='done'?'selected':''}>${L.statusDone}</option>
             <option value="continued_done" ${sStatus==='continued_done'?'selected':''}>${L.statusContinuedDone}</option>
             <option value="in_progress" ${sStatus==='in_progress'?'selected':''}>${L.statusInProgress}</option>
@@ -1005,10 +1105,10 @@ function renderAutoInputs(){
           </select>
         </div>
         <div class="auto-gen-selectors" style="margin-top:4px;">
-          <select id="auto-lesson-${i}" style="flex:1" onchange="onLessonChange(${i},this)">
+          <select id="auto-lesson-${i}" style="flex:1;min-width:0;" onchange="onLessonChange(${i},this)">
             <option value="">${L.lessonPlaceholder}</option>
           </select>
-          <select id="auto-lesson2-${i}" style="flex:1; display:${(sStatus==='double'||sStatus==='one_and_half')?'block':'none'}" onchange="onLesson2Change(${i},this)">
+          <select id="auto-lesson2-${i}" style="flex:1;min-width:0; display:${(sStatus==='double'||sStatus==='one_and_half')?'block':'none'}" onchange="onLesson2Change(${i},this)">
             <option value="">${L.lesson2Placeholder}</option>
           </select>
         </div>
@@ -1019,6 +1119,9 @@ function renderAutoInputs(){
     
     populateCourseDropdown(i);
     populateLessonDropdown(i);
+    ['criteria', 'course', 'status', 'lesson', 'lesson2'].forEach(field => {
+      setupCustomSelect(document.getElementById(`auto-${field}-${i}`));
+    });
   });
   autoUpdateTable();
 }
@@ -1156,7 +1259,14 @@ function buildAutoWAMessage(){
 }
 
 function autoUpdateWA(){
-  document.getElementById('auto-wa-bubble').textContent = buildAutoWAMessage();
+  const bubble = document.getElementById('auto-wa-bubble');
+  if (!bubble) return;
+  const msg = buildAutoWAMessage();
+  if (bubble.tagName === 'TEXTAREA' || bubble.tagName === 'INPUT') {
+    bubble.value = msg;
+  } else {
+    bubble.textContent = msg;
+  }
 }
 
 // Shared PDF builder — used by both manual and auto tab
@@ -1404,7 +1514,9 @@ function openAutoWhatsApp(){
     link.click();
     setTimeout(() => URL.revokeObjectURL(link.href), 5000);
     await new Promise(r=>setTimeout(r,800));
-    window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(buildAutoWAMessage()),'_blank');
+    const waEl = document.getElementById('auto-wa-bubble');
+    const waMsg = (waEl && (waEl.value !== undefined ? waEl.value : waEl.textContent)) || buildAutoWAMessage();
+    window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(waMsg),'_blank');
     toast('Done!','success');
   }catch(err){toast('Error: '+err.message,'error');}
   finally{btn.disabled=false;btn.textContent=L.waBtn;}
@@ -1412,12 +1524,14 @@ function openAutoWhatsApp(){
 }
 
 async function copyAutoWAMessage() {
+  const waEl = document.getElementById('auto-wa-bubble');
+  const waMsg = (waEl && (waEl.value !== undefined ? waEl.value : waEl.textContent)) || buildAutoWAMessage();
   try {
-    await navigator.clipboard.writeText(buildAutoWAMessage());
+    await navigator.clipboard.writeText(waMsg);
     toast(autoLang === 'en' ? 'WhatsApp message copied!' : 'Pesan WhatsApp disalin!', 'success');
   } catch(e) {
     const ta = document.createElement('textarea');
-    ta.value = buildAutoWAMessage();
+    ta.value = waMsg;
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');

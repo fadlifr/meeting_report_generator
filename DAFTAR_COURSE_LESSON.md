@@ -6,10 +6,10 @@
 
 | No | Course | Jumlah Lesson |
 |----|--------|---------------|
-| 1 | Little Programmer | 24 lesson |
-| 2 | 3D ANIMATOR | 24 lesson |
-| 3 | Website Designer | 16 lesson |
-| 4 | Virtual World Maker | 24 lesson |
+| 1 | 3D ANIMATOR | 24 lesson |
+| 2 | Website Designer | 16 lesson |
+| 3 | Virtual World Maker | 24 lesson |
+| 4 | Little Programmer | 24 lesson |
 
 ## Level: Kids
 
@@ -37,8 +37,8 @@
 | 3 | Web Developer Teens | 24 lesson |
 | 4 | Android Developer | 16 lesson |
 | 5 | Python for Data Science | 16 lesson |
-| 6 | AI Computer Vision | 16 lesson |
-| 7 | AI Machine Learning | 16 lesson |
+| 6 | AI Machine Learning | 16 lesson |
+| 7 | AI Computer Vision | 16 lesson |
 
 ## Level: Design
 
@@ -58,12 +58,12 @@
 | 1 | Website Development / Website Basic | 16 lesson |
 | 2 | Frontend Development | 32 lesson |
 | 3 | Backend Development | 32 lesson |
-| 4 | Mobile App Development | Menunggu data (0 lesson) |
-| 5 | AI Development | Menunggu data (0 lesson) |
+| 4 | Mobile App Development | 48 lesson |
+| 5 | AI Development | 48 lesson |
 
 ---
 
-**Total: 34 course, 704 lesson keseluruhan**
+**Total: 34 course, 800 lesson keseluruhan**
 
 ## Ringkasan (Plain Text)
 
@@ -72,7 +72,7 @@
 Advanced Animation: 24 lesson
 Advanced Lua Programming on Roblox: 24 lesson
 AI Computer Vision: 16 lesson
-AI Development: 0 lesson
+AI Development: 48 lesson
 AI Machine Learning: 16 lesson
 Android Developer: 16 lesson
 Backend Development: 32 lesson
@@ -89,7 +89,7 @@ IoT Smart City: 24 lesson
 JavaScript Developer: 16 lesson
 Kids Animation Basic: 32 lesson
 Little Programmer: 24 lesson
-Mobile App Development: 0 lesson
+Mobile App Development: 48 lesson
 Python Coder: 16 lesson
 Python for AI: 16 lesson
 Python for Data Science: 16 lesson

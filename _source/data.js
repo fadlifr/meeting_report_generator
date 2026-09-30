@@ -4028,3390 +4028,4958 @@ const COURSE_DATA = {
     }
   ],
   "Teens Design Basic": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - What is Design?",
-          "objectives": [
-              "Mengenali konsep apa itu desain",
-              "Menguasai dasar pengoperasian Adobe Photoshop"
-          ],
-          "objectives_en": [
-              "Introduction to Design",
-              "Introduction to Photoshop"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Color is Everywhere",
-          "objectives": [
-              "Mempelajari Teori Warna",
-              "Mempelajari Color Palette"
-          ],
-          "objectives_en": [
-              "Learning Color Theory",
-              "Learning the Color Palette"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Typography",
-          "objectives": [
-              "Mengenali penggunaan font yang tepat",
-              "Mempelajari pembuatan layout yang tepat"
-          ],
-          "objectives_en": [
-              "Recognize the correct use of fonts",
-              "Learning to create the right layout"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - Moodboard",
-          "objectives": [
-              "Student mengerti bagaimana referensi dapat membantu dalam membuat dan menentukan desain",
-              "Mempelajari Copyright"
-          ],
-          "objectives_en": [
-              "Students understand how references can help in creating and determining designs",
-              "Learning Copyright"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Photoshop Effects",
-          "objectives": [
-              "Memperkenalkan basic Photoshop Effects"
-          ],
-          "objectives_en": [
-              "Introducing basic Photoshop Effects"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Photo Editing",
-          "objectives": [
-              "Student mengerti tentang basic Photo Editing",
-              "Student paham tentang apa itu Exposure",
-              "Student mengerti tentang adjustment layer masking",
-              "Pengenalan Content-Aware Tools"
-          ],
-          "objectives_en": [
-              "Students understand the basics of photo editing",
-              "Students understand what Exposure is",
-              "Students understand about adjustment layer masking",
-              "Introduction to Content-Aware Tools"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Caricatures",
-          "title_raw": "Lesson 7 - Carricatures",
-          "objectives": [
-              "Mengenalkan istilah Photo Composite",
-              "Mengenalkan penggunaan filter di PS",
-              "Student paham dengan apa itu Smart Object"
-          ],
-          "objectives_en": [
-              "Introducing the term Composite Photo",
-              "Introducing the use of filters in PS",
-              "Students understand what a Smart Object is"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Exam",
-          "objectives": [
-              "Melaksanakan review materi desain Photoshop dan mengikuti ujian tengah level"
-          ],
-          "objectives_en": [
-              "Reviewing Photoshop design concepts and completing the mid-term exam"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - Intro to Illustrator",
-          "objectives": [
-              "Student paham perbedaan Raster & Vector",
-              "Basic Illustrator operation skills"
-          ],
-          "objectives_en": [
-              "Students understand the difference between Raster and Vector",
-              "Basic Illustrator operations skills"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Advanced Typography",
-          "objectives": [
-              "Student mampu membuat desain grafis sederhana dengan belajar tipografi di Illustrator"
-          ],
-          "objectives_en": [
-              "Students are able to create simple graphic designs by learning typography in Illustrator"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Pen Tool",
-          "objectives": [
-              "Student mampu menggunakan Pen Tool",
-              "Melatih student untuk membuat tracing referensi menggunakan Pen Tool"
-          ],
-          "objectives_en": [
-              "Students are able to use the Pen Tool",
-              "Train students to create reference tracing using the Pen Tool"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Postcard Illustration",
-          "objectives": [
-              "Student mengerti fungsi dari artboard tool",
-              "Student mengerti cara untuk merapikan letak objek dengan guide dan object alignment"
-          ],
-          "objectives_en": [
-              "Students understand the function of the artboard tool",
-              "Students understand how to arrange objects using guides and object alignment"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Seamless Pattern & Gradient Mesh",
-          "objectives": [
-              "Pengenalan Mesh Tool untuk membuat gradient"
-          ],
-          "objectives_en": [
-              "Introduction to the Mesh Tool for creating gradients"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - 3D Paper Technique",
-          "objectives": [
-              "Student mengerti cara layer bekerja di Illustrator"
-          ],
-          "objectives_en": [
-              "Students understand how layers work in Illustrator"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Character Making",
-          "objectives": [
-              "Student mampu membuat desain karakter dengan basic shape tools atau pen tool"
-          ],
-          "objectives_en": [
-              "Students are able to create character designs with basic shape tools or pen tools"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Presentation",
-          "objectives": [
-              "Presentasi project yang sudah dilakukan selama 15 pertemuan sebelumnya"
-          ],
-          "objectives_en": [
-              "Presentation of projects that have been carried out during the previous 15 meetings"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - What is Design?",
+      "objectives": [
+        "Mengenali konsep apa itu desain",
+        "Menguasai dasar pengoperasian Adobe Photoshop"
+      ],
+      "objectives_en": [
+        "Introduction to Design",
+        "Introduction to Photoshop"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Color is Everywhere",
+      "objectives": [
+        "Mempelajari Teori Warna",
+        "Mempelajari Color Palette"
+      ],
+      "objectives_en": [
+        "Learning Color Theory",
+        "Learning the Color Palette"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Typography",
+      "objectives": [
+        "Mengenali penggunaan font yang tepat",
+        "Mempelajari pembuatan layout yang tepat"
+      ],
+      "objectives_en": [
+        "Recognize the correct use of fonts",
+        "Learning to create the right layout"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Moodboard",
+      "objectives": [
+        "Student mengerti bagaimana referensi dapat membantu dalam membuat dan menentukan desain",
+        "Mempelajari Copyright"
+      ],
+      "objectives_en": [
+        "Students understand how references can help in creating and determining designs",
+        "Learning Copyright"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Photoshop Effects",
+      "objectives": [
+        "Memperkenalkan basic Photoshop Effects"
+      ],
+      "objectives_en": [
+        "Introducing basic Photoshop Effects"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Photo Editing",
+      "objectives": [
+        "Student mengerti tentang basic Photo Editing",
+        "Student paham tentang apa itu Exposure",
+        "Student mengerti tentang adjustment layer masking",
+        "Pengenalan Content-Aware Tools"
+      ],
+      "objectives_en": [
+        "Students understand the basics of photo editing",
+        "Students understand what Exposure is",
+        "Students understand about adjustment layer masking",
+        "Introduction to Content-Aware Tools"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Caricatures",
+      "title_raw": "Lesson 7 - Carricatures",
+      "objectives": [
+        "Mengenalkan istilah Photo Composite",
+        "Mengenalkan penggunaan filter di PS",
+        "Student paham dengan apa itu Smart Object"
+      ],
+      "objectives_en": [
+        "Introducing the term Composite Photo",
+        "Introducing the use of filters in PS",
+        "Students understand what a Smart Object is"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Exam",
+      "objectives": [
+        "Melaksanakan review materi desain Photoshop dan mengikuti ujian tengah level"
+      ],
+      "objectives_en": [
+        "Reviewing Photoshop design concepts and completing the mid-term exam"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Intro to Illustrator",
+      "objectives": [
+        "Student paham perbedaan Raster & Vector",
+        "Basic Illustrator operation skills"
+      ],
+      "objectives_en": [
+        "Students understand the difference between Raster and Vector",
+        "Basic Illustrator operations skills"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Advanced Typography",
+      "objectives": [
+        "Student mampu membuat desain grafis sederhana dengan belajar tipografi di Illustrator"
+      ],
+      "objectives_en": [
+        "Students are able to create simple graphic designs by learning typography in Illustrator"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Pen Tool",
+      "objectives": [
+        "Student mampu menggunakan Pen Tool",
+        "Melatih student untuk membuat tracing referensi menggunakan Pen Tool"
+      ],
+      "objectives_en": [
+        "Students are able to use the Pen Tool",
+        "Train students to create reference tracing using the Pen Tool"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Postcard Illustration",
+      "objectives": [
+        "Student mengerti fungsi dari artboard tool",
+        "Student mengerti cara untuk merapikan letak objek dengan guide dan object alignment"
+      ],
+      "objectives_en": [
+        "Students understand the function of the artboard tool",
+        "Students understand how to arrange objects using guides and object alignment"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Seamless Pattern & Gradient Mesh",
+      "objectives": [
+        "Pengenalan Mesh Tool untuk membuat gradient"
+      ],
+      "objectives_en": [
+        "Introduction to the Mesh Tool for creating gradients"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - 3D Paper Technique",
+      "objectives": [
+        "Student mengerti cara layer bekerja di Illustrator"
+      ],
+      "objectives_en": [
+        "Students understand how layers work in Illustrator"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Character Making",
+      "objectives": [
+        "Student mampu membuat desain karakter dengan basic shape tools atau pen tool"
+      ],
+      "objectives_en": [
+        "Students are able to create character designs with basic shape tools or pen tools"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Presentation",
+      "objectives": [
+        "Presentasi project yang sudah dilakukan selama 15 pertemuan sebelumnya"
+      ],
+      "objectives_en": [
+        "Presentation of projects that have been carried out during the previous 15 meetings"
+      ]
+    }
   ],
   "Branding": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - Brand Visual Identity",
-          "objectives": [
-              "Mengenal apa itu identitas visual merek",
-              "Memahami elemen apa saja yang termasuk dalam identitas visual merek"
-          ],
-          "objectives_en": [
-              "Understanding brand visual identity",
-              "Learning what is included in a brand visual identity"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Kind of Logos",
-          "objectives": [
-              "Mempelajari jenis-jenis logo",
-              "Memahami jenis logo dan waktu yang tepat untuk menggunakannya"
-          ],
-          "objectives_en": [
-              "Exploring kinds of logos",
-              "Learning types of logos and when to use them"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Brand Research",
-          "objectives": [
-              "Memahami pentingnya identitas merek",
-              "Menganalisis merek yang tepat"
-          ],
-          "objectives_en": [
-              "Understanding why brand identity is important",
-              "Learning how to analyze the right brand"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - Logo Making",
-          "objectives": [
-              "Membuat logo yang tepat untuk brand",
-              "Membuat dan mengedit logo dengan Illustrator"
-          ],
-          "objectives_en": [
-              "Creating a logo that fits the brand",
-              "Editing logos using Illustrator"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Advanced Moodboard",
-          "objectives": [
-              "Mempelajari elemen penting pada Moodboard",
-              "Memahami alasan pembuatan Moodboard itu penting"
-          ],
-          "objectives_en": [
-              "Learning important elements in Moodboard",
-              "Understanding why creating a Moodboard is important"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Stylescape/Brand Guidelines",
-          "objectives": [
-              "Mengenal apa itu Stylescape atau Brand Board",
-              "Mempelajari cara menata layout dalam Stylescape"
-          ],
-          "objectives_en": [
-              "Understanding what a Stylescape is",
-              "Learning how to layout elements in a Stylescape"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Logo Application",
-          "objectives": [
-              "Mengetahui stasionari yang dibutuhkan untuk sebuah merek",
-              "Membuat mockup untuk stasionari merek"
-          ],
-          "objectives_en": [
-              "Learning stationery needed for a brand",
-              "Creating stationery mockups"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Summary and Exam",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 1-7",
-              "Mengerjakan Exam 1 Branding"
-          ],
-          "objectives_en": [
-              "Reviewing meetings 1-7 summary",
-              "Completing Exam 1 in Branding"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - Branding Guidelines",
-          "objectives": [
-              "Memahami apa itu Buku Panduan Merek (Brand Guidelines)",
-              "Mempelajari elemen-elemen dalam Buku Panduan Merek"
-          ],
-          "objectives_en": [
-              "Understanding Brand Guidelines",
-              "Exploring elements inside Brand Guidelines"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Social Media Template",
-          "objectives": [
-              "Mempelajari tata letak media sosial yang menarik",
-              "Memahami cara membuat konten media sosial yang engaging"
-          ],
-          "objectives_en": [
-              "Designing attractive social media layouts",
-              "Learning how to make social media content interesting"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Removing Noise From Picture",
-          "objectives": [
-              "Mempelajari cara menghapus teks dari gambar",
-              "Mempelajari cara melembutkan kerutan pakaian pada foto"
-          ],
-          "objectives_en": [
-              "Removing text from pictures",
-              "Removing wrinkles from shirts in photos"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Photo Retouching",
-          "objectives": [
-              "Mempelajari cara menghaluskan tekstur wajah",
-              "Mempelajari cara meningkatkan facial features pada foto"
-          ],
-          "objectives_en": [
-              "Smoothing face textures in photo retouching",
-              "Enhancing facial features"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Customizing Fonts",
-          "objectives": [
-              "Memahami mengapa kustomisasi font itu penting",
-              "Mempelajari cara menyesuaikan dan mendesain custom font"
-          ],
-          "objectives_en": [
-              "Understanding why customizing fonts is important",
-              "Adjusting and customizing fonts"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - Content Planning",
-          "objectives": [
-              "Memahami mengapa perencanaan konten penting",
-              "Mempelajari cara membuat rencana konten yang menarik"
-          ],
-          "objectives_en": [
-              "Understanding why content planning is important",
-              "Learning how to make content more attractive"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Animated Social Media Post",
-          "objectives": [
-              "Memahami dampak unggahan media sosial yang dianimasikan",
-              "Mempelajari cara membuat postingan media sosial animasi"
-          ],
-          "objectives_en": [
-              "Understanding the impact of animated social media posts",
-              "Creating animated social media posts"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Summary and Exam 2",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 9-15",
-              "Mengerjakan Exam 2 Branding"
-          ],
-          "objectives_en": [
-              "Reviewing meetings 9-15 summary",
-              "Completing Exam 2 in Branding"
-          ]
-      },
-      {
-          "num": 17,
-          "title": "Lesson 17 - Animated Logo",
-          "objectives": [
-              "Memahami alasan pembuatan animasi logo",
-              "Mempelajari cara membuat animasi logo dasar"
-          ],
-          "objectives_en": [
-              "Understanding why animated logos are created",
-              "Learning how to make simple animated logos"
-          ]
-      },
-      {
-          "num": 18,
-          "title": "Lesson 18 - Web Design",
-          "objectives": [
-              "Memahami kebutuhan pembuatan website",
-              "Mempelajari cara membuat desain website simpel"
-          ],
-          "objectives_en": [
-              "Understanding why web design is needed",
-              "Creating a simple web design"
-          ]
-      },
-      {
-          "num": 19,
-          "title": "Lesson 19 - Web Design 2",
-          "objectives": [
-              "Menerapkan desain web ke WiX"
-          ],
-          "objectives_en": [
-              "Applying web design into WiX"
-          ]
-      },
-      {
-          "num": 20,
-          "title": "Lesson 20 - Mascot Design",
-          "objectives": [
-              "Memahami alasan sebuah merek membutuhkan maskot",
-              "Membuat sketsa maskot merek"
-          ],
-          "objectives_en": [
-              "Understanding why brands need mascots",
-              "Sketching brand mascots"
-          ]
-      },
-      {
-          "num": 21,
-          "title": "Lesson 21 - Mascot Design 2",
-          "objectives": [
-              "Melakukan digitalisasi maskot",
-              "Menerapkan maskot ke dalam elemen merek"
-          ],
-          "objectives_en": [
-              "Digitalizing mascots",
-              "Applying mascots into brand elements"
-          ]
-      },
-      {
-          "num": 22,
-          "title": "Lesson 22 - Video Take",
-          "objectives": [
-              "Memahami perbedaan Instagram Reels, TikTok dan YouTube",
-              "Mempelajari tips dan trik untuk mengambil video"
-          ],
-          "objectives_en": [
-              "Understanding differences between Instagram Reels, TikTok, and YouTube",
-              "Learning tips and tricks for taking videos"
-          ]
-      },
-      {
-          "num": 23,
-          "title": "Lesson 23 - Editing Video For Social Media",
-          "objectives": [
-              "Mempelajari video editing tips and tricks untuk social media"
-          ],
-          "objectives_en": [
-              "Learning video editing tips and tricks for social media"
-          ]
-      },
-      {
-          "num": 24,
-          "title": "Lesson 24 - Summary 3 and Final Exam",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 16-23",
-              "Mengerjakan Final Exam Branding"
-          ],
-          "objectives_en": [
-              "Reviewing meetings 16-23 summary",
-              "Completing Final Exam in Branding"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - Brand Visual Identity",
+      "objectives": [
+        "Mengenal apa itu identitas visual merek",
+        "Memahami elemen apa saja yang termasuk dalam identitas visual merek"
+      ],
+      "objectives_en": [
+        "Understanding brand visual identity",
+        "Learning what is included in a brand visual identity"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Kind of Logos",
+      "objectives": [
+        "Mempelajari jenis-jenis logo",
+        "Memahami jenis logo dan waktu yang tepat untuk menggunakannya"
+      ],
+      "objectives_en": [
+        "Exploring kinds of logos",
+        "Learning types of logos and when to use them"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Brand Research",
+      "objectives": [
+        "Memahami pentingnya identitas merek",
+        "Menganalisis merek yang tepat"
+      ],
+      "objectives_en": [
+        "Understanding why brand identity is important",
+        "Learning how to analyze the right brand"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Logo Making",
+      "objectives": [
+        "Membuat logo yang tepat untuk brand",
+        "Membuat dan mengedit logo dengan Illustrator"
+      ],
+      "objectives_en": [
+        "Creating a logo that fits the brand",
+        "Editing logos using Illustrator"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Advanced Moodboard",
+      "objectives": [
+        "Mempelajari elemen penting pada Moodboard",
+        "Memahami alasan pembuatan Moodboard itu penting"
+      ],
+      "objectives_en": [
+        "Learning important elements in Moodboard",
+        "Understanding why creating a Moodboard is important"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Stylescape/Brand Guidelines",
+      "objectives": [
+        "Mengenal apa itu Stylescape atau Brand Board",
+        "Mempelajari cara menata layout dalam Stylescape"
+      ],
+      "objectives_en": [
+        "Understanding what a Stylescape is",
+        "Learning how to layout elements in a Stylescape"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Logo Application",
+      "objectives": [
+        "Mengetahui stasionari yang dibutuhkan untuk sebuah merek",
+        "Membuat mockup untuk stasionari merek"
+      ],
+      "objectives_en": [
+        "Learning stationery needed for a brand",
+        "Creating stationery mockups"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Summary and Exam",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 1-7",
+        "Mengerjakan Exam 1 Branding"
+      ],
+      "objectives_en": [
+        "Reviewing meetings 1-7 summary",
+        "Completing Exam 1 in Branding"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Branding Guidelines",
+      "objectives": [
+        "Memahami apa itu Buku Panduan Merek (Brand Guidelines)",
+        "Mempelajari elemen-elemen dalam Buku Panduan Merek"
+      ],
+      "objectives_en": [
+        "Understanding Brand Guidelines",
+        "Exploring elements inside Brand Guidelines"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Social Media Template",
+      "objectives": [
+        "Mempelajari tata letak media sosial yang menarik",
+        "Memahami cara membuat konten media sosial yang engaging"
+      ],
+      "objectives_en": [
+        "Designing attractive social media layouts",
+        "Learning how to make social media content interesting"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Removing Noise From Picture",
+      "objectives": [
+        "Mempelajari cara menghapus teks dari gambar",
+        "Mempelajari cara melembutkan kerutan pakaian pada foto"
+      ],
+      "objectives_en": [
+        "Removing text from pictures",
+        "Removing wrinkles from shirts in photos"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Photo Retouching",
+      "objectives": [
+        "Mempelajari cara menghaluskan tekstur wajah",
+        "Mempelajari cara meningkatkan facial features pada foto"
+      ],
+      "objectives_en": [
+        "Smoothing face textures in photo retouching",
+        "Enhancing facial features"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Customizing Fonts",
+      "objectives": [
+        "Memahami mengapa kustomisasi font itu penting",
+        "Mempelajari cara menyesuaikan dan mendesain custom font"
+      ],
+      "objectives_en": [
+        "Understanding why customizing fonts is important",
+        "Adjusting and customizing fonts"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Content Planning",
+      "objectives": [
+        "Memahami mengapa perencanaan konten penting",
+        "Mempelajari cara membuat rencana konten yang menarik"
+      ],
+      "objectives_en": [
+        "Understanding why content planning is important",
+        "Learning how to make content more attractive"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Animated Social Media Post",
+      "objectives": [
+        "Memahami dampak unggahan media sosial yang dianimasikan",
+        "Mempelajari cara membuat postingan media sosial animasi"
+      ],
+      "objectives_en": [
+        "Understanding the impact of animated social media posts",
+        "Creating animated social media posts"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Summary and Exam 2",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 9-15",
+        "Mengerjakan Exam 2 Branding"
+      ],
+      "objectives_en": [
+        "Reviewing meetings 9-15 summary",
+        "Completing Exam 2 in Branding"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Animated Logo",
+      "objectives": [
+        "Memahami alasan pembuatan animasi logo",
+        "Mempelajari cara membuat animasi logo dasar"
+      ],
+      "objectives_en": [
+        "Understanding why animated logos are created",
+        "Learning how to make simple animated logos"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Web Design",
+      "objectives": [
+        "Memahami kebutuhan pembuatan website",
+        "Mempelajari cara membuat desain website simpel"
+      ],
+      "objectives_en": [
+        "Understanding why web design is needed",
+        "Creating a simple web design"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Web Design 2",
+      "objectives": [
+        "Menerapkan desain web ke WiX"
+      ],
+      "objectives_en": [
+        "Applying web design into WiX"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Mascot Design",
+      "objectives": [
+        "Memahami alasan sebuah merek membutuhkan maskot",
+        "Membuat sketsa maskot merek"
+      ],
+      "objectives_en": [
+        "Understanding why brands need mascots",
+        "Sketching brand mascots"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Mascot Design 2",
+      "objectives": [
+        "Melakukan digitalisasi maskot",
+        "Menerapkan maskot ke dalam elemen merek"
+      ],
+      "objectives_en": [
+        "Digitalizing mascots",
+        "Applying mascots into brand elements"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Video Take",
+      "objectives": [
+        "Memahami perbedaan Instagram Reels, TikTok dan YouTube",
+        "Mempelajari tips dan trik untuk mengambil video"
+      ],
+      "objectives_en": [
+        "Understanding differences between Instagram Reels, TikTok, and YouTube",
+        "Learning tips and tricks for taking videos"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Editing Video For Social Media",
+      "objectives": [
+        "Mempelajari video editing tips and tricks untuk social media"
+      ],
+      "objectives_en": [
+        "Learning video editing tips and tricks for social media"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Summary 3 and Final Exam",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 16-23",
+        "Mengerjakan Final Exam Branding"
+      ],
+      "objectives_en": [
+        "Reviewing meetings 16-23 summary",
+        "Completing Final Exam in Branding"
+      ]
+    }
   ],
   "Kids Animation Basic": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - Introduction to Illustrator",
-          "objectives": [
-              "Student paham perbedaan Raster & Vector",
-              "Menguasai basic Illustrator operation skills"
-          ],
-          "objectives_en": [
-              "Students understand the difference between Raster and Vector",
-              "Basic Illustrator operation skills"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Pen Tool",
-          "objectives": [
-              "Student mampu menggunakan pen tool",
-              "Melatih student untuk membuat tracing referensi menggunakan pen tool"
-          ],
-          "objectives_en": [
-              "Students are able to use pen tools",
-              "Train students to create reference tracing using the pen tool"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - 3D Paper Technique",
-          "objectives": [
-              "Memahami apa itu paper cutting",
-              "Mempelajari cara membuat paper cutting di Adobe Illustrator"
-          ],
-          "objectives_en": [
-              "Understanding what paper cutting is",
-              "Learning how to make paper cutting in Adobe Illustrator"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - Character Making",
-          "objectives": [
-              "Student mampu membuat desain karakter dengan basic shape tools atau pen tool"
-          ],
-          "objectives_en": [
-              "Students are able to create character designs with basic shape tools or pen tools"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Basic After Effects",
-          "objectives": [
-              "Student mampu membuat animasi dengan custom path",
-              "Student mampu membuat Transition Effect & text Effect"
-          ],
-          "objectives_en": [
-              "Students are able to create animations with custom paths",
-              "Students are able to create Transition Effects & Text Effects"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Frames in Animation",
-          "objectives": [
-              "Student paham mengenai Frames dalam animasi",
-              "Memahami apa itu Frames",
-              "Mengetahui perbedaan jumlah frames dalam animasi"
-          ],
-          "objectives_en": [
-              "Students understand about frames in animation",
-              "Learning what frames are",
-              "Understanding the difference in the number of frames in animation"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Greenscreen in After Effects",
-          "objectives": [
-              "Mempelajari cara memakai efek Greenscreen di After Effects",
-              "Mempelajari cara membuat video Greenscreen di RunwayML"
-          ],
-          "objectives_en": [
-              "Learning how to use the Greenscreen effect in After Effects",
-              "Learning how to make a Greenscreen video in RunwayML"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Overview and Exam 1",
-          "objectives": [
-              "Melakukan ringkasan pertemuan 1-7",
-              "Mempresentasikan hasil project animasi"
-          ],
-          "objectives_en": [
-              "Reviewing summary of meetings 1-7",
-              "Presenting animation projects"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - Start Drawing Cartoon!",
-          "objectives": [
-              "Student mengetahui tipe-tipe kartun",
-              "Student dapat melakukan image tracing"
-          ],
-          "objectives_en": [
-              "Students know the types of cartoons",
-              "Students can do image tracing"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Making Original Character",
-          "objectives": [
-              "Menggambar hewan dengan berbagai angle",
-              "Membuat Original Character"
-          ],
-          "objectives_en": [
-              "Drawing animals from various angles",
-              "Creating Original Characters"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Dynamic Poses",
-          "objectives": [
-              "Mempelajari Line of Action untuk pose dinamis",
-              "Menggambar pose realistis"
-          ],
-          "objectives_en": [
-              "Learning Line of Action for dynamic poses",
-              "Drawing realistic poses"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - What is Animation?",
-          "objectives": [
-              "Perkenalan konsep animasi",
-              "Perkenalan antarmuka After Effects"
-          ],
-          "objectives_en": [
-              "Introduction to Animation",
-              "Introduction to After Effects"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Keyframing in Animation",
-          "objectives": [
-              "Mempelajari transisi ekspresi pada animasi",
-              "Mempelajari tipe-tipe keyframing"
-          ],
-          "objectives_en": [
-              "Learning Expression Transitions in Animation",
-              "Learning Keyframing Types"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - After Effects Preset",
-          "objectives": [
-              "Student mengetahui tipe-tipe file yang dapat dibuka di After Effects",
-              "Menggunakan preset After Effects"
-          ],
-          "objectives_en": [
-              "Students know the types of files that can be opened in After Effects",
-              "Using After Effects Presets"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Cartoon Opening",
-          "objectives": [
-              "Membuat opening dengan karakter sendiri",
-              "Menambahkan audio dan SFX"
-          ],
-          "objectives_en": [
-              "Creating an opening with an original character",
-              "Adding Audio and SFX"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Overview and Exam 2",
-          "objectives": [
-              "Melakukan ringkasan materi exam 9-15",
-              "Mengerjakan Exam 2"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 9-15",
-              "Completing Exam 2"
-          ]
-      },
-      {
-          "num": 17,
-          "title": "Lesson 17 - Perspective #1: Isometric",
-          "objectives": [
-              "Menggambar dalam perspektif",
-              "Mempelajari Isometric Design"
-          ],
-          "objectives_en": [
-              "Drawing in perspective",
-              "Learning Isometric Design"
-          ]
-      },
-      {
-          "num": 18,
-          "title": "Lesson 18 - Perspective #2: Highlights & Shading",
-          "objectives": [
-              "Menggambar dalam perspektif",
-              "Mempelajari Highlight & Shading"
-          ],
-          "objectives_en": [
-              "Drawing in perspective",
-              "Learning Highlight & Shading"
-          ]
-      },
-      {
-          "num": 19,
-          "title": "Lesson 19 - Background Assets",
-          "objectives": [
-              "Mengenali komposisi background",
-              "Membuat 4 elemen background"
-          ],
-          "objectives_en": [
-              "Recognizing background composition",
-              "Creating 4 background elements"
-          ]
-      },
-      {
-          "num": 20,
-          "title": "Lesson 20 - Parallax Motion Effect",
-          "objectives": [
-              "Mempelajari cara membuat parallax motion",
-              "Memahami apa itu parallax motion"
-          ],
-          "objectives_en": [
-              "Learning how to create parallax motion",
-              "Understanding what parallax motion is"
-          ]
-      },
-      {
-          "num": 21,
-          "title": "Lesson 21 - Shadows in After Effects",
-          "objectives": [
-              "Menggabungkan character dan background",
-              "Membuat shadow untuk karakter"
-          ],
-          "objectives_en": [
-              "Combining character and background",
-              "Creating shadows for characters"
-          ]
-      },
-      {
-          "num": 22,
-          "title": "Lesson 22 - Video Masking",
-          "objectives": [
-              "Memahami apa itu masking dan cara mengimplementasikannya",
-              "Membuat text reveal di After Effects"
-          ],
-          "objectives_en": [
-              "Understanding what masking is and how to implement it",
-              "Creating a text reveal in After Effects"
-          ]
-      },
-      {
-          "num": 23,
-          "title": "Lesson 23 - Intro Titles with AE",
-          "objectives": [
-              "Memahami apa itu masking dan cara mengimplementasikannya",
-              "Membuat text reveal animasi judul di After Effects"
-          ],
-          "objectives_en": [
-              "Understanding masking and its implementation",
-              "Creating an intro title text reveal in After Effects"
-          ]
-      },
-      {
-          "num": 24,
-          "title": "Lesson 24 - Overview and Exam 3",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 17-23",
-              "Mengerjakan Exam 3"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 17-23",
-              "Completing Exam 3"
-          ]
-      },
-      {
-          "num": 25,
-          "title": "Lesson 25 - Animation 1",
-          "objectives": [
-              "Menggunakan Auto Bezier",
-              "Menganimasikan dunia bawah laut"
-          ],
-          "objectives_en": [
-              "Using Auto Bezier",
-              "Animating underwater scenes"
-          ]
-      },
-      {
-          "num": 26,
-          "title": "Lesson 26 - Animation 2",
-          "objectives": [
-              "Mempelajari cara menganimasikan hujan",
-              "Mempelajari ekspresi emosi dalam animasi"
-          ],
-          "objectives_en": [
-              "Learning how to animate rain",
-              "Learning emotions in animation"
-          ]
-      },
-      {
-          "num": 27,
-          "title": "Lesson 27 - Drawing Character (Human) 1",
-          "objectives": [
-              "Mempelajari macam bentuk wajah",
-              "Mempelajari cara menggambar wajah karakter manusia"
-          ],
-          "objectives_en": [
-              "Learning about various face shapes",
-              "Learning how to draw human character faces"
-          ]
-      },
-      {
-          "num": 28,
-          "title": "Lesson 28 - Drawing Character (Human) 2",
-          "objectives": [
-              "Mempelajari macam rambut karakter",
-              "Menggambar rambut karakter"
-          ],
-          "objectives_en": [
-              "Exploring character hair types",
-              "Drawing character hair"
-          ]
-      },
-      {
-          "num": 29,
-          "title": "Lesson 29 - Human Poses: Chibi Illustration",
-          "objectives": [
-              "Mempelajari cara menggambar chibi",
-              "Memahami proporsi tubuh Chibi"
-          ],
-          "objectives_en": [
-              "Learning how to draw chibi",
-              "Understanding Chibi body proportions"
-          ]
-      },
-      {
-          "num": 30,
-          "title": "Lesson 30 - Human to Chibi",
-          "objectives": [
-              "Mengubah gambar manusia menjadi chibi",
-              "Menganalisa referensi karakter"
-          ],
-          "objectives_en": [
-              "Converting images into chibi",
-              "Analyzing character references"
-          ]
-      },
-      {
-          "num": 31,
-          "title": "Lesson 31 - Animating Puppet Wrap",
-          "objectives": [
-              "Mempelajari cara menggunakan Puppet Warp",
-              "Mempelajari anatomi tubuh yang dapat digerakkan"
-          ],
-          "objectives_en": [
-              "Learning how to use Puppet Warp",
-              "Studying the anatomy of a movable body"
-          ]
-      },
-      {
-          "num": 32,
-          "title": "Lesson 32 - Overview and Exam 4",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 25-31",
-              "Mengerjakan Exam 4"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 25-31",
-              "Completing Exam 4"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - Introduction to Illustrator",
+      "objectives": [
+        "Student paham perbedaan Raster & Vector",
+        "Menguasai basic Illustrator operation skills"
+      ],
+      "objectives_en": [
+        "Students understand the difference between Raster and Vector",
+        "Basic Illustrator operation skills"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Pen Tool",
+      "objectives": [
+        "Student mampu menggunakan pen tool",
+        "Melatih student untuk membuat tracing referensi menggunakan pen tool"
+      ],
+      "objectives_en": [
+        "Students are able to use pen tools",
+        "Train students to create reference tracing using the pen tool"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - 3D Paper Technique",
+      "objectives": [
+        "Memahami apa itu paper cutting",
+        "Mempelajari cara membuat paper cutting di Adobe Illustrator"
+      ],
+      "objectives_en": [
+        "Understanding what paper cutting is",
+        "Learning how to make paper cutting in Adobe Illustrator"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Character Making",
+      "objectives": [
+        "Student mampu membuat desain karakter dengan basic shape tools atau pen tool"
+      ],
+      "objectives_en": [
+        "Students are able to create character designs with basic shape tools or pen tools"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Basic After Effects",
+      "objectives": [
+        "Student mampu membuat animasi dengan custom path",
+        "Student mampu membuat Transition Effect & text Effect"
+      ],
+      "objectives_en": [
+        "Students are able to create animations with custom paths",
+        "Students are able to create Transition Effects & Text Effects"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Frames in Animation",
+      "objectives": [
+        "Student paham mengenai Frames dalam animasi",
+        "Memahami apa itu Frames",
+        "Mengetahui perbedaan jumlah frames dalam animasi"
+      ],
+      "objectives_en": [
+        "Students understand about frames in animation",
+        "Learning what frames are",
+        "Understanding the difference in the number of frames in animation"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Greenscreen in After Effects",
+      "objectives": [
+        "Mempelajari cara memakai efek Greenscreen di After Effects",
+        "Mempelajari cara membuat video Greenscreen di RunwayML"
+      ],
+      "objectives_en": [
+        "Learning how to use the Greenscreen effect in After Effects",
+        "Learning how to make a Greenscreen video in RunwayML"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Overview and Exam 1",
+      "objectives": [
+        "Melakukan ringkasan pertemuan 1-7",
+        "Mempresentasikan hasil project animasi"
+      ],
+      "objectives_en": [
+        "Reviewing summary of meetings 1-7",
+        "Presenting animation projects"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Start Drawing Cartoon!",
+      "objectives": [
+        "Student mengetahui tipe-tipe kartun",
+        "Student dapat melakukan image tracing"
+      ],
+      "objectives_en": [
+        "Students know the types of cartoons",
+        "Students can do image tracing"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Making Original Character",
+      "objectives": [
+        "Menggambar hewan dengan berbagai angle",
+        "Membuat Original Character"
+      ],
+      "objectives_en": [
+        "Drawing animals from various angles",
+        "Creating Original Characters"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Dynamic Poses",
+      "objectives": [
+        "Mempelajari Line of Action untuk pose dinamis",
+        "Menggambar pose realistis"
+      ],
+      "objectives_en": [
+        "Learning Line of Action for dynamic poses",
+        "Drawing realistic poses"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - What is Animation?",
+      "objectives": [
+        "Perkenalan konsep animasi",
+        "Perkenalan antarmuka After Effects"
+      ],
+      "objectives_en": [
+        "Introduction to Animation",
+        "Introduction to After Effects"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Keyframing in Animation",
+      "objectives": [
+        "Mempelajari transisi ekspresi pada animasi",
+        "Mempelajari tipe-tipe keyframing"
+      ],
+      "objectives_en": [
+        "Learning Expression Transitions in Animation",
+        "Learning Keyframing Types"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - After Effects Preset",
+      "objectives": [
+        "Student mengetahui tipe-tipe file yang dapat dibuka di After Effects",
+        "Menggunakan preset After Effects"
+      ],
+      "objectives_en": [
+        "Students know the types of files that can be opened in After Effects",
+        "Using After Effects Presets"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Cartoon Opening",
+      "objectives": [
+        "Membuat opening dengan karakter sendiri",
+        "Menambahkan audio dan SFX"
+      ],
+      "objectives_en": [
+        "Creating an opening with an original character",
+        "Adding Audio and SFX"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Overview and Exam 2",
+      "objectives": [
+        "Melakukan ringkasan materi exam 9-15",
+        "Mengerjakan Exam 2"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 9-15",
+        "Completing Exam 2"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Perspective #1: Isometric",
+      "objectives": [
+        "Menggambar dalam perspektif",
+        "Mempelajari Isometric Design"
+      ],
+      "objectives_en": [
+        "Drawing in perspective",
+        "Learning Isometric Design"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Perspective #2: Highlights & Shading",
+      "objectives": [
+        "Menggambar dalam perspektif",
+        "Mempelajari Highlight & Shading"
+      ],
+      "objectives_en": [
+        "Drawing in perspective",
+        "Learning Highlight & Shading"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Background Assets",
+      "objectives": [
+        "Mengenali komposisi background",
+        "Membuat 4 elemen background"
+      ],
+      "objectives_en": [
+        "Recognizing background composition",
+        "Creating 4 background elements"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Parallax Motion Effect",
+      "objectives": [
+        "Mempelajari cara membuat parallax motion",
+        "Memahami apa itu parallax motion"
+      ],
+      "objectives_en": [
+        "Learning how to create parallax motion",
+        "Understanding what parallax motion is"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Shadows in After Effects",
+      "objectives": [
+        "Menggabungkan character dan background",
+        "Membuat shadow untuk karakter"
+      ],
+      "objectives_en": [
+        "Combining character and background",
+        "Creating shadows for characters"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Video Masking",
+      "objectives": [
+        "Memahami apa itu masking dan cara mengimplementasikannya",
+        "Membuat text reveal di After Effects"
+      ],
+      "objectives_en": [
+        "Understanding what masking is and how to implement it",
+        "Creating a text reveal in After Effects"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Intro Titles with AE",
+      "objectives": [
+        "Memahami apa itu masking dan cara mengimplementasikannya",
+        "Membuat text reveal animasi judul di After Effects"
+      ],
+      "objectives_en": [
+        "Understanding masking and its implementation",
+        "Creating an intro title text reveal in After Effects"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Overview and Exam 3",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 17-23",
+        "Mengerjakan Exam 3"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 17-23",
+        "Completing Exam 3"
+      ]
+    },
+    {
+      "num": 25,
+      "title": "Lesson 25 - Animation 1",
+      "objectives": [
+        "Menggunakan Auto Bezier",
+        "Menganimasikan dunia bawah laut"
+      ],
+      "objectives_en": [
+        "Using Auto Bezier",
+        "Animating underwater scenes"
+      ]
+    },
+    {
+      "num": 26,
+      "title": "Lesson 26 - Animation 2",
+      "objectives": [
+        "Mempelajari cara menganimasikan hujan",
+        "Mempelajari ekspresi emosi dalam animasi"
+      ],
+      "objectives_en": [
+        "Learning how to animate rain",
+        "Learning emotions in animation"
+      ]
+    },
+    {
+      "num": 27,
+      "title": "Lesson 27 - Drawing Character (Human) 1",
+      "objectives": [
+        "Mempelajari macam bentuk wajah",
+        "Mempelajari cara menggambar wajah karakter manusia"
+      ],
+      "objectives_en": [
+        "Learning about various face shapes",
+        "Learning how to draw human character faces"
+      ]
+    },
+    {
+      "num": 28,
+      "title": "Lesson 28 - Drawing Character (Human) 2",
+      "objectives": [
+        "Mempelajari macam rambut karakter",
+        "Menggambar rambut karakter"
+      ],
+      "objectives_en": [
+        "Exploring character hair types",
+        "Drawing character hair"
+      ]
+    },
+    {
+      "num": 29,
+      "title": "Lesson 29 - Human Poses: Chibi Illustration",
+      "objectives": [
+        "Mempelajari cara menggambar chibi",
+        "Memahami proporsi tubuh Chibi"
+      ],
+      "objectives_en": [
+        "Learning how to draw chibi",
+        "Understanding Chibi body proportions"
+      ]
+    },
+    {
+      "num": 30,
+      "title": "Lesson 30 - Human to Chibi",
+      "objectives": [
+        "Mengubah gambar manusia menjadi chibi",
+        "Menganalisa referensi karakter"
+      ],
+      "objectives_en": [
+        "Converting images into chibi",
+        "Analyzing character references"
+      ]
+    },
+    {
+      "num": 31,
+      "title": "Lesson 31 - Animating Puppet Wrap",
+      "objectives": [
+        "Mempelajari cara menggunakan Puppet Warp",
+        "Mempelajari anatomi tubuh yang dapat digerakkan"
+      ],
+      "objectives_en": [
+        "Learning how to use Puppet Warp",
+        "Studying the anatomy of a movable body"
+      ]
+    },
+    {
+      "num": 32,
+      "title": "Lesson 32 - Overview and Exam 4",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 25-31",
+        "Mengerjakan Exam 4"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 25-31",
+        "Completing Exam 4"
+      ]
+    }
   ],
   "Teens Animation": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - Start Drawing Cartoons",
-          "objectives": [
-              "Student mengetahui tipe-tipe kartun",
-              "Student dapat melakukan image tracing"
-          ],
-          "objectives_en": [
-              "Students know the types of cartoons",
-              "Students can do image tracing"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Creating an Original Character",
-          "objectives": [
-              "Menggambar hewan dengan berbagai angle",
-              "Membuat Original Character"
-          ],
-          "objectives_en": [
-              "Drawing animals from various angles",
-              "Creating Original Characters"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Dynamic Poses",
-          "objectives": [
-              "Mempelajari Line of Action untuk pose dinamis",
-              "Menggambar pose realistis"
-          ],
-          "objectives_en": [
-              "Learning Line of Action for dynamic poses",
-              "Drawing realistic poses"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - What is Animation?",
-          "objectives": [
-              "Perkenalan animasi",
-              "Perkenalan After Effects"
-          ],
-          "objectives_en": [
-              "Introduction to animation",
-              "Introduction to After Effects"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Keyframing in Animation",
-          "objectives": [
-              "Mempelajari transisi ekspresi pada animasi",
-              "Mempelajari tipe-tipe keyframing"
-          ],
-          "objectives_en": [
-              "Learning expression transitions in animation",
-              "Learning keyframing types"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Preset After Effects",
-          "objectives": [
-              "Student mengetahui tipe-tipe file yang dapat dibuka di After Effects",
-              "Menggunakan preset After Effects"
-          ],
-          "objectives_en": [
-              "Students know the types of files that can be opened in After Effects",
-              "Using After Effects Presets"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Opening Cartoon",
-          "objectives": [
-              "Membuat opening dengan karakter sendiri",
-              "Menambahkan audio dan SFX"
-          ],
-          "objectives_en": [
-              "Creating an opening with an original character",
-              "Adding Audio and SFX"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Exam",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 1-7",
-              "Mengerjakan Exam 1"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 1-7",
-              "Completing Exam 1"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - Perspective #1: Isometric",
-          "objectives": [
-              "Menggambar dalam perspektif",
-              "Mempelajari Isometric Design"
-          ],
-          "objectives_en": [
-              "Drawing in perspective",
-              "Learning Isometric Design"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Perspective #2: Highlights & Shading",
-          "objectives": [
-              "Menggambar dalam perspektif",
-              "Mempelajari Highlight & Shading"
-          ],
-          "objectives_en": [
-              "Drawing in perspective",
-              "Learning Highlight & Shading"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Background Assets",
-          "objectives": [
-              "Mengenali komposisi background",
-              "Membuat 4 elemen background"
-          ],
-          "objectives_en": [
-              "Recognizing background composition",
-              "Creating 4 background elements"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Parallax Motion",
-          "objectives": [
-              "Mempelajari cara membuat parallax motion",
-              "Memahami apa itu parallax motion"
-          ],
-          "objectives_en": [
-              "Learning how to create parallax motion",
-              "Understanding what parallax motion is"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Shadows in After Effects",
-          "objectives": [
-              "Menggabungkan character dan background",
-              "Membuat shadow untuk karakter"
-          ],
-          "objectives_en": [
-              "Combining character and background",
-              "Creating shadows for characters"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - Masking Video",
-          "objectives": [
-              "Memahami apa itu masking dan cara mengimplementasikannya",
-              "Membuat text reveal di After Effects"
-          ],
-          "objectives_en": [
-              "Understanding what masking is and how to implement it",
-              "Creating a text reveal in After Effects"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Intro Titles with AE",
-          "objectives": [
-              "Memahami apa itu masking dan cara mengimplementasikannya",
-              "Membuat title animation text reveal di After Effects"
-          ],
-          "objectives_en": [
-              "Understanding masking and its implementation",
-              "Creating a title text reveal in After Effects"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Exam 2",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 9-15",
-              "Mengerjakan Exam 2"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 9-15",
-              "Completing Exam 2"
-          ]
-      },
-      {
-          "num": 17,
-          "title": "Lesson 17 - Animation 1: Swimming Turtle",
-          "objectives": [
-              "Menggunakan Auto Bezier",
-              "Menganimasikan kura-kura berenang di bawah laut"
-          ],
-          "objectives_en": [
-              "Using Auto Bezier",
-              "Animating an underwater swimming turtle"
-          ]
-      },
-      {
-          "num": 18,
-          "title": "Lesson 18 - Animation 1: Making It Rain",
-          "objectives": [
-              "Mempelajari cara menganimasikan hujan",
-              "Mempelajari emosi dalam animasi"
-          ],
-          "objectives_en": [
-              "Learning how to animate rain",
-              "Learning emotions in animation"
-          ]
-      },
-      {
-          "num": 19,
-          "title": "Lesson 19 - Drawing Characters (Humans) 1",
-          "objectives": [
-              "Mempelajari macam bentuk wajah",
-              "Mempelajari cara menggambar wajah manusia"
-          ],
-          "objectives_en": [
-              "Learning about various face shapes",
-              "Learning how to draw faces"
-          ]
-      },
-      {
-          "num": 20,
-          "title": "Lesson 20 - Drawing Characters (Humans) 2",
-          "objectives": [
-              "Mempelajari macam rambut karakter",
-              "Menggambar rambut karakter"
-          ],
-          "objectives_en": [
-              "Exploring character hair types",
-              "Drawing character hair"
-          ]
-      },
-      {
-          "num": 21,
-          "title": "Lesson 21 - Human Poses: Chibi Illustration",
-          "objectives": [
-              "Mempelajari cara menggambar chibi",
-              "Memahami proporsi tubuh Chibi"
-          ],
-          "objectives_en": [
-              "Learning how to draw chibi",
-              "Understanding Chibi Body Proportions"
-          ]
-      },
-      {
-          "num": 22,
-          "title": "Lesson 22 - Human to Chibi",
-          "objectives": [
-              "Mengubah gambar menjadi chibi",
-              "Menganalisa referensi karakter"
-          ],
-          "objectives_en": [
-              "Converting images to chibi",
-              "Analyzing character references"
-          ]
-      },
-      {
-          "num": 23,
-          "title": "Lesson 23 - Animating Puppet Wrap",
-          "objectives": [
-              "Mempelajari cara menggunakan Puppet Warp",
-              "Mempelajari anatomi tubuh yang dapat digerakkan"
-          ],
-          "objectives_en": [
-              "Learning how to use Puppet Warp",
-              "Studying the anatomy of a movable body"
-          ]
-      },
-      {
-          "num": 24,
-          "title": "Lesson 24 - Exam 3",
-          "objectives": [
-              "Melakukan ringkasan materi pertemuan 17-23",
-              "Mengerjakan Exam 3"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 17-23",
-              "Completing Exam 3"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - Start Drawing Cartoons",
+      "objectives": [
+        "Student mengetahui tipe-tipe kartun",
+        "Student dapat melakukan image tracing"
+      ],
+      "objectives_en": [
+        "Students know the types of cartoons",
+        "Students can do image tracing"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Creating an Original Character",
+      "objectives": [
+        "Menggambar hewan dengan berbagai angle",
+        "Membuat Original Character"
+      ],
+      "objectives_en": [
+        "Drawing animals from various angles",
+        "Creating Original Characters"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Dynamic Poses",
+      "objectives": [
+        "Mempelajari Line of Action untuk pose dinamis",
+        "Menggambar pose realistis"
+      ],
+      "objectives_en": [
+        "Learning Line of Action for dynamic poses",
+        "Drawing realistic poses"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - What is Animation?",
+      "objectives": [
+        "Perkenalan animasi",
+        "Perkenalan After Effects"
+      ],
+      "objectives_en": [
+        "Introduction to animation",
+        "Introduction to After Effects"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Keyframing in Animation",
+      "objectives": [
+        "Mempelajari transisi ekspresi pada animasi",
+        "Mempelajari tipe-tipe keyframing"
+      ],
+      "objectives_en": [
+        "Learning expression transitions in animation",
+        "Learning keyframing types"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Preset After Effects",
+      "objectives": [
+        "Student mengetahui tipe-tipe file yang dapat dibuka di After Effects",
+        "Menggunakan preset After Effects"
+      ],
+      "objectives_en": [
+        "Students know the types of files that can be opened in After Effects",
+        "Using After Effects Presets"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Opening Cartoon",
+      "objectives": [
+        "Membuat opening dengan karakter sendiri",
+        "Menambahkan audio dan SFX"
+      ],
+      "objectives_en": [
+        "Creating an opening with an original character",
+        "Adding Audio and SFX"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Exam",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 1-7",
+        "Mengerjakan Exam 1"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 1-7",
+        "Completing Exam 1"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Perspective #1: Isometric",
+      "objectives": [
+        "Menggambar dalam perspektif",
+        "Mempelajari Isometric Design"
+      ],
+      "objectives_en": [
+        "Drawing in perspective",
+        "Learning Isometric Design"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Perspective #2: Highlights & Shading",
+      "objectives": [
+        "Menggambar dalam perspektif",
+        "Mempelajari Highlight & Shading"
+      ],
+      "objectives_en": [
+        "Drawing in perspective",
+        "Learning Highlight & Shading"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Background Assets",
+      "objectives": [
+        "Mengenali komposisi background",
+        "Membuat 4 elemen background"
+      ],
+      "objectives_en": [
+        "Recognizing background composition",
+        "Creating 4 background elements"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Parallax Motion",
+      "objectives": [
+        "Mempelajari cara membuat parallax motion",
+        "Memahami apa itu parallax motion"
+      ],
+      "objectives_en": [
+        "Learning how to create parallax motion",
+        "Understanding what parallax motion is"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Shadows in After Effects",
+      "objectives": [
+        "Menggabungkan character dan background",
+        "Membuat shadow untuk karakter"
+      ],
+      "objectives_en": [
+        "Combining character and background",
+        "Creating shadows for characters"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Masking Video",
+      "objectives": [
+        "Memahami apa itu masking dan cara mengimplementasikannya",
+        "Membuat text reveal di After Effects"
+      ],
+      "objectives_en": [
+        "Understanding what masking is and how to implement it",
+        "Creating a text reveal in After Effects"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Intro Titles with AE",
+      "objectives": [
+        "Memahami apa itu masking dan cara mengimplementasikannya",
+        "Membuat title animation text reveal di After Effects"
+      ],
+      "objectives_en": [
+        "Understanding masking and its implementation",
+        "Creating a title text reveal in After Effects"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Exam 2",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 9-15",
+        "Mengerjakan Exam 2"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 9-15",
+        "Completing Exam 2"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Animation 1: Swimming Turtle",
+      "objectives": [
+        "Menggunakan Auto Bezier",
+        "Menganimasikan kura-kura berenang di bawah laut"
+      ],
+      "objectives_en": [
+        "Using Auto Bezier",
+        "Animating an underwater swimming turtle"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Animation 1: Making It Rain",
+      "objectives": [
+        "Mempelajari cara menganimasikan hujan",
+        "Mempelajari emosi dalam animasi"
+      ],
+      "objectives_en": [
+        "Learning how to animate rain",
+        "Learning emotions in animation"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Drawing Characters (Humans) 1",
+      "objectives": [
+        "Mempelajari macam bentuk wajah",
+        "Mempelajari cara menggambar wajah manusia"
+      ],
+      "objectives_en": [
+        "Learning about various face shapes",
+        "Learning how to draw faces"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Drawing Characters (Humans) 2",
+      "objectives": [
+        "Mempelajari macam rambut karakter",
+        "Menggambar rambut karakter"
+      ],
+      "objectives_en": [
+        "Exploring character hair types",
+        "Drawing character hair"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Human Poses: Chibi Illustration",
+      "objectives": [
+        "Mempelajari cara menggambar chibi",
+        "Memahami proporsi tubuh Chibi"
+      ],
+      "objectives_en": [
+        "Learning how to draw chibi",
+        "Understanding Chibi Body Proportions"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Human to Chibi",
+      "objectives": [
+        "Mengubah gambar menjadi chibi",
+        "Menganalisa referensi karakter"
+      ],
+      "objectives_en": [
+        "Converting images to chibi",
+        "Analyzing character references"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Animating Puppet Wrap",
+      "objectives": [
+        "Mempelajari cara menggunakan Puppet Warp",
+        "Mempelajari anatomi tubuh yang dapat digerakkan"
+      ],
+      "objectives_en": [
+        "Learning how to use Puppet Warp",
+        "Studying the anatomy of a movable body"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Exam 3",
+      "objectives": [
+        "Melakukan ringkasan materi pertemuan 17-23",
+        "Mengerjakan Exam 3"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 17-23",
+        "Completing Exam 3"
+      ]
+    }
   ],
   "Advanced Animation": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - Perspective, Shading & Composition",
-          "objectives": [
-              "Mempelajari Shading di Illustrator",
-              "Mempelajari tipe-tipe shading di Illustrator"
-          ],
-          "objectives_en": [
-              "Learning to create shading in Illustrator",
-              "Learning types of shading in Illustrator"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Shape & Mask",
-          "objectives": [
-              "Mempelajari cara pembuatan Shapes di After Effects",
-              "Mempelajari cara animasi dengan Masking"
-          ],
-          "objectives_en": [
-              "Learning to make shapes in After Effects",
-              "Learning how to animate using masking"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Live Background 1",
-          "objectives": [
-              "Mengenal Live Background",
-              "Mempelajari cara menganimasi Wallpaper"
-          ],
-          "objectives_en": [
-              "Introduction to Live Backgrounds",
-              "Learning how to animate wallpapers"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - Live Background 2",
-          "objectives": [
-              "Mengenal CC Particle System II",
-              "Mempelajari cara memberikan efek debu, percikan api serta kunang-kunang"
-          ],
-          "objectives_en": [
-              "Exploring CC Particle System II",
-              "Learning how to add dust, sparks, and firefly effects"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Animation Intro",
-          "objectives": [
-              "Mengenal tentang Intro Animasi",
-              "Mempelajari cara membuat animasi title"
-          ],
-          "objectives_en": [
-              "Understanding animation intros",
-              "Learning how to create an animation title"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Combining Videos and Illustration",
-          "objectives": [
-              "Mengenal Roto Brush Tool",
-              "Mempelajari cara menghilangkan background dari video tanpa green screen di After Effects"
-          ],
-          "objectives_en": [
-              "Introduction to the Roto Brush Tool",
-              "Learning how to remove background from videos without green screen in After Effects"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Camera & Tracking",
-          "objectives": [
-              "Mempelajari cara memfokuskan objek dalam video dengan kamera",
-              "Mempelajari cara menambahkan tracking pada video"
-          ],
-          "objectives_en": [
-              "Learning to focus objects in video with camera",
-              "Learning how to add tracking to videos"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Exam 1",
-          "objectives": [
-              "Melakukan ringkasan pertemuan 1-7",
-              "Mengerjakan Exam 1"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 1-7",
-              "Completing Exam 1"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - Expression",
-          "objectives": [
-              "Mengenal berbagai perbedaan ekspresi",
-              "Mempelajari cara membuat ekspresi karakter"
-          ],
-          "objectives_en": [
-              "Exploring varieties of character expressions",
-              "Learning how to create character expressions"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Puppet Animation 1",
-          "objectives": [
-              "Mengenal Puppet Animation",
-              "Mempelajari cara membuat puppet karakter untuk animasi"
-          ],
-          "objectives_en": [
-              "Getting to know Puppet Animation",
-              "Learning how to create character puppets for animation"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Puppet Animation 2",
-          "objectives": [
-              "Mengenal Parenting di After Effects",
-              "Mempelajari cara membuat animasi dengan parenting"
-          ],
-          "objectives_en": [
-              "Exploring Parenting in After Effects",
-              "Learning how to create animations with parenting"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Smooth Expressions Animation",
-          "objectives": [
-              "Mempelajari cara membuat ekspresi karakter di After Effects",
-              "Mempelajari cara menganimasi perubahan ekspresi yang lancar"
-          ],
-          "objectives_en": [
-              "Learning how to create character expressions in After Effects",
-              "Learning how to animate fluid expression changes"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Lip-sync Animation",
-          "objectives": [
-              "Mempelajari cara membuat gerakan bibir",
-              "Mempelajari cara menganimasi lip-sync sesuai dengan audio"
-          ],
-          "objectives_en": [
-              "Learning how to create lip movements",
-              "Learning how to animate lip-sync according to audio"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - Rim Light & Shadow",
-          "objectives": [
-              "Mempelajari cara membuat shade secara langsung di After Effects",
-              "Mempelajari cara mengaplikasikan shadow & light untuk karakter animasi"
-          ],
-          "objectives_en": [
-              "Creating shades directly in After Effects",
-              "Applying shadow & light to animated characters"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - After Effects Transitions",
-          "objectives": [
-              "Mengenal berbagai macam transisi",
-              "Mempelajari cara membuat transisi video"
-          ],
-          "objectives_en": [
-              "Getting to know various transitions",
-              "Creating video transitions"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Exam 2",
-          "objectives": [
-              "Melakukan ringkasan pertemuan 9-15",
-              "Mengerjakan Exam 2"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 9-15",
-              "Completing Exam 2"
-          ]
-      },
-      {
-          "num": 17,
-          "title": "Lesson 17 - Animated Storyboards",
-          "objectives": [
-              "Mengenal jenis-jenis animasi",
-              "Mengenal dan mempelajari cara membuat storyboard animasi"
-          ],
-          "objectives_en": [
-              "Learning types of animation",
-              "Creating animated storyboards"
-          ]
-      },
-      {
-          "num": 18,
-          "title": "Lesson 18 - Video Taking",
-          "objectives": [
-              "Mengenal berbagai metode pengambilan video",
-              "Dapat mempraktikkan metode pengambilan video"
-          ],
-          "objectives_en": [
-              "Exploring video shooting methods",
-              "Practicing video shooting methods"
-          ]
-      },
-      {
-          "num": 19,
-          "title": "Lesson 19 - Color Grading",
-          "objectives": [
-              "Mempelajari cara mengganti warna dari video",
-              "Mempelajari cara membuat warna video agar terlihat seperti di film"
-          ],
-          "objectives_en": [
-              "Learning how to change the color of videos",
-              "Learning how to make video colors look cinematic"
-          ]
-      },
-      {
-          "num": 20,
-          "title": "Lesson 20 - Time Manipulation",
-          "objectives": [
-              "Mempelajari cara mengubah waktu di video",
-              "Mempelajari cara memanfaatkan fitur waktu untuk mengedit video"
-          ],
-          "objectives_en": [
-              "Learning how to change time in videos",
-              "Utilizing time features for video editing"
-          ]
-      },
-      {
-          "num": 21,
-          "title": "Lesson 21 - Audio Effects",
-          "objectives": [
-              "Mempelajari cara memanipulasi audio menggunakan Audio Effect"
-          ],
-          "objectives_en": [
-              "Learning how to manipulate audio using audio effects"
-          ]
-      },
-      {
-          "num": 22,
-          "title": "Lesson 22 - Visual FX 1",
-          "objectives": [
-              "Mengenal tentang VFX",
-              "Mempelajari cara membuat VFX sederhana"
-          ],
-          "objectives_en": [
-              "Introduction to VFX",
-              "Learning how to create simple VFX"
-          ]
-      },
-      {
-          "num": 23,
-          "title": "Lesson 23 - Visual FX 2",
-          "objectives": [
-              "Mempelajari cara membuat VFX mengendalikan air"
-          ],
-          "objectives_en": [
-              "Learning how to create water-controlling VFX"
-          ]
-      },
-      {
-          "num": 24,
-          "title": "Lesson 24 - Final Exam",
-          "objectives": [
-              "Melakukan ringkasan pertemuan 17-23",
-              "Mengerjakan Final Exam"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 17-23",
-              "Completing the Final Exam"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - Perspective, Shading & Composition",
+      "objectives": [
+        "Mempelajari Shading di Illustrator",
+        "Mempelajari tipe-tipe shading di Illustrator"
+      ],
+      "objectives_en": [
+        "Learning to create shading in Illustrator",
+        "Learning types of shading in Illustrator"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Shape & Mask",
+      "objectives": [
+        "Mempelajari cara pembuatan Shapes di After Effects",
+        "Mempelajari cara animasi dengan Masking"
+      ],
+      "objectives_en": [
+        "Learning to make shapes in After Effects",
+        "Learning how to animate using masking"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Live Background 1",
+      "objectives": [
+        "Mengenal Live Background",
+        "Mempelajari cara menganimasi Wallpaper"
+      ],
+      "objectives_en": [
+        "Introduction to Live Backgrounds",
+        "Learning how to animate wallpapers"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Live Background 2",
+      "objectives": [
+        "Mengenal CC Particle System II",
+        "Mempelajari cara memberikan efek debu, percikan api serta kunang-kunang"
+      ],
+      "objectives_en": [
+        "Exploring CC Particle System II",
+        "Learning how to add dust, sparks, and firefly effects"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Animation Intro",
+      "objectives": [
+        "Mengenal tentang Intro Animasi",
+        "Mempelajari cara membuat animasi title"
+      ],
+      "objectives_en": [
+        "Understanding animation intros",
+        "Learning how to create an animation title"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Combining Videos and Illustration",
+      "objectives": [
+        "Mengenal Roto Brush Tool",
+        "Mempelajari cara menghilangkan background dari video tanpa green screen di After Effects"
+      ],
+      "objectives_en": [
+        "Introduction to the Roto Brush Tool",
+        "Learning how to remove background from videos without green screen in After Effects"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Camera & Tracking",
+      "objectives": [
+        "Mempelajari cara memfokuskan objek dalam video dengan kamera",
+        "Mempelajari cara menambahkan tracking pada video"
+      ],
+      "objectives_en": [
+        "Learning to focus objects in video with camera",
+        "Learning how to add tracking to videos"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Exam 1",
+      "objectives": [
+        "Melakukan ringkasan pertemuan 1-7",
+        "Mengerjakan Exam 1"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 1-7",
+        "Completing Exam 1"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Expression",
+      "objectives": [
+        "Mengenal berbagai perbedaan ekspresi",
+        "Mempelajari cara membuat ekspresi karakter"
+      ],
+      "objectives_en": [
+        "Exploring varieties of character expressions",
+        "Learning how to create character expressions"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Puppet Animation 1",
+      "objectives": [
+        "Mengenal Puppet Animation",
+        "Mempelajari cara membuat puppet karakter untuk animasi"
+      ],
+      "objectives_en": [
+        "Getting to know Puppet Animation",
+        "Learning how to create character puppets for animation"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Puppet Animation 2",
+      "objectives": [
+        "Mengenal Parenting di After Effects",
+        "Mempelajari cara membuat animasi dengan parenting"
+      ],
+      "objectives_en": [
+        "Exploring Parenting in After Effects",
+        "Learning how to create animations with parenting"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Smooth Expressions Animation",
+      "objectives": [
+        "Mempelajari cara membuat ekspresi karakter di After Effects",
+        "Mempelajari cara menganimasi perubahan ekspresi yang lancar"
+      ],
+      "objectives_en": [
+        "Learning how to create character expressions in After Effects",
+        "Learning how to animate fluid expression changes"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Lip-sync Animation",
+      "objectives": [
+        "Mempelajari cara membuat gerakan bibir",
+        "Mempelajari cara menganimasi lip-sync sesuai dengan audio"
+      ],
+      "objectives_en": [
+        "Learning how to create lip movements",
+        "Learning how to animate lip-sync according to audio"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Rim Light & Shadow",
+      "objectives": [
+        "Mempelajari cara membuat shade secara langsung di After Effects",
+        "Mempelajari cara mengaplikasikan shadow & light untuk karakter animasi"
+      ],
+      "objectives_en": [
+        "Creating shades directly in After Effects",
+        "Applying shadow & light to animated characters"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - After Effects Transitions",
+      "objectives": [
+        "Mengenal berbagai macam transisi",
+        "Mempelajari cara membuat transisi video"
+      ],
+      "objectives_en": [
+        "Getting to know various transitions",
+        "Creating video transitions"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Exam 2",
+      "objectives": [
+        "Melakukan ringkasan pertemuan 9-15",
+        "Mengerjakan Exam 2"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 9-15",
+        "Completing Exam 2"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Animated Storyboards",
+      "objectives": [
+        "Mengenal jenis-jenis animasi",
+        "Mengenal dan mempelajari cara membuat storyboard animasi"
+      ],
+      "objectives_en": [
+        "Learning types of animation",
+        "Creating animated storyboards"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Video Taking",
+      "objectives": [
+        "Mengenal berbagai metode pengambilan video",
+        "Dapat mempraktikkan metode pengambilan video"
+      ],
+      "objectives_en": [
+        "Exploring video shooting methods",
+        "Practicing video shooting methods"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Color Grading",
+      "objectives": [
+        "Mempelajari cara mengganti warna dari video",
+        "Mempelajari cara membuat warna video agar terlihat seperti di film"
+      ],
+      "objectives_en": [
+        "Learning how to change the color of videos",
+        "Learning how to make video colors look cinematic"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Time Manipulation",
+      "objectives": [
+        "Mempelajari cara mengubah waktu di video",
+        "Mempelajari cara memanfaatkan fitur waktu untuk mengedit video"
+      ],
+      "objectives_en": [
+        "Learning how to change time in videos",
+        "Utilizing time features for video editing"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Audio Effects",
+      "objectives": [
+        "Mempelajari cara memanipulasi audio menggunakan Audio Effect"
+      ],
+      "objectives_en": [
+        "Learning how to manipulate audio using audio effects"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Visual FX 1",
+      "objectives": [
+        "Mengenal tentang VFX",
+        "Mempelajari cara membuat VFX sederhana"
+      ],
+      "objectives_en": [
+        "Introduction to VFX",
+        "Learning how to create simple VFX"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Visual FX 2",
+      "objectives": [
+        "Mempelajari cara membuat VFX mengendalikan air"
+      ],
+      "objectives_en": [
+        "Learning how to create water-controlling VFX"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Final Exam",
+      "objectives": [
+        "Melakukan ringkasan pertemuan 17-23",
+        "Mengerjakan Final Exam"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 17-23",
+        "Completing the Final Exam"
+      ]
+    }
   ],
   "UI/UX": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - The World of UI/UX",
-          "objectives": [
-              "Memahami tentang UI & UX",
-              "Mengenal software Figma"
-          ],
-          "objectives_en": [
-              "Understanding UI & UX",
-              "Getting to know Figma software"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Design Thinking",
-          "objectives": [
-              "Memahami proses Design Thinking",
-              "Mengetahui komponen UI pada aplikasi"
-          ],
-          "objectives_en": [
-              "Understanding the Design Thinking process",
-              "Knowing UI components in applications"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Understanding Project",
-          "objectives": [
-              "Belajar membuat design User Persona",
-              "Menganalisa hasil interview dengan How Might We"
-          ],
-          "objectives_en": [
-              "Learning to create User Persona designs",
-              "Analyzing interview results with 'How Might We'"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - Layout & Wireframe 1",
-          "objectives": [
-              "Memahami apa itu Wireframe dan cara menyusunnya",
-              "Mengetahui dan memahami teori layout dalam UI design"
-          ],
-          "objectives_en": [
-              "Understanding what a Wireframe is and how to organize it",
-              "Understanding layout theory in UI design"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Layout & Wireframe 2",
-          "objectives": [
-              "Mengetahui design Component Card untuk Wireframe",
-              "Mendesain Wireflow aplikasi order makanan"
-          ],
-          "objectives_en": [
-              "Learning component cards for wireframes",
-              "Designing a food ordering application wireflow"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Brand Identity",
-          "objectives": [
-              "Merancang Brand Identity untuk UI aplikasi",
-              "Mendesain logo sederhana untuk brand Wellspoon"
-          ],
-          "objectives_en": [
-              "Designing brand identity for app UI",
-              "Designing a simple logo for the Wellspoon brand"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Build your Apps UI",
-          "objectives": [
-              "Menyusun Moodboard untuk UI aplikasi",
-              "Melakukan finalisasi desain Wireflow"
-          ],
-          "objectives_en": [
-              "Developing a moodboard for app UI",
-              "Finalizing wireflow designs"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Exam 1",
-          "objectives": [
-              "Melakukan ringkasan materi lesson 1-7",
-              "Mengerjakan Exam 1"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 1-7",
-              "Completing Exam 1"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - A Journey Into Website Design",
-          "objectives": [
-              "Mengetahui jenis dan anatomi pada website",
-              "Mempelajari tentang poin-poin produk UX yang berharga"
-          ],
-          "objectives_en": [
-              "Exploring website types and anatomy",
-              "Learning about UX valuable product points"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Create Beautiful and Readable Website",
-          "objectives": [
-              "Mengetahui jenis typography dalam website design",
-              "Mempelajari tentang text spacing (Leading, Kerning & Tracking)"
-          ],
-          "objectives_en": [
-              "Exploring typography in web design",
-              "Learning text spacing (Leading, Kerning & Tracking)"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Colors Influence In Web Design",
-          "objectives": [
-              "Mengetahui tentang teori & psikologi warna",
-              "Mempelajari tentang penggunaan warna di website design"
-          ],
-          "objectives_en": [
-              "Understanding color theory & psychology",
-              "Learning how to use colors in website design"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Understanding Icon in UI Design",
-          "objectives": [
-              "Siswa mampu merancang ikon yang baik dan benar",
-              "Memahami jenis dan penggunaan masing-masing jenis ikon dalam desain UI"
-          ],
-          "objectives_en": [
-              "Designing good and proper icons",
-              "Understanding icon types and usage in UI design"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Making Figma Components",
-          "objectives": [
-              "Siswa memahami fungsi dan membuat komponen Figma",
-              "Mampu membuat efek menggunakan komponen"
-          ],
-          "objectives_en": [
-              "Understanding functions and creating Figma components",
-              "Creating effects using components"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - Website Menu",
-          "objectives": [
-              "Mengetahui tentang website menu dan cara membuatnya"
-          ],
-          "objectives_en": [
-              "Learning about website menus and how to create them"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Designing E-commerce Website",
-          "objectives": [
-              "Membuat CTA yang baik untuk website E-commerce",
-              "Mempelajari Informasi Arsitektur Website"
-          ],
-          "objectives_en": [
-              "Creating effective CTAs for e-commerce websites",
-              "Learning website information architecture"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Exam 2",
-          "objectives": [
-              "Melakukan ringkasan materi lesson 9-15",
-              "Mengerjakan Exam 2"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 9-15",
-              "Completing Exam 2"
-          ]
-      },
-      {
-          "num": 17,
-          "title": "Lesson 17 - Make An Interactive Component",
-          "objectives": [
-              "Membuat image slider dengan komponen interaktif"
-          ],
-          "objectives_en": [
-              "Creating an image slider with interactive components"
-          ]
-      },
-      {
-          "num": 18,
-          "title": "Lesson 18 - Product Listing",
-          "objectives": [
-              "Mengenal tentang UI dalam product listing dan detail page",
-              "Mempelajari cara membuat halaman product listing dan detail"
-          ],
-          "objectives_en": [
-              "Exploring UI in product listings and detail pages",
-              "Creating product listing and detail pages"
-          ]
-      },
-      {
-          "num": 19,
-          "title": "Lesson 19 - Check Out Your Product",
-          "objectives": [
-              "Mendesain checkout page yang user-friendly",
-              "Menghubungkan prototype dari pembelian hingga checkout"
-          ],
-          "objectives_en": [
-              "Designing a user-friendly checkout page",
-              "Connecting prototypes from purchase to checkout"
-          ]
-      },
-      {
-          "num": 20,
-          "title": "Lesson 20 - UX Usability Testing",
-          "objectives": [
-              "Menguji UX website yang telah didesain",
-              "Membuat UI style guide"
-          ],
-          "objectives_en": [
-              "Testing the UX of the designed website",
-              "Creating a UI style guide"
-          ]
-      },
-      {
-          "num": 21,
-          "title": "Lesson 21 - Advanced Prototyping",
-          "objectives": [
-              "Mengenal tentang responsive design",
-              "Mempelajari cara membuat efek parallax di Figma"
-          ],
-          "objectives_en": [
-              "Learning responsive design principles",
-              "Creating parallax effects in Figma"
-          ]
-      },
-      {
-          "num": 22,
-          "title": "Lesson 22 - Advanced Animation",
-          "objectives": [
-              "Mengenal tentang animasi dalam website design",
-              "Mempelajari cara membuat animasi floating object dan text looping"
-          ],
-          "objectives_en": [
-              "Exploring animations in website design",
-              "Creating floating object animations and looping text"
-          ]
-      },
-      {
-          "num": 23,
-          "title": "Lesson 23 - Build Your Own Portfolio",
-          "objectives": [
-              "Membuat efek text reveal di Figma",
-              "Menyusun portofolio landing page"
-          ],
-          "objectives_en": [
-              "Creating text reveal effects in Figma",
-              "Compiling a landing page portfolio"
-          ]
-      },
-      {
-          "num": 24,
-          "title": "Lesson 24 - Exam 3",
-          "objectives": [
-              "Melakukan ringkasan materi lesson 17-23",
-              "Mengerjakan Exam 3"
-          ],
-          "objectives_en": [
-              "Reviewing summary of lessons 17-23",
-              "Completing Exam 3"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - The World of UI/UX",
+      "objectives": [
+        "Memahami tentang UI & UX",
+        "Mengenal software Figma"
+      ],
+      "objectives_en": [
+        "Understanding UI & UX",
+        "Getting to know Figma software"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Design Thinking",
+      "objectives": [
+        "Memahami proses Design Thinking",
+        "Mengetahui komponen UI pada aplikasi"
+      ],
+      "objectives_en": [
+        "Understanding the Design Thinking process",
+        "Knowing UI components in applications"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Understanding Project",
+      "objectives": [
+        "Belajar membuat design User Persona",
+        "Menganalisa hasil interview dengan How Might We"
+      ],
+      "objectives_en": [
+        "Learning to create User Persona designs",
+        "Analyzing interview results with 'How Might We'"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Layout & Wireframe 1",
+      "objectives": [
+        "Memahami apa itu Wireframe dan cara menyusunnya",
+        "Mengetahui dan memahami teori layout dalam UI design"
+      ],
+      "objectives_en": [
+        "Understanding what a Wireframe is and how to organize it",
+        "Understanding layout theory in UI design"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Layout & Wireframe 2",
+      "objectives": [
+        "Mengetahui design Component Card untuk Wireframe",
+        "Mendesain Wireflow aplikasi order makanan"
+      ],
+      "objectives_en": [
+        "Learning component cards for wireframes",
+        "Designing a food ordering application wireflow"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Brand Identity",
+      "objectives": [
+        "Merancang Brand Identity untuk UI aplikasi",
+        "Mendesain logo sederhana untuk brand Wellspoon"
+      ],
+      "objectives_en": [
+        "Designing brand identity for app UI",
+        "Designing a simple logo for the Wellspoon brand"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Build your Apps UI",
+      "objectives": [
+        "Menyusun Moodboard untuk UI aplikasi",
+        "Melakukan finalisasi desain Wireflow"
+      ],
+      "objectives_en": [
+        "Developing a moodboard for app UI",
+        "Finalizing wireflow designs"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Exam 1",
+      "objectives": [
+        "Melakukan ringkasan materi lesson 1-7",
+        "Mengerjakan Exam 1"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 1-7",
+        "Completing Exam 1"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - A Journey Into Website Design",
+      "objectives": [
+        "Mengetahui jenis dan anatomi pada website",
+        "Mempelajari tentang poin-poin produk UX yang berharga"
+      ],
+      "objectives_en": [
+        "Exploring website types and anatomy",
+        "Learning about UX valuable product points"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Create Beautiful and Readable Website",
+      "objectives": [
+        "Mengetahui jenis typography dalam website design",
+        "Mempelajari tentang text spacing (Leading, Kerning & Tracking)"
+      ],
+      "objectives_en": [
+        "Exploring typography in web design",
+        "Learning text spacing (Leading, Kerning & Tracking)"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Colors Influence In Web Design",
+      "objectives": [
+        "Mengetahui tentang teori & psikologi warna",
+        "Mempelajari tentang penggunaan warna di website design"
+      ],
+      "objectives_en": [
+        "Understanding color theory & psychology",
+        "Learning how to use colors in website design"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Understanding Icon in UI Design",
+      "objectives": [
+        "Siswa mampu merancang ikon yang baik dan benar",
+        "Memahami jenis dan penggunaan masing-masing jenis ikon dalam desain UI"
+      ],
+      "objectives_en": [
+        "Designing good and proper icons",
+        "Understanding icon types and usage in UI design"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Making Figma Components",
+      "objectives": [
+        "Siswa memahami fungsi dan membuat komponen Figma",
+        "Mampu membuat efek menggunakan komponen"
+      ],
+      "objectives_en": [
+        "Understanding functions and creating Figma components",
+        "Creating effects using components"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Website Menu",
+      "objectives": [
+        "Mengetahui tentang website menu dan cara membuatnya"
+      ],
+      "objectives_en": [
+        "Learning about website menus and how to create them"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Designing E-commerce Website",
+      "objectives": [
+        "Membuat CTA yang baik untuk website E-commerce",
+        "Mempelajari Informasi Arsitektur Website"
+      ],
+      "objectives_en": [
+        "Creating effective CTAs for e-commerce websites",
+        "Learning website information architecture"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Exam 2",
+      "objectives": [
+        "Melakukan ringkasan materi lesson 9-15",
+        "Mengerjakan Exam 2"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 9-15",
+        "Completing Exam 2"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Make An Interactive Component",
+      "objectives": [
+        "Membuat image slider dengan komponen interaktif"
+      ],
+      "objectives_en": [
+        "Creating an image slider with interactive components"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Product Listing",
+      "objectives": [
+        "Mengenal tentang UI dalam product listing dan detail page",
+        "Mempelajari cara membuat halaman product listing dan detail"
+      ],
+      "objectives_en": [
+        "Exploring UI in product listings and detail pages",
+        "Creating product listing and detail pages"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Check Out Your Product",
+      "objectives": [
+        "Mendesain checkout page yang user-friendly",
+        "Menghubungkan prototype dari pembelian hingga checkout"
+      ],
+      "objectives_en": [
+        "Designing a user-friendly checkout page",
+        "Connecting prototypes from purchase to checkout"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - UX Usability Testing",
+      "objectives": [
+        "Menguji UX website yang telah didesain",
+        "Membuat UI style guide"
+      ],
+      "objectives_en": [
+        "Testing the UX of the designed website",
+        "Creating a UI style guide"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Advanced Prototyping",
+      "objectives": [
+        "Mengenal tentang responsive design",
+        "Mempelajari cara membuat efek parallax di Figma"
+      ],
+      "objectives_en": [
+        "Learning responsive design principles",
+        "Creating parallax effects in Figma"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Advanced Animation",
+      "objectives": [
+        "Mengenal tentang animasi dalam website design",
+        "Mempelajari cara membuat animasi floating object dan text looping"
+      ],
+      "objectives_en": [
+        "Exploring animations in website design",
+        "Creating floating object animations and looping text"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Build Your Own Portfolio",
+      "objectives": [
+        "Membuat efek text reveal di Figma",
+        "Menyusun portofolio landing page"
+      ],
+      "objectives_en": [
+        "Creating text reveal effects in Figma",
+        "Compiling a landing page portfolio"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Exam 3",
+      "objectives": [
+        "Melakukan ringkasan materi lesson 17-23",
+        "Mengerjakan Exam 3"
+      ],
+      "objectives_en": [
+        "Reviewing summary of lessons 17-23",
+        "Completing Exam 3"
+      ]
+    }
   ],
   "IoT Robotic 2024": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - Getting Know About Electronic Component",
-          "objectives": [
-              "Mengenal komponen elektronik dasar",
-              "Mampu mengoperasikan komponen elektronik LED"
-          ],
-          "objectives_en": [
-              "Learning basic electronic components",
-              "Operating LED electronic components"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Ruler with Ultrasonic",
-          "objectives": [
-              "Memahami penerapan sensor ultrasonik melalui mini project"
-          ],
-          "objectives_en": [
-              "Understanding ultrasonic sensor implementation through a mini project"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Sound and Light Sensor",
-          "objectives": [
-              "Memahami cara kerja sound sensor dan sensor LDR"
-          ],
-          "objectives_en": [
-              "Understanding how sound sensors and LDR light sensors work"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - Assembling Prototype",
-          "objectives": [
-              "Merakit dan membuat prototipe smart garage"
-          ],
-          "objectives_en": [
-              "Assembling and building a smart garage prototype"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Automatic Opening Garage",
-          "objectives": [
-              "Mengetahui konsep garasi otomatis dengan penerapan membuka pintu otomatis"
-          ],
-          "objectives_en": [
-              "Learning automatic garage concepts with automated door opening"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Checking Availability Garage",
-          "objectives": [
-              "Mengetahui konsep garasi manual dengan penerapan membuka pintu manual"
-          ],
-          "objectives_en": [
-              "Understanding manual garage concepts with manual door opening"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Manual Opening Garage",
-          "objectives": [
-              "Mengetahui serta mengimplementasikan konsep kerja monitoring garasi pada prototype"
-          ],
-          "objectives_en": [
-              "Understanding and implementing garage monitoring on the prototype"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Overview & Exam",
-          "objectives": [
-              "Melakukan ringkasan materi IoT dan menyelesaikan evaluasi ujian 1"
-          ],
-          "objectives_en": [
-              "Reviewing IoT concepts and completing the Exam 1 evaluation"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - IoT Around You",
-          "objectives": [
-              "Mengenal komponen Robot Car",
-              "Menyusun komponen Robot Car"
-          ],
-          "objectives_en": [
-              "Learning Robot Car components",
-              "Assembling Robot Car components"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - I'm Movin' It",
-          "objectives": [
-              "Belajar coding pada Arduino",
-              "Membuat Robot Car bergerak"
-          ],
-          "objectives_en": [
-              "Coding with Arduino",
-              "Making the Robot Car move"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Sonar System",
-          "objectives": [
-              "Mengenal apa itu sensor ultrasonik",
-              "Membuat sistem penghindar rintangan (Object Avoider)"
-          ],
-          "objectives_en": [
-              "Introduction to ultrasonic sensors",
-              "Building an Object Avoider system"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Object Following",
-          "objectives": [
-              "Mengenal apa itu sensor IR (Infra Red)",
-              "Membuat robot pengikut objek (Object Follower)"
-          ],
-          "objectives_en": [
-              "Introduction to IR sensors",
-              "Building an Object Follower robot"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Line Following",
-          "objectives": [
-              "Mempelajari robot pengikut garis (Line Follower)",
-              "Mengikuti simulasi balapan robot (Robot Race)"
-          ],
-          "objectives_en": [
-              "Learning line follower robotics",
-              "Participating in a Robot Race"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - Control the Robot using Bluetooth",
-          "objectives": [
-              "Mengenal apa itu sensor dan modul Bluetooth",
-              "Mengendalikan Robot Car dengan Bluetooth"
-          ],
-          "objectives_en": [
-              "Introduction to Bluetooth modules",
-              "Controlling the Robot Car via Bluetooth"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Getting Ready",
-          "objectives": [
-              "Mempersiapkan dan merakit kreasi Battle Car"
-          ],
-          "objectives_en": [
-              "Preparing and creating the Battle Car project"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Let's Go!",
-          "objectives": [
-              "Melakukan overview dan ujian akhir",
-              "Mengikuti mini turnamen Battle Car"
-          ],
-          "objectives_en": [
-              "Completing the overview and final exam",
-              "Participating in the Battle Car mini tournament"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - Getting Know About Electronic Component",
+      "objectives": [
+        "Mengenal komponen elektronik dasar",
+        "Mampu mengoperasikan komponen elektronik LED"
+      ],
+      "objectives_en": [
+        "Learning basic electronic components",
+        "Operating LED electronic components"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Ruler with Ultrasonic",
+      "objectives": [
+        "Memahami penerapan sensor ultrasonik melalui mini project"
+      ],
+      "objectives_en": [
+        "Understanding ultrasonic sensor implementation through a mini project"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Sound and Light Sensor",
+      "objectives": [
+        "Memahami cara kerja sound sensor dan sensor LDR"
+      ],
+      "objectives_en": [
+        "Understanding how sound sensors and LDR light sensors work"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Assembling Prototype",
+      "objectives": [
+        "Merakit dan membuat prototipe smart garage"
+      ],
+      "objectives_en": [
+        "Assembling and building a smart garage prototype"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Automatic Opening Garage",
+      "objectives": [
+        "Mengetahui konsep garasi otomatis dengan penerapan membuka pintu otomatis"
+      ],
+      "objectives_en": [
+        "Learning automatic garage concepts with automated door opening"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Checking Availability Garage",
+      "objectives": [
+        "Mengetahui konsep garasi manual dengan penerapan membuka pintu manual"
+      ],
+      "objectives_en": [
+        "Understanding manual garage concepts with manual door opening"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Manual Opening Garage",
+      "objectives": [
+        "Mengetahui serta mengimplementasikan konsep kerja monitoring garasi pada prototype"
+      ],
+      "objectives_en": [
+        "Understanding and implementing garage monitoring on the prototype"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Overview & Exam",
+      "objectives": [
+        "Melakukan ringkasan materi IoT dan menyelesaikan evaluasi ujian 1"
+      ],
+      "objectives_en": [
+        "Reviewing IoT concepts and completing the Exam 1 evaluation"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - IoT Around You",
+      "objectives": [
+        "Mengenal komponen Robot Car",
+        "Menyusun komponen Robot Car"
+      ],
+      "objectives_en": [
+        "Learning Robot Car components",
+        "Assembling Robot Car components"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - I'm Movin' It",
+      "objectives": [
+        "Belajar coding pada Arduino",
+        "Membuat Robot Car bergerak"
+      ],
+      "objectives_en": [
+        "Coding with Arduino",
+        "Making the Robot Car move"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Sonar System",
+      "objectives": [
+        "Mengenal apa itu sensor ultrasonik",
+        "Membuat sistem penghindar rintangan (Object Avoider)"
+      ],
+      "objectives_en": [
+        "Introduction to ultrasonic sensors",
+        "Building an Object Avoider system"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Object Following",
+      "objectives": [
+        "Mengenal apa itu sensor IR (Infra Red)",
+        "Membuat robot pengikut objek (Object Follower)"
+      ],
+      "objectives_en": [
+        "Introduction to IR sensors",
+        "Building an Object Follower robot"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Line Following",
+      "objectives": [
+        "Mempelajari robot pengikut garis (Line Follower)",
+        "Mengikuti simulasi balapan robot (Robot Race)"
+      ],
+      "objectives_en": [
+        "Learning line follower robotics",
+        "Participating in a Robot Race"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Control the Robot using Bluetooth",
+      "objectives": [
+        "Mengenal apa itu sensor dan modul Bluetooth",
+        "Mengendalikan Robot Car dengan Bluetooth"
+      ],
+      "objectives_en": [
+        "Introduction to Bluetooth modules",
+        "Controlling the Robot Car via Bluetooth"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Getting Ready",
+      "objectives": [
+        "Mempersiapkan dan merakit kreasi Battle Car"
+      ],
+      "objectives_en": [
+        "Preparing and creating the Battle Car project"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Let's Go!",
+      "objectives": [
+        "Melakukan overview dan ujian akhir",
+        "Mengikuti mini turnamen Battle Car"
+      ],
+      "objectives_en": [
+        "Completing the overview and final exam",
+        "Participating in the Battle Car mini tournament"
+      ]
+    }
   ],
   "IoT Smart City": [
-      {
-          "num": 1,
-          "title": "Lesson 1 - Introduction to IOT and C Language",
-          "objectives": [
-              "Mengenal komponen Internet of Things",
-              "Mengenal board mikrokontroler",
-              "Mengenal komponen elektronik"
-          ],
-          "objectives_en": [
-              "Understanding Internet of Things components",
-              "Understanding microcontroller boards",
-              "Understanding electronic components"
-          ]
-      },
-      {
-          "num": 2,
-          "title": "Lesson 2 - Controlling LED Using Conditionals",
-          "objectives": [
-              "Mengenal lingkungan IoT",
-              "Mengenal operator dalam C/C++",
-              "Mengenal conditional dalam C/C++"
-          ],
-          "objectives_en": [
-              "Understanding the IoT environment",
-              "Understanding operators in C/C++",
-              "Understanding conditionals in C/C++"
-          ]
-      },
-      {
-          "num": 3,
-          "title": "Lesson 3 - Looping with Servo",
-          "objectives": [
-              "Mengenal perulangan (looping) dalam C/C++",
-              "Menggunakan komponen servo",
-              "Membuat tempat sampah otomatis"
-          ],
-          "objectives_en": [
-              "Understanding loops in C/C++",
-              "Learning how to use a servo motor",
-              "Making an automatic trash can"
-          ]
-      },
-      {
-          "num": 4,
-          "title": "Lesson 4 - System Security and While Loops",
-          "objectives": [
-              "Mengenal conditional loop dalam C/C++",
-              "Menggunakan MFRC522 RFID Reader/Writer",
-              "Membuat sistem keamanan pintu"
-          ],
-          "objectives_en": [
-              "Understanding conditional loops in C/C++",
-              "Using an MFRC522 RFID reader/writer",
-              "Building a door security system"
-          ]
-      },
-      {
-          "num": 5,
-          "title": "Lesson 5 - Detecting Motion With Functions",
-          "objectives": [
-              "Mengenal fungsi dalam C/C++",
-              "Menggunakan komponen motion sensor",
-              "Membuat sistem garasi otomatis"
-          ],
-          "objectives_en": [
-              "Understanding functions in C/C++",
-              "Using a motion sensor",
-              "Building an automatic garage system"
-          ]
-      },
-      {
-          "num": 6,
-          "title": "Lesson 6 - Playing Tones Using Arrays",
-          "objectives": [
-              "Mengenal array dalam C/C++",
-              "Membunyikan nada-nada pada komponen buzzer",
-              "Membuat proyek alarm pencuri (burglar alarm)"
-          ],
-          "objectives_en": [
-              "Understanding arrays in C/C++",
-              "Playing different notes on a buzzer",
-              "Making a burglar alarm system"
-          ]
-      },
-      {
-          "num": 7,
-          "title": "Lesson 7 - Digital Temperature",
-          "objectives": [
-              "Mengenal switch case dalam C/C++",
-              "Menggunakan sensor temperatur dan display LCD",
-              "Membuat sistem pemantau cuaca"
-          ],
-          "objectives_en": [
-              "Understanding switch cases in C/C++",
-              "Using temperature sensors and LCD displays",
-              "Building a weather monitoring system"
-          ]
-      },
-      {
-          "num": 8,
-          "title": "Lesson 8 - Exam",
-          "objectives": [
-              "Meninjau konsep-konsep kunci dan menyelesaikan ujian tertulis",
-              "Menerapkan pemahaman siswa dalam ujian proyek pilihan"
-          ],
-          "objectives_en": [
-              "Reviewing key concepts in a written exam",
-              "Applying understanding through a chosen project exam"
-          ]
-      },
-      {
-          "num": 9,
-          "title": "Lesson 9 - Make Your Own Prototype",
-          "objectives": [
-              "Menerapkan pengetahuan dengan membangun prototipe fungsional",
-              "Mengenal konsep Smart Home",
-              "Membuat prototipe Smart Home sederhana"
-          ],
-          "objectives_en": [
-              "Applying knowledge by building a functional prototype",
-              "Learning Smart Home concepts",
-              "Creating a simple Smart Home prototype"
-          ]
-      },
-      {
-          "num": 10,
-          "title": "Lesson 10 - Blynk App Introduction",
-          "objectives": [
-              "Mempelajari cara identifikasi dan mengatur mikrokontroler ESP",
-              "Menerapkan pengetahuan untuk proyek menyalakan/mematikan lampu"
-          ],
-          "objectives_en": [
-              "Learning how to identify and set up ESP microcontrollers",
-              "Applying knowledge to an IoT light on/off project"
-          ]
-      },
-      {
-          "num": 11,
-          "title": "Lesson 11 - Smart Door Security",
-          "objectives": [
-              "Membangun proyek keamanan pintu pintar (Smart Door)"
-          ],
-          "objectives_en": [
-              "Building a Smart Door security project"
-          ]
-      },
-      {
-          "num": 12,
-          "title": "Lesson 12 - Monitoring Temperature and Humidity",
-          "objectives": [
-              "Membangun proyek pemantauan suhu dan kelembapan berbasis IoT"
-          ],
-          "objectives_en": [
-              "Building an IoT temperature and humidity monitoring project"
-          ]
-      },
-      {
-          "num": 13,
-          "title": "Lesson 13 - Security System Part II",
-          "objectives": [
-              "Membangun detektor pencuri dan sistem alarm kebakaran terintegrasi"
-          ],
-          "objectives_en": [
-              "Building a thief detector and fire alarm security system"
-          ]
-      },
-      {
-          "num": 14,
-          "title": "Lesson 14 - Smart Garage",
-          "objectives": [
-              "Belajar mengintegrasikan sensor ultrasonik ke dalam rangkaian",
-              "Menerapkan pengetahuan ke sistem garasi cerdas"
-          ],
-          "objectives_en": [
-              "Integrating ultrasonic sensors into circuits",
-              "Applying knowledge to a Smart Garage system"
-          ]
-      },
-      {
-          "num": 15,
-          "title": "Lesson 15 - Project Finishing",
-          "objectives": [
-              "Mengeksplorasi ide dan alat untuk persiapan ujian proyek Smart City"
-          ],
-          "objectives_en": [
-              "Exploring ideas and tools in preparation for the project exam"
-          ]
-      },
-      {
-          "num": 16,
-          "title": "Lesson 16 - Exam",
-          "objectives": [
-              "Menyelesaikan dan mengumpulkan final project Smart City"
-          ],
-          "objectives_en": [
-              "Completing and submitting the final Smart City project"
-          ]
-      },
-      {
-          "num": 17,
-          "title": "Lesson 17 - Smart Parking",
-          "objectives": [
-              "Mengenal konsep smart parking dan komponen dasar yang dibutuhkan"
-          ],
-          "objectives_en": [
-              "Understanding smart parking concepts and essential components"
-          ]
-      },
-      {
-          "num": 18,
-          "title": "Lesson 18 - Code Smart Parking I",
-          "objectives": [
-              "Belajar membangun dan memprogram sistem kontrol gerbang pintar"
-          ],
-          "objectives_en": [
-              "Learning to build and program a functioning gate control system"
-          ]
-      },
-      {
-          "num": 19,
-          "title": "Lesson 19 - Code Smart Parking II",
-          "objectives": [
-              "Menyelesaikan sistem kontrol gerbang yang berfungsi dan menguji proyek"
-          ],
-          "objectives_en": [
-              "Finalizing the gate control system and testing the project"
-          ]
-      },
-      {
-          "num": 20,
-          "title": "Lesson 20 - Smart Farming I",
-          "objectives": [
-              "Mendeteksi dan menampilkan tingkat kelembapan tanah pada layar"
-          ],
-          "objectives_en": [
-              "Detecting and displaying moisture levels on a screen"
-          ]
-      },
-      {
-          "num": 21,
-          "title": "Lesson 21 - Smart Farming II",
-          "objectives": [
-              "Belajar membangun sistem penyiraman otomatis yang fungsional",
-              "Bersiap untuk mengerjakan proyek pribadi"
-          ],
-          "objectives_en": [
-              "Building a functional automatic watering system",
-              "Preparing for personal project development"
-          ]
-      },
-      {
-          "num": 22,
-          "title": "Lesson 22 - Review and Personal Project I",
-          "objectives": [
-              "Mengimplementasikan ide rangkaian kabel (wiring) untuk proyek pribadi"
-          ],
-          "objectives_en": [
-              "Implementing the wiring setup for a personal project"
-          ]
-      },
-      {
-          "num": 23,
-          "title": "Lesson 23 - Review and Personal Project II",
-          "objectives": [
-              "Mengimplementasikan proses coding dan debugging proyek pribadi"
-          ],
-          "objectives_en": [
-              "Implementing the coding and debugging process for the personal project"
-          ]
-      },
-      {
-          "num": 24,
-          "title": "Lesson 24 - Project Submission",
-          "objectives": [
-              "Pengumpulan dan presentasi proyek akhir IoT Smart City"
-          ],
-          "objectives_en": [
-              "Submitting and presenting the final IoT Smart City project"
-          ]
-      }
+    {
+      "num": 1,
+      "title": "Lesson 1 - Introduction to IOT and C Language",
+      "objectives": [
+        "Mengenal komponen Internet of Things",
+        "Mengenal board mikrokontroler",
+        "Mengenal komponen elektronik"
+      ],
+      "objectives_en": [
+        "Understanding Internet of Things components",
+        "Understanding microcontroller boards",
+        "Understanding electronic components"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Controlling LED Using Conditionals",
+      "objectives": [
+        "Mengenal lingkungan IoT",
+        "Mengenal operator dalam C/C++",
+        "Mengenal conditional dalam C/C++"
+      ],
+      "objectives_en": [
+        "Understanding the IoT environment",
+        "Understanding operators in C/C++",
+        "Understanding conditionals in C/C++"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Looping with Servo",
+      "objectives": [
+        "Mengenal perulangan (looping) dalam C/C++",
+        "Menggunakan komponen servo",
+        "Membuat tempat sampah otomatis"
+      ],
+      "objectives_en": [
+        "Understanding loops in C/C++",
+        "Learning how to use a servo motor",
+        "Making an automatic trash can"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - System Security and While Loops",
+      "objectives": [
+        "Mengenal conditional loop dalam C/C++",
+        "Menggunakan MFRC522 RFID Reader/Writer",
+        "Membuat sistem keamanan pintu"
+      ],
+      "objectives_en": [
+        "Understanding conditional loops in C/C++",
+        "Using an MFRC522 RFID reader/writer",
+        "Building a door security system"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Detecting Motion With Functions",
+      "objectives": [
+        "Mengenal fungsi dalam C/C++",
+        "Menggunakan komponen motion sensor",
+        "Membuat sistem garasi otomatis"
+      ],
+      "objectives_en": [
+        "Understanding functions in C/C++",
+        "Using a motion sensor",
+        "Building an automatic garage system"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Playing Tones Using Arrays",
+      "objectives": [
+        "Mengenal array dalam C/C++",
+        "Membunyikan nada-nada pada komponen buzzer",
+        "Membuat proyek alarm pencuri (burglar alarm)"
+      ],
+      "objectives_en": [
+        "Understanding arrays in C/C++",
+        "Playing different notes on a buzzer",
+        "Making a burglar alarm system"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Digital Temperature",
+      "objectives": [
+        "Mengenal switch case dalam C/C++",
+        "Menggunakan sensor temperatur dan display LCD",
+        "Membuat sistem pemantau cuaca"
+      ],
+      "objectives_en": [
+        "Understanding switch cases in C/C++",
+        "Using temperature sensors and LCD displays",
+        "Building a weather monitoring system"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Exam",
+      "objectives": [
+        "Meninjau konsep-konsep kunci dan menyelesaikan ujian tertulis",
+        "Menerapkan pemahaman siswa dalam ujian proyek pilihan"
+      ],
+      "objectives_en": [
+        "Reviewing key concepts in a written exam",
+        "Applying understanding through a chosen project exam"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Make Your Own Prototype",
+      "objectives": [
+        "Menerapkan pengetahuan dengan membangun prototipe fungsional",
+        "Mengenal konsep Smart Home",
+        "Membuat prototipe Smart Home sederhana"
+      ],
+      "objectives_en": [
+        "Applying knowledge by building a functional prototype",
+        "Learning Smart Home concepts",
+        "Creating a simple Smart Home prototype"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Blynk App Introduction",
+      "objectives": [
+        "Mempelajari cara identifikasi dan mengatur mikrokontroler ESP",
+        "Menerapkan pengetahuan untuk proyek menyalakan/mematikan lampu"
+      ],
+      "objectives_en": [
+        "Learning how to identify and set up ESP microcontrollers",
+        "Applying knowledge to an IoT light on/off project"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Smart Door Security",
+      "objectives": [
+        "Membangun proyek keamanan pintu pintar (Smart Door)"
+      ],
+      "objectives_en": [
+        "Building a Smart Door security project"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Monitoring Temperature and Humidity",
+      "objectives": [
+        "Membangun proyek pemantauan suhu dan kelembapan berbasis IoT"
+      ],
+      "objectives_en": [
+        "Building an IoT temperature and humidity monitoring project"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Security System Part II",
+      "objectives": [
+        "Membangun detektor pencuri dan sistem alarm kebakaran terintegrasi"
+      ],
+      "objectives_en": [
+        "Building a thief detector and fire alarm security system"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Smart Garage",
+      "objectives": [
+        "Belajar mengintegrasikan sensor ultrasonik ke dalam rangkaian",
+        "Menerapkan pengetahuan ke sistem garasi cerdas"
+      ],
+      "objectives_en": [
+        "Integrating ultrasonic sensors into circuits",
+        "Applying knowledge to a Smart Garage system"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Project Finishing",
+      "objectives": [
+        "Mengeksplorasi ide dan alat untuk persiapan ujian proyek Smart City"
+      ],
+      "objectives_en": [
+        "Exploring ideas and tools in preparation for the project exam"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Exam",
+      "objectives": [
+        "Menyelesaikan dan mengumpulkan final project Smart City"
+      ],
+      "objectives_en": [
+        "Completing and submitting the final Smart City project"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Smart Parking",
+      "objectives": [
+        "Mengenal konsep smart parking dan komponen dasar yang dibutuhkan"
+      ],
+      "objectives_en": [
+        "Understanding smart parking concepts and essential components"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Code Smart Parking I",
+      "objectives": [
+        "Belajar membangun dan memprogram sistem kontrol gerbang pintar"
+      ],
+      "objectives_en": [
+        "Learning to build and program a functioning gate control system"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Code Smart Parking II",
+      "objectives": [
+        "Menyelesaikan sistem kontrol gerbang yang berfungsi dan menguji proyek"
+      ],
+      "objectives_en": [
+        "Finalizing the gate control system and testing the project"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Smart Farming I",
+      "objectives": [
+        "Mendeteksi dan menampilkan tingkat kelembapan tanah pada layar"
+      ],
+      "objectives_en": [
+        "Detecting and displaying moisture levels on a screen"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Smart Farming II",
+      "objectives": [
+        "Belajar membangun sistem penyiraman otomatis yang fungsional",
+        "Bersiap untuk mengerjakan proyek pribadi"
+      ],
+      "objectives_en": [
+        "Building a functional automatic watering system",
+        "Preparing for personal project development"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Review and Personal Project I",
+      "objectives": [
+        "Mengimplementasikan ide rangkaian kabel (wiring) untuk proyek pribadi"
+      ],
+      "objectives_en": [
+        "Implementing the wiring setup for a personal project"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Review and Personal Project II",
+      "objectives": [
+        "Mengimplementasikan proses coding dan debugging proyek pribadi"
+      ],
+      "objectives_en": [
+        "Implementing the coding and debugging process for the personal project"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Project Submission",
+      "objectives": [
+        "Pengumpulan dan presentasi proyek akhir IoT Smart City"
+      ],
+      "objectives_en": [
+        "Submitting and presenting the final IoT Smart City project"
+      ]
+    }
   ],
   "Basic Website": [
     {
-        "num": 1,
-        "title": "Lesson 1 - Introduction to Coding & HTML",
-        "title_id": "Lesson 1 - Apa Itu Koding & Pengenalan HTML",
-        "objectives": [
-            "Memahami koding sebagai bahasa komputer dan logika pemrograman",
-            "Mengenal HTML, Doctype, serta struktur dasar tag <head> dan <body>",
-            "Menampilkan dan mendekorasi konten teks pada website",
-            "Membuat list berurut (ol) dan tak berurut (ul) menggunakan tag HTML"
-        ],
-        "objectives_en": [
-            "Understanding coding as a computer language and programming logic",
-            "Learning HTML, Doctype, and basic structure of <head> and <body> tags",
-            "Displaying and decorating text content on the website",
-            "Creating ordered lists (ol) and unordered lists (ul) using HTML tags"
-        ],
-        "title_en": "Lesson 1 - Introduction to Coding & HTML"
+      "num": 1,
+      "title": "Lesson 1 - Introduction to Coding & HTML",
+      "title_id": "Lesson 1 - Apa Itu Koding & Pengenalan HTML",
+      "objectives": [
+        "Memahami koding sebagai bahasa komputer dan logika pemrograman",
+        "Mengenal HTML, Doctype, serta struktur dasar tag <head> dan <body>",
+        "Menampilkan dan mendekorasi konten teks pada website",
+        "Membuat list berurut (ol) dan tak berurut (ul) menggunakan tag HTML"
+      ],
+      "objectives_en": [
+        "Understanding coding as a computer language and programming logic",
+        "Learning HTML, Doctype, and basic structure of <head> and <body> tags",
+        "Displaying and decorating text content on the website",
+        "Creating ordered lists (ol) and unordered lists (ul) using HTML tags"
+      ],
+      "title_en": "Lesson 1 - Introduction to Coding & HTML"
     },
     {
-        "num": 2,
-        "title": "Lesson 2 - Images, Links, and Layout Partitions",
-        "title_id": "Lesson 2 - Konten Gambar, Link, dan Partisi Layout",
-        "objectives": [
-            "Menampilkan gambar dan link alternatif pada website",
-            "Mengatur text-transform dan text-decoration untuk estetika teks",
-            "Menggunakan tag span dan properti font-size",
-            "Membagi konten dengan tag div, float, background-color, dan nested div"
-        ],
-        "objectives_en": [
-            "Displaying images and alternative links on the website",
-            "Applying text-transform and text-decoration for text aesthetics",
-            "Using span tags and font-size properties",
-            "Dividing content using div tags, float, background-color, and nested divs"
-        ],
-        "title_en": "Lesson 2 - Images, Links, and Layout Partitions"
+      "num": 2,
+      "title": "Lesson 2 - Images, Links, and Layout Partitions",
+      "title_id": "Lesson 2 - Konten Gambar, Link, dan Partisi Layout",
+      "objectives": [
+        "Menampilkan gambar dan link alternatif pada website",
+        "Mengatur text-transform dan text-decoration untuk estetika teks",
+        "Menggunakan tag span dan properti font-size",
+        "Membagi konten dengan tag div, float, background-color, dan nested div"
+      ],
+      "objectives_en": [
+        "Displaying images and alternative links on the website",
+        "Applying text-transform and text-decoration for text aesthetics",
+        "Using span tags and font-size properties",
+        "Dividing content using div tags, float, background-color, and nested divs"
+      ],
+      "title_en": "Lesson 2 - Images, Links, and Layout Partitions"
     },
     {
-        "num": 3,
-        "title": "Lesson 3 - Tables and Website Structure",
-        "title_id": "Lesson 3 - Tabel dan Struktur Website",
-        "objectives": [
-            "Membuat tabel pada website serta mengatur letak konten dengan vertical-align",
-            "Menerapkan table merging menggunakan colspan dan rowspan",
-            "Menyusun struktur web semantik (header, main, dan footer)",
-            "Mengatur layout konten website dengan properti margin, border, dan padding"
-        ],
-        "objectives_en": [
-            "Creating tables on the website and adjusting content alignment with vertical-align",
-            "Applying table merging using colspan and rowspan",
-            "Structuring semantic web layouts (header, main, and footer)",
-            "Arranging website layout using margin, border, and padding properties"
-        ],
-        "title_en": "Lesson 3 - Tables and Website Structure"
+      "num": 3,
+      "title": "Lesson 3 - Tables and Website Structure",
+      "title_id": "Lesson 3 - Tabel dan Struktur Website",
+      "objectives": [
+        "Membuat tabel pada website serta mengatur letak konten dengan vertical-align",
+        "Menerapkan table merging menggunakan colspan dan rowspan",
+        "Menyusun struktur web semantik (header, main, dan footer)",
+        "Mengatur layout konten website dengan properti margin, border, dan padding"
+      ],
+      "objectives_en": [
+        "Creating tables on the website and adjusting content alignment with vertical-align",
+        "Applying table merging using colspan and rowspan",
+        "Structuring semantic web layouts (header, main, and footer)",
+        "Arranging website layout using margin, border, and padding properties"
+      ],
+      "title_en": "Lesson 3 - Tables and Website Structure"
     },
     {
-        "num": 4,
-        "title": "Lesson 4 - Cascading Style Sheets (CSS) and Navigation",
-        "title_id": "Lesson 4 - Cascading Style Sheets (CSS) dan Navigasi",
-        "objectives": [
-            "Mengenal jenis CSS: Internal CSS dan Eksternal CSS",
-            "Menerapkan selector ID, Class, Double Selector, dan Pseudo-class Hover",
-            "Membuat file CSS terpisah dan merapikan kode HTML & CSS",
-            "Membuat menu navigasi website menggunakan tag nav dan list tak berurut"
-        ],
-        "objectives_en": [
-            "Understanding types of CSS: Internal CSS and External CSS",
-            "Applying ID, Class, Double selectors, and Hover pseudo-class",
-            "Creating separate CSS files and organizing HTML & CSS code",
-            "Building website navigation menus using nav tags and unordered lists"
-        ],
-        "title_en": "Lesson 4 - Cascading Style Sheets (CSS) and Navigation"
+      "num": 4,
+      "title": "Lesson 4 - Cascading Style Sheets (CSS) and Navigation",
+      "title_id": "Lesson 4 - Cascading Style Sheets (CSS) dan Navigasi",
+      "objectives": [
+        "Mengenal jenis CSS: Internal CSS dan Eksternal CSS",
+        "Menerapkan selector ID, Class, Double Selector, dan Pseudo-class Hover",
+        "Membuat file CSS terpisah dan merapikan kode HTML & CSS",
+        "Membuat menu navigasi website menggunakan tag nav dan list tak berurut"
+      ],
+      "objectives_en": [
+        "Understanding types of CSS: Internal CSS and External CSS",
+        "Applying ID, Class, Double selectors, and Hover pseudo-class",
+        "Creating separate CSS files and organizing HTML & CSS code",
+        "Building website navigation menus using nav tags and unordered lists"
+      ],
+      "title_en": "Lesson 4 - Cascading Style Sheets (CSS) and Navigation"
     },
     {
-        "num": 5,
-        "title": "Lesson 5 - Backgrounds and Dropdown Menus",
-        "title_id": "Lesson 5 - Background dan Dropdown Menu",
-        "objectives": [
-            "Mengatur background website dan menggunakan teknik background shorthand",
-            "Membuat menu navigasi dropdown interaktif",
-            "Membuat daftar pilihan dropdown menggunakan elemen select dan option",
-            "Menampilkan elemen form input dan button pada website"
-        ],
-        "objectives_en": [
-            "Styling website backgrounds and using background shorthand techniques",
-            "Creating interactive navigation dropdown menus",
-            "Building dropdown selection lists using select and option elements",
-            "Displaying form input elements and buttons on the website"
-        ],
-        "title_en": "Lesson 5 - Backgrounds and Dropdown Menus"
+      "num": 5,
+      "title": "Lesson 5 - Backgrounds and Dropdown Menus",
+      "title_id": "Lesson 5 - Background dan Dropdown Menu",
+      "objectives": [
+        "Mengatur background website dan menggunakan teknik background shorthand",
+        "Membuat menu navigasi dropdown interaktif",
+        "Membuat daftar pilihan dropdown menggunakan elemen select dan option",
+        "Menampilkan elemen form input dan button pada website"
+      ],
+      "objectives_en": [
+        "Styling website backgrounds and using background shorthand techniques",
+        "Creating interactive navigation dropdown menus",
+        "Building dropdown selection lists using select and option elements",
+        "Displaying form input elements and buttons on the website"
+      ],
+      "title_en": "Lesson 5 - Backgrounds and Dropdown Menus"
     },
     {
-        "num": 6,
-        "title": "Lesson 6 - Final Exam Part 1",
-        "title_id": "Lesson 6 - Final Exam Part 1",
-        "objectives": [
-            "Mengikuti Final Exam Part 1 untuk menguji pemahaman materi HTML dan CSS dasar",
-            "Menyusun struktur kode HTML dan styling CSS secara mandiri"
-        ],
-        "objectives_en": [
-            "Taking Final Exam Part 1 to evaluate fundamental HTML and CSS knowledge",
-            "Writing HTML structure and CSS styling independently"
-        ],
-        "title_en": "Lesson 6 - Final Exam Part 1"
+      "num": 6,
+      "title": "Lesson 6 - Final Exam Part 1",
+      "title_id": "Lesson 6 - Final Exam Part 1",
+      "objectives": [
+        "Mengikuti Final Exam Part 1 untuk menguji pemahaman materi HTML dan CSS dasar",
+        "Menyusun struktur kode HTML dan styling CSS secara mandiri"
+      ],
+      "objectives_en": [
+        "Taking Final Exam Part 1 to evaluate fundamental HTML and CSS knowledge",
+        "Writing HTML structure and CSS styling independently"
+      ],
+      "title_en": "Lesson 6 - Final Exam Part 1"
     },
     {
-        "num": 7,
-        "title": "Lesson 7 - Final Exam Part 2",
-        "title_id": "Lesson 7 - Final Exam Part 2",
-        "objectives": [
-            "Menyelesaikan Final Exam Part 2 proyek pembuatan website",
-            "Melakukan pengujian layout, navigasi, dan perbaikan tampilan (debugging)"
-        ],
-        "objectives_en": [
-            "Completing Final Exam Part 2 of the website project",
-            "Testing layout, navigation, and visual debugging"
-        ],
-        "title_en": "Lesson 7 - Final Exam Part 2"
+      "num": 7,
+      "title": "Lesson 7 - Final Exam Part 2",
+      "title_id": "Lesson 7 - Final Exam Part 2",
+      "objectives": [
+        "Menyelesaikan Final Exam Part 2 proyek pembuatan website",
+        "Melakukan pengujian layout, navigasi, dan perbaikan tampilan (debugging)"
+      ],
+      "objectives_en": [
+        "Completing Final Exam Part 2 of the website project",
+        "Testing layout, navigation, and visual debugging"
+      ],
+      "title_en": "Lesson 7 - Final Exam Part 2"
     },
     {
-        "num": 8,
-        "title": "Lesson 8 - Responsive Web Design",
-        "title_id": "Lesson 8 - Responsive Web Design",
-        "objectives": [
-            "Memahami konsep Responsive Web Design untuk berbagai ukuran layar",
-            "Menerapkan instruksi proyek responsive web pada website"
-        ],
-        "objectives_en": [
-            "Understanding Responsive Web Design concepts for various screen sizes",
-            "Implementing responsive web project instructions on the website"
-        ],
-        "title_en": "Lesson 8 - Responsive Web Design"
+      "num": 8,
+      "title": "Lesson 8 - Responsive Web Design",
+      "title_id": "Lesson 8 - Responsive Web Design",
+      "objectives": [
+        "Memahami konsep Responsive Web Design untuk berbagai ukuran layar",
+        "Menerapkan instruksi proyek responsive web pada website"
+      ],
+      "objectives_en": [
+        "Understanding Responsive Web Design concepts for various screen sizes",
+        "Implementing responsive web project instructions on the website"
+      ],
+      "title_en": "Lesson 8 - Responsive Web Design"
     },
     {
-        "num": 9,
-        "title": "Lesson 9 - Introduction to Bootstrap",
-        "title_id": "Lesson 9 - Perkenalan Bootstrap",
-        "objectives": [
-            "Mengenal CSS Framework dan instalasi Bootstrap menggunakan CDN",
-            "Memahami layouting, components, form control, dan utilities pada Bootstrap",
-            "Membuat header navigation modern menggunakan Bootstrap"
-        ],
-        "objectives_en": [
-            "Introduction to CSS Frameworks and Bootstrap CDN installation",
-            "Understanding Bootstrap layouting, components, form control, and utilities",
-            "Creating modern header navigation using Bootstrap"
-        ],
-        "title_en": "Lesson 9 - Introduction to Bootstrap"
+      "num": 9,
+      "title": "Lesson 9 - Introduction to Bootstrap",
+      "title_id": "Lesson 9 - Perkenalan Bootstrap",
+      "objectives": [
+        "Mengenal CSS Framework dan instalasi Bootstrap menggunakan CDN",
+        "Memahami layouting, components, form control, dan utilities pada Bootstrap",
+        "Membuat header navigation modern menggunakan Bootstrap"
+      ],
+      "objectives_en": [
+        "Introduction to CSS Frameworks and Bootstrap CDN installation",
+        "Understanding Bootstrap layouting, components, form control, and utilities",
+        "Creating modern header navigation using Bootstrap"
+      ],
+      "title_en": "Lesson 9 - Introduction to Bootstrap"
     },
     {
-        "num": 10,
-        "title": "Lesson 10 - Font Awesome & Student Project Part 1",
-        "title_id": "Lesson 10 - Font Awesome & Student Project Part 1",
-        "objectives": [
-            "Menambahkan ikon ke header dan elemen web menggunakan Font Awesome",
-            "Menampilkan daftar konten / resep makanan dan membuat footer website",
-            "Memulai pengerjaan Student Project Part 1"
-        ],
-        "objectives_en": [
-            "Adding icons into headers and web elements using Font Awesome",
-            "Displaying recipe content lists and building website footers",
-            "Starting Student Project Part 1"
-        ],
-        "title_en": "Lesson 10 - Font Awesome & Student Project Part 1"
+      "num": 10,
+      "title": "Lesson 10 - Font Awesome & Student Project Part 1",
+      "title_id": "Lesson 10 - Font Awesome & Student Project Part 1",
+      "objectives": [
+        "Menambahkan ikon ke header dan elemen web menggunakan Font Awesome",
+        "Menampilkan daftar konten / resep makanan dan membuat footer website",
+        "Memulai pengerjaan Student Project Part 1"
+      ],
+      "objectives_en": [
+        "Adding icons into headers and web elements using Font Awesome",
+        "Displaying recipe content lists and building website footers",
+        "Starting Student Project Part 1"
+      ],
+      "title_en": "Lesson 10 - Font Awesome & Student Project Part 1"
     },
     {
-        "num": 11,
-        "title": "Lesson 11 - Student Project Part 2",
-        "title_id": "Lesson 11 - Student Project Part 2",
-        "objectives": [
-            "Melanjutkan pengembangan fitur dan tampilan pada Student Project Part 2",
-            "Menyempurnakan komponen Bootstrap dan tata letak halaman"
-        ],
-        "objectives_en": [
-            "Continuing feature development and styling on Student Project Part 2",
-            "Refining Bootstrap components and page layouts"
-        ],
-        "title_en": "Lesson 11 - Student Project Part 2"
+      "num": 11,
+      "title": "Lesson 11 - Student Project Part 2",
+      "title_id": "Lesson 11 - Student Project Part 2",
+      "objectives": [
+        "Melanjutkan pengembangan fitur dan tampilan pada Student Project Part 2",
+        "Menyempurnakan komponen Bootstrap dan tata letak halaman"
+      ],
+      "objectives_en": [
+        "Continuing feature development and styling on Student Project Part 2",
+        "Refining Bootstrap components and page layouts"
+      ],
+      "title_en": "Lesson 11 - Student Project Part 2"
     },
     {
-        "num": 12,
-        "title": "Lesson 12 - Student Project Part 3",
-        "title_id": "Lesson 12 - Student Project Part 3",
-        "objectives": [
-            "Menyelesaikan Student Project Part 3 hingga siap dipublikasikan",
-            "Melakukan review hasil proyek dan debugging kode CSS"
-        ],
-        "objectives_en": [
-            "Completing Student Project Part 3 for publication",
-            "Reviewing project deliverables and debugging CSS code"
-        ],
-        "title_en": "Lesson 12 - Student Project Part 3"
+      "num": 12,
+      "title": "Lesson 12 - Student Project Part 3",
+      "title_id": "Lesson 12 - Student Project Part 3",
+      "objectives": [
+        "Menyelesaikan Student Project Part 3 hingga siap dipublikasikan",
+        "Melakukan review hasil proyek dan debugging kode CSS"
+      ],
+      "objectives_en": [
+        "Completing Student Project Part 3 for publication",
+        "Reviewing project deliverables and debugging CSS code"
+      ],
+      "title_en": "Lesson 12 - Student Project Part 3"
     },
     {
-        "num": 13,
-        "title": "Lesson 13 - JavaScript Fundamentals & Variables",
-        "title_id": "Lesson 13 - JavaScript Dasar & Variabel",
-        "objectives": [
-            "Mengenal JavaScript internal & eksternal untuk membuat website dinamis",
-            "Memahami variabel (let, const), tipe data, dan array pada JavaScript",
-            "Mengenal konsep function dan penerapannya pada website"
-        ],
-        "objectives_en": [
-            "Learning internal & external JavaScript to build dynamic websites",
-            "Understanding variables (let, const), data types, and arrays in JavaScript",
-            "Understanding function concepts and practical web implementation"
-        ],
-        "title_en": "Lesson 13 - JavaScript Fundamentals & Variables"
+      "num": 13,
+      "title": "Lesson 13 - JavaScript Fundamentals & Variables",
+      "title_id": "Lesson 13 - JavaScript Dasar & Variabel",
+      "objectives": [
+        "Mengenal JavaScript internal & eksternal untuk membuat website dinamis",
+        "Memahami variabel (let, const), tipe data, dan array pada JavaScript",
+        "Mengenal konsep function dan penerapannya pada website"
+      ],
+      "objectives_en": [
+        "Learning internal & external JavaScript to build dynamic websites",
+        "Understanding variables (let, const), data types, and arrays in JavaScript",
+        "Understanding function concepts and practical web implementation"
+      ],
+      "title_en": "Lesson 13 - JavaScript Fundamentals & Variables"
     },
     {
-        "num": 14,
-        "title": "Lesson 14 - Functions, Events & Modals",
-        "title_id": "Lesson 14 - Function, Event & Modal",
-        "objectives": [
-            "Membuat event JavaScript dan HTML Event untuk interaktivitas",
-            "Membuat komponen modal popup interaktif menggunakan HTML, CSS, dan JavaScript",
-            "Menguasai integrasi function dan event pada tombol website"
-        ],
-        "objectives_en": [
-            "Creating JavaScript events and HTML Events for interactivity",
-            "Building interactive modal popup components with HTML, CSS, and JavaScript",
-            "Mastering function and event integration on website buttons"
-        ],
-        "title_en": "Lesson 14 - Functions, Events & Modals"
+      "num": 14,
+      "title": "Lesson 14 - Functions, Events & Modals",
+      "title_id": "Lesson 14 - Function, Event & Modal",
+      "objectives": [
+        "Membuat event JavaScript dan HTML Event untuk interaktivitas",
+        "Membuat komponen modal popup interaktif menggunakan HTML, CSS, dan JavaScript",
+        "Menguasai integrasi function dan event pada tombol website"
+      ],
+      "objectives_en": [
+        "Creating JavaScript events and HTML Events for interactivity",
+        "Building interactive modal popup components with HTML, CSS, and JavaScript",
+        "Mastering function and event integration on website buttons"
+      ],
+      "title_en": "Lesson 14 - Functions, Events & Modals"
     },
     {
-        "num": 15,
-        "title": "Lesson 15 - Conditional Statements & Loops",
-        "title_id": "Lesson 15 - Conditional Statement & Perulangan (Loop)",
-        "objectives": [
-            "Memahami expression, operator, dan conditional statement (if-else)",
-            "Mempelajari konsep loop dan perulangan do-while pada JavaScript",
-            "Menerapkan logika percabangan untuk kontrol alur website"
-        ],
-        "objectives_en": [
-            "Understanding expressions, operators, and conditional statements (if-else)",
-            "Learning loop concepts and do-while loops in JavaScript",
-            "Applying branching logic for website flow control"
-        ],
-        "title_en": "Lesson 15 - Conditional Statements & Loops"
+      "num": 15,
+      "title": "Lesson 15 - Conditional Statements & Loops",
+      "title_id": "Lesson 15 - Conditional Statement & Perulangan (Loop)",
+      "objectives": [
+        "Memahami expression, operator, dan conditional statement (if-else)",
+        "Mempelajari konsep loop dan perulangan do-while pada JavaScript",
+        "Menerapkan logika percabangan untuk kontrol alur website"
+      ],
+      "objectives_en": [
+        "Understanding expressions, operators, and conditional statements (if-else)",
+        "Learning loop concepts and do-while loops in JavaScript",
+        "Applying branching logic for website flow control"
+      ],
+      "title_en": "Lesson 15 - Conditional Statements & Loops"
     },
     {
-        "num": 16,
-        "title": "Lesson 16 - Dynamic Content Loops & Objects",
-        "title_id": "Lesson 16 - Loop Konten & Pengenalan Object",
-        "objectives": [
-            "Menampilkan konten website secara dinamis menggunakan perulangan loop",
-            "Mengenal konsep Object pada JavaScript untuk menyimpan data terstruktur",
-            "Mengintegrasikan conditional statement, loop, dan object pada website"
-        ],
-        "objectives_en": [
-            "Rendering website content dynamically using loops",
-            "Understanding JavaScript Object concepts to store structured data",
-            "Integrating conditional statements, loops, and objects on the website"
-        ],
-        "title_en": "Lesson 16 - Dynamic Content Loops & Objects"
+      "num": 16,
+      "title": "Lesson 16 - Dynamic Content Loops & Objects",
+      "title_id": "Lesson 16 - Loop Konten & Pengenalan Object",
+      "objectives": [
+        "Menampilkan konten website secara dinamis menggunakan perulangan loop",
+        "Mengenal konsep Object pada JavaScript untuk menyimpan data terstruktur",
+        "Mengintegrasikan conditional statement, loop, dan object pada website"
+      ],
+      "objectives_en": [
+        "Rendering website content dynamically using loops",
+        "Understanding JavaScript Object concepts to store structured data",
+        "Integrating conditional statements, loops, and objects on the website"
+      ],
+      "title_en": "Lesson 16 - Dynamic Content Loops & Objects"
     }
-],
+  ],
   "Frontend Development": [
     {
-        "num": 1,
-        "title": "Lesson 1 - Array Manipulation",
-        "title_id": "Lesson 1 - Manipulasi Array",
-        "objectives": [
-            "Memahami JavaScript scope, template literal, dan konsep Array of Objects",
-            "Menggunakan method push, pop, reverse, join, concat, slice, dan splice",
-            "Menerapkan manipulasi array pada proyek website"
-        ],
-        "objectives_en": [
-            "Understanding JavaScript scope, template literals, and Array of Objects",
-            "Using push, pop, reverse, join, concat, slice, and splice methods",
-            "Applying array manipulation in website projects"
-        ],
-        "title_en": "Lesson 1 - Array Manipulation"
+      "num": 1,
+      "title": "Lesson 1 - Array Manipulation",
+      "title_id": "Lesson 1 - Manipulasi Array",
+      "objectives": [
+        "Memahami JavaScript scope, template literal, dan konsep Array of Objects",
+        "Menggunakan method push, pop, reverse, join, concat, slice, dan splice",
+        "Menerapkan manipulasi array pada proyek website"
+      ],
+      "objectives_en": [
+        "Understanding JavaScript scope, template literals, and Array of Objects",
+        "Using push, pop, reverse, join, concat, slice, and splice methods",
+        "Applying array manipulation in website projects"
+      ],
+      "title_en": "Lesson 1 - Array Manipulation"
     },
     {
-        "num": 2,
-        "title": "Lesson 2 - Sort & Arrow Functions",
-        "title_id": "Lesson 2 - Sort & Arrow Function",
-        "objectives": [
-            "Mempelajari dan menerapkan method sort untuk mengurutkan data array",
-            "Membuat fungsi modern menggunakan Arrow Function dan return statement",
-            "Mengintegrasikan sorting dan arrow function pada proyek web"
-        ],
-        "objectives_en": [
-            "Learning and applying the sort method to organize array data",
-            "Creating modern functions using Arrow Functions and return statements",
-            "Integrating sorting and arrow functions into web projects"
-        ],
-        "title_en": "Lesson 2 - Sort & Arrow Functions"
+      "num": 2,
+      "title": "Lesson 2 - Sort & Arrow Functions",
+      "title_id": "Lesson 2 - Sort & Arrow Function",
+      "objectives": [
+        "Mempelajari dan menerapkan method sort untuk mengurutkan data array",
+        "Membuat fungsi modern menggunakan Arrow Function dan return statement",
+        "Mengintegrasikan sorting dan arrow function pada proyek web"
+      ],
+      "objectives_en": [
+        "Learning and applying the sort method to organize array data",
+        "Creating modern functions using Arrow Functions and return statements",
+        "Integrating sorting and arrow functions into web projects"
+      ],
+      "title_en": "Lesson 2 - Sort & Arrow Functions"
     },
     {
-        "num": 3,
-        "title": "Lesson 3 - Array Iteration (Map, Filter, Find)",
-        "title_id": "Lesson 3 - Iterasi Array (Map, Filter, Find)",
-        "objectives": [
-            "Menguasai perulangan array dengan map dan forEach",
-            "Memfilter dan mencari elemen array menggunakan filter, find, indexOf, dan lastIndexOf",
-            "Menerapkan array iteration untuk menampilkan data dinamis"
-        ],
-        "objectives_en": [
-            "Mastering array iteration with map and forEach",
-            "Filtering and finding array elements using filter, find, indexOf, and lastIndexOf",
-            "Applying array iteration to display dynamic data"
-        ],
-        "title_en": "Lesson 3 - Array Iteration (Map, Filter, Find)"
+      "num": 3,
+      "title": "Lesson 3 - Array Iteration (Map, Filter, Find)",
+      "title_id": "Lesson 3 - Iterasi Array (Map, Filter, Find)",
+      "objectives": [
+        "Menguasai perulangan array dengan map dan forEach",
+        "Memfilter dan mencari elemen array menggunakan filter, find, indexOf, dan lastIndexOf",
+        "Menerapkan array iteration untuk menampilkan data dinamis"
+      ],
+      "objectives_en": [
+        "Mastering array iteration with map and forEach",
+        "Filtering and finding array elements using filter, find, indexOf, and lastIndexOf",
+        "Applying array iteration to display dynamic data"
+      ],
+      "title_en": "Lesson 3 - Array Iteration (Map, Filter, Find)"
     },
     {
-        "num": 4,
-        "title": "Lesson 4 - Final Exam: TODO App Part 1",
-        "title_id": "Lesson 4 - Final Exam: Pembuatan TODO App Part 1",
-        "objectives": [
-            "Memulai Final Exam pembuatan aplikasi TODO App dengan JavaScript",
-            "Menyusun struktur data array dan logika penambahan item tugas"
-        ],
-        "objectives_en": [
-            "Starting the Final Exam: building a TODO App with JavaScript",
-            "Structuring array data and logic for adding task items"
-        ],
-        "title_en": "Lesson 4 - Final Exam: TODO App Part 1"
+      "num": 4,
+      "title": "Lesson 4 - Final Exam: TODO App Part 1",
+      "title_id": "Lesson 4 - Final Exam: Pembuatan TODO App Part 1",
+      "objectives": [
+        "Memulai Final Exam pembuatan aplikasi TODO App dengan JavaScript",
+        "Menyusun struktur data array dan logika penambahan item tugas"
+      ],
+      "objectives_en": [
+        "Starting the Final Exam: building a TODO App with JavaScript",
+        "Structuring array data and logic for adding task items"
+      ],
+      "title_en": "Lesson 4 - Final Exam: TODO App Part 1"
     },
     {
-        "num": 5,
-        "title": "Lesson 5 - Final Exam: TODO App Part 2",
-        "title_id": "Lesson 5 - Final Exam: Pembuatan TODO App Part 2",
-        "objectives": [
-            "Melanjutkan Final Exam TODO App dengan fitur update dan delete task",
-            "Menerapkan filter status dan manipulasi array of objects pada aplikasi"
-        ],
-        "objectives_en": [
-            "Continuing the TODO App Final Exam with task update and delete features",
-            "Implementing status filters and array of objects manipulation"
-        ],
-        "title_en": "Lesson 5 - Final Exam: TODO App Part 2"
+      "num": 5,
+      "title": "Lesson 5 - Final Exam: TODO App Part 2",
+      "title_id": "Lesson 5 - Final Exam: Pembuatan TODO App Part 2",
+      "objectives": [
+        "Melanjutkan Final Exam TODO App dengan fitur update dan delete task",
+        "Menerapkan filter status dan manipulasi array of objects pada aplikasi"
+      ],
+      "objectives_en": [
+        "Continuing the TODO App Final Exam with task update and delete features",
+        "Implementing status filters and array of objects manipulation"
+      ],
+      "title_en": "Lesson 5 - Final Exam: TODO App Part 2"
     },
     {
-        "num": 6,
-        "title": "Lesson 6 - Final Exam: TODO App Part 3",
-        "title_id": "Lesson 6 - Final Exam: Pembuatan TODO App Part 3",
-        "objectives": [
-            "Menyelesaikan Final Exam TODO App dan melakukan validasi kode",
-            "Mempresentasikan hasil pengerjaan aplikasi TODO App"
-        ],
-        "objectives_en": [
-            "Completing the TODO App Final Exam and validating code",
-            "Presenting the completed TODO App project"
-        ],
-        "title_en": "Lesson 6 - Final Exam: TODO App Part 3"
+      "num": 6,
+      "title": "Lesson 6 - Final Exam: TODO App Part 3",
+      "title_id": "Lesson 6 - Final Exam: Pembuatan TODO App Part 3",
+      "objectives": [
+        "Menyelesaikan Final Exam TODO App dan melakukan validasi kode",
+        "Mempresentasikan hasil pengerjaan aplikasi TODO App"
+      ],
+      "objectives_en": [
+        "Completing the TODO App Final Exam and validating code",
+        "Presenting the completed TODO App project"
+      ],
+      "title_en": "Lesson 6 - Final Exam: TODO App Part 3"
     },
     {
-        "num": 7,
-        "title": "Lesson 7 - Introduction to Vue.js & Data Binding",
-        "title_id": "Lesson 7 - Pengenalan Vue.js & Data Binding",
-        "objectives": [
-            "Mengenal framework Vue.js, instalasi, dan penulisan Expression",
-            "Memahami dan mempraktikkan konsep Data Binding pada Vue.js",
-            "Menerapkan Class & Style Binding untuk mengubah tampilan secara reaktif"
-        ],
-        "objectives_en": [
-            "Introduction to Vue.js framework, installation, and Expressions",
-            "Understanding and practicing Data Binding concepts in Vue.js",
-            "Applying Class & Style Binding to dynamically update styles"
-        ],
-        "title_en": "Lesson 7 - Introduction to Vue.js & Data Binding"
+      "num": 7,
+      "title": "Lesson 7 - Introduction to Vue.js & Data Binding",
+      "title_id": "Lesson 7 - Pengenalan Vue.js & Data Binding",
+      "objectives": [
+        "Mengenal framework Vue.js, instalasi, dan penulisan Expression",
+        "Memahami dan mempraktikkan konsep Data Binding pada Vue.js",
+        "Menerapkan Class & Style Binding untuk mengubah tampilan secara reaktif"
+      ],
+      "objectives_en": [
+        "Introduction to Vue.js framework, installation, and Expressions",
+        "Understanding and practicing Data Binding concepts in Vue.js",
+        "Applying Class & Style Binding to dynamically update styles"
+      ],
+      "title_en": "Lesson 7 - Introduction to Vue.js & Data Binding"
     },
     {
-        "num": 8,
-        "title": "Lesson 8 - Event Handling & Modifiers",
-        "title_id": "Lesson 8 - Event Handling & Modifiers",
-        "objectives": [
-            "Menerapkan penanganan Event pada Vue.js (v-on / @)",
-            "Menggunakan event modifiers dan key modifiers pada input form",
-            "Membangun interaktivitas website berbasis event Vue.js"
-        ],
-        "objectives_en": [
-            "Implementing Event handling in Vue.js (v-on / @)",
-            "Using event modifiers and key modifiers on form inputs",
-            "Building website interactivity based on Vue.js events"
-        ],
-        "title_en": "Lesson 8 - Event Handling & Modifiers"
+      "num": 8,
+      "title": "Lesson 8 - Event Handling & Modifiers",
+      "title_id": "Lesson 8 - Event Handling & Modifiers",
+      "objectives": [
+        "Menerapkan penanganan Event pada Vue.js (v-on / @)",
+        "Menggunakan event modifiers dan key modifiers pada input form",
+        "Membangun interaktivitas website berbasis event Vue.js"
+      ],
+      "objectives_en": [
+        "Implementing Event handling in Vue.js (v-on / @)",
+        "Using event modifiers and key modifiers on form inputs",
+        "Building website interactivity based on Vue.js events"
+      ],
+      "title_en": "Lesson 8 - Event Handling & Modifiers"
     },
     {
-        "num": 9,
-        "title": "Lesson 9 - Conditional Rendering & Two-Way Binding",
-        "title_id": "Lesson 9 - Conditional Rendering & Two-Way Binding",
-        "objectives": [
-            "Menguasai Conditional Rendering menggunakan direktif v-if, v-else-if, dan v-else",
-            "Menerapkan Two-Way Data Binding menggunakan v-model pada input form",
-            "Menggabungkan conditional rendering dan two-way binding pada komponen web"
-        ],
-        "objectives_en": [
-            "Mastering Conditional Rendering with v-if, v-else-if, and v-else directives",
-            "Applying Two-Way Data Binding using v-model on form inputs",
-            "Combining conditional rendering and two-way binding on web components"
-        ],
-        "title_en": "Lesson 9 - Conditional Rendering & Two-Way Binding"
+      "num": 9,
+      "title": "Lesson 9 - Conditional Rendering & Two-Way Binding",
+      "title_id": "Lesson 9 - Conditional Rendering & Two-Way Binding",
+      "objectives": [
+        "Menguasai Conditional Rendering menggunakan direktif v-if, v-else-if, dan v-else",
+        "Menerapkan Two-Way Data Binding menggunakan v-model pada input form",
+        "Menggabungkan conditional rendering dan two-way binding pada komponen web"
+      ],
+      "objectives_en": [
+        "Mastering Conditional Rendering with v-if, v-else-if, and v-else directives",
+        "Applying Two-Way Data Binding using v-model on form inputs",
+        "Combining conditional rendering and two-way binding on web components"
+      ],
+      "title_en": "Lesson 9 - Conditional Rendering & Two-Way Binding"
     },
     {
-        "num": 10,
-        "title": "Lesson 10 - List Rendering & Object Rendering",
-        "title_id": "Lesson 10 - List Rendering & Object Rendering",
-        "objectives": [
-            "Menampilkan koleksi data menggunakan List Rendering (v-for)",
-            "Melakukan manipulasi array dan render data object secara dinamis",
-            "Menyempurnakan antarmuka proyek website dengan list rendering"
-        ],
-        "objectives_en": [
-            "Rendering data collections using List Rendering (v-for)",
-            "Manipulating arrays and rendering object data dynamically",
-            "Polishing website project interface with list rendering"
-        ],
-        "title_en": "Lesson 10 - List Rendering & Object Rendering"
+      "num": 10,
+      "title": "Lesson 10 - List Rendering & Object Rendering",
+      "title_id": "Lesson 10 - List Rendering & Object Rendering",
+      "objectives": [
+        "Menampilkan koleksi data menggunakan List Rendering (v-for)",
+        "Melakukan manipulasi array dan render data object secara dinamis",
+        "Menyempurnakan antarmuka proyek website dengan list rendering"
+      ],
+      "objectives_en": [
+        "Rendering data collections using List Rendering (v-for)",
+        "Manipulating arrays and rendering object data dynamically",
+        "Polishing website project interface with list rendering"
+      ],
+      "title_en": "Lesson 10 - List Rendering & Object Rendering"
     },
     {
-        "num": 11,
-        "title": "Lesson 11 - Final Exam Vue.js Part 1",
-        "title_id": "Lesson 11 - Final Exam Vue.js Part 1",
-        "objectives": [
-            "Memulai Final Exam Vue.js untuk menguji pemahaman konsep dasar reaktivitas",
-            "Membangun struktur antarmuka aplikasi berbasis Vue.js"
-        ],
-        "objectives_en": [
-            "Starting the Vue.js Final Exam to test core reactivity concepts",
-            "Building application interface structure with Vue.js"
-        ],
-        "title_en": "Lesson 11 - Final Exam Vue.js Part 1"
+      "num": 11,
+      "title": "Lesson 11 - Final Exam Vue.js Part 1",
+      "title_id": "Lesson 11 - Final Exam Vue.js Part 1",
+      "objectives": [
+        "Memulai Final Exam Vue.js untuk menguji pemahaman konsep dasar reaktivitas",
+        "Membangun struktur antarmuka aplikasi berbasis Vue.js"
+      ],
+      "objectives_en": [
+        "Starting the Vue.js Final Exam to test core reactivity concepts",
+        "Building application interface structure with Vue.js"
+      ],
+      "title_en": "Lesson 11 - Final Exam Vue.js Part 1"
     },
     {
-        "num": 12,
-        "title": "Lesson 12 - Final Exam Vue.js Part 2",
-        "title_id": "Lesson 12 - Final Exam Vue.js Part 2",
-        "objectives": [
-            "Melanjutkan Final Exam Vue.js dengan integrasi event dan two-way binding",
-            "Mengimplementasikan list rendering dan conditional rendering pada fitur utama"
-        ],
-        "objectives_en": [
-            "Continuing the Vue.js Final Exam with event and two-way binding integration",
-            "Implementing list and conditional rendering for main features"
-        ],
-        "title_en": "Lesson 12 - Final Exam Vue.js Part 2"
+      "num": 12,
+      "title": "Lesson 12 - Final Exam Vue.js Part 2",
+      "title_id": "Lesson 12 - Final Exam Vue.js Part 2",
+      "objectives": [
+        "Melanjutkan Final Exam Vue.js dengan integrasi event dan two-way binding",
+        "Mengimplementasikan list rendering dan conditional rendering pada fitur utama"
+      ],
+      "objectives_en": [
+        "Continuing the Vue.js Final Exam with event and two-way binding integration",
+        "Implementing list and conditional rendering for main features"
+      ],
+      "title_en": "Lesson 12 - Final Exam Vue.js Part 2"
     },
     {
-        "num": 13,
-        "title": "Lesson 13 - Final Exam Vue.js Part 3",
-        "title_id": "Lesson 13 - Final Exam Vue.js Part 3",
-        "objectives": [
-            "Menuntaskan Final Exam Vue.js dan memperbaiki bug pada aplikasi",
-            "Mempresentasikan proyek aplikasi Vue.js yang telah diselesaikan"
-        ],
-        "objectives_en": [
-            "Finishing the Vue.js Final Exam and debugging the application",
-            "Presenting the completed Vue.js application project"
-        ],
-        "title_en": "Lesson 13 - Final Exam Vue.js Part 3"
+      "num": 13,
+      "title": "Lesson 13 - Final Exam Vue.js Part 3",
+      "title_id": "Lesson 13 - Final Exam Vue.js Part 3",
+      "objectives": [
+        "Menuntaskan Final Exam Vue.js dan memperbaiki bug pada aplikasi",
+        "Mempresentasikan proyek aplikasi Vue.js yang telah diselesaikan"
+      ],
+      "objectives_en": [
+        "Finishing the Vue.js Final Exam and debugging the application",
+        "Presenting the completed Vue.js application project"
+      ],
+      "title_en": "Lesson 13 - Final Exam Vue.js Part 3"
     },
     {
-        "num": 14,
-        "title": "Lesson 14 - Vue Component & Composition API",
-        "title_id": "Lesson 14 - Komponen Vue & Composition API",
-        "objectives": [
-            "Memahami struktur folder proyek Vue dan pembuatan Single File Components",
-            "Mengenal Composition API dan Lifecycle Hooks pada Vue 3",
-            "Membuat halaman web resep dengan memanggil komponen modular"
-        ],
-        "objectives_en": [
-            "Understanding Vue project folder structure and Single File Components",
-            "Introduction to Composition API and Lifecycle Hooks in Vue 3",
-            "Building a recipe web page by invoking modular components"
-        ],
-        "title_en": "Lesson 14 - Vue Component & Composition API"
+      "num": 14,
+      "title": "Lesson 14 - Vue Component & Composition API",
+      "title_id": "Lesson 14 - Komponen Vue & Composition API",
+      "objectives": [
+        "Memahami struktur folder proyek Vue dan pembuatan Single File Components",
+        "Mengenal Composition API dan Lifecycle Hooks pada Vue 3",
+        "Membuat halaman web resep dengan memanggil komponen modular"
+      ],
+      "objectives_en": [
+        "Understanding Vue project folder structure and Single File Components",
+        "Introduction to Composition API and Lifecycle Hooks in Vue 3",
+        "Building a recipe web page by invoking modular components"
+      ],
+      "title_en": "Lesson 14 - Vue Component & Composition API"
     },
     {
-        "num": 15,
-        "title": "Lesson 15 - Props & Vue Routing",
-        "title_id": "Lesson 15 - Props & Routing Vue",
-        "objectives": [
-            "Menerapkan Props untuk mengirim data antar-komponen",
-            "Mengenal Vue Router untuk navigasi multi-halaman SPA",
-            "Membuat halaman Home, Login, dan Signup menggunakan routing"
-        ],
-        "objectives_en": [
-            "Applying Props to pass data between components",
-            "Introduction to Vue Router for multi-page SPA navigation",
-            "Building Home, Login, and Signup pages using routing"
-        ],
-        "title_en": "Lesson 15 - Props & Vue Routing"
+      "num": 15,
+      "title": "Lesson 15 - Props & Vue Routing",
+      "title_id": "Lesson 15 - Props & Routing Vue",
+      "objectives": [
+        "Menerapkan Props untuk mengirim data antar-komponen",
+        "Mengenal Vue Router untuk navigasi multi-halaman SPA",
+        "Membuat halaman Home, Login, dan Signup menggunakan routing"
+      ],
+      "objectives_en": [
+        "Applying Props to pass data between components",
+        "Introduction to Vue Router for multi-page SPA navigation",
+        "Building Home, Login, and Signup pages using routing"
+      ],
+      "title_en": "Lesson 15 - Props & Vue Routing"
     },
     {
-        "num": 16,
-        "title": "Lesson 16 - State Management (Vuex) & Axios API",
-        "title_id": "Lesson 16 - State Management (Vuex) & Axios API",
-        "objectives": [
-            "Mengenal konsep State Management terpusat dengan Vuex",
-            "Memahami async/await pada JavaScript dan HTTP client Axios",
-            "Menghubungkan aplikasi ke Firebase dan menampilkan data resep dari API"
-        ],
-        "objectives_en": [
-            "Introduction to centralized State Management with Vuex",
-            "Understanding async/await in JavaScript and Axios HTTP client",
-            "Connecting the application to Firebase and fetching recipe data via API"
-        ],
-        "title_en": "Lesson 16 - State Management (Vuex) & Axios API"
+      "num": 16,
+      "title": "Lesson 16 - State Management (Vuex) & Axios API",
+      "title_id": "Lesson 16 - State Management (Vuex) & Axios API",
+      "objectives": [
+        "Mengenal konsep State Management terpusat dengan Vuex",
+        "Memahami async/await pada JavaScript dan HTTP client Axios",
+        "Menghubungkan aplikasi ke Firebase dan menampilkan data resep dari API"
+      ],
+      "objectives_en": [
+        "Introduction to centralized State Management with Vuex",
+        "Understanding async/await in JavaScript and Axios HTTP client",
+        "Connecting the application to Firebase and fetching recipe data via API"
+      ],
+      "title_en": "Lesson 16 - State Management (Vuex) & Axios API"
     },
     {
-        "num": 17,
-        "title": "Lesson 17 - Dynamic Route",
-        "title_id": "Lesson 17 - Dynamic Route",
-        "objectives": [
-            "Membuat Dynamic Route dengan parameter URL pada Vue Router",
-            "Menampilkan detail resep makanan berdasarkan ID parameter di halaman detail"
-        ],
-        "objectives_en": [
-            "Creating Dynamic Routes with URL parameters in Vue Router",
-            "Displaying recipe details based on ID parameter in detail page"
-        ],
-        "title_en": "Lesson 17 - Dynamic Route"
+      "num": 17,
+      "title": "Lesson 17 - Dynamic Route",
+      "title_id": "Lesson 17 - Dynamic Route",
+      "objectives": [
+        "Membuat Dynamic Route dengan parameter URL pada Vue Router",
+        "Menampilkan detail resep makanan berdasarkan ID parameter di halaman detail"
+      ],
+      "objectives_en": [
+        "Creating Dynamic Routes with URL parameters in Vue Router",
+        "Displaying recipe details based on ID parameter in detail page"
+      ],
+      "title_en": "Lesson 17 - Dynamic Route"
     },
     {
-        "num": 18,
-        "title": "Lesson 18 - User Registration & Cookies",
-        "title_id": "Lesson 18 - Registrasi Pengguna & Cookies",
-        "objectives": [
-            "Memahami penyimpanan token sesi menggunakan Web Cookies",
-            "Membangun fitur registrasi akun pengguna baru (Register)",
-            "Menerapkan Dynamic Component untuk menu profil pada navbar"
-        ],
-        "objectives_en": [
-            "Understanding session token storage using Web Cookies",
-            "Building new user registration features",
-            "Applying Dynamic Components for profile menus in the navbar"
-        ],
-        "title_en": "Lesson 18 - User Registration & Cookies"
+      "num": 18,
+      "title": "Lesson 18 - User Registration & Cookies",
+      "title_id": "Lesson 18 - Registrasi Pengguna & Cookies",
+      "objectives": [
+        "Memahami penyimpanan token sesi menggunakan Web Cookies",
+        "Membangun fitur registrasi akun pengguna baru (Register)",
+        "Menerapkan Dynamic Component untuk menu profil pada navbar"
+      ],
+      "objectives_en": [
+        "Understanding session token storage using Web Cookies",
+        "Building new user registration features",
+        "Applying Dynamic Components for profile menus in the navbar"
+      ],
+      "title_en": "Lesson 18 - User Registration & Cookies"
     },
     {
-        "num": 19,
-        "title": "Lesson 19 - Login, Logout & Custom Events",
-        "title_id": "Lesson 19 - Login, Logout & Custom Event",
-        "objectives": [
-            "Membuat komunikasi antar-komponen menggunakan Custom Events",
-            "Membangun fitur otentikasi Login dan Logout pengguna",
-            "Membuat halaman User Dashboard untuk menampilkan profil pengguna"
-        ],
-        "objectives_en": [
-            "Creating component communication using Custom Events",
-            "Building user Login and Logout authentication features",
-            "Developing User Dashboard pages to show user profiles"
-        ],
-        "title_en": "Lesson 19 - Login, Logout & Custom Events"
+      "num": 19,
+      "title": "Lesson 19 - Login, Logout & Custom Events",
+      "title_id": "Lesson 19 - Login, Logout & Custom Event",
+      "objectives": [
+        "Membuat komunikasi antar-komponen menggunakan Custom Events",
+        "Membangun fitur otentikasi Login dan Logout pengguna",
+        "Membuat halaman User Dashboard untuk menampilkan profil pengguna"
+      ],
+      "objectives_en": [
+        "Creating component communication using Custom Events",
+        "Building user Login and Logout authentication features",
+        "Developing User Dashboard pages to show user profiles"
+      ],
+      "title_en": "Lesson 19 - Login, Logout & Custom Events"
     },
     {
-        "num": 20,
-        "title": "Lesson 20 - Middleware & Authorization",
-        "title_id": "Lesson 20 - Middleware & Hak Akses Pengguna",
-        "objectives": [
-            "Menerapkan Route Middleware / Navigation Guards untuk proteksi halaman",
-            "Mengatur hak akses pengguna berdasarkan status otentikasi",
-            "Membuat form halaman untuk menambahkan resep baru"
-        ],
-        "objectives_en": [
-            "Applying Route Middleware / Navigation Guards for page protection",
-            "Managing user authorization based on authentication status",
-            "Creating form pages to add new recipes"
-        ],
-        "title_en": "Lesson 20 - Middleware & Authorization"
+      "num": 20,
+      "title": "Lesson 20 - Middleware & Authorization",
+      "title_id": "Lesson 20 - Middleware & Hak Akses Pengguna",
+      "objectives": [
+        "Menerapkan Route Middleware / Navigation Guards untuk proteksi halaman",
+        "Mengatur hak akses pengguna berdasarkan status otentikasi",
+        "Membuat form halaman untuk menambahkan resep baru"
+      ],
+      "objectives_en": [
+        "Applying Route Middleware / Navigation Guards for page protection",
+        "Managing user authorization based on authentication status",
+        "Creating form pages to add new recipes"
+      ],
+      "title_en": "Lesson 20 - Middleware & Authorization"
     },
     {
-        "num": 21,
-        "title": "Lesson 21 - Data Management: Add & Delete Recipe",
-        "title_id": "Lesson 21 - Manajemen Data: Tambah & Hapus Resep",
-        "objectives": [
-            "Menyelesaikan fitur simpan resep baru ke Firebase database",
-            "Menampilkan daftar resep milik pengguna di dashboard",
-            "Mengimplementasikan fitur Delete untuk menghapus data resep"
-        ],
-        "objectives_en": [
-            "Completing the feature to save new recipes to Firebase database",
-            "Displaying user's recipe collection on dashboard",
-            "Implementing Delete feature to remove recipe records"
-        ],
-        "title_en": "Lesson 21 - Data Management: Add & Delete Recipe"
+      "num": 21,
+      "title": "Lesson 21 - Data Management: Add & Delete Recipe",
+      "title_id": "Lesson 21 - Manajemen Data: Tambah & Hapus Resep",
+      "objectives": [
+        "Menyelesaikan fitur simpan resep baru ke Firebase database",
+        "Menampilkan daftar resep milik pengguna di dashboard",
+        "Mengimplementasikan fitur Delete untuk menghapus data resep"
+      ],
+      "objectives_en": [
+        "Completing the feature to save new recipes to Firebase database",
+        "Displaying user's recipe collection on dashboard",
+        "Implementing Delete feature to remove recipe records"
+      ],
+      "title_en": "Lesson 21 - Data Management: Add & Delete Recipe"
     },
     {
-        "num": 22,
-        "title": "Lesson 22 - Recipe Edit Feature",
-        "title_id": "Lesson 22 - Fitur Edit Resep",
-        "objectives": [
-            "Membuat halaman edit resep dengan form data pre-filled",
-            "Mengirimkan data hasil pembaruan (update) ke Firebase backend"
-        ],
-        "objectives_en": [
-            "Building recipe edit pages with pre-filled form data",
-            "Sending updated data to the Firebase backend"
-        ],
-        "title_en": "Lesson 22 - Recipe Edit Feature"
+      "num": 22,
+      "title": "Lesson 22 - Recipe Edit Feature",
+      "title_id": "Lesson 22 - Fitur Edit Resep",
+      "objectives": [
+        "Membuat halaman edit resep dengan form data pre-filled",
+        "Mengirimkan data hasil pembaruan (update) ke Firebase backend"
+      ],
+      "objectives_en": [
+        "Building recipe edit pages with pre-filled form data",
+        "Sending updated data to the Firebase backend"
+      ],
+      "title_en": "Lesson 22 - Recipe Edit Feature"
     },
     {
-        "num": 23,
-        "title": "Lesson 23 - Final Project: Architecture & Planning",
-        "title_id": "Lesson 23 - Final Project: Persiapan & Perencanaan",
-        "objectives": [
-            "Menentukan tema dan arsitektur komponen proyek akhir Vue.js",
-            "Mempersiapkan state management, routing, dan skema database"
-        ],
-        "objectives_en": [
-            "Defining theme and component architecture for the Vue.js final project",
-            "Setting up state management, routing, and database schema"
-        ],
-        "title_en": "Lesson 23 - Final Project: Architecture & Planning"
+      "num": 23,
+      "title": "Lesson 23 - Final Project: Architecture & Planning",
+      "title_id": "Lesson 23 - Final Project: Persiapan & Perencanaan",
+      "objectives": [
+        "Menentukan tema dan arsitektur komponen proyek akhir Vue.js",
+        "Mempersiapkan state management, routing, dan skema database"
+      ],
+      "objectives_en": [
+        "Defining theme and component architecture for the Vue.js final project",
+        "Setting up state management, routing, and database schema"
+      ],
+      "title_en": "Lesson 23 - Final Project: Architecture & Planning"
     },
     {
-        "num": 24,
-        "title": "Lesson 24 - Final Project: UI Layout & Components",
-        "title_id": "Lesson 24 - Final Project: Layouting & Komponen Utama",
-        "objectives": [
-            "Membangun layout antarmuka utama dan navigasi aplikasi",
-            "Menyusun komponen-komponen UI yang dapat digunakan kembali"
-        ],
-        "objectives_en": [
-            "Building main UI layout and application navigation",
-            "Assembling reusable UI components"
-        ],
-        "title_en": "Lesson 24 - Final Project: UI Layout & Components"
+      "num": 24,
+      "title": "Lesson 24 - Final Project: UI Layout & Components",
+      "title_id": "Lesson 24 - Final Project: Layouting & Komponen Utama",
+      "objectives": [
+        "Membangun layout antarmuka utama dan navigasi aplikasi",
+        "Menyusun komponen-komponen UI yang dapat digunakan kembali"
+      ],
+      "objectives_en": [
+        "Building main UI layout and application navigation",
+        "Assembling reusable UI components"
+      ],
+      "title_en": "Lesson 24 - Final Project: UI Layout & Components"
     },
     {
-        "num": 25,
-        "title": "Lesson 25 - Final Project: Authentication Flow",
-        "title_id": "Lesson 25 - Final Project: Integrasi Autentikasi",
-        "objectives": [
-            "Mengimplementasikan fitur registrasi, login, dan logout pada proyek",
-            "Menjaga sesi pengguna dengan token cookies dan middleware"
-        ],
-        "objectives_en": [
-            "Implementing register, login, and logout features in the project",
-            "Maintaining user session using token cookies and route middleware"
-        ],
-        "title_en": "Lesson 25 - Final Project: Authentication Flow"
+      "num": 25,
+      "title": "Lesson 25 - Final Project: Authentication Flow",
+      "title_id": "Lesson 25 - Final Project: Integrasi Autentikasi",
+      "objectives": [
+        "Mengimplementasikan fitur registrasi, login, dan logout pada proyek",
+        "Menjaga sesi pengguna dengan token cookies dan middleware"
+      ],
+      "objectives_en": [
+        "Implementing register, login, and logout features in the project",
+        "Maintaining user session using token cookies and route middleware"
+      ],
+      "title_en": "Lesson 25 - Final Project: Authentication Flow"
     },
     {
-        "num": 26,
-        "title": "Lesson 26 - Final Project: CRUD Operations Part 1",
-        "title_id": "Lesson 26 - Final Project: CRUD Operasi Part 1",
-        "objectives": [
-            "Membangun fitur Create dan Read data melalui API database",
-            "Menampilkan daftar data secara responsif dengan list rendering"
-        ],
-        "objectives_en": [
-            "Building Create and Read data features via database API",
-            "Displaying data lists responsively using list rendering"
-        ],
-        "title_en": "Lesson 26 - Final Project: CRUD Operations Part 1"
+      "num": 26,
+      "title": "Lesson 26 - Final Project: CRUD Operations Part 1",
+      "title_id": "Lesson 26 - Final Project: CRUD Operasi Part 1",
+      "objectives": [
+        "Membangun fitur Create dan Read data melalui API database",
+        "Menampilkan daftar data secara responsif dengan list rendering"
+      ],
+      "objectives_en": [
+        "Building Create and Read data features via database API",
+        "Displaying data lists responsively using list rendering"
+      ],
+      "title_en": "Lesson 26 - Final Project: CRUD Operations Part 1"
     },
     {
-        "num": 27,
-        "title": "Lesson 27 - Final Project: CRUD Operations Part 2",
-        "title_id": "Lesson 27 - Final Project: CRUD Operasi Part 2",
-        "objectives": [
-            "Membangun fitur Update dan Delete data dengan konfirmasi aksi",
-            "Menangani validasi input form dan feedback pesan sukses/gagal"
-        ],
-        "objectives_en": [
-            "Building Update and Delete data features with confirmation prompts",
-            "Handling form input validation and success/error feedback messages"
-        ],
-        "title_en": "Lesson 27 - Final Project: CRUD Operations Part 2"
+      "num": 27,
+      "title": "Lesson 27 - Final Project: CRUD Operations Part 2",
+      "title_id": "Lesson 27 - Final Project: CRUD Operasi Part 2",
+      "objectives": [
+        "Membangun fitur Update dan Delete data dengan konfirmasi aksi",
+        "Menangani validasi input form dan feedback pesan sukses/gagal"
+      ],
+      "objectives_en": [
+        "Building Update and Delete data features with confirmation prompts",
+        "Handling form input validation and success/error feedback messages"
+      ],
+      "title_en": "Lesson 27 - Final Project: CRUD Operations Part 2"
     },
     {
-        "num": 28,
-        "title": "Lesson 28 - Final Project: Search & Filter Features",
-        "title_id": "Lesson 28 - Final Project: Fitur Pencarian & Filter",
-        "objectives": [
-            "Menambahkan fitur search dan filter kategori pada koleksi data",
-            "Menyempurnakan reaktivitas tampilan saat pencarian data berlangsung"
-        ],
-        "objectives_en": [
-            "Adding search and category filter features on data collections",
-            "Refining UI reactivity during real-time data search"
-        ],
-        "title_en": "Lesson 28 - Final Project: Search & Filter Features"
+      "num": 28,
+      "title": "Lesson 28 - Final Project: Search & Filter Features",
+      "title_id": "Lesson 28 - Final Project: Fitur Pencarian & Filter",
+      "objectives": [
+        "Menambahkan fitur search dan filter kategori pada koleksi data",
+        "Menyempurnakan reaktivitas tampilan saat pencarian data berlangsung"
+      ],
+      "objectives_en": [
+        "Adding search and category filter features on data collections",
+        "Refining UI reactivity during real-time data search"
+      ],
+      "title_en": "Lesson 28 - Final Project: Search & Filter Features"
     },
     {
-        "num": 29,
-        "title": "Lesson 29 - Final Project: Styling & Responsive Polish",
-        "title_id": "Lesson 29 - Final Project: Polishing & Responsive Styling",
-        "objectives": [
-            "Menyesuaikan styling CSS agar tampilan sempurna di mobile dan desktop",
-            "Menambahkan transisi animasi dan micro-interactions pada komponen"
-        ],
-        "objectives_en": [
-            "Adjusting CSS styling for flawless mobile and desktop experience",
-            "Adding animated transitions and micro-interactions to components"
-        ],
-        "title_en": "Lesson 29 - Final Project: Styling & Responsive Polish"
+      "num": 29,
+      "title": "Lesson 29 - Final Project: Styling & Responsive Polish",
+      "title_id": "Lesson 29 - Final Project: Polishing & Responsive Styling",
+      "objectives": [
+        "Menyesuaikan styling CSS agar tampilan sempurna di mobile dan desktop",
+        "Menambahkan transisi animasi dan micro-interactions pada komponen"
+      ],
+      "objectives_en": [
+        "Adjusting CSS styling for flawless mobile and desktop experience",
+        "Adding animated transitions and micro-interactions to components"
+      ],
+      "title_en": "Lesson 29 - Final Project: Styling & Responsive Polish"
     },
     {
-        "num": 30,
-        "title": "Lesson 30 - Final Project: Testing & Debugging",
-        "title_id": "Lesson 30 - Final Project: Testing & Debugging",
-        "objectives": [
-            "Melakukan pengujian menyeluruh (end-to-end testing) alur aplikasi",
-            "Memperbaiki bug fungsional, performa, dan validasi kode"
-        ],
-        "objectives_en": [
-            "Conducting comprehensive end-to-end testing on application flows",
-            "Fixing functional bugs, performance bottlenecks, and code validation"
-        ],
-        "title_en": "Lesson 30 - Final Project: Testing & Debugging"
+      "num": 30,
+      "title": "Lesson 30 - Final Project: Testing & Debugging",
+      "title_id": "Lesson 30 - Final Project: Testing & Debugging",
+      "objectives": [
+        "Melakukan pengujian menyeluruh (end-to-end testing) alur aplikasi",
+        "Memperbaiki bug fungsional, performa, dan validasi kode"
+      ],
+      "objectives_en": [
+        "Conducting comprehensive end-to-end testing on application flows",
+        "Fixing functional bugs, performance bottlenecks, and code validation"
+      ],
+      "title_en": "Lesson 30 - Final Project: Testing & Debugging"
     },
     {
-        "num": 31,
-        "title": "Lesson 31 - Final Project: Deployment to Cloud",
-        "title_id": "Lesson 31 - Final Project: Deployment",
-        "objectives": [
-            "Mempersiapkan production build aplikasi Vue.js",
-            "Mendeploy aplikasi web ke layanan hosting cloud agar dapat diakses publik"
-        ],
-        "objectives_en": [
-            "Preparing production build for the Vue.js application",
-            "Deploying the web app to cloud hosting services for public access"
-        ],
-        "title_en": "Lesson 31 - Final Project: Deployment to Cloud"
+      "num": 31,
+      "title": "Lesson 31 - Final Project: Deployment to Cloud",
+      "title_id": "Lesson 31 - Final Project: Deployment",
+      "objectives": [
+        "Mempersiapkan production build aplikasi Vue.js",
+        "Mendeploy aplikasi web ke layanan hosting cloud agar dapat diakses publik"
+      ],
+      "objectives_en": [
+        "Preparing production build for the Vue.js application",
+        "Deploying the web app to cloud hosting services for public access"
+      ],
+      "title_en": "Lesson 31 - Final Project: Deployment to Cloud"
     },
     {
-        "num": 32,
-        "title": "Lesson 32 - Final Project: Presentation & Evaluation",
-        "title_id": "Lesson 32 - Final Project: Presentasi & Evaluasi",
-        "objectives": [
-            "Mempresentasikan hasil proyek akhir frontend development",
-            "Menerima evaluasi, feedback, dan sertifikasi penyelesaian course"
-        ],
-        "objectives_en": [
-            "Presenting the final frontend development project",
-            "Receiving project evaluation, feedback, and course completion review"
-        ],
-        "title_en": "Lesson 32 - Final Project: Presentation & Evaluation"
+      "num": 32,
+      "title": "Lesson 32 - Final Project: Presentation & Evaluation",
+      "title_id": "Lesson 32 - Final Project: Presentasi & Evaluasi",
+      "objectives": [
+        "Mempresentasikan hasil proyek akhir frontend development",
+        "Menerima evaluasi, feedback, dan sertifikasi penyelesaian course"
+      ],
+      "objectives_en": [
+        "Presenting the final frontend development project",
+        "Receiving project evaluation, feedback, and course completion review"
+      ],
+      "title_en": "Lesson 32 - Final Project: Presentation & Evaluation"
     }
-],
+  ],
   "Backend Development": [
     {
-        "num": 1,
-        "title": "Lesson 1 - Intro to PHP & Laragon",
-        "title_id": "Lesson 1 - Pengenalan PHP & Laragon",
-        "objectives": [
-            "Mengenal lingkungan pengembangan PHP dan instalasi Laragon",
-            "Membuat program PHP pertama dan memahami sintaks dasar PHP"
-        ],
-        "objectives_en": [
-            "Introduction to PHP development environment and Laragon installation",
-            "Writing the first PHP program and understanding basic syntax"
-        ],
-        "title_en": "Lesson 1 - Intro to PHP & Laragon"
+      "num": 1,
+      "title": "Lesson 1 - Intro to PHP & Laragon",
+      "title_id": "Lesson 1 - Pengenalan PHP & Laragon",
+      "objectives": [
+        "Mengenal lingkungan pengembangan PHP dan instalasi Laragon",
+        "Membuat program PHP pertama dan memahami sintaks dasar PHP"
+      ],
+      "objectives_en": [
+        "Introduction to PHP development environment and Laragon installation",
+        "Writing the first PHP program and understanding basic syntax"
+      ],
+      "title_en": "Lesson 1 - Intro to PHP & Laragon"
     },
     {
-        "num": 2,
-        "title": "Lesson 2 - PHP Integration with HTML",
-        "title_id": "Lesson 2 - Integrasi PHP dengan HTML",
-        "objectives": [
-            "Mengintegrasikan skrip PHP ke dalam struktur halaman HTML",
-            "Memahami variabel, tipe data, operator aritmatika, dan operator assignment"
-        ],
-        "objectives_en": [
-            "Integrating PHP scripts into HTML page structures",
-            "Understanding variables, data types, arithmetic, and assignment operators"
-        ],
-        "title_en": "Lesson 2 - PHP Integration with HTML"
+      "num": 2,
+      "title": "Lesson 2 - PHP Integration with HTML",
+      "title_id": "Lesson 2 - Integrasi PHP dengan HTML",
+      "objectives": [
+        "Mengintegrasikan skrip PHP ke dalam struktur halaman HTML",
+        "Memahami variabel, tipe data, operator aritmatika, dan operator assignment"
+      ],
+      "objectives_en": [
+        "Integrating PHP scripts into HTML page structures",
+        "Understanding variables, data types, arithmetic, and assignment operators"
+      ],
+      "title_en": "Lesson 2 - PHP Integration with HTML"
     },
     {
-        "num": 3,
-        "title": "Lesson 3 - Conditionals, Loops & Arrays",
-        "title_id": "Lesson 3 - Percabangan, Perulangan & Array",
-        "objectives": [
-            "Menerapkan logika percabangan kondisional (if-else) pada PHP",
-            "Menguasai struktur perulangan dan manipulasi array"
-        ],
-        "objectives_en": [
-            "Implementing conditional branching logic (if-else) in PHP",
-            "Mastering loop structures and array manipulation"
-        ],
-        "title_en": "Lesson 3 - Conditionals, Loops & Arrays"
+      "num": 3,
+      "title": "Lesson 3 - Conditionals, Loops & Arrays",
+      "title_id": "Lesson 3 - Percabangan, Perulangan & Array",
+      "objectives": [
+        "Menerapkan logika percabangan kondisional (if-else) pada PHP",
+        "Menguasai struktur perulangan dan manipulasi array"
+      ],
+      "objectives_en": [
+        "Implementing conditional branching logic (if-else) in PHP",
+        "Mastering loop structures and array manipulation"
+      ],
+      "title_en": "Lesson 3 - Conditionals, Loops & Arrays"
     },
     {
-        "num": 4,
-        "title": "Lesson 4 - Functions & Form Handling",
-        "title_id": "Lesson 4 - Function & Metode Pengiriman Form",
-        "objectives": [
-            "Membuat dan menggunakan fungsi kustom (functions) pada PHP",
-            "Memahami metode pengiriman data form menggunakan method GET dan POST"
-        ],
-        "objectives_en": [
-            "Creating and using custom functions in PHP",
-            "Understanding form submission methods using GET and POST"
-        ],
-        "title_en": "Lesson 4 - Functions & Form Handling"
+      "num": 4,
+      "title": "Lesson 4 - Functions & Form Handling",
+      "title_id": "Lesson 4 - Function & Metode Pengiriman Form",
+      "objectives": [
+        "Membuat dan menggunakan fungsi kustom (functions) pada PHP",
+        "Memahami metode pengiriman data form menggunakan method GET dan POST"
+      ],
+      "objectives_en": [
+        "Creating and using custom functions in PHP",
+        "Understanding form submission methods using GET and POST"
+      ],
+      "title_en": "Lesson 4 - Functions & Form Handling"
     },
     {
-        "num": 5,
-        "title": "Lesson 5 - OOP: Classes & Objects",
-        "title_id": "Lesson 5 - OOP: Class & Object",
-        "objectives": [
-            "Memahami konsep dasar Object-Oriented Programming (OOP) pada PHP",
-            "Membuat class, property, method, dan instansiasi object"
-        ],
-        "objectives_en": [
-            "Understanding Object-Oriented Programming (OOP) fundamentals in PHP",
-            "Creating classes, properties, methods, and instantiating objects"
-        ],
-        "title_en": "Lesson 5 - OOP: Classes & Objects"
+      "num": 5,
+      "title": "Lesson 5 - OOP: Classes & Objects",
+      "title_id": "Lesson 5 - OOP: Class & Object",
+      "objectives": [
+        "Memahami konsep dasar Object-Oriented Programming (OOP) pada PHP",
+        "Membuat class, property, method, dan instansiasi object"
+      ],
+      "objectives_en": [
+        "Understanding Object-Oriented Programming (OOP) fundamentals in PHP",
+        "Creating classes, properties, methods, and instantiating objects"
+      ],
+      "title_en": "Lesson 5 - OOP: Classes & Objects"
     },
     {
-        "num": 6,
-        "title": "Lesson 6 - OOP: Inheritance & Polymorphism",
-        "title_id": "Lesson 6 - OOP: Inheritance & Polymorphism",
-        "objectives": [
-            "Menerapkan konsep pewarisan (inheritance) antar-class pada PHP",
-            "Memahami polimorfisme dan penggunaan method overriding"
-        ],
-        "objectives_en": [
-            "Implementing class inheritance in PHP",
-            "Understanding polymorphism and using method overriding"
-        ],
-        "title_en": "Lesson 6 - OOP: Inheritance & Polymorphism"
+      "num": 6,
+      "title": "Lesson 6 - OOP: Inheritance & Polymorphism",
+      "title_id": "Lesson 6 - OOP: Inheritance & Polymorphism",
+      "objectives": [
+        "Menerapkan konsep pewarisan (inheritance) antar-class pada PHP",
+        "Memahami polimorfisme dan penggunaan method overriding"
+      ],
+      "objectives_en": [
+        "Implementing class inheritance in PHP",
+        "Understanding polymorphism and using method overriding"
+      ],
+      "title_en": "Lesson 6 - OOP: Inheritance & Polymorphism"
     },
     {
-        "num": 7,
-        "title": "Lesson 7 - OOP: Encapsulation & Visibility",
-        "title_id": "Lesson 7 - OOP: Encapsulation & Visibility",
-        "objectives": [
-            "Menerapkan prinsip enkapsulasi dengan visibility keyword (public, protected, private)",
-            "Menggunakan getter dan setter untuk keamanan manipulasi data objek"
-        ],
-        "objectives_en": [
-            "Applying encapsulation with visibility keywords (public, protected, private)",
-            "Using getters and setters for secure object data manipulation"
-        ],
-        "title_en": "Lesson 7 - OOP: Encapsulation & Visibility"
+      "num": 7,
+      "title": "Lesson 7 - OOP: Encapsulation & Visibility",
+      "title_id": "Lesson 7 - OOP: Encapsulation & Visibility",
+      "objectives": [
+        "Menerapkan prinsip enkapsulasi dengan visibility keyword (public, protected, private)",
+        "Menggunakan getter dan setter untuk keamanan manipulasi data objek"
+      ],
+      "objectives_en": [
+        "Applying encapsulation with visibility keywords (public, protected, private)",
+        "Using getters and setters for secure object data manipulation"
+      ],
+      "title_en": "Lesson 7 - OOP: Encapsulation & Visibility"
     },
     {
-        "num": 8,
-        "title": "Lesson 8 - MySQL Database Connection",
-        "title_id": "Lesson 8 - Koneksi ke Database MySQL",
-        "objectives": [
-            "Membangun koneksi antara PHP dan database MySQL (PDO / MySQLi)",
-            "Menangani error koneksi database secara aman"
-        ],
-        "objectives_en": [
-            "Establishing connection between PHP and MySQL database (PDO / MySQLi)",
-            "Handling database connection errors securely"
-        ],
-        "title_en": "Lesson 8 - MySQL Database Connection"
+      "num": 8,
+      "title": "Lesson 8 - MySQL Database Connection",
+      "title_id": "Lesson 8 - Koneksi ke Database MySQL",
+      "objectives": [
+        "Membangun koneksi antara PHP dan database MySQL (PDO / MySQLi)",
+        "Menangani error koneksi database secara aman"
+      ],
+      "objectives_en": [
+        "Establishing connection between PHP and MySQL database (PDO / MySQLi)",
+        "Handling database connection errors securely"
+      ],
+      "title_en": "Lesson 8 - MySQL Database Connection"
     },
     {
-        "num": 9,
-        "title": "Lesson 9 - Table Relations & SQL Queries Part 1",
-        "title_id": "Lesson 9 - Relasi Tabel & SQL Query Part 1",
-        "objectives": [
-            "Memahami konsep perancangan database relasional dan relasi tabel",
-            "Mempraktikkan perintah SQL dasar (SELECT, INSERT, UPDATE, DELETE)"
-        ],
-        "objectives_en": [
-            "Understanding relational database design and table relations",
-            "Practicing basic SQL commands (SELECT, INSERT, UPDATE, DELETE)"
-        ],
-        "title_en": "Lesson 9 - Table Relations & SQL Queries Part 1"
+      "num": 9,
+      "title": "Lesson 9 - Table Relations & SQL Queries Part 1",
+      "title_id": "Lesson 9 - Relasi Tabel & SQL Query Part 1",
+      "objectives": [
+        "Memahami konsep perancangan database relasional dan relasi tabel",
+        "Mempraktikkan perintah SQL dasar (SELECT, INSERT, UPDATE, DELETE)"
+      ],
+      "objectives_en": [
+        "Understanding relational database design and table relations",
+        "Practicing basic SQL commands (SELECT, INSERT, UPDATE, DELETE)"
+      ],
+      "title_en": "Lesson 9 - Table Relations & SQL Queries Part 1"
     },
     {
-        "num": 10,
-        "title": "Lesson 10 - Table Relations & SQL Queries Part 2",
-        "title_id": "Lesson 10 - Relasi Tabel & SQL Query Part 2",
-        "objectives": [
-            "Menguasai SQL JOIN untuk menggabungkan data tabel berelasi",
-            "Menyelesaikan studi kasus query database relasional"
-        ],
-        "objectives_en": [
-            "Mastering SQL JOINs to combine relational table records",
-            "Solving relational database query case studies"
-        ],
-        "title_en": "Lesson 10 - Table Relations & SQL Queries Part 2"
+      "num": 10,
+      "title": "Lesson 10 - Table Relations & SQL Queries Part 2",
+      "title_id": "Lesson 10 - Relasi Tabel & SQL Query Part 2",
+      "objectives": [
+        "Menguasai SQL JOIN untuk menggabungkan data tabel berelasi",
+        "Menyelesaikan studi kasus query database relasional"
+      ],
+      "objectives_en": [
+        "Mastering SQL JOINs to combine relational table records",
+        "Solving relational database query case studies"
+      ],
+      "title_en": "Lesson 10 - Table Relations & SQL Queries Part 2"
     },
     {
-        "num": 11,
-        "title": "Lesson 11 - Implementing SQL in PHP",
-        "title_id": "Lesson 11 - Implementasi SQL ke PHP",
-        "objectives": [
-            "Mengeksekusi query SQL dinamis melalui skrip PHP",
-            "Mengolah dan menampilkan hasil query database ke halaman web"
-        ],
-        "objectives_en": [
-            "Executing dynamic SQL queries through PHP scripts",
-            "Processing and displaying database query results on web pages"
-        ],
-        "title_en": "Lesson 11 - Implementing SQL in PHP"
+      "num": 11,
+      "title": "Lesson 11 - Implementing SQL in PHP",
+      "title_id": "Lesson 11 - Implementasi SQL ke PHP",
+      "objectives": [
+        "Mengeksekusi query SQL dinamis melalui skrip PHP",
+        "Mengolah dan menampilkan hasil query database ke halaman web"
+      ],
+      "objectives_en": [
+        "Executing dynamic SQL queries through PHP scripts",
+        "Processing and displaying database query results on web pages"
+      ],
+      "title_en": "Lesson 11 - Implementing SQL in PHP"
     },
     {
-        "num": 12,
-        "title": "Lesson 12 - Native PHP Project Part 1",
-        "title_id": "Lesson 12 - Proyek PHP Native Part 1",
-        "objectives": [
-            "Merancang arsitektur dan database untuk proyek web PHP Native",
-            "Membangun fitur Create dan Read data berbasis form web"
-        ],
-        "objectives_en": [
-            "Designing architecture and database for a native PHP web project",
-            "Building Create and Read data features with web forms"
-        ],
-        "title_en": "Lesson 12 - Native PHP Project Part 1"
+      "num": 12,
+      "title": "Lesson 12 - Native PHP Project Part 1",
+      "title_id": "Lesson 12 - Proyek PHP Native Part 1",
+      "objectives": [
+        "Merancang arsitektur dan database untuk proyek web PHP Native",
+        "Membangun fitur Create dan Read data berbasis form web"
+      ],
+      "objectives_en": [
+        "Designing architecture and database for a native PHP web project",
+        "Building Create and Read data features with web forms"
+      ],
+      "title_en": "Lesson 12 - Native PHP Project Part 1"
     },
     {
-        "num": 13,
-        "title": "Lesson 13 - Native PHP Project Part 2",
-        "title_id": "Lesson 13 - Proyek PHP Native Part 2",
-        "objectives": [
-            "Menyelesaikan fitur Update dan Delete data pada proyek PHP Native",
-            "Melakukan pengujian fitur dan refactoring kode backend"
-        ],
-        "objectives_en": [
-            "Completing Update and Delete features on the native PHP project",
-            "Testing features and refactoring backend code"
-        ],
-        "title_en": "Lesson 13 - Native PHP Project Part 2"
+      "num": 13,
+      "title": "Lesson 13 - Native PHP Project Part 2",
+      "title_id": "Lesson 13 - Proyek PHP Native Part 2",
+      "objectives": [
+        "Menyelesaikan fitur Update dan Delete data pada proyek PHP Native",
+        "Melakukan pengujian fitur dan refactoring kode backend"
+      ],
+      "objectives_en": [
+        "Completing Update and Delete features on the native PHP project",
+        "Testing features and refactoring backend code"
+      ],
+      "title_en": "Lesson 13 - Native PHP Project Part 2"
     },
     {
-        "num": 14,
-        "title": "Lesson 14 - Git Version Control & Postman",
-        "title_id": "Lesson 14 - Version Control Git & API Testing Postman",
-        "objectives": [
-            "Menggunakan Git untuk version control proyek (commit, branch, push)",
-            "Mengenal Postman untuk pengujian request API dan response HTTP"
-        ],
-        "objectives_en": [
-            "Using Git for project version control (commit, branch, push)",
-            "Introduction to Postman for API request and HTTP response testing"
-        ],
-        "title_en": "Lesson 14 - Git Version Control & Postman"
+      "num": 14,
+      "title": "Lesson 14 - Git Version Control & Postman",
+      "title_id": "Lesson 14 - Version Control Git & API Testing Postman",
+      "objectives": [
+        "Menggunakan Git untuk version control proyek (commit, branch, push)",
+        "Mengenal Postman untuk pengujian request API dan response HTTP"
+      ],
+      "objectives_en": [
+        "Using Git for project version control (commit, branch, push)",
+        "Introduction to Postman for API request and HTTP response testing"
+      ],
+      "title_en": "Lesson 14 - Git Version Control & Postman"
     },
     {
-        "num": 15,
-        "title": "Lesson 15 - Introduction to Laravel Framework",
-        "title_id": "Lesson 15 - Pengenalan Framework Laravel",
-        "objectives": [
-            "Mengenal arsitektur MVC pada framework Laravel dan instalasi via Laragon",
-            "Membuat Model, Database Migration, dan Seeder",
-            "Membuat Controller dan konfigurasi API routing"
-        ],
-        "objectives_en": [
-            "Understanding MVC architecture in Laravel and installing via Laragon",
-            "Creating Models, Database Migrations, and Seeders",
-            "Creating Controllers and API routing configurations"
-        ],
-        "title_en": "Lesson 15 - Introduction to Laravel Framework"
+      "num": 15,
+      "title": "Lesson 15 - Introduction to Laravel Framework",
+      "title_id": "Lesson 15 - Pengenalan Framework Laravel",
+      "objectives": [
+        "Mengenal arsitektur MVC pada framework Laravel dan instalasi via Laragon",
+        "Membuat Model, Database Migration, dan Seeder",
+        "Membuat Controller dan konfigurasi API routing"
+      ],
+      "objectives_en": [
+        "Understanding MVC architecture in Laravel and installing via Laragon",
+        "Creating Models, Database Migrations, and Seeders",
+        "Creating Controllers and API routing configurations"
+      ],
+      "title_en": "Lesson 15 - Introduction to Laravel Framework"
     },
     {
-        "num": 16,
-        "title": "Lesson 16 - Blade Templating, Routing & Resources",
-        "title_id": "Lesson 16 - Blade Templating, Routing & Resource",
-        "objectives": [
-            "Menggunakan Blade Templating Engine untuk layouting halaman yang bersih",
-            "Mengelola routing web dan memanfaatkan Resource Controller pada Laravel"
-        ],
-        "objectives_en": [
-            "Using Blade Templating Engine for clean page layouting",
-            "Managing web routing and utilizing Laravel Resource Controllers"
-        ],
-        "title_en": "Lesson 16 - Blade Templating, Routing & Resources"
+      "num": 16,
+      "title": "Lesson 16 - Blade Templating, Routing & Resources",
+      "title_id": "Lesson 16 - Blade Templating, Routing & Resource",
+      "objectives": [
+        "Menggunakan Blade Templating Engine untuk layouting halaman yang bersih",
+        "Mengelola routing web dan memanfaatkan Resource Controller pada Laravel"
+      ],
+      "objectives_en": [
+        "Using Blade Templating Engine for clean page layouting",
+        "Managing web routing and utilizing Laravel Resource Controllers"
+      ],
+      "title_en": "Lesson 16 - Blade Templating, Routing & Resources"
     },
     {
-        "num": 17,
-        "title": "Lesson 17 - Eloquent ORM",
-        "title_id": "Lesson 17 - Eloquent ORM",
-        "objectives": [
-            "Memahami dan menerapkan Eloquent ORM untuk manipulasi data database",
-            "Mengelola relasi antar-model Eloquent secara efisien"
-        ],
-        "objectives_en": [
-            "Understanding and applying Eloquent ORM for database data manipulation",
-            "Managing Eloquent model relationships efficiently"
-        ],
-        "title_en": "Lesson 17 - Eloquent ORM"
+      "num": 17,
+      "title": "Lesson 17 - Eloquent ORM",
+      "title_id": "Lesson 17 - Eloquent ORM",
+      "objectives": [
+        "Memahami dan menerapkan Eloquent ORM untuk manipulasi data database",
+        "Mengelola relasi antar-model Eloquent secara efisien"
+      ],
+      "objectives_en": [
+        "Understanding and applying Eloquent ORM for database data manipulation",
+        "Managing Eloquent model relationships efficiently"
+      ],
+      "title_en": "Lesson 17 - Eloquent ORM"
     },
     {
-        "num": 18,
-        "title": "Lesson 18 - Form Request Validation",
-        "title_id": "Lesson 18 - Validasi Form & Request",
-        "objectives": [
-            "Menerapkan validasi form request untuk memastikan keamanan data input",
-            "Menampilkan pesan error validasi yang informatif kepada pengguna"
-        ],
-        "objectives_en": [
-            "Implementing form request validation to secure input data",
-            "Displaying informative validation error messages to users"
-        ],
-        "title_en": "Lesson 18 - Form Request Validation"
+      "num": 18,
+      "title": "Lesson 18 - Form Request Validation",
+      "title_id": "Lesson 18 - Validasi Form & Request",
+      "objectives": [
+        "Menerapkan validasi form request untuk memastikan keamanan data input",
+        "Menampilkan pesan error validasi yang informatif kepada pengguna"
+      ],
+      "objectives_en": [
+        "Implementing form request validation to secure input data",
+        "Displaying informative validation error messages to users"
+      ],
+      "title_en": "Lesson 18 - Form Request Validation"
     },
     {
-        "num": 19,
-        "title": "Lesson 19 - User Authentication",
-        "title_id": "Lesson 19 - Autentikasi Pengguna",
-        "objectives": [
-            "Mengimplementasikan fitur autentikasi menggunakan Laravel Auth Scaffolding",
-            "Mengatur alur registrasi, login, reset password, dan proteksi akun"
-        ],
-        "objectives_en": [
-            "Implementing authentication features using Laravel Auth Scaffolding",
-            "Configuring registration, login, password reset, and account security"
-        ],
-        "title_en": "Lesson 19 - User Authentication"
+      "num": 19,
+      "title": "Lesson 19 - User Authentication",
+      "title_id": "Lesson 19 - Autentikasi Pengguna",
+      "objectives": [
+        "Mengimplementasikan fitur autentikasi menggunakan Laravel Auth Scaffolding",
+        "Mengatur alur registrasi, login, reset password, dan proteksi akun"
+      ],
+      "objectives_en": [
+        "Implementing authentication features using Laravel Auth Scaffolding",
+        "Configuring registration, login, password reset, and account security"
+      ],
+      "title_en": "Lesson 19 - User Authentication"
     },
     {
-        "num": 20,
-        "title": "Lesson 20 - Middleware",
-        "title_id": "Lesson 20 - Middleware",
-        "objectives": [
-            "Mengenal dan membuat Middleware kustom pada Laravel",
-            "Menerapkan proteksi route berdasarkan peran (role) dan status login pengguna"
-        ],
-        "objectives_en": [
-            "Understanding and creating custom Middleware in Laravel",
-            "Applying route protection based on user roles and login status"
-        ],
-        "title_en": "Lesson 20 - Middleware"
+      "num": 20,
+      "title": "Lesson 20 - Middleware",
+      "title_id": "Lesson 20 - Middleware",
+      "objectives": [
+        "Mengenal dan membuat Middleware kustom pada Laravel",
+        "Menerapkan proteksi route berdasarkan peran (role) dan status login pengguna"
+      ],
+      "objectives_en": [
+        "Understanding and creating custom Middleware in Laravel",
+        "Applying route protection based on user roles and login status"
+      ],
+      "title_en": "Lesson 20 - Middleware"
     },
     {
-        "num": 21,
-        "title": "Lesson 21 - Pagination",
-        "title_id": "Lesson 21 - Pagination",
-        "objectives": [
-            "Menerapkan fitur Pagination pada Eloquent ORM untuk membatasi data per halaman",
-            "Menampilkan pagination links yang responsif pada view Blade"
-        ],
-        "objectives_en": [
-            "Implementing Pagination on Eloquent ORM to limit records per page",
-            "Displaying responsive pagination links on Blade views"
-        ],
-        "title_en": "Lesson 21 - Pagination"
+      "num": 21,
+      "title": "Lesson 21 - Pagination",
+      "title_id": "Lesson 21 - Pagination",
+      "objectives": [
+        "Menerapkan fitur Pagination pada Eloquent ORM untuk membatasi data per halaman",
+        "Menampilkan pagination links yang responsif pada view Blade"
+      ],
+      "objectives_en": [
+        "Implementing Pagination on Eloquent ORM to limit records per page",
+        "Displaying responsive pagination links on Blade views"
+      ],
+      "title_en": "Lesson 21 - Pagination"
     },
     {
-        "num": 22,
-        "title": "Lesson 22 - Searching",
-        "title_id": "Lesson 22 - Searching",
-        "objectives": [
-            "Membangun fitur pencarian data dinamis berdasarkan kata kunci",
-            "Mengoptimalkan query pencarian dengan Eloquent where clause"
-        ],
-        "objectives_en": [
-            "Building dynamic data search features based on keywords",
-            "Optimizing search queries using Eloquent where clauses"
-        ],
-        "title_en": "Lesson 22 - Searching"
+      "num": 22,
+      "title": "Lesson 22 - Searching",
+      "title_id": "Lesson 22 - Searching",
+      "objectives": [
+        "Membangun fitur pencarian data dinamis berdasarkan kata kunci",
+        "Mengoptimalkan query pencarian dengan Eloquent where clause"
+      ],
+      "objectives_en": [
+        "Building dynamic data search features based on keywords",
+        "Optimizing search queries using Eloquent where clauses"
+      ],
+      "title_en": "Lesson 22 - Searching"
     },
     {
-        "num": 23,
-        "title": "Lesson 23 - Sorting",
-        "title_id": "Lesson 23 - Sorting",
-        "objectives": [
-            "Menerapkan fitur sorting pengurutan data berdasarkan kolom dan kriteria tertentu",
-            "Mengintegrasikan query sorting dinamis dengan parameter URL"
-        ],
-        "objectives_en": [
-            "Implementing data sorting based on specific columns and criteria",
-            "Integrating dynamic sorting queries with URL parameters"
-        ],
-        "title_en": "Lesson 23 - Sorting"
+      "num": 23,
+      "title": "Lesson 23 - Sorting",
+      "title_id": "Lesson 23 - Sorting",
+      "objectives": [
+        "Menerapkan fitur sorting pengurutan data berdasarkan kolom dan kriteria tertentu",
+        "Mengintegrasikan query sorting dinamis dengan parameter URL"
+      ],
+      "objectives_en": [
+        "Implementing data sorting based on specific columns and criteria",
+        "Integrating dynamic sorting queries with URL parameters"
+      ],
+      "title_en": "Lesson 23 - Sorting"
     },
     {
-        "num": 24,
-        "title": "Lesson 24 - Applied Laravel Project Part 1",
-        "title_id": "Lesson 24 - Latihan & Review Project Laravel Part 1",
-        "objectives": [
-            "Merancang arsitektur proyek terapan Laravel dari awal",
-            "Menyiapkan skema database, migration, dan seeding data awal"
-        ],
-        "objectives_en": [
-            "Designing applied Laravel project architecture from scratch",
-            "Setting up database schemas, migrations, and initial seed data"
-        ],
-        "title_en": "Lesson 24 - Applied Laravel Project Part 1"
+      "num": 24,
+      "title": "Lesson 24 - Applied Laravel Project Part 1",
+      "title_id": "Lesson 24 - Latihan & Review Project Laravel Part 1",
+      "objectives": [
+        "Merancang arsitektur proyek terapan Laravel dari awal",
+        "Menyiapkan skema database, migration, dan seeding data awal"
+      ],
+      "objectives_en": [
+        "Designing applied Laravel project architecture from scratch",
+        "Setting up database schemas, migrations, and initial seed data"
+      ],
+      "title_en": "Lesson 24 - Applied Laravel Project Part 1"
     },
     {
-        "num": 25,
-        "title": "Lesson 25 - Applied Laravel Project Part 2",
-        "title_id": "Lesson 25 - Latihan & Review Project Laravel Part 2",
-        "objectives": [
-            "Membangun modul CRUD lengkap dengan validasi dan Eloquent ORM",
-            "Mengintegrasikan Blade view dan styling Bootstrap pada antarmuka"
-        ],
-        "objectives_en": [
-            "Building full CRUD modules with validation and Eloquent ORM",
-            "Integrating Blade views and Bootstrap styling on the interface"
-        ],
-        "title_en": "Lesson 25 - Applied Laravel Project Part 2"
+      "num": 25,
+      "title": "Lesson 25 - Applied Laravel Project Part 2",
+      "title_id": "Lesson 25 - Latihan & Review Project Laravel Part 2",
+      "objectives": [
+        "Membangun modul CRUD lengkap dengan validasi dan Eloquent ORM",
+        "Mengintegrasikan Blade view dan styling Bootstrap pada antarmuka"
+      ],
+      "objectives_en": [
+        "Building full CRUD modules with validation and Eloquent ORM",
+        "Integrating Blade views and Bootstrap styling on the interface"
+      ],
+      "title_en": "Lesson 25 - Applied Laravel Project Part 2"
     },
     {
-        "num": 26,
-        "title": "Lesson 26 - Applied Laravel Project Part 3",
-        "title_id": "Lesson 26 - Latihan & Review Project Laravel Part 3",
-        "objectives": [
-            "Menghubungkan fitur autentikasi, middleware proteksi, dan pencarian data",
-            "Melakukan pengujian fitur dan refactoring kode controller"
-        ],
-        "objectives_en": [
-            "Connecting authentication, protection middleware, and search features",
-            "Conducting feature testing and controller refactoring"
-        ],
-        "title_en": "Lesson 26 - Applied Laravel Project Part 3"
+      "num": 26,
+      "title": "Lesson 26 - Applied Laravel Project Part 3",
+      "title_id": "Lesson 26 - Latihan & Review Project Laravel Part 3",
+      "objectives": [
+        "Menghubungkan fitur autentikasi, middleware proteksi, dan pencarian data",
+        "Melakukan pengujian fitur dan refactoring kode controller"
+      ],
+      "objectives_en": [
+        "Connecting authentication, protection middleware, and search features",
+        "Conducting feature testing and controller refactoring"
+      ],
+      "title_en": "Lesson 26 - Applied Laravel Project Part 3"
     },
     {
-        "num": 27,
-        "title": "Lesson 27 - Final Project: Specification & Planning",
-        "title_id": "Lesson 27 - Final Project: Inisialisasi & Perancangan",
-        "objectives": [
-            "Menentukan topik dan membuat spesifikasi kebutuhan proyek akhir backend",
-            "Merancang diagram database ERD dan setup repositori Git"
-        ],
-        "objectives_en": [
-            "Defining topics and requirements specification for final backend project",
-            "Designing database ERD diagrams and setting up Git repository"
-        ],
-        "title_en": "Lesson 27 - Final Project: Specification & Planning"
+      "num": 27,
+      "title": "Lesson 27 - Final Project: Specification & Planning",
+      "title_id": "Lesson 27 - Final Project: Inisialisasi & Perancangan",
+      "objectives": [
+        "Menentukan topik dan membuat spesifikasi kebutuhan proyek akhir backend",
+        "Merancang diagram database ERD dan setup repositori Git"
+      ],
+      "objectives_en": [
+        "Defining topics and requirements specification for final backend project",
+        "Designing database ERD diagrams and setting up Git repository"
+      ],
+      "title_en": "Lesson 27 - Final Project: Specification & Planning"
     },
     {
-        "num": 28,
-        "title": "Lesson 28 - Final Project: Database Schema & Relationships",
-        "title_id": "Lesson 28 - Final Project: Database & Model Relationship",
-        "objectives": [
-            "Mengembangkan skema database lengkap dengan migration dan relasi model",
-            "Membuat data dummy menggunakan factory dan seeder untuk pengujian"
-        ],
-        "objectives_en": [
-            "Developing database schemas with migrations and model relationships",
-            "Creating dummy data using factories and seeders for testing"
-        ],
-        "title_en": "Lesson 28 - Final Project: Database Schema & Relationships"
+      "num": 28,
+      "title": "Lesson 28 - Final Project: Database Schema & Relationships",
+      "title_id": "Lesson 28 - Final Project: Database & Model Relationship",
+      "objectives": [
+        "Mengembangkan skema database lengkap dengan migration dan relasi model",
+        "Membuat data dummy menggunakan factory dan seeder untuk pengujian"
+      ],
+      "objectives_en": [
+        "Developing database schemas with migrations and model relationships",
+        "Creating dummy data using factories and seeders for testing"
+      ],
+      "title_en": "Lesson 28 - Final Project: Database Schema & Relationships"
     },
     {
-        "num": 29,
-        "title": "Lesson 29 - Final Project: Controllers & Business Logic",
-        "title_id": "Lesson 29 - Final Project: Logika Bisnis & Controller",
-        "objectives": [
-            "Mengembangkan controller dan logika bisnis utama sistem backend",
-            "Menerapkan validasi request yang ketat dan penanganan exception"
-        ],
-        "objectives_en": [
-            "Developing controllers and core business logic for backend systems",
-            "Implementing strict request validation and exception handling"
-        ],
-        "title_en": "Lesson 29 - Final Project: Controllers & Business Logic"
+      "num": 29,
+      "title": "Lesson 29 - Final Project: Controllers & Business Logic",
+      "title_id": "Lesson 29 - Final Project: Logika Bisnis & Controller",
+      "objectives": [
+        "Mengembangkan controller dan logika bisnis utama sistem backend",
+        "Menerapkan validasi request yang ketat dan penanganan exception"
+      ],
+      "objectives_en": [
+        "Developing controllers and core business logic for backend systems",
+        "Implementing strict request validation and exception handling"
+      ],
+      "title_en": "Lesson 29 - Final Project: Controllers & Business Logic"
     },
     {
-        "num": 30,
-        "title": "Lesson 30 - Final Project: Roles, Authorization & Security",
-        "title_id": "Lesson 30 - Final Project: Autentikasi, Role & Middleware",
-        "objectives": [
-            "Menerapkan sistem multi-role dan hak akses pengguna pada proyek",
-            "Mengamankan rute dan endpoint sistem backend"
-        ],
-        "objectives_en": [
-            "Implementing multi-role systems and user authorization on the project",
-            "Securing backend routes and endpoints"
-        ],
-        "title_en": "Lesson 30 - Final Project: Roles, Authorization & Security"
+      "num": 30,
+      "title": "Lesson 30 - Final Project: Roles, Authorization & Security",
+      "title_id": "Lesson 30 - Final Project: Autentikasi, Role & Middleware",
+      "objectives": [
+        "Menerapkan sistem multi-role dan hak akses pengguna pada proyek",
+        "Mengamankan rute dan endpoint sistem backend"
+      ],
+      "objectives_en": [
+        "Implementing multi-role systems and user authorization on the project",
+        "Securing backend routes and endpoints"
+      ],
+      "title_en": "Lesson 30 - Final Project: Roles, Authorization & Security"
     },
     {
-        "num": 31,
-        "title": "Lesson 31 - Final Project: Testing & Server Deployment",
-        "title_id": "Lesson 31 - Final Project: Testing, Optimization & Deployment",
-        "objectives": [
-            "Melakukan pengujian end-to-end fitur backend dan optimasi query database",
-            "Mempersiapkan konfigurasi environment dan deployment aplikasi ke server"
-        ],
-        "objectives_en": [
-            "Performing end-to-end backend testing and database query optimization",
-            "Preparing environment configuration and server deployment"
-        ],
-        "title_en": "Lesson 31 - Final Project: Testing & Server Deployment"
+      "num": 31,
+      "title": "Lesson 31 - Final Project: Testing & Server Deployment",
+      "title_id": "Lesson 31 - Final Project: Testing, Optimization & Deployment",
+      "objectives": [
+        "Melakukan pengujian end-to-end fitur backend dan optimasi query database",
+        "Mempersiapkan konfigurasi environment dan deployment aplikasi ke server"
+      ],
+      "objectives_en": [
+        "Performing end-to-end backend testing and database query optimization",
+        "Preparing environment configuration and server deployment"
+      ],
+      "title_en": "Lesson 31 - Final Project: Testing & Server Deployment"
     },
     {
-        "num": 32,
-        "title": "Lesson 32 - Final Project: Presentation & Final Review",
-        "title_id": "Lesson 32 - Final Project: Presentasi & Evaluasi Akhir",
-        "objectives": [
-            "Mempresentasikan sistem backend yang telah selesai dibangun",
-            "Melakukan demonstrasi fitur dan sesi evaluasi akhir"
-        ],
-        "objectives_en": [
-            "Presenting the completed backend application system",
-            "Demonstrating features and final evaluation session"
-        ],
-        "title_en": "Lesson 32 - Final Project: Presentation & Final Review"
+      "num": 32,
+      "title": "Lesson 32 - Final Project: Presentation & Final Review",
+      "title_id": "Lesson 32 - Final Project: Presentasi & Evaluasi Akhir",
+      "objectives": [
+        "Mempresentasikan sistem backend yang telah selesai dibangun",
+        "Melakukan demonstrasi fitur dan sesi evaluasi akhir"
+      ],
+      "objectives_en": [
+        "Presenting the completed backend application system",
+        "Demonstrating features and final evaluation session"
+      ],
+      "title_en": "Lesson 32 - Final Project: Presentation & Final Review"
     }
-],
-  "Mobile App Development": [],
-  "AI Development": []
+  ],
+  "Mobile App Development": [
+    {
+      "num": 1,
+      "title": "Lesson 1 - React Native Framework and Components",
+      "title_id": "Lesson 1 - React Native Framework and Components",
+      "title_en": "Lesson 1 - React Native Framework and Components",
+      "objectives": [
+        "Pengenalan React Native Framework",
+        "Menggunakan komponen View, Text, dan Button",
+        "Mengatur tampilan dan layout komponen",
+        "Menambahkan notifikasi Alert"
+      ],
+      "objectives_en": [
+        "Introduction to React Native Framework",
+        "View, Text, Button Component",
+        "Adjusting the component's layout",
+        "Add Alert"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Styling Your Layout",
+      "title_id": "Lesson 2 - Styling Your Layout",
+      "title_en": "Lesson 2 - Styling Your Layout",
+      "objectives": [
+        "Mempelajari layout styling",
+        "Memahami konsep box model",
+        "Mempelajari styling teks",
+        "Mempelajari komponen TouchableOpacity"
+      ],
+      "objectives_en": [
+        "Learn about layout styles",
+        "Understand box models",
+        "Learn text styles",
+        "Learn about the TouchableOpacity Component"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Flex Layout and Add Image",
+      "title_id": "Lesson 3 - Flex Layout and Add Image",
+      "title_en": "Lesson 3 - Flex Layout and Add Image",
+      "objectives": [
+        "Memahami flex layout dan flex direction",
+        "Menambahkan komponen Image",
+        "Mempelajari image styling",
+        "Menambahkan komponen ScrollView"
+      ],
+      "objectives_en": [
+        "Understand flex layout and flex direction",
+        "Adding Image Components",
+        "Learn Image Styles",
+        "Added ScrollView Component"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Props and Reusable Component",
+      "title_id": "Lesson 4 - Props and Reusable Component",
+      "title_en": "Lesson 4 - Props and Reusable Component",
+      "objectives": [
+        "Mempelajari komponen ImageBackground dan TextInput",
+        "Mempelajari properti opacity",
+        "Mempelajari konsep props",
+        "Mempelajari reusable component"
+      ],
+      "objectives_en": [
+        "Study ImageBackground & Text Input Component",
+        "Study the Opacity Property",
+        "Learn Props",
+        "Learn About Reusable Components"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Add Custom Font and Icon into a Popular Layout",
+      "title_id": "Lesson 5 - Add Custom Font and Icon into a Popular Layout",
+      "title_en": "Lesson 5 - Add Custom Font and Icon into a Popular Layout",
+      "objectives": [
+        "Menambahkan custom font",
+        "Menambahkan ikon aplikasi",
+        "Membuat tampilan popular layout"
+      ],
+      "objectives_en": [
+        "Adding custom fonts",
+        "Adding Icons",
+        "Create Popular Layout"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - React Native Hooks",
+      "title_id": "Lesson 6 - React Native Hooks",
+      "title_en": "Lesson 6 - React Native Hooks",
+      "objectives": [
+        "Mengenal hooks pada React Native",
+        "Mempelajari penggunaan useState dan useEffect",
+        "Mempelajari fungsi setTimeout"
+      ],
+      "objectives_en": [
+        "Get to know Hooks in React Native",
+        "Learn to use useState and useEffect",
+        "Learn about setTimeout"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Stack Navigation and Another Way of Using useEffect",
+      "title_id": "Lesson 7 - Stack Navigation and Another Way of Using useEffect",
+      "title_en": "Lesson 7 - Stack Navigation and Another Way of Using useEffect",
+      "objectives": [
+        "Mempelajari Stack Navigation",
+        "Mempelajari cara lain penggunaan useEffect hook",
+        "Mengenal properti flexGrow"
+      ],
+      "objectives_en": [
+        "Learn Stack Navigation",
+        "Learn other ways to use the useEffect Hook",
+        "Get to know the flexGrow properties"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Review and Middle Test",
+      "title_id": "Lesson 8 - Review and Middle Test",
+      "title_en": "Lesson 8 - Review and Middle Test",
+      "objectives": [
+        "Review konsep materi pertemuan 1-7",
+        "Mengerjakan Middle Exam"
+      ],
+      "objectives_en": [
+        "Review Concepts",
+        "Middle Exam"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - FlatList dan StyleSheet",
+      "title_id": "Lesson 9 - FlatList dan StyleSheet",
+      "title_en": "Lesson 9 - FlatList dan StyleSheet",
+      "objectives": [
+        "Mengenal FlatList pada React Native",
+        "Mempelajari StyleSheet pada React Native",
+        "Membuat proyek Home Screen Movie Collection"
+      ],
+      "objectives_en": [
+        "Getting to Know FlatList in React Native",
+        "Learning StyleSheet in React Native",
+        "Create a Home Screen Movie Collection Project"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Learn More About FlatList and Sort the Data",
+      "title_id": "Lesson 10 - Learn More About FlatList and Sort the Data",
+      "title_en": "Lesson 10 - Learn More About FlatList and Sort the Data",
+      "objectives": [
+        "Mempelajari FlatList horizontal",
+        "Menambahkan komponen sebelum dan sesudah FlatList",
+        "Mengurutkan data Array of Objects"
+      ],
+      "objectives_en": [
+        "Learning About Horizontal FlatList",
+        "Adding Other Components before and after FlatList",
+        "Sorting Array of Objects Data"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Ternary Operator and Combine StyleSheet with Inline Style",
+      "title_id": "Lesson 11 - Ternary Operator and Combine StyleSheet with Inline Style",
+      "title_en": "Lesson 11 - Ternary Operator and Combine StyleSheet with Inline Style",
+      "objectives": [
+        "Mempelajari operator ternary",
+        "Menggabungkan StyleSheet dan inline style",
+        "Melanjutkan proyek Home Screen Movie Collection"
+      ],
+      "objectives_en": [
+        "Learn About Ternary Operators",
+        "Combining StyleSheet and Inline Style",
+        "Continuing the Home Screen Movie Collection Project"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Passing Data Between Screens",
+      "title_id": "Lesson 12 - Passing Data Between Screens",
+      "title_en": "Lesson 12 - Passing Data Between Screens",
+      "objectives": [
+        "Mempelajari cara mengirim data ke screen lain",
+        "Mempelajari cara menerima data yang dikirim",
+        "Membuat tampilan Movie Detail Screen"
+      ],
+      "objectives_en": [
+        "Learning How to Send Data to Another Screen",
+        "Learning How to Receive Sent Data",
+        "Creating Movie Screen Details"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Empty FlatList and Column in FlatList",
+      "title_id": "Lesson 13 - Empty FlatList and Column in FlatList",
+      "title_en": "Lesson 13 - Empty FlatList and Column in FlatList",
+      "objectives": [
+        "Menampilkan 3 data teratas",
+        "Menampilkan pesan saat tidak ada data pada FlatList",
+        "Mempelajari cara menambah kolom pada FlatList",
+        "Membuat tampilan Most Viewed Movie Screen"
+      ],
+      "objectives_en": [
+        "Showing Top 3 Data",
+        "Display Message when there is No Data in FlatList",
+        "Learn How to Add Columns to FlatList",
+        "Create Most Viewed Movie Screen"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Change the Header in Stack Navigation",
+      "title_id": "Lesson 14 - Change the Header in Stack Navigation",
+      "title_en": "Lesson 14 - Change the Header in Stack Navigation",
+      "objectives": [
+        "Mempelajari cara mengubah header navigasi",
+        "Membuat tampilan Recommended Movie Screen"
+      ],
+      "objectives_en": [
+        "Learning How to Change Headers",
+        "Creating a Recommended Movie Screen"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Android Apps Development 1 Exam Part 1",
+      "title_id": "Lesson 15 - Android Apps Development 1 Exam Part 1",
+      "title_en": "Lesson 15 - Android Apps Development 1 Exam Part 1",
+      "objectives": [
+        "Mengerjakan Ujian Android Apps Development 1 Bagian 1"
+      ],
+      "objectives_en": [
+        "Android Apps Development 1 Exam Part 1"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Android Apps Development 1 Exam Part 2",
+      "title_id": "Lesson 16 - Android Apps Development 1 Exam Part 2",
+      "title_en": "Lesson 16 - Android Apps Development 1 Exam Part 2",
+      "objectives": [
+        "Mengerjakan Ujian Android Apps Development 1 Bagian 2"
+      ],
+      "objectives_en": [
+        "Android Apps Development 1 Exam Part 2"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - Learn to Make Design in Figma",
+      "title_id": "Lesson 17 - Learn to Make Design in Figma",
+      "title_en": "Lesson 17 - Learn to Make Design in Figma",
+      "objectives": [
+        "Mempelajari cara mendesain antarmuka aplikasi menggunakan Figma",
+        "Membuat tampilan login screen untuk proyek media sosial"
+      ],
+      "objectives_en": [
+        "Learning How to Design with Figma",
+        "Creating a Social Media Project Login Screen"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Manage Global State with Redux",
+      "title_id": "Lesson 18 - Manage Global State with Redux",
+      "title_en": "Lesson 18 - Manage Global State with Redux",
+      "objectives": [
+        "Membuat tampilan register screen untuk proyek media sosial",
+        "Mempelajari Redux untuk mengelola global state aplikasi",
+        "Mempelajari dan menggunakan hook useSelector() dan useDispatch()"
+      ],
+      "objectives_en": [
+        "Create a Social Media Project Screen Register",
+        "Learning Redux to Manage Global State",
+        "Learning useSelector() and useDispatch()"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Global State and Regular Expression",
+      "title_id": "Lesson 19 - Global State and Regular Expression",
+      "title_en": "Lesson 19 - Global State and Regular Expression",
+      "objectives": [
+        "Mengubah global state melalui input teks pengguna",
+        "Mempelajari konsep Regular Expressions (Regex) untuk validasi input",
+        "Menambahkan notifikasi Alert bawaan React Native"
+      ],
+      "objectives_en": [
+        "Changing Global State via Text Input",
+        "Learning Regular Expressions",
+        "Adding Alerts from React Native"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Show or Hide Password and Login Access",
+      "title_id": "Lesson 20 - Show or Hide Password and Login Access",
+      "title_en": "Lesson 20 - Show or Hide Password and Login Access",
+      "objectives": [
+        "Membuat fitur menampilkan atau menyembunyikan password",
+        "Mengimplementasikan autentikasi login setelah registrasi akun"
+      ],
+      "objectives_en": [
+        "Show or Hide Password",
+        "Login after Registering an Account"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Tab Navigation and Login Status",
+      "title_id": "Lesson 21 - Tab Navigation and Login Status",
+      "title_en": "Lesson 21 - Tab Navigation and Login Status",
+      "objectives": [
+        "Mempelajari dan mengonfigurasi Tab Navigation di React Native",
+        "Menyesuaikan Stack Navigation berdasarkan status login pengguna"
+      ],
+      "objectives_en": [
+        "Learning Tab Navigation",
+        "Overcoming Stack Navigation when Successfully Login"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Show Logout Modal",
+      "title_id": "Lesson 22 - Show Logout Modal",
+      "title_en": "Lesson 22 - Show Logout Modal",
+      "objectives": [
+        "Membuat tampilan profil pengguna (Profile Screen)",
+        "Menerapkan properti editable pada komponen TextInput",
+        "Mempelajari dan menerapkan komponen Modal di React Native untuk dialog logout"
+      ],
+      "objectives_en": [
+        "Creating Profile Screen",
+        "Implementing Editable Prop in <TextInput/>",
+        "Learning Modal Component in React Native"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Like or Unlike using Map Method",
+      "title_id": "Lesson 23 - Like or Unlike using Map Method",
+      "title_en": "Lesson 23 - Like or Unlike using Map Method",
+      "objectives": [
+        "Melanjutkan pengembangan tampilan Home Screen",
+        "Mengimplementasikan tombol Like dan Unlike menggunakan method map() JavaScript"
+      ],
+      "objectives_en": [
+        "Continue Home Screen",
+        "Like or Unlike Button using map() method in JavaScript"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Review and Middle Test",
+      "title_id": "Lesson 24 - Review and Middle Test",
+      "title_en": "Lesson 24 - Review and Middle Test",
+      "objectives": [
+        "Review materi pertemuan 17 sampai 23",
+        "Mengerjakan Middle Test Android Apps Development 2"
+      ],
+      "objectives_en": [
+        "Review Meeting 1 sampai Meeting 7",
+        "Middle Test"
+      ]
+    },
+    {
+      "num": 25,
+      "title": "Lesson 25 - Set Position Property to Add Floating Button",
+      "title_id": "Lesson 25 - Set Position Property to Add Floating Button",
+      "title_en": "Lesson 25 - Set Position Property to Add Floating Button",
+      "objectives": [
+        "Mempelajari properti position pada styling React Native",
+        "Membuat tampilan Note List Screen dengan floating action button",
+        "Membuat tampilan Add Note Screen untuk menambahkan catatan baru"
+      ],
+      "objectives_en": [
+        "Studying the Position Property in React Native",
+        "Create a Note List Screen that Implements a Floating Button",
+        "Create an Add Note Screen"
+      ]
+    },
+    {
+      "num": 26,
+      "title": "Lesson 26 - Create Notes and Save It Using Firebase",
+      "title_id": "Lesson 26 - Create Notes and Save It Using Firebase",
+      "title_en": "Lesson 26 - Create Notes and Save It Using Firebase",
+      "objectives": [
+        "Mempelajari sistem basis data cloud Firestore dari Firebase",
+        "Menyimpan data catatan baru ke dalam database Firestore",
+        "Membaca dan mengambil data catatan dari database Firestore"
+      ],
+      "objectives_en": [
+        "Study Firestore Database Management System",
+        "Save Notes added to the application using the Firestore Database",
+        "Accessing Notes from the Firestore Database"
+      ]
+    },
+    {
+      "num": 27,
+      "title": "Lesson 27 - Sort Notes Based on the Latest Date",
+      "title_id": "Lesson 27 - Sort Notes Based on the Latest Date",
+      "title_en": "Lesson 27 - Sort Notes Based on the Latest Date",
+      "objectives": [
+        "Mengurutkan daftar catatan berdasarkan tanggal terbaru",
+        "Menampilkan format tanggal yang rapi dan terstruktur pada aplikasi"
+      ],
+      "objectives_en": [
+        "Sort Notes by Latest Date on the Note List Screen",
+        "Displays Date Based on Format Determined"
+      ]
+    },
+    {
+      "num": 28,
+      "title": "Lesson 28 - Get A Specific Noted to Update",
+      "title_id": "Lesson 28 - Get A Specific Noted to Update",
+      "title_en": "Lesson 28 - Get A Specific Noted to Update",
+      "objectives": [
+        "Membuat tampilan Edit Note Screen",
+        "Mengambil data spesifik catatan dari Firestore untuk proses pembaruan data"
+      ],
+      "objectives_en": [
+        "Creates an Edit Note Screen view",
+        "Get certain notes from the database for the update process"
+      ]
+    },
+    {
+      "num": 29,
+      "title": "Lesson 29 - Save Updated Note and Add Search Bar",
+      "title_id": "Lesson 29 - Save Updated Note and Add Search Bar",
+      "title_en": "Lesson 29 - Save Updated Note and Add Search Bar",
+      "objectives": [
+        "Menyimpan perubahan data catatan yang diperbarui ke Firestore",
+        "Menambahkan fitur search bar untuk mencari catatan pada Note List Screen"
+      ],
+      "objectives_en": [
+        "Saving Note Changes in the Database",
+        "Added Search Menu on the Note List Screen"
+      ]
+    },
+    {
+      "num": 30,
+      "title": "Lesson 30 - Remove Notes Using Checkbox",
+      "title_id": "Lesson 30 - Remove Notes Using Checkbox",
+      "title_en": "Lesson 30 - Remove Notes Using Checkbox",
+      "objectives": [
+        "Mempelajari komponen Checkbox pada React Native",
+        "Menggunakan Checkbox untuk menghapus catatan terpilih dari database"
+      ],
+      "objectives_en": [
+        "Learn to Use CheckBoxes",
+        "Using CheckBox to Delete Selected Notes in Database"
+      ]
+    },
+    {
+      "num": 31,
+      "title": "Lesson 31 - Android Apps Development 2 Exam Part 1",
+      "title_id": "Lesson 31 - Android Apps Development 2 Exam Part 1",
+      "title_en": "Lesson 31 - Android Apps Development 2 Exam Part 1",
+      "objectives": [
+        "Mengerjakan Ujian Android Apps Development 2 Bagian 1"
+      ],
+      "objectives_en": [
+        "Android Apps Development 2 Exam Part 1"
+      ]
+    },
+    {
+      "num": 32,
+      "title": "Lesson 32 - Android Apps Development 2 Exam Part 2",
+      "title_id": "Lesson 32 - Android Apps Development 2 Exam Part 2",
+      "title_en": "Lesson 32 - Android Apps Development 2 Exam Part 2",
+      "objectives": [
+        "Mengerjakan Ujian Android Apps Development 2 Bagian 2"
+      ],
+      "objectives_en": [
+        "Android Apps Development 2 Exam Part 2"
+      ]
+    },
+    {
+      "num": 33,
+      "title": "Lesson 33 - Drawer Navigation and Image Slider",
+      "title_id": "Lesson 33 - Drawer Navigation and Image Slider",
+      "title_en": "Lesson 33 - Drawer Navigation and Image Slider",
+      "objectives": [
+        "Mempelajari konsep dan implementasi Drawer Navigation",
+        "Menambahkan komponen Image Slider pada Home Screen",
+        "Menyempurnakan tata letak dan tampilan antarmuka Home Screen"
+      ],
+      "objectives_en": [
+        "Learn About Drawer Navigation",
+        "Adding Image Slider on Home Screen",
+        "Completing the Home Screen Appearance"
+      ]
+    },
+    {
+      "num": 34,
+      "title": "Lesson 34 - Add Image from Gallery",
+      "title_id": "Lesson 34 - Add Image from Gallery",
+      "title_en": "Lesson 34 - Add Image from Gallery",
+      "objectives": [
+        "Mempelajari cara mengunggah dan memilih gambar dari galeri perangkat",
+        "Membuat tampilan antarmuka halaman Add Product Screen"
+      ],
+      "objectives_en": [
+        "Learn How to Upload Images from Gallery",
+        "Create an Add Product Screen Display"
+      ]
+    },
+    {
+      "num": 35,
+      "title": "Lesson 35 - Select Dropdown and Save Product",
+      "title_id": "Lesson 35 - Select Dropdown and Save Product",
+      "title_en": "Lesson 35 - Select Dropdown and Save Product",
+      "objectives": [
+        "Mempelajari penggunaan komponen Select Dropdown pada form",
+        "Menyimpan data detail produk dan gambar ke database Firestore"
+      ],
+      "objectives_en": [
+        "Learning about Select Dropdown",
+        "Save Product Data to Database"
+      ]
+    },
+    {
+      "num": 36,
+      "title": "Lesson 36 - Show Product Based on Category",
+      "title_id": "Lesson 36 - Show Product Based on Category",
+      "title_en": "Lesson 36 - Show Product Based on Category",
+      "objectives": [
+        "Menampilkan daftar produk berdasarkan kategori yang dipilih pengguna",
+        "Menampilkan informasi kontak penjual pada tampilan produk"
+      ],
+      "objectives_en": [
+        "Show Product Based on Category Chosen",
+        "Show Seller's Contact"
+      ]
+    },
+    {
+      "num": 37,
+      "title": "Lesson 37 - Linking, Zoom In-Out and Responsive Layout",
+      "title_id": "Lesson 37 - Linking, Zoom In-Out and Responsive Layout",
+      "title_en": "Lesson 37 - Linking, Zoom In-Out and Responsive Layout",
+      "objectives": [
+        "Menerapkan API Linking untuk menghubungkan aplikasi ke platform eksternal",
+        "Menambahkan fitur zoom in dan zoom out pada tampilan gambar",
+        "Menyusun tata letak responsif untuk berbagai ukuran layar perangkat"
+      ],
+      "objectives_en": [
+        "Add Linking to Connect to other Application or Site",
+        "Add Zoom In and Zoom Out Feature for Image",
+        "Create Responsive Layout"
+      ]
+    },
+    {
+      "num": 38,
+      "title": "Lesson 38 - Update Your Product Information",
+      "title_id": "Lesson 38 - Update Your Product Information",
+      "title_en": "Lesson 38 - Update Your Product Information",
+      "objectives": [
+        "Membuat tampilan antarmuka halaman Edit Product Screen",
+        "Mengubah data produk yang dipilih dan menyimpan perubahannya ke database"
+      ],
+      "objectives_en": [
+        "Create Edit Product Screen",
+        "Update the Product and save it to the database"
+      ]
+    },
+    {
+      "num": 39,
+      "title": "Lesson 39 - Update Validation and Remove Product",
+      "title_id": "Lesson 39 - Update Validation and Remove Product",
+      "title_en": "Lesson 39 - Update Validation and Remove Product",
+      "objectives": [
+        "Membuat validasi input saat tombol update ditekan",
+        "Mengimplementasikan fitur hapus produk menggunakan checkbox"
+      ],
+      "objectives_en": [
+        "Create Validation when Button Update Pressed",
+        "Delete Product using Checkbox"
+      ]
+    },
+    {
+      "num": 40,
+      "title": "Lesson 40 - Add Splash Screen and Prepare Your Project",
+      "title_id": "Lesson 40 - Add Splash Screen and Prepare Your Project",
+      "title_en": "Lesson 40 - Add Splash Screen and Prepare Your Project",
+      "objectives": [
+        "Menambahkan Splash Screen animasi saat aplikasi pertama kali dimuat",
+        "Mempelajari tahapan proses pengembangan aplikasi (Development Process)",
+        "Menentukan tema, jenis, dan arsitektur aplikasi untuk proyek akhir"
+      ],
+      "objectives_en": [
+        "Add Splash Screen",
+        "Learning Development Process",
+        "Choose Type and Application's Theme"
+      ]
+    },
+    {
+      "num": 41,
+      "title": "Lesson 41 - Create Your Own Android Apps",
+      "title_id": "Lesson 41 - Create Your Own Android Apps: Desain & Struktur",
+      "title_en": "Lesson 41 - Create Your Own Android Apps: Design & Structure",
+      "objectives": [
+        "Membuat desain mockup dan prototipe aplikasi di Figma",
+        "Menyiapkan struktur folder proyek, dependensi, dan navigasi aplikasi"
+      ],
+      "objectives_en": [
+        "Creating App Design in Figma",
+        "Preparing Project Structure and Navigation"
+      ]
+    },
+    {
+      "num": 42,
+      "title": "Lesson 42 - Create Your Own Android Apps",
+      "title_id": "Lesson 42 - Create Your Own Android Apps: Database & Home Screen",
+      "title_en": "Lesson 42 - Create Your Own Android Apps: Database & Home Screen",
+      "objectives": [
+        "Mengonfigurasi koneksi database cloud Firestore",
+        "Membangun tata letak dan desain visual Home Screen aplikasi"
+      ],
+      "objectives_en": [
+        "Creating Database Configuration",
+        "Creating HomeScreen Appearence"
+      ]
+    },
+    {
+      "num": 43,
+      "title": "Lesson 43 - Create Your Own Android Apps",
+      "title_id": "Lesson 43 - Create Your Own Android Apps: Add Item Screen",
+      "title_en": "Lesson 43 - Create Your Own Android Apps: Add Item Screen",
+      "objectives": [
+        "Membuat tampilan antarmuka dan logika penambahan data pada Add Item Screen"
+      ],
+      "objectives_en": [
+        "Create Add Item Screen"
+      ]
+    },
+    {
+      "num": 44,
+      "title": "Lesson 44 - Create Your Own Android Apps",
+      "title_id": "Lesson 44 - Create Your Own Android Apps: Edit Item Screen",
+      "title_en": "Lesson 44 - Create Your Own Android Apps: Edit Item Screen",
+      "objectives": [
+        "Membuat tampilan dan alur pembaruan data pada Edit Item Screen"
+      ],
+      "objectives_en": [
+        "Create Edit Item Screen"
+      ]
+    },
+    {
+      "num": 45,
+      "title": "Lesson 45 - Create Your Own Android Apps",
+      "title_id": "Lesson 45 - Create Your Own Android Apps: Hapus Data",
+      "title_en": "Lesson 45 - Create Your Own Android Apps: Delete Process",
+      "objectives": [
+        "Membuat proses konfirmasi dan penghapusan data dari aplikasi dan database"
+      ],
+      "objectives_en": [
+        "Create a Data Delete Process"
+      ]
+    },
+    {
+      "num": 46,
+      "title": "Lesson 46 - Create Your Own Android Apps",
+      "title_id": "Lesson 46 - Create Your Own Android Apps: Detail, Search & Sort",
+      "title_en": "Lesson 46 - Create Your Own Android Apps: Detail, Search & Sort",
+      "objectives": [
+        "Membuat halaman Detail Screen untuk menampilkan informasi lengkap item",
+        "Menambahkan fitur Search Bar pencarian data",
+        "Mengurutkan data (sorting) berdasarkan kriteria tertentu"
+      ],
+      "objectives_en": [
+        "Create Detail Screen",
+        "Add Search Bar",
+        "Sorting The Data"
+      ]
+    },
+    {
+      "num": 47,
+      "title": "Lesson 47 - Create Your Own Android Apps",
+      "title_id": "Lesson 47 - Create Your Own Android Apps: Brainstorming & Pengujian",
+      "title_en": "Lesson 47 - Create Your Own Android Apps: Brainstorming & Testing",
+      "objectives": [
+        "Melakukan sesi brainstorming penyempurnaan fitur dan alur aplikasi",
+        "Melakukan revisi desain antarmuka dan perbaikan bug",
+        "Menyelesaikan checklist fitur dan pengujian menyeluruh (end-to-end testing)"
+      ],
+      "objectives_en": [
+        "Brainstorming",
+        "Revise",
+        "Task and Test"
+      ]
+    },
+    {
+      "num": 48,
+      "title": "Lesson 48 - Create Your Own Android Apps",
+      "title_id": "Lesson 48 - Create Your Own Android Apps: Presentasi Akhir & Ujian",
+      "title_en": "Lesson 48 - Create Your Own Android Apps: Final Presentation & Exam",
+      "objectives": [
+        "Mempresentasikan proyek aplikasi mobile Android karya mandiri",
+        "Menyelesaikan Ujian Akhir Android Apps Development 3",
+        "Melakukan final project submission dan menerima evaluasi"
+      ],
+      "objectives_en": [
+        "Presentation",
+        "Android Apps Development 3 Exam",
+        "Project Submission"
+      ]
+    }
+  ],
+  "AI Development": [
+    {
+      "num": 1,
+      "title": "Lesson 1 - Introduction to AI and Python",
+      "title_id": "Lesson 1 - Introduction to AI and Python",
+      "title_en": "Lesson 1 - Introduction to AI and Python",
+      "objectives": [
+        "Pengenalan konsep Artificial Intelligence",
+        "Pengenalan Python Programming",
+        "Melakukan setup installation untuk Python",
+        "Mengetahui syntax basic Python",
+        "Memahami Variable / Datatype / Operator / Input menggunakan Python"
+      ],
+      "objectives_en": [
+        "Pengenalan konsep Artificial Intelligence",
+        "Pengenalan Python Programming",
+        "Melakukan setup installation untuk Python",
+        "Mengetahui syntax basic Python",
+        "Memahami Variable / Datatype / Operator / Input menggunakan Python"
+      ]
+    },
+    {
+      "num": 2,
+      "title": "Lesson 2 - Python Data Structure",
+      "title_id": "Lesson 2 - Python Data Structure",
+      "title_en": "Lesson 2 - Python Data Structure",
+      "objectives": [
+        "Mempelajari Struktur Data dalam Python",
+        "Memahami penggunaan Daftar (1D, 2D)",
+        "Memahami metode untuk memanipulasi daftar",
+        "Memahami penggunaan Tuples",
+        "Membuat Proyek Pembuat Kata Sandi"
+      ],
+      "objectives_en": [
+        "Mempelajari Struktur Data dalam Python",
+        "Memahami penggunaan Daftar (1D, 2D)",
+        "Memahami metode untuk memanipulasi daftar",
+        "Memahami penggunaan Tuples",
+        "Membuat Proyek Pembuat Kata Sandi"
+      ]
+    },
+    {
+      "num": 3,
+      "title": "Lesson 3 - Dictionary",
+      "title_id": "Lesson 3 - Dictionary",
+      "title_en": "Lesson 3 - Dictionary",
+      "objectives": [
+        "Memahami konsep dictionary",
+        "Mengetahui cara membuat dictionary dan metode yang digunakan dalam dictionaries",
+        "Menggabungkan beberapa struktur data menjadi satu",
+        "Membuat proyek Dictionary Film"
+      ],
+      "objectives_en": [
+        "Memahami konsep dictionary",
+        "Mengetahui cara membuat dictionary dan metode yang digunakan dalam dictionaries",
+        "Menggabungkan beberapa struktur data menjadi satu",
+        "Membuat proyek Dictionary Film"
+      ]
+    },
+    {
+      "num": 4,
+      "title": "Lesson 4 - Looping in Python",
+      "title_id": "Lesson 4 - Looping in Python",
+      "title_en": "Lesson 4 - Looping in Python",
+      "objectives": [
+        "Memahami konsep looping",
+        "Memahami contoh penggunaan loops for dalam Python",
+        "Memahami contoh penggunaan loops while di Python",
+        "Teknik looping satu baris",
+        "Looping exercise"
+      ],
+      "objectives_en": [
+        "Memahami konsep looping",
+        "Memahami contoh penggunaan loops for dalam Python",
+        "Memahami contoh penggunaan loops while di Python",
+        "Teknik looping satu baris",
+        "Looping exercise"
+      ]
+    },
+    {
+      "num": 5,
+      "title": "Lesson 5 - Condition in Python",
+      "title_id": "Lesson 5 - Condition in Python",
+      "title_en": "Lesson 5 - Condition in Python",
+      "objectives": [
+        "Memahami konsep conditions dalam Python",
+        "Memahami konsep conditions disi bersarang di Python",
+        "Menggabungkan conditions dengan perulangan",
+        "Membuat Proyek Jumbled Word"
+      ],
+      "objectives_en": [
+        "Memahami konsep conditions dalam Python",
+        "Memahami konsep conditions disi bersarang di Python",
+        "Menggabungkan conditions dengan perulangan",
+        "Membuat Proyek Jumbled Word"
+      ]
+    },
+    {
+      "num": 6,
+      "title": "Lesson 6 - Function in Chatbot",
+      "title_id": "Lesson 6 - Function in Chatbot",
+      "title_en": "Lesson 6 - Function in Chatbot",
+      "objectives": [
+        "Memahami functions  dalam Python",
+        "functions bawaan dalam Python",
+        "functions yang ditentukan pengguna dalam Python",
+        "Scope rules di Python",
+        "Membuat Chatbot Discord menggunakan Discord.py"
+      ],
+      "objectives_en": [
+        "Memahami functions  dalam Python",
+        "functions bawaan dalam Python",
+        "functions yang ditentukan pengguna dalam Python",
+        "Scope rules di Python",
+        "Membuat Chatbot Discord menggunakan Discord.py"
+      ]
+    },
+    {
+      "num": 7,
+      "title": "Lesson 7 - Object Oriented Programming (OOP)",
+      "title_id": "Lesson 7 - Object Oriented Programming (OOP)",
+      "title_en": "Lesson 7 - Object Oriented Programming (OOP)",
+      "objectives": [
+        "Memahami konsep OOP",
+        "Membedakan Object, Class, Method, dan Property",
+        "Memahami konsep inheritance dalam OOP",
+        "Membuat game sederhana menggunakan OOP"
+      ],
+      "objectives_en": [
+        "Memahami konsep OOP",
+        "Membedakan Object, Class, Method, dan Property",
+        "Memahami konsep inheritance dalam OOP",
+        "Membuat game sederhana menggunakan OOP"
+      ]
+    },
+    {
+      "num": 8,
+      "title": "Lesson 8 - Summary and Middle Exam",
+      "title_id": "Lesson 8 - Summary and Middle Exam",
+      "title_en": "Lesson 8 - Summary and Middle Exam",
+      "objectives": [
+        "Review Concepts",
+        "Middle Exam"
+      ],
+      "objectives_en": [
+        "Review Concepts",
+        "Middle Exam"
+      ]
+    },
+    {
+      "num": 9,
+      "title": "Lesson 9 - Sorting and Searching Algorithm",
+      "title_id": "Lesson 9 - Sorting and Searching Algorithm",
+      "title_en": "Lesson 9 - Sorting and Searching Algorithm",
+      "objectives": [
+        "Konsep Sorting",
+        "Memahami bagaimana bubble sort dan insertion sort algorithms work",
+        "Menerapkan code untuk bubble sort and insertion sort algorithms",
+        "Memahami cara kerja algorithm pencarian linear",
+        "Menerapkan kode untuk algorithm pencarian linier"
+      ],
+      "objectives_en": [
+        "Konsep Sorting",
+        "Memahami bagaimana bubble sort dan insertion sort algorithms work",
+        "Menerapkan code untuk bubble sort and insertion sort algorithms",
+        "Memahami cara kerja algorithm pencarian linear",
+        "Menerapkan kode untuk algorithm pencarian linier"
+      ]
+    },
+    {
+      "num": 10,
+      "title": "Lesson 10 - Python Libraries and Numpy",
+      "title_id": "Lesson 10 - Python Libraries and Numpy",
+      "title_en": "Lesson 10 - Python Libraries and Numpy",
+      "objectives": [
+        "Memahami apa itu Python libraries dan contoh-contohnya",
+        "Memahami cara memasang Python libraries",
+        "Menggunakan Numpy library",
+        "Membuat Numpy arrays (1D, 2D, 3D) dan memanipulasinya",
+        "Membuat  TicTacToe project menggunakan Numpy"
+      ],
+      "objectives_en": [
+        "Memahami apa itu Python libraries dan contoh-contohnya",
+        "Memahami cara memasang Python libraries",
+        "Menggunakan Numpy library",
+        "Membuat Numpy arrays (1D, 2D, 3D) dan memanipulasinya",
+        "Membuat  TicTacToe project menggunakan Numpy"
+      ]
+    },
+    {
+      "num": 11,
+      "title": "Lesson 11 - Pandas data frame",
+      "title_id": "Lesson 11 - Pandas data frame",
+      "title_en": "Lesson 11 - Pandas data frame",
+      "objectives": [
+        "Memahami data dan jenis data",
+        "Memahami pentingnya data",
+        "Memahami mekanisme pengumpulan data",
+        "Pengenalan alat bantu pemrosesan data (Google Colab)",
+        "Memahami cara memanipulasi dataframe menggunakan pandas"
+      ],
+      "objectives_en": [
+        "Memahami data dan jenis data",
+        "Memahami pentingnya data",
+        "Memahami mekanisme pengumpulan data",
+        "Pengenalan alat bantu pemrosesan data (Google Colab)",
+        "Memahami cara memanipulasi dataframe menggunakan pandas"
+      ]
+    },
+    {
+      "num": 12,
+      "title": "Lesson 12 - Analyze the Data",
+      "title_id": "Lesson 12 - Analyze the Data",
+      "title_en": "Lesson 12 - Analyze the Data",
+      "objectives": [
+        "Memahami cara mendefinisikan pertanyaan bisnis",
+        "Memahami alur analisis data",
+        "Membuat proyek analisis data e-commerce",
+        "Memahami mekanisme penilaian data",
+        "Memahami mekanisme pembersihan data"
+      ],
+      "objectives_en": [
+        "Memahami cara mendefinisikan pertanyaan bisnis",
+        "Memahami alur analisis data",
+        "Membuat proyek analisis data e-commerce",
+        "Memahami mekanisme penilaian data",
+        "Memahami mekanisme pembersihan data"
+      ]
+    },
+    {
+      "num": 13,
+      "title": "Lesson 13 - Exploratory data analysis",
+      "title_id": "Lesson 13 - Exploratory data analysis",
+      "title_en": "Lesson 13 - Exploratory data analysis",
+      "objectives": [
+        "Memahami tahapan data analysis eksploratori (EDA) dalam data analysis",
+        "Menerapkan teknik pengelompokan data",
+        "Memahami konsep data visualization yang efektif",
+        "Mengetahui cara mengubah set data",
+        "Menjawab pertanyaan bisnis"
+      ],
+      "objectives_en": [
+        "Memahami tahapan data analysis eksploratori (EDA) dalam data analysis",
+        "Menerapkan teknik pengelompokan data",
+        "Memahami konsep data visualization yang efektif",
+        "Mengetahui cara mengubah set data",
+        "Menjawab pertanyaan bisnis"
+      ]
+    },
+    {
+      "num": 14,
+      "title": "Lesson 14 - Probability",
+      "title_id": "Lesson 14 - Probability",
+      "title_en": "Lesson 14 - Probability",
+      "objectives": [
+        "Memahami hubungan antara  probability dan artificial intelligence",
+        "Memahami konsep dasar probability",
+        "Memecahkan masalah probability sederhana seperti koin dan dadu",
+        "Memahami konsep distribusi",
+        "Memecahkan masalah ulang tahun"
+      ],
+      "objectives_en": [
+        "Memahami hubungan antara  probability dan artificial intelligence",
+        "Memahami konsep dasar probability",
+        "Memecahkan masalah probability sederhana seperti koin dan dadu",
+        "Memahami konsep distribusi",
+        "Memecahkan masalah ulang tahun"
+      ]
+    },
+    {
+      "num": 15,
+      "title": "Lesson 15 - Review materials & Final Exam",
+      "title_id": "Lesson 15 - Review materials & Final Exam",
+      "title_en": "Lesson 15 - Review materials & Final Exam",
+      "objectives": [
+        "Review materials",
+        "Written Exam",
+        "Coding Exam - Part 1"
+      ],
+      "objectives_en": [
+        "Review materials",
+        "Written Exam",
+        "Coding Exam - Part 1"
+      ]
+    },
+    {
+      "num": 16,
+      "title": "Lesson 16 - Finishing the Exam",
+      "title_id": "Lesson 16 - Finishing the Exam",
+      "title_en": "Lesson 16 - Finishing the Exam",
+      "objectives": [
+        "Coding Exam - Part 2",
+        "Coding Exam submission"
+      ],
+      "objectives_en": [
+        "Coding Exam - Part 2",
+        "Coding Exam submission"
+      ]
+    },
+    {
+      "num": 17,
+      "title": "Lesson 17 - What is Machine Learning ?",
+      "title_id": "Lesson 17 - What is Machine Learning ?",
+      "title_en": "Lesson 17 - What is Machine Learning ?",
+      "objectives": [
+        "Mengetahui hubungan AI, Machine Learning, dan Deep Learning",
+        "Mengetahui apa itu Machine Learning dan kategorinya",
+        "Mengetahui cara kerja Machine Learning",
+        "Using Pandas as a dataframe manipulation library"
+      ],
+      "objectives_en": [
+        "Mengetahui hubungan AI, Machine Learning, dan Deep Learning",
+        "Mengetahui apa itu Machine Learning dan kategorinya",
+        "Mengetahui cara kerja Machine Learning",
+        "Using Pandas as a dataframe manipulation library"
+      ]
+    },
+    {
+      "num": 18,
+      "title": "Lesson 18 - Iris Flowers Classification",
+      "title_id": "Lesson 18 - Iris Flowers Classification",
+      "title_en": "Lesson 18 - Iris Flowers Classification",
+      "objectives": [
+        "Mengetahui cara kerja Classification",
+        "Membedakan data train dan data testing",
+        "Mengolah dan Mempersiapkan dataset Iris Flower",
+        "Membaca dan Memvisualisasikan dataset menggunakan Seaborn"
+      ],
+      "objectives_en": [
+        "Mengetahui cara kerja Classification",
+        "Membedakan data train dan data testing",
+        "Mengolah dan Mempersiapkan dataset Iris Flower",
+        "Membaca dan Memvisualisasikan dataset menggunakan Seaborn"
+      ]
+    },
+    {
+      "num": 19,
+      "title": "Lesson 19 - Iris Flowers Classification II",
+      "title_id": "Lesson 19 - Iris Flowers Classification II",
+      "title_en": "Lesson 19 - Iris Flowers Classification II",
+      "objectives": [
+        "Mengetahui cara kerja Algoritma KNN Classifier",
+        "Melakukan training model menggunakan algoritma KNN",
+        "Melakukan model evaluation",
+        "Melakukan proses parameter tuning dari model yang sudah dilatih",
+        "Melakukan prediksi dari model yang sudah dibuat"
+      ],
+      "objectives_en": [
+        "Mengetahui cara kerja Algoritma KNN Classifier",
+        "Melakukan training model menggunakan algoritma KNN",
+        "Melakukan model evaluation",
+        "Melakukan proses parameter tuning dari model yang sudah dilatih",
+        "Melakukan prediksi dari model yang sudah dibuat"
+      ]
+    },
+    {
+      "num": 20,
+      "title": "Lesson 20 - Natural Language Processing (NLP)",
+      "title_id": "Lesson 20 - Natural Language Processing (NLP)",
+      "title_en": "Lesson 20 - Natural Language Processing (NLP)",
+      "objectives": [
+        "Pengenalan konsep Natural Language Processing (NLP)",
+        "Mengetahui bagaimana cara NLP bekerja",
+        "Explorasi NLP menggunakan ChatGPT",
+        "Menggunakan NLTK untuk proses NLP di Python"
+      ],
+      "objectives_en": [
+        "Pengenalan konsep Natural Language Processing (NLP)",
+        "Mengetahui bagaimana cara NLP bekerja",
+        "Explorasi NLP menggunakan ChatGPT",
+        "Menggunakan NLTK untuk proses NLP di Python"
+      ]
+    },
+    {
+      "num": 21,
+      "title": "Lesson 21 - Sentiment Analysis Vectorization",
+      "title_id": "Lesson 21 - Sentiment Analysis Vectorization",
+      "title_en": "Lesson 21 - Sentiment Analysis Vectorization",
+      "objectives": [
+        "Mengetahui proses yang ada di dalam Sentiment Analysis",
+        "Mengetahui konsep Feature Extractin dan Vectorization",
+        "Membuat project Spotify Review Sentiment Analysis"
+      ],
+      "objectives_en": [
+        "Mengetahui proses yang ada di dalam Sentiment Analysis",
+        "Mengetahui konsep Feature Extractin dan Vectorization",
+        "Membuat project Spotify Review Sentiment Analysis"
+      ]
+    },
+    {
+      "num": 22,
+      "title": "Lesson 22 - Review Classification",
+      "title_id": "Lesson 22 - Review Classification",
+      "title_en": "Lesson 22 - Review Classification",
+      "objectives": [
+        "Mengetahui bagaimana cara kerja algortima Random Forest Classifier",
+        "Mengetahui bagaimana cara kerja Naive bayes Classifier bekerja",
+        "Meningkatkan skor akurasi model yang sudah di latih",
+        "Membuat prediksi berdasarkan model sentiment analysis yang sudah dibuat"
+      ],
+      "objectives_en": [
+        "Mengetahui bagaimana cara kerja algortima Random Forest Classifier",
+        "Mengetahui bagaimana cara kerja Naive bayes Classifier bekerja",
+        "Meningkatkan skor akurasi model yang sudah di latih",
+        "Membuat prediksi berdasarkan model sentiment analysis yang sudah dibuat"
+      ]
+    },
+    {
+      "num": 23,
+      "title": "Lesson 23 - Fake News Detection",
+      "title_id": "Lesson 23 - Fake News Detection",
+      "title_en": "Lesson 23 - Fake News Detection",
+      "objectives": [
+        "Mengimplementasikan penggunaan lain NLP",
+        "Membuat project Fake News Detection menggunakan konsep NLP",
+        "Membandingkan model Classification dan Regression",
+        "Memahami penggunaan algoritma Logistic Regression"
+      ],
+      "objectives_en": [
+        "Mengimplementasikan penggunaan lain NLP",
+        "Membuat project Fake News Detection menggunakan konsep NLP",
+        "Membandingkan model Classification dan Regression",
+        "Memahami penggunaan algoritma Logistic Regression"
+      ]
+    },
+    {
+      "num": 24,
+      "title": "Lesson 24 - Summary and Middle Exam",
+      "title_id": "Lesson 24 - Summary and Middle Exam",
+      "title_en": "Lesson 24 - Summary and Middle Exam",
+      "objectives": [
+        "Review Concepts",
+        "Middle Exam"
+      ],
+      "objectives_en": [
+        "Review Concepts",
+        "Middle Exam"
+      ]
+    },
+    {
+      "num": 25,
+      "title": "Lesson 25 - Time Series Forecasting",
+      "title_id": "Lesson 25 - Time Series Forecasting",
+      "title_en": "Lesson 25 - Time Series Forecasting",
+      "objectives": [
+        "Mengetahui konsep Time Series Forecasting",
+        "Mengetahui bagaimana konsep fungsi linear",
+        "Mengetahui cara kerja algoritma Linear Regression",
+        "Membuat project Population Prediction menggunakan model Linear Regression"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep Time Series Forecasting",
+        "Mengetahui bagaimana konsep fungsi linear",
+        "Mengetahui cara kerja algoritma Linear Regression",
+        "Membuat project Population Prediction menggunakan model Linear Regression"
+      ]
+    },
+    {
+      "num": 26,
+      "title": "Lesson 26 - Predict Future Sales",
+      "title_id": "Lesson 26 - Predict Future Sales",
+      "title_en": "Lesson 26 - Predict Future Sales",
+      "objectives": [
+        "Mengetahui konsep cara kerja Sales Forecasting",
+        "Membuat project Sales Prediction",
+        "Menggunakan library Plotly untuk VIsualisasi Data",
+        "Memahami konsep Feature Engineering",
+        "Membuat Feature data waktu berdasarkan Feature yang lain"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep cara kerja Sales Forecasting",
+        "Membuat project Sales Prediction",
+        "Menggunakan library Plotly untuk VIsualisasi Data",
+        "Memahami konsep Feature Engineering",
+        "Membuat Feature data waktu berdasarkan Feature yang lain"
+      ]
+    },
+    {
+      "num": 27,
+      "title": "Lesson 27 - Neural Network",
+      "title_id": "Lesson 27 - Neural Network",
+      "title_en": "Lesson 27 - Neural Network",
+      "objectives": [
+        "Mengetahui konsep Rolling Windows untuk investigasi data",
+        "Mengetahui konsep Exponentially Weighted Moving Average",
+        "Mengetahui konsep Logarithmic Transformation",
+        "Mengetahui Konsep Neural Network",
+        "Membuat prediksi menggukan model neural network"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep Rolling Windows untuk investigasi data",
+        "Mengetahui konsep Exponentially Weighted Moving Average",
+        "Mengetahui konsep Logarithmic Transformation",
+        "Mengetahui Konsep Neural Network",
+        "Membuat prediksi menggukan model neural network"
+      ]
+    },
+    {
+      "num": 28,
+      "title": "Lesson 28 - Unsupervised Learning",
+      "title_id": "Lesson 28 - Unsupervised Learning",
+      "title_en": "Lesson 28 - Unsupervised Learning",
+      "objectives": [
+        "Understanding Concept about Unsupervised learning",
+        "Identify type of Unsupervised learning",
+        "Understanding concept of Clustering using K Means algorithm",
+        "Customer Segmentation project"
+      ],
+      "objectives_en": [
+        "Understanding Concept about Unsupervised learning",
+        "Identify type of Unsupervised learning",
+        "Understanding concept of Clustering using K Means algorithm",
+        "Customer Segmentation project"
+      ]
+    },
+    {
+      "num": 29,
+      "title": "Lesson 29 - Recommendation System",
+      "title_id": "Lesson 29 - Recommendation System",
+      "title_en": "Lesson 29 - Recommendation System",
+      "objectives": [
+        "Understanding the concept of Recommender System",
+        "Indentify the type of Recommender System",
+        "Understanding how content based filtering and collaborative filtering works",
+        "Implement it to Course Recommendation System"
+      ],
+      "objectives_en": [
+        "Understanding the concept of Recommender System",
+        "Indentify the type of Recommender System",
+        "Understanding how content based filtering and collaborative filtering works",
+        "Implement it to Course Recommendation System"
+      ]
+    },
+    {
+      "num": 30,
+      "title": "Lesson 30 - Anomaly Detection with Isolated Forest",
+      "title_id": "Lesson 30 - Anomaly Detection with Isolated Forest",
+      "title_en": "Lesson 30 - Anomaly Detection with Isolated Forest",
+      "objectives": [
+        "Understanding the detail concept of Unsupervised Anomaly Detection",
+        "Understanding the method for Anomaly Detection",
+        "Understanding how isolated forest algorithm works",
+        "Credit card fraud detection"
+      ],
+      "objectives_en": [
+        "Understanding the detail concept of Unsupervised Anomaly Detection",
+        "Understanding the method for Anomaly Detection",
+        "Understanding how isolated forest algorithm works",
+        "Credit card fraud detection"
+      ]
+    },
+    {
+      "num": 31,
+      "title": "Lesson 31 - Review materials & Final Exam",
+      "title_id": "Lesson 31 - Review materials & Final Exam",
+      "title_en": "Lesson 31 - Review materials & Final Exam",
+      "objectives": [
+        "Review materials",
+        "Written Exam",
+        "Coding Exam - Part 1"
+      ],
+      "objectives_en": [
+        "Review materials",
+        "Written Exam",
+        "Coding Exam - Part 1"
+      ]
+    },
+    {
+      "num": 32,
+      "title": "Lesson 32 - Finishing the Exam",
+      "title_id": "Lesson 32 - Finishing the Exam",
+      "title_en": "Lesson 32 - Finishing the Exam",
+      "objectives": [
+        "Coding Exam - Part 2",
+        "Coding Exam submission"
+      ],
+      "objectives_en": [
+        "Coding Exam - Part 2",
+        "Coding Exam submission"
+      ]
+    },
+    {
+      "num": 33,
+      "title": "Lesson 33 - OpenCV Image Manipulation",
+      "title_id": "Lesson 33 - OpenCV Image Manipulation",
+      "title_en": "Lesson 33 - OpenCV Image Manipulation",
+      "objectives": [
+        "Mengetahui konsep Computer Vision",
+        "Menggunakan OpenCV Library",
+        "Mengetahui konsep Image Processing",
+        "Mengetahui teknik blurring menggunakan OpenCV",
+        "Mengetahui Image Manipulation menggunakan OpenCV"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep Computer Vision",
+        "Menggunakan OpenCV Library",
+        "Mengetahui konsep Image Processing",
+        "Mengetahui teknik blurring menggunakan OpenCV",
+        "Mengetahui Image Manipulation menggunakan OpenCV"
+      ]
+    },
+    {
+      "num": 34,
+      "title": "Lesson 34 - Tensorflow dan CNN",
+      "title_id": "Lesson 34 - Tensorflow dan CNN",
+      "title_en": "Lesson 34 - Tensorflow dan CNN",
+      "objectives": [
+        "Mengetahui konsep dan kebutuhan pembuatan model computer vision",
+        "Mengetahui arsitektur model CNN",
+        "Mengetahui Tools Tensorflow untuk melatih model",
+        "Mengetahui Tools Tensorflow untuk melatih model"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep dan kebutuhan pembuatan model computer vision",
+        "Mengetahui arsitektur model CNN",
+        "Mengetahui Tools Tensorflow untuk melatih model",
+        "Mengetahui Tools Tensorflow untuk melatih model"
+      ]
+    },
+    {
+      "num": 35,
+      "title": "Lesson 35 - Horse and Human Classification",
+      "title_id": "Lesson 35 - Horse and Human Classification",
+      "title_en": "Lesson 35 - Horse and Human Classification",
+      "objectives": [
+        "Mengetahui sumber pengumpulan dataset Computer Vision",
+        "Mengetahui cara penggunaan Tensorflow dataset",
+        "Mengetahui cara melakukan data augmentasi menggunakan Image Data Generator",
+        "Membuat project Horse and Human Classification"
+      ],
+      "objectives_en": [
+        "Mengetahui sumber pengumpulan dataset Computer Vision",
+        "Mengetahui cara penggunaan Tensorflow dataset",
+        "Mengetahui cara melakukan data augmentasi menggunakan Image Data Generator",
+        "Membuat project Horse and Human Classification"
+      ]
+    },
+    {
+      "num": 36,
+      "title": "Lesson 36 - Face Detection",
+      "title_id": "Lesson 36 - Face Detection",
+      "title_en": "Lesson 36 - Face Detection",
+      "objectives": [
+        "Menggunakan Pre-trained model dan Machine Learning Framework",
+        "Membuat aplikasi face detection di gambar",
+        "Membuat aplikasi face detection di video"
+      ],
+      "objectives_en": [
+        "Menggunakan Pre-trained model dan Machine Learning Framework",
+        "Membuat aplikasi face detection di gambar",
+        "Membuat aplikasi face detection di video"
+      ]
+    },
+    {
+      "num": 37,
+      "title": "Lesson 37 - MobileNetSSD Object Detection",
+      "title_id": "Lesson 37 - MobileNetSSD Object Detection",
+      "title_en": "Lesson 37 - MobileNetSSD Object Detection",
+      "objectives": [
+        "Mengetahui arsitektur model Single Shot Detector (SSD)",
+        "Dapat membuat project Object Detection menggunakan Model SSD",
+        "Mengimplementasikan project object Detector baik itu di gambar atau di video"
+      ],
+      "objectives_en": [
+        "Mengetahui arsitektur model Single Shot Detector (SSD)",
+        "Dapat membuat project Object Detection menggunakan Model SSD",
+        "Mengimplementasikan project object Detector baik itu di gambar atau di video"
+      ]
+    },
+    {
+      "num": 38,
+      "title": "Lesson 38 - Object Detection VS Object Tracking",
+      "title_id": "Lesson 38 - Object Detection VS Object Tracking",
+      "title_en": "Lesson 38 - Object Detection VS Object Tracking",
+      "objectives": [
+        "Mengetahui konsep Object Tracking dan cara kerjanya",
+        "Mengetahui perbedaan Object Detection dan Tracking",
+        "Mengetahui konsep Euclidean Distance Tracker",
+        "Mengetahui konsep countour detection",
+        "Mengetahui konsep image thresholding"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep Object Tracking dan cara kerjanya",
+        "Mengetahui perbedaan Object Detection dan Tracking",
+        "Mengetahui konsep Euclidean Distance Tracker",
+        "Mengetahui konsep countour detection",
+        "Mengetahui konsep image thresholding"
+      ]
+    },
+    {
+      "num": 39,
+      "title": "Lesson 39 - Euclidean Distance Tracker Class",
+      "title_id": "Lesson 39 - Euclidean Distance Tracker Class",
+      "title_en": "Lesson 39 - Euclidean Distance Tracker Class",
+      "objectives": [
+        "Mengaplikasikan penggunaan Euclidean Distance Tracker Class",
+        "Menambahkan Unique Identification dari object yang terdeteksi untuk proses tracking",
+        "Menambahkan \"marker\" untuk object yang sedang di track"
+      ],
+      "objectives_en": [
+        "Mengaplikasikan penggunaan Euclidean Distance Tracker Class",
+        "Menambahkan Unique Identification dari object yang terdeteksi untuk proses tracking",
+        "Menambahkan \"marker\" untuk object yang sedang di track"
+      ]
+    },
+    {
+      "num": 40,
+      "title": "Lesson 40 - Review and Middle Exam",
+      "title_id": "Lesson 40 - Review and Middle Exam",
+      "title_en": "Lesson 40 - Review and Middle Exam",
+      "objectives": [
+        "Review Concepts",
+        "Middle Exam"
+      ],
+      "objectives_en": [
+        "Review Concepts",
+        "Middle Exam"
+      ]
+    },
+    {
+      "num": 41,
+      "title": "Lesson 41 - Automatic Number Plate Recognation (ANPR)",
+      "title_id": "Lesson 41 - Automatic Number Plate Recognation (ANPR)",
+      "title_en": "Lesson 41 - Automatic Number Plate Recognation (ANPR)",
+      "objectives": [
+        "Mengetahui konsep tentang Optical Character Recognition (OCR)",
+        "Mengatahui cara manipulasi image processing untuk OCR",
+        "Menggunakan library easyocr untuk ANPR",
+        "Mendalami konsep image masking dan contours detection"
+      ],
+      "objectives_en": [
+        "Mengetahui konsep tentang Optical Character Recognition (OCR)",
+        "Mengatahui cara manipulasi image processing untuk OCR",
+        "Menggunakan library easyocr untuk ANPR",
+        "Mendalami konsep image masking dan contours detection"
+      ]
+    },
+    {
+      "num": 42,
+      "title": "Lesson 42 - OCR Handwriting Recognation",
+      "title_id": "Lesson 42 - OCR Handwriting Recognation",
+      "title_en": "Lesson 42 - OCR Handwriting Recognation",
+      "objectives": [
+        "Mengetahui implementasi lain OCR / OCR Handwritting",
+        "Menggunakan pre-trained model menggunakan keras library",
+        "Menggunakan Image Processing untuk OCR Handwritting"
+      ],
+      "objectives_en": [
+        "Mengetahui implementasi lain OCR / OCR Handwritting",
+        "Menggunakan pre-trained model menggunakan keras library",
+        "Menggunakan Image Processing untuk OCR Handwritting"
+      ]
+    },
+    {
+      "num": 43,
+      "title": "Lesson 43 - hand Landmarks Detection",
+      "title_id": "Lesson 43 - hand Landmarks Detection",
+      "title_en": "Lesson 43 - hand Landmarks Detection",
+      "objectives": [
+        "Pengenalan Mediapipe Library untuk landmark detection",
+        "Menggunakana Mediapipe untuk Holistic Tracking",
+        "Mendalami konsep Image Manipulation di Video Frames",
+        "Membuat project Virtual Painter"
+      ],
+      "objectives_en": [
+        "Pengenalan Mediapipe Library untuk landmark detection",
+        "Menggunakana Mediapipe untuk Holistic Tracking",
+        "Mendalami konsep Image Manipulation di Video Frames",
+        "Membuat project Virtual Painter"
+      ]
+    },
+    {
+      "num": 44,
+      "title": "Lesson 44 - Find Landmark Position",
+      "title_id": "Lesson 44 - Find Landmark Position",
+      "title_en": "Lesson 44 - Find Landmark Position",
+      "objectives": [
+        "Mencari posisi landmark tangan menggunakan method enumerate()",
+        "Mengetahui klasifikasi landmark pada tangan",
+        "Menginisialisasi mode pada project Virtual Painter (Selection dan Drawing)",
+        "Finishing project dengan teknis Video Frame Masking"
+      ],
+      "objectives_en": [
+        "Mencari posisi landmark tangan menggunakan method enumerate()",
+        "Mengetahui klasifikasi landmark pada tangan",
+        "Menginisialisasi mode pada project Virtual Painter (Selection dan Drawing)",
+        "Finishing project dengan teknis Video Frame Masking"
+      ]
+    },
+    {
+      "num": 45,
+      "title": "Lesson 45 - Mediapipe Face Mesh",
+      "title_id": "Lesson 45 - Mediapipe Face Mesh",
+      "title_en": "Lesson 45 - Mediapipe Face Mesh",
+      "objectives": [
+        "Mengetahui anatomi Face Mesh di Mediapipe",
+        "Menggambar landmark menggunakan Face Mesh Landmark model",
+        "Membuat project Pig Face Filter menggunakan Mediapipe"
+      ],
+      "objectives_en": [
+        "Mengetahui anatomi Face Mesh di Mediapipe",
+        "Menggambar landmark menggunakan Face Mesh Landmark model",
+        "Membuat project Pig Face Filter menggunakan Mediapipe"
+      ]
+    },
+    {
+      "num": 46,
+      "title": "Lesson 46 - Mediapipe Facial Area",
+      "title_id": "Lesson 46 - Mediapipe Facial Area",
+      "title_en": "Lesson 46 - Mediapipe Facial Area",
+      "objectives": [
+        "Mengetahui implementasi dari Face Mesh Landmark",
+        "Mengetahui Facial Area yang ada di dalam Mediapipe",
+        "Membuat project Face FIlter Dragon Project",
+        "Membuat class Face Mesh untuk mendeteksi Facial Area"
+      ],
+      "objectives_en": [
+        "Mengetahui implementasi dari Face Mesh Landmark",
+        "Mengetahui Facial Area yang ada di dalam Mediapipe",
+        "Membuat project Face FIlter Dragon Project",
+        "Membuat class Face Mesh untuk mendeteksi Facial Area"
+      ]
+    },
+    {
+      "num": 47,
+      "title": "Lesson 47 - Detect Mouth and Eye",
+      "title_id": "Lesson 47 - Detect Mouth and Eye",
+      "title_en": "Lesson 47 - Detect Mouth and Eye",
+      "objectives": [
+        "Mengidentifikasi apakah mulut terbuka atau tidak",
+        "Mengidentifikasi apakah mulut terbuka atau tidak",
+        "Melakukan Video masking untuk menempelkan efek filter ke dalam frames"
+      ],
+      "objectives_en": [
+        "Mengidentifikasi apakah mulut terbuka atau tidak",
+        "Mengidentifikasi apakah mulut terbuka atau tidak",
+        "Melakukan Video masking untuk menempelkan efek filter ke dalam frames"
+      ]
+    },
+    {
+      "num": 48,
+      "title": "Lesson 48 - Summary and Final Exam",
+      "title_id": "Lesson 48 - Summary and Final Exam",
+      "title_en": "Lesson 48 - Summary and Final Exam",
+      "objectives": [
+        "Review Concepts",
+        "Final Exam"
+      ],
+      "objectives_en": [
+        "Review Concepts",
+        "Final Exam"
+      ]
+    }
+  ]
 };
 
 const COURSE_MAP = {
   "Juniors": [
-    "Little Programmer",
     "3D ANIMATOR",
     "Website Designer",
-    "Virtual World Maker"
+    "Virtual World Maker",
+    "Little Programmer"
   ],
   "Junior": [
-    "Little Programmer",
     "3D ANIMATOR",
     "Website Designer",
-    "Virtual World Maker"
+    "Virtual World Maker",
+    "Little Programmer"
   ],
   "Kids": [
     "Coding Explorer",
@@ -7433,8 +9001,8 @@ const COURSE_MAP = {
     "Web Developer Teens",
     "Android Developer",
     "Python for Data Science",
-    "AI Computer Vision",
-    "AI Machine Learning"
+    "AI Machine Learning",
+    "AI Computer Vision"
   ],
   "Design": [
     "Teens Design Basic",
@@ -7452,4 +9020,3 @@ const COURSE_MAP = {
     "AI Development"
   ]
 };
-
