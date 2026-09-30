@@ -14,11 +14,48 @@ html{scroll-behavior:smooth;}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:linear-gradient(135deg,var(--bg) 0%,#f0fdf4 100%);color:var(--slate);min-height:100vh;overflow-x:hidden;}
 
 /* Nav */
-.topnav{background:linear-gradient(135deg,var(--g600),var(--g700));border-bottom:none;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:center;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 4px 20px rgba(21,128,61,.35);}
+.topnav{background:linear-gradient(135deg, #052e16 0%, #064e3b 45%, #00873e 85%, #00aa4f 100%);border-bottom:none;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:100;box-shadow:0 4px 24px rgba(0,170,79,.3);}
+.topnav-left{display:flex;align-items:center;gap:16px;}
+.topnav-right{display:flex;align-items:center;gap:12px;}
 .topnav-logo{height:40px;width:auto;flex-shrink:0;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.15));}
 .topnav h1{font-size:20px;font-weight:800;color:#fff;letter-spacing:-.5px;text-shadow:0 1px 3px rgba(0,0,0,.15);}
 .topnav-divider{width:1px;height:28px;background:rgba(255,255,255,.3);flex-shrink:0;}
 .topnav-subtitle{font-size:12px;color:rgba(255,255,255,.75);font-weight:500;letter-spacing:.3px;}
+
+/* Theme Toggle Button in Navbar */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+.theme-toggle-btn:active {
+  transform: scale(0.96);
+}
+.theme-icon {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+.theme-toggle-btn:hover .theme-icon {
+  transform: rotate(20deg);
+}
 .app-footer{text-align:center;padding:24px 20px;font-size:12px;color:var(--muted);border-top:1px solid var(--border);margin-top:8px;line-height:1.7;}
 .app-footer strong{color:var(--g600);}
 
@@ -183,6 +220,47 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
   border-radius: 24px;
   transform-origin: top left;
 }
+/* Modern Geometric Watermark Shapes (Replaces generic circular blobs) */
+.geo-shape {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  color: #00aa4f;
+  transition: transform 0.3s ease;
+}
+.geo-shape-tl {
+  top: -95px;
+  left: -95px;
+  width: 320px;
+  height: 320px;
+  transform: rotate(18deg);
+  opacity: 0.055;
+}
+.geo-shape-br {
+  bottom: -80px;
+  right: -70px;
+  width: 290px;
+  height: 290px;
+  color: #00aa4f;
+  opacity: 0.065;
+}
+.geo-shape-tr {
+  top: -45px;
+  right: -45px;
+  width: 170px;
+  height: 170px;
+  opacity: 0.04;
+  color: #10b981;
+  transform: rotate(45deg);
+}
+.geo-shape-bl {
+  bottom: -45px;
+  left: -40px;
+  width: 170px;
+  height: 170px;
+  opacity: 0.04;
+  color: #064e3b;
+}
 .blob{position:absolute;z-index:0;pointer-events:none;animation:blobFloat 8s ease-in-out infinite;}
 @keyframes blobFloat{0%,100%{transform:translate(0,0)}25%{transform:translate(10px,-10px)}50%{transform:translate(-5px,15px)}75%{transform:translate(8px,5px)}}
 .blob-tl{top:-80px;left:-80px;width:280px;height:280px;background:var(--g500);border-radius:60% 40% 55% 45% / 50% 60% 40% 50%;opacity:.08;}
@@ -206,7 +284,7 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
 
 /* Executive Header */
 .rpt-header {
-  background: linear-gradient(135deg, #14532d 0%, #16a34a 100%);
+  background: linear-gradient(135deg, #052e16 0%, #064e3b 40%, #00873e 80%, #00aa4f 100%);
   border-radius: 18px;
   padding: 20px 28px;
   display: flex;
@@ -214,7 +292,7 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
   align-items: center;
   gap: 20px;
   color: white;
-  box-shadow: 0 10px 28px rgba(20, 83, 45, 0.22);
+  box-shadow: 0 10px 28px rgba(0, 135, 62, 0.22);
 }
 .rpt-header-left {
   display: flex;
@@ -496,9 +574,10 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
   border: 1px solid #fbcfe8;
 }
 .card-level-badge.level-pro {
-  background: #f0fdfa;
-  color: #0d9488;
-  border: 1px solid #99f6e4;
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
 }
 .card-course-title {
   display: inline-block;
@@ -996,7 +1075,7 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
 }
 .lms-note-input {
   width: 100%;
-  min-height: 86px;
+  min-height: 110px;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 13px;
   color: #334155;
@@ -1045,6 +1124,335 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
 }
 .star-empty {
   color: #cbd5e1;
+}
+
+/* ============================================================
+   DARK MODE THEME SYSTEM (CANVAS ARTBOARD PATTERN)
+   Workspace adapts to modern Dark Mode, while Report Card Canvas
+   remains a pristine white document (parent-facing & print-safe).
+   ============================================================ */
+[data-theme="dark"] {
+  --bg: #090d16;
+  --white: #111827;
+  --border: #1e293b;
+  --slate: #f1f5f9;
+  --slate2: #cbd5e1;
+  --muted: #8292ab;
+  --g50: rgba(16, 185, 129, 0.08);
+  --g100: rgba(16, 185, 129, 0.15);
+  --g200: #134e4a;
+  --g300: #10b981;
+  --g400: #34d399;
+  --g500: #00aa4f;
+  --g600: #10b981;
+  --g700: #34d399;
+  --g900: #ecfdf5;
+  --shadow-sm: 0 2px 6px rgba(0,0,0,0.35);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.45);
+  --shadow-lg: 0 12px 32px rgba(0,0,0,0.55);
+  --shadow-xl: 0 20px 48px rgba(0,0,0,0.65);
+}
+
+[data-theme="dark"] body {
+  background: radial-gradient(circle at 15% 15%, #0f1c2e 0%, #070a11 60%, #05140e 100%);
+  color: #f1f5f9;
+}
+
+/* Dark mode navbar */
+[data-theme="dark"] .topnav {
+  background: linear-gradient(135deg, #021a0d 0%, #042f1a 50%, #064e3b 100%);
+  border-bottom: 1px solid rgba(0, 170, 79, 0.2);
+  box-shadow: 0 4px 28px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode main tab bar */
+[data-theme="dark"] .main-tab-bar {
+  background: #0d131f;
+  border-bottom-color: #1e293b;
+}
+[data-theme="dark"] .main-tab-btn {
+  color: #94a3b8;
+}
+[data-theme="dark"] .main-tab-btn:hover {
+  color: #f1f5f9;
+  background: rgba(255, 255, 255, 0.04);
+}
+[data-theme="dark"] .main-tab-btn.active {
+  color: #ffffff;
+}
+
+/* Dark mode cards in sidebar */
+[data-theme="dark"] .card {
+  background: #111827;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .card:hover {
+  border-color: #00aa4f;
+  box-shadow: 0 8px 24px rgba(0, 170, 79, 0.12);
+}
+[data-theme="dark"] .card-title {
+  color: #34d399;
+}
+[data-theme="dark"] .card-title::after {
+  background: linear-gradient(90deg, #134e4a, transparent);
+}
+
+/* Dark mode inputs, selects, textareas */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="date"],
+[data-theme="dark"] input[type="file"],
+[data-theme="dark"] textarea {
+  background-color: #0c121e;
+  border-color: #1e293b;
+  color: #f1f5f9;
+}
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+  background-color: #111a2c;
+  border-color: #00aa4f;
+}
+[data-theme="dark"] select {
+  background-color: #0c121e;
+  border-color: #1e293b;
+  color: #f1f5f9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+[data-theme="dark"] select option {
+  background-color: #111827;
+  color: #f1f5f9;
+}
+[data-theme="dark"] select:focus {
+  border-color: #00aa4f;
+  background-color: #111a2c;
+}
+
+/* Dark mode custom select */
+[data-theme="dark"] .c-select-trigger {
+  background: #0c121e;
+  border-color: #1e293b;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .c-select-trigger:hover {
+  border-color: #00aa4f;
+}
+[data-theme="dark"] .c-select-dropdown {
+  background: #111827;
+  border-color: #1e293b;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65);
+}
+[data-theme="dark"] .c-select-option {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .c-select-option:hover {
+  background-color: rgba(0, 170, 79, 0.18);
+  color: #34d399;
+}
+[data-theme="dark"] .c-select-option.disabled {
+  color: #64748b;
+}
+
+/* Dark mode student cards in sidebar */
+[data-theme="dark"] .student-card {
+  background: linear-gradient(135deg, #131c2e, #111827);
+  border-color: #1e293b;
+}
+[data-theme="dark"] .student-card:hover {
+  border-color: #00aa4f;
+}
+[data-theme="dark"] .student-card-header input {
+  color: #f1f5f9;
+}
+
+/* Dark mode language toggle buttons */
+[data-theme="dark"] .lang-toggle {
+  background: #0c121e;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .lang-btn {
+  color: #94a3b8;
+}
+[data-theme="dark"] .lang-btn:hover {
+  color: #f1f5f9;
+}
+[data-theme="dark"] .lang-btn.active {
+  background: #00aa4f;
+  color: #ffffff;
+}
+
+/* Dark mode buttons & action controls */
+[data-theme="dark"] .btn-add {
+  background: rgba(0, 170, 79, 0.12);
+  border-color: #134e4a;
+  color: #34d399;
+}
+[data-theme="dark"] .btn-add:hover {
+  background: rgba(0, 170, 79, 0.22);
+  border-color: #00aa4f;
+  color: #6ee7b7;
+}
+[data-theme="dark"] .tip-box {
+  background: #0c121e;
+  border-color: #1e293b;
+  color: #94a3b8;
+}
+[data-theme="dark"] .tip-box strong {
+  color: #34d399;
+}
+
+/* Dark mode WhatsApp box */
+[data-theme="dark"] textarea.wa-bubble,
+[data-theme="dark"] .wa-bubble {
+  background: #0c121e;
+  border-color: #1e293b;
+  color: #cbd5e1;
+}
+[data-theme="dark"] textarea.wa-bubble:focus {
+  background: #101726;
+  border-color: #00aa4f;
+}
+[data-theme="dark"] .btn-copy-wa {
+  background: #151f32;
+  border-color: #26354f;
+  color: #34d399;
+}
+[data-theme="dark"] .btn-copy-wa:hover {
+  background: #1e2d48;
+  color: #6ee7b7;
+}
+
+/* Dark mode Exam Report preview & cards */
+[data-theme="dark"] .exam-report-card {
+  background: #111827;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .exam-report-card:hover {
+  border-color: #00aa4f;
+}
+[data-theme="dark"] .exam-report-header {
+  border-bottom-color: #1e293b;
+}
+[data-theme="dark"] .exam-student-title {
+  color: #34d399;
+}
+[data-theme="dark"] .exam-course-badge {
+  background: #0c121e;
+  color: #cbd5e1;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .exam-scores-box {
+  background: #0c121e;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .score-cat-title {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .exam-score-input {
+  background: #151f32;
+  border-color: #26354f;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .lms-table-responsive {
+  border-color: #1e293b;
+}
+[data-theme="dark"] .lms-table tbody td {
+  background: #111827;
+  border-bottom-color: #1e293b;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .lms-table tbody tr:hover td {
+  background: #151e30;
+}
+[data-theme="dark"] .lms-criteria-cell {
+  color: #cbd5e1;
+}
+[data-theme="dark"] .lms-criteria-cell strong {
+  color: #f1f5f9;
+}
+[data-theme="dark"] .lms-note-input {
+  background: #0c121e;
+  border-color: #1e293b;
+  color: #cbd5e1;
+}
+[data-theme="dark"] .lms-note-input:hover {
+  background: #111a2a;
+  border-color: #334155;
+}
+[data-theme="dark"] .lms-note-input:focus {
+  background: #111a2a;
+  border-color: #00aa4f;
+}
+[data-theme="dark"] .btn-copy-exam {
+  background: rgba(0, 170, 79, 0.15);
+  border-color: #00aa4f;
+  color: #34d399;
+}
+[data-theme="dark"] .btn-copy-mini {
+  background: rgba(0, 170, 79, 0.15);
+  border-color: #00aa4f;
+  color: #34d399;
+}
+
+/* Dark mode modal & footer */
+[data-theme="dark"] .modal-box {
+  background: #111827;
+  color: #f1f5f9;
+  border: 1px solid #1e293b;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+[data-theme="dark"] .app-footer {
+  border-top-color: #1e293b;
+  color: #64748b;
+}
+
+/* ============================================================
+   CANVAS PRESERVATION: REPORT CARD PREVIEW
+   The Report Card MUST REMAIN a pristine white document artboard!
+   ============================================================ */
+#report-preview, #auto-report-preview {
+  background: #ffffff !important;
+  color: #1e293b !important;
+  box-shadow: 0 25px 65px -10px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme="dark"] .preview-area {
+  background: transparent;
+}
+[data-theme="dark"] .preview-header-bar {
+  color: #94a3b8;
+}
+[data-theme="dark"] .btn-zoom-toggle {
+  background: #111827;
+  border-color: #1e293b;
+  color: #cbd5e1;
+}
+[data-theme="dark"] .btn-zoom-toggle:hover {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+/* Ensure all content inside the white report canvas stays official */
+#report-preview *, #auto-report-preview * {
+  box-sizing: border-box;
+}
+#report-preview .student-name-text, #auto-report-preview .student-name-text {
+  color: #0f172a !important;
+}
+#report-preview .card-course-title, #auto-report-preview .card-course-title {
+  color: #1e293b !important;
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+#report-preview .card-progress-col, #auto-report-preview .card-progress-col {
+  color: #334155 !important;
+}
+#report-preview .rc-th, #auto-report-preview .rc-th {
+  color: #475569 !important;
+}
+#report-preview .rpt-footer, #auto-report-preview .rpt-footer {
+  color: #64748b !important;
+  border-top-color: #e2e8f0 !important;
+}
+#report-preview .rpt-student-card, #auto-report-preview .rpt-student-card {
+  border-bottom-color: #f1f5f9 !important;
 }
 
 

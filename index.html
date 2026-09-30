@@ -11,17 +11,31 @@
   <meta name="robots" content="noindex, nofollow">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.3.1">
+  <link rel="stylesheet" href="css/style.css?v=2.4.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('td_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
 </head>
 
 <body>
 
   <nav class="topnav">
-    <img src="img/timedoor_logo_putih.png" class="topnav-logo" alt="Timedoor Academy">
-    <div class="topnav-divider"></div>
-    <h1>Meeting Report Generator</h1>
+    <div class="topnav-left">
+      <img src="img/timedoor_logo_putih.png" class="topnav-logo" alt="Timedoor Academy">
+      <div class="topnav-divider"></div>
+      <h1>Meeting Report Generator</h1>
+    </div>
+    <div class="topnav-right">
+      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+        <span class="theme-icon" id="theme-toggle-icon">🌙</span>
+        <span class="theme-text" id="theme-toggle-text">Dark Mode</span>
+      </button>
+    </div>
   </nav>
 
   <div class="main-tab-bar">
@@ -92,16 +106,27 @@
 
     <div class="preview-area">
       <div class="preview-header-bar">
-        <div class="preview-label"><span class="live-dot"></span><span id="auto-preview-label-text">Live Preview — Daily Report</span></div>
+        <div class="preview-label"><span class="live-dot"></span><span id="auto-preview-label-text">Preview Report</span></div>
         <button type="button" class="btn-zoom-toggle" id="btn-zoom-auto" onclick="toggleZoomMode('auto')" title="Toggle View Mode">🔍 Fit to Screen</button>
       </div>
       <div class="preview-scroll" id="scroll-auto">
         <div class="preview-scale-wrapper" id="wrapper-auto">
           <div id="auto-report-preview">
-          <div class="blob blob-tl"></div>
-          <div class="blob blob-tr"></div>
-          <div class="blob blob-br"></div>
-          <div class="blob blob-bl"></div>
+          <!-- Timedoor Modern Geometric Pattern Background Shapes -->
+          <svg class="geo-shape geo-shape-1 geo-shape-tl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 129.89 97.39 L 192.57 78.63 L 192.57 121.37 L 129.89 102.61 L 122.98 119.28 L 180.56 150.34 L 150.34 180.56 L 119.28 122.98 L 102.61 129.89 L 121.37 192.57 L 78.63 192.57 L 97.39 129.89 L 80.72 122.98 L 49.66 180.56 L 19.44 150.34 L 77.02 119.28 L 70.11 102.61 L 7.43 121.37 L 7.43 78.63 L 70.11 97.39 L 77.02 80.72 L 19.44 49.66 L 49.66 19.44 L 80.72 77.02 L 97.39 70.11 L 78.63 7.43 L 121.37 7.43 L 102.61 70.11 L 119.28 77.02 L 150.34 19.44 L 180.56 49.66 L 122.98 80.72 Z" fill="currentColor"/>
+          </svg>
+          <svg class="geo-shape geo-shape-2 geo-shape-br" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="36" y="36" width="128" height="128" rx="36" transform="rotate(45 100 100)" fill="currentColor"/>
+            <circle cx="100" cy="100" r="28" fill="#ffffff" opacity="0.95"/>
+          </svg>
+          <svg class="geo-shape geo-shape-1 geo-shape-tr" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 129.89 97.39 L 192.57 78.63 L 192.57 121.37 L 129.89 102.61 L 122.98 119.28 L 180.56 150.34 L 150.34 180.56 L 119.28 122.98 L 102.61 129.89 L 121.37 192.57 L 78.63 192.57 L 97.39 129.89 L 80.72 122.98 L 49.66 180.56 L 19.44 150.34 L 77.02 119.28 L 70.11 102.61 L 7.43 121.37 L 7.43 78.63 L 70.11 97.39 L 77.02 80.72 L 19.44 49.66 L 49.66 19.44 L 80.72 77.02 L 97.39 70.11 L 78.63 7.43 L 121.37 7.43 L 102.61 70.11 L 119.28 77.02 L 150.34 19.44 L 180.56 49.66 L 122.98 80.72 Z" fill="currentColor"/>
+          </svg>
+          <svg class="geo-shape geo-shape-2 geo-shape-bl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="42" y="42" width="116" height="116" rx="32" transform="rotate(45 100 100)" fill="currentColor"/>
+            <circle cx="100" cy="100" r="24" fill="#ffffff" opacity="0.95"/>
+          </svg>
 
           <!-- Executive Header Banner -->
           <div class="rpt-header rc">
@@ -216,7 +241,7 @@
   <script src="js/secure_data.js?v=2.2.6"></script>
   <script src="js/auth.js?v=2.2.6"></script>
   <!-- App logic: all UI functions, language switching, PDF/PNG export -->
-  <script src="js/app.js?v=2.2.9"></script>
+  <script src="js/app.js?v=2.4.0"></script>
   <script src="js/exam_report.js?v=2.3.2"></script>
 
   <!-- Exam Reminder Modal -->
