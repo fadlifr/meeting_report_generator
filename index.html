@@ -24,7 +24,19 @@
     <h1>Meeting Report Generator</h1>
   </nav>
 
-  <div class="app-layout">
+  <div class="main-tab-bar">
+    <div class="main-tab-bar-inner">
+      <button type="button" class="main-tab-btn active" id="tab-btn-daily" onclick="switchMainTab('daily')">
+        <span>📋 Daily Meeting Report</span>
+      </button>
+      <button type="button" class="main-tab-btn" id="tab-btn-exam" onclick="switchMainTab('exam')">
+        <span>🎓 Student Exam Report</span>
+        <span class="tab-badge-new">NEW</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="app-layout" id="view-daily">
     <aside class="sidebar">
       <div class="card">
         <div class="card-title">Class Information</div>
@@ -137,6 +149,62 @@
     </div>
   </div>
 
+  <!-- TAB 2: STUDENT EXAM REPORT (8-LESSON CYCLE) -->
+  <div class="app-layout" id="view-exam" style="display:none;">
+    <aside class="sidebar">
+      <div class="card">
+        <div class="card-title">Class Information</div>
+        <div class="form-row">
+          <div class="form-group"><label>Class Name</label><input type="text" id="exam-kelas" placeholder="T33A"></div>
+          <div class="form-group"><label>Date</label><input type="date" id="exam-tanggal"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🌐 Default Report Language</div>
+        <div class="lang-toggle">
+          <button type="button" id="exam-lang-btn-en" class="lang-btn active" onclick="setExamGlobalLang('en')">English</button>
+          <button type="button" id="exam-lang-btn-id" class="lang-btn" onclick="setExamGlobalLang('id')">Indonesia</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Student Exam Data & Scores</div>
+        <div class="students-list" id="exam-students-container"></div>
+        <button type="button" class="btn-add" id="exam-add-btn" onclick="addExamStudent()">+ Add Student</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">⚡ Batch Actions</div>
+        <button type="button" class="btn-generate" onclick="generateAllExamReports()" style="margin-bottom:8px;">
+          ⚡ Generate All Reports
+        </button>
+        <button type="button" class="btn-dl btn-dl-wa" onclick="copyAllExamReports()" style="width:100%">
+          📋 Copy All Reports Text
+        </button>
+        <div class="tip-box" style="margin-top:10px;">
+          <strong>How to use:</strong> Input student name, select course and report period, input scores (0-100). Click ⚡ Generate, then copy notes directly to LMS.
+        </div>
+      </div>
+    </aside>
+
+    <div class="exam-preview-area">
+      <div class="exam-preview-topbar">
+        <div class="exam-preview-title">
+          <span class="live-dot"></span>
+          <span>LMS Official Exam Report Preview</span>
+        </div>
+        <button type="button" class="btn-copy-exam" onclick="copyAllExamReports()">
+          📋 Copy All Reports Text
+        </button>
+      </div>
+
+      <div id="exam-preview-container">
+        <!-- Dynamic LMS Table cards rendered here -->
+      </div>
+    </div>
+  </div>
+
   <footer class="app-footer">
     <div>© 2026 <strong>Timedoor Academy</strong> — Meeting Report Generator</div>
     <div>All Rights Reserved &middot; Developed by <strong>FFR</strong> ☕🧑&zwj;💻 &middot; Original Concept by <strong>Mr. Alif</strong> &middot; Powered by <strong>Antigravity</strong> 🚀</div>
@@ -148,7 +216,8 @@
   <script src="js/secure_data.js?v=2.2.6"></script>
   <script src="js/auth.js?v=2.2.6"></script>
   <!-- App logic: all UI functions, language switching, PDF/PNG export -->
-  <script src="js/app.js?v=2.2.6"></script>
+  <script src="js/app.js?v=2.2.9"></script>
+  <script src="js/exam_report.js?v=2.2.9"></script>
 
   <!-- Exam Reminder Modal -->
   <div id="exam-reminder-modal" class="modal-overlay" style="display: none;">

@@ -704,3 +704,340 @@ textarea.wa-bubble:focus{outline:none;border-color:var(--g500);box-shadow:0 0 0 
 }
 .btn-close:hover { background: #cbd5e1; }
 
+/* ============================================================
+   MAIN TAB NAVIGATION (Daily Report vs Exam Report)
+   ============================================================ */
+.main-tab-bar {
+  background: var(--white);
+  border-bottom: 1.5px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 72px;
+  z-index: 99;
+}
+.main-tab-bar-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: flex;
+  gap: 8px;
+}
+.main-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.main-tab-btn:hover {
+  color: var(--g700);
+  background: var(--g50);
+}
+.main-tab-btn.active {
+  color: var(--g700);
+  border-bottom-color: var(--g500);
+}
+.tab-badge-new {
+  font-size: 10px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   EXAM REPORT — SIDEBAR SCORE INPUTS
+   ============================================================ */
+.exam-scores-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 4px;
+}
+.exam-score-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.exam-score-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.score-cat-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--slate);
+}
+.score-grade-badge {
+  font-size: 10.5px;
+  font-weight: 800;
+}
+.exam-score-input-wrap {
+  width: 65px;
+}
+.exam-score-input {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  color: var(--slate);
+}
+.exam-score-input:focus {
+  outline: none;
+  border-color: var(--g500);
+  box-shadow: 0 0 0 3px rgba(34,197,94,.15);
+}
+
+/* ============================================================
+   EXAM REPORT — LMS OFFICIAL TABLE REPLICA
+   ============================================================ */
+.exam-preview-area {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.exam-preview-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 14px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.exam-preview-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--slate2);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.exam-report-card {
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  padding: 20px 24px;
+  margin-bottom: 20px;
+  transition: all 0.25s ease;
+}
+.exam-report-card:hover {
+  border-color: var(--g300);
+  box-shadow: var(--shadow-md);
+}
+.exam-report-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.exam-report-student-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.exam-student-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #14532d;
+}
+.exam-period-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.exam-course-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.btn-copy-exam {
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1.5px solid #86efac;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-copy-exam:hover {
+  background: #dcfce7;
+  border-color: #22c55e;
+  transform: translateY(-1px);
+}
+.lms-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+.lms-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-align: left;
+}
+.lms-table thead th {
+  background: #00aa4f; /* Timedoor LMS Official Green */
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 14px 16px;
+  border: none;
+  letter-spacing: 0.2px;
+}
+.lms-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.lms-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+.lms-table tbody td {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+  background: #ffffff;
+}
+.lms-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.lms-table tbody tr:hover td {
+  background: #fafafa;
+}
+.lms-criteria-cell {
+  color: #1e293b;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.lms-criteria-cell strong {
+  display: block;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+.btn-copy-mini {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #16a34a;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-copy-mini:hover {
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+.lms-note-cell {
+  padding-right: 14px;
+}
+.lms-note-input {
+  width: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  color: #334155;
+  line-height: 1.6;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+  resize: vertical;
+  transition: border-color 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+}
+.lms-note-input:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+.lms-note-input:focus {
+  background: #ffffff;
+  border-color: var(--g500);
+  box-shadow: 0 0 0 3px rgba(34,197,94,.12);
+  outline: none;
+}
+.lms-score-cell {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  text-align: center;
+  padding-top: 22px;
+}
+.lms-grade-cell {
+  text-align: center;
+  padding-top: 18px;
+}
+.lms-grade-letter {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.lms-stars {
+  font-size: 15px;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.star-filled {
+  color: #eab308;
+}
+.star-empty {
+  color: #cbd5e1;
+}
+
+
