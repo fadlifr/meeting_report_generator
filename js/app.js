@@ -570,7 +570,7 @@ const LANG_UI = {
     waBtn: 'Kirim ke WhatsApp',
     waTitle: 'Preview Pesan WhatsApp',
     tip: '<strong>Cara pakai:</strong> Masukkan nama siswa → pilih kriteria, course, dan status lesson → klik ⚡ Generate untuk auto-generate teks progress.',
-    previewLabel: 'Preview Report',
+    previewLabel: 'Live Preview — Report',
     rptTitle: 'Laporan Progress<br><span>Siswa</span>',
     labelKelas: 'Kelas',
     labelTanggal: 'Tanggal',
@@ -658,7 +658,7 @@ const LANG_UI = {
     waBtn: 'Send to WhatsApp',
     waTitle: 'WhatsApp Message Preview',
     tip: '<strong>How to use:</strong> Enter student name → choose level, course, and lesson status → click ⚡ Generate to auto-create progress text.',
-    previewLabel: 'Preview Report',
+    previewLabel: 'Live Preview — Report',
     rptTitle: 'Student<br><span>Progress Report</span>',
     labelKelas: 'Class',
     labelTanggal: 'Date',
@@ -1591,36 +1591,4 @@ window.initApp = function() {
   }
   autoUpdatePreview();
   setTimeout(fitPreviewScale, 100);
-  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
-  updateThemeButtonUI(theme);
 };
-
-// ============================================================
-// THEME TOGGLE (DARK MODE / LIGHT MODE)
-// ============================================================
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'dark';
-  const next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  try {
-    localStorage.setItem('td_theme', next);
-  } catch (e) {}
-  updateThemeButtonUI(next);
-}
-
-function updateThemeButtonUI(theme) {
-  const icon = document.getElementById('theme-toggle-icon');
-  const text = document.getElementById('theme-toggle-text');
-  if (theme === 'dark') {
-    if (icon) icon.textContent = '☀️';
-    if (text) text.textContent = 'Light Mode';
-  } else {
-    if (icon) icon.textContent = '🌙';
-    if (text) text.textContent = 'Dark Mode';
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
-  updateThemeButtonUI(theme);
-});

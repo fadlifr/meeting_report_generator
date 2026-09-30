@@ -532,7 +532,7 @@ function renderExamPreview() {
                 <button type="button" class="btn-copy-mini" onclick="copyCriteriaNote(${idx}, 'concept')">📋 Copy</button>
               </td>
               <td class="lms-note-cell">
-                <textarea class="lms-note-input" id="lms-note-concept-${idx}" oninput="examStudents[${idx}].notes.concept=this.value" rows="5">${esc(s.notes.concept)}</textarea>
+                <textarea class="lms-note-input" id="lms-note-concept-${idx}" oninput="examStudents[${idx}].notes.concept=this.value" rows="4">${esc(s.notes.concept)}</textarea>
               </td>
             </tr>
 
@@ -543,7 +543,7 @@ function renderExamPreview() {
                 <button type="button" class="btn-copy-mini" onclick="copyCriteriaNote(${idx}, 'application')">📋 Copy</button>
               </td>
               <td class="lms-note-cell">
-                <textarea class="lms-note-input" id="lms-note-app-${idx}" oninput="examStudents[${idx}].notes.application=this.value" rows="5">${esc(s.notes.application)}</textarea>
+                <textarea class="lms-note-input" id="lms-note-app-${idx}" oninput="examStudents[${idx}].notes.application=this.value" rows="4">${esc(s.notes.application)}</textarea>
               </td>
             </tr>
 
@@ -554,7 +554,7 @@ function renderExamPreview() {
                 <button type="button" class="btn-copy-mini" onclick="copyCriteriaNote(${idx}, 'character')">📋 Copy</button>
               </td>
               <td class="lms-note-cell">
-                <textarea class="lms-note-input" id="lms-note-char-${idx}" oninput="examStudents[${idx}].notes.character=this.value" rows="5">${esc(s.notes.character)}</textarea>
+                <textarea class="lms-note-input" id="lms-note-char-${idx}" oninput="examStudents[${idx}].notes.character=this.value" rows="4">${esc(s.notes.character)}</textarea>
               </td>
             </tr>
           </tbody>
