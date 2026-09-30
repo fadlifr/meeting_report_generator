@@ -90,7 +90,7 @@ function getCurriculumContext(courseName, fromLesson, toLesson, lang) {
   if (typeof COURSE_DATA === 'undefined' || !COURSE_DATA[courseName]) {
     return {
       topics: lang === 'id' ? 'konsep dasar dan logika pemrograman' : 'core programming concepts and logic',
-      project: lang === 'id' ? 'project coding dan ujian praktik' : 'coding projects and practical exams'
+      project: lang === 'id' ? 'project coding dan ujian praktik' : 'the term coding project and practical exam'
     };
   }
 
@@ -102,28 +102,56 @@ function getCurriculumContext(courseName, fromLesson, toLesson, lang) {
     };
   }
 
-  // Collect key topics from objectives
+  // Collect key topics
   const allObjectives = [];
   lessons.forEach(l => {
-    const objs = (lang === 'en' && l.objectives_en) ? l.objectives_en : (l.objectives || []);
-    objs.forEach(o => {
-      const clean = o.replace(/^Memahami\s+|^Understanding\s+|^Mampu\s+|^Capable of\s+/i, '').trim();
-      if (clean && !allObjectives.includes(clean)) allObjectives.push(clean);
-    });
+    if (lang === 'en') {
+      if (l.objectives_en && l.objectives_en.length > 0) {
+        l.objectives_en.forEach(o => {
+          const clean = o.replace(/^Understanding\s+|^Capable of\s+|^Learning\s+/i, '').trim();
+          if (clean && !allObjectives.includes(clean)) allObjectives.push(clean);
+        });
+      } else {
+        // Fallback: use clean English lesson titles
+        const cleanTitle = (l.title_en || l.title || '').replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '').trim();
+        if (cleanTitle && !/^(?:overview|exam|review|ujian|kuis|exam\s*\d*)$/i.test(cleanTitle) && !allObjectives.includes(cleanTitle)) {
+          allObjectives.push(cleanTitle);
+        }
+      }
+    } else {
+      const objs = l.objectives || [];
+      objs.forEach(o => {
+        const clean = o.replace(/^Memahami\s+|^Mampu\s+|^Mempelajari\s+/i, '').trim();
+        if (clean && !allObjectives.includes(clean)) allObjectives.push(clean);
+      });
+    }
   });
 
   // Pick 3-4 representative topics
   const sampledTopics = allObjectives.slice(0, 4).join(', ');
   const topicsText = sampledTopics || (lang === 'id' ? 'konsep logika dan struktur kode' : 'core logic and coding structures');
 
-  // Find exam or project lesson (usually the last lesson in cycle)
-  const lastLesson = lessons[lessons.length - 1];
-  const lastTitle = (lang === 'id' && lastLesson.title_id) ? lastLesson.title_id : (lastLesson.title_en || lastLesson.title);
-  const cleanProject = lastTitle.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '').trim();
+  // Find exam or project lesson (usually the last or second to last lesson in cycle)
+  let cleanProject = '';
+  for (let i = lessons.length - 1; i >= 0; i--) {
+    const l = lessons[i];
+    const raw = (lang === 'id' && l.title_id) ? l.title_id : (l.title_en || l.title || '');
+    const clean = raw.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '').trim();
+    if (clean && !/^(?:exam|ujian|review|kuis|exam\s*\d*|overview and exam)$/i.test(clean)) {
+      cleanProject = clean;
+      break;
+    }
+  }
+
+  if (!cleanProject) {
+    cleanProject = lang === 'id' ? 'project coding dan ujian praktik' : 'the term coding project and practical exam';
+  } else {
+    cleanProject = (lang === 'id' ? `project ${cleanProject}` : `the ${cleanProject} project`);
+  }
 
   return {
     topics: topicsText,
-    project: cleanProject || (lang === 'id' ? 'project ujian' : 'exam project')
+    project: cleanProject
   };
 }
 
@@ -281,7 +309,7 @@ function renderExamInputs() {
         <div class="exam-scores-box">
           <div class="exam-score-row">
             <div class="exam-score-label">
-              <span class="score-cat-title">Coding Concept</span>
+              <span class="score-cat-title">Coding &amp; Literacy Concept</span>
               <span class="score-grade-badge" id="exam-badge-concept-${i}" style="color:${gConcept.color}">${gConcept.grade} (${gConcept.label})</span>
             </div>
             <div class="exam-score-input-wrap">
@@ -492,10 +520,8 @@ function renderExamPreview() {
         <table class="lms-table">
           <thead>
             <tr>
-              <th style="width: 170px;">Criteria</th>
+              <th style="width: 175px;">Criteria</th>
               <th>Teacher's Note</th>
-              <th style="width: 80px; text-align: center;">Score</th>
-              <th style="width: 140px; text-align: center;">Grade</th>
             </tr>
           </thead>
           <tbody>
@@ -508,11 +534,6 @@ function renderExamPreview() {
               <td class="lms-note-cell">
                 <textarea class="lms-note-input" id="lms-note-concept-${idx}" oninput="examStudents[${idx}].notes.concept=this.value" rows="4">${esc(s.notes.concept)}</textarea>
               </td>
-              <td class="lms-score-cell">${s.scores.concept}</td>
-              <td class="lms-grade-cell">
-                <div class="lms-grade-letter" style="color:${gConcept.color}">${gConcept.grade}</div>
-                <div class="lms-stars" title="${gConcept.label}">${renderStarsHTML(gConcept.starCount)}</div>
-              </td>
             </tr>
 
             <!-- Row 2: Coding Application -->
@@ -524,11 +545,6 @@ function renderExamPreview() {
               <td class="lms-note-cell">
                 <textarea class="lms-note-input" id="lms-note-app-${idx}" oninput="examStudents[${idx}].notes.application=this.value" rows="4">${esc(s.notes.application)}</textarea>
               </td>
-              <td class="lms-score-cell">${s.scores.application}</td>
-              <td class="lms-grade-cell">
-                <div class="lms-grade-letter" style="color:${gApp.color}">${gApp.grade}</div>
-                <div class="lms-stars" title="${gApp.label}">${renderStarsHTML(gApp.starCount)}</div>
-              </td>
             </tr>
 
             <!-- Row 3: Character -->
@@ -539,11 +555,6 @@ function renderExamPreview() {
               </td>
               <td class="lms-note-cell">
                 <textarea class="lms-note-input" id="lms-note-char-${idx}" oninput="examStudents[${idx}].notes.character=this.value" rows="4">${esc(s.notes.character)}</textarea>
-              </td>
-              <td class="lms-score-cell">${s.scores.character}</td>
-              <td class="lms-grade-cell">
-                <div class="lms-grade-letter" style="color:${gChar.color}">${gChar.grade}</div>
-                <div class="lms-stars" title="${gChar.label}">${renderStarsHTML(gChar.starCount)}</div>
               </td>
             </tr>
           </tbody>
@@ -574,7 +585,7 @@ function copyCriteriaNote(studentIdx, criteriaKey) {
 
   navigator.clipboard.writeText(note).then(() => {
     const titles = {
-      concept: 'Coding Concept',
+      concept: 'Coding & Literacy Concept',
       application: 'Coding Application',
       character: 'Character'
     };
@@ -647,7 +658,7 @@ function copyAllExamReports() {
     combined += `📊 *STUDENT PROGRESS REPORT — ${sName.toUpperCase()}*
 📚 Course: ${courseName} | Period: ${periodLabel}
 
-1. Coding Concept (${s.scores.concept} - Grade ${gConcept.grade}):
+1. Coding & Literacy Concept (${s.scores.concept} - Grade ${gConcept.grade}):
 ${s.notes.concept}
 
 2. Coding Application (${s.scores.application} - Grade ${gApp.grade}):
