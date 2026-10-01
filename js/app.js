@@ -1208,8 +1208,8 @@ function updateMascots() {
   let mascotSrc = 'img/cobee2.png'; // Teens (Default)
   if (criteria === 'Junior' || criteria === 'Juniors') mascotSrc = 'img/cobee4.png';
   if (criteria === 'Kids') mascotSrc = 'img/cobee5.png';
-  if (criteria === 'Design') mascotSrc = 'img/cobee2.png';
-  if (criteria === 'Pro') mascotSrc = 'img/cobee2.png';
+  if (criteria === 'Design') mascotSrc = 'img/cobee9.png';
+  if (criteria === 'Pro') mascotSrc = 'img/cobee10.png';
   
   const m2 = document.getElementById('auto-mascot');
   if (m2) m2.src = mascotSrc;
