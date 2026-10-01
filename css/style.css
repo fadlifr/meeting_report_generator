@@ -351,8 +351,8 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   transform: rotate(-8deg);
 }
 .wm-brackets {
-  top: 130px;
-  right: 28px;
+  top: 175px;
+  right: 10px;
   width: 64px;
   opacity: 0.45;
   transform: rotate(8deg);
@@ -373,25 +373,25 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   transform: rotate(-4deg);
 }
 .wm-diamond {
-  top: 320px;
-  left: 12px;
-  width: 75px;
-  opacity: 0.35;
-  transform: rotate(18deg);
+  top: 310px;
+  left: 4px;
+  width: 78px;
+  opacity: 0.42;
+  transform: rotate(-135deg);
 }
 .wm-badge {
-  top: 130px;
-  left: 24px;
+  top: 290px;
+  right: 12px;
   width: 62px;
   opacity: 0.45;
-  transform: rotate(-8deg);
+  transform: rotate(-6deg);
 }
 .wm-book {
-  top: 255px;
-  right: 18px;
+  bottom: 16px;
+  left: 50%;
   width: 85px;
-  opacity: 0.45;
-  transform: rotate(-10deg);
+  opacity: 0.48;
+  transform: translateX(-50%) rotate(4deg);
 }
 
 /* Front Mascot */
