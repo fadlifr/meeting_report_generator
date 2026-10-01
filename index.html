@@ -11,9 +11,9 @@
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.6.0">
+  <link rel="stylesheet" href="css/style.css?v=2.7.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
@@ -88,11 +88,20 @@
         <div class="card-title">Export & Share</div>
         <div class="download-group">
           <div class="download-row">
-            <button class="btn-dl btn-dl-png" id="abtn-png" onclick="downloadAutoPNG()">Download PNG</button>
-            <button class="btn-dl btn-dl-pdf" id="abtn-pdf" onclick="downloadAutoPDF()">Export PDF</button>
+            <button class="btn-dl btn-dl-png" id="abtn-png" onclick="downloadAutoPNG()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+              <span>Download PNG</span>
+            </button>
+            <button class="btn-dl btn-dl-pdf" id="abtn-pdf" onclick="downloadAutoPDF()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <span>Export PDF</span>
+            </button>
           </div>
           <button class="btn-dl btn-dl-wa" id="abtn-wa" onclick="openAutoWhatsApp()" style="width:100%"
-            id="auto-wa-btn">Send to WhatsApp</button>
+            id="auto-wa-btn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.983.54 1.777.818 2.796.818 3.182 0 5.769-2.587 5.77-5.766.001-3.181-2.585-5.767-5.77-5.767zm3.363 8.163c-.144.405-.837.774-1.17.822-.312.043-.655.062-1.071-.072-.888-.285-1.933-1.099-2.73-1.895-.815-.816-1.574-1.895-1.802-2.793-.102-.401-.005-.733.094-.972.109-.265.342-.472.483-.615.143-.143.238-.179.324-.179.117 0 .195.006.273.018.156.024.288.132.351.276.144.331.492 1.2.535 1.288.043.087.054.188.005.289-.049.102-.132.179-.205.263-.072.084-.156.186-.222.251-.084.084-.174.174-.072.35.102.174.455.75 1.002 1.238.703.626 1.298.82 1.48.911.182.091.289.078.397-.043.109-.12.463-.538.587-.723.123-.186.246-.156.411-.096.165.06 1.047.494 1.227.584.18.09.3.135.345.213.045.078.045.45-.099.855z"/></svg>
+            <span>Send to WhatsApp</span>
+          </button>
         </div>
         <div class="wa-preview">
           <div class="wa-preview-header">

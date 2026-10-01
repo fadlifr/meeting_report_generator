@@ -1,5 +1,6 @@
 :root{
-  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --g50:#f0fdf4;--g100:#dcfce7;--g200:#bbf7d0;--g300:#86efac;--g400:#34d399;
   --g500:#10b981;--g600:#059669;--g700:#047857;--g900:#064e3b;
   --slate:#0f172a;--slate2:#334155;--muted:#64748b;--border:#e2e8f0;
@@ -18,6 +19,9 @@
 html{scroll-behavior:smooth;}
 body{
   font-family:var(--font-main);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11', 'tnum';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background:radial-gradient(120% 120% at 50% 0%,#f0fdf4 0%,#ecfdf5 30%,#f8fafc 80%);
   color:var(--slate);
   min-height:100vh;
@@ -191,15 +195,81 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .btn-add:hover{background:linear-gradient(135deg,#14b8a6 0%,#0d9488 100%);border-color:transparent;transform:translateY(-2px);box-shadow:0 8px 22px rgba(13,148,136,.4);filter:brightness(1.05);}
 .btn-add:active{transform:scale(0.98);}
 
-.download-group{display:flex;flex-direction:column;gap:12px;}
-.download-row{display:flex;gap:12px;}
-.btn-dl{flex:1;padding:13px 16px;border:none;border-radius:var(--radius-sm);font-family:var(--font-main);font-size:13.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .25s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden;letter-spacing:0.3px;}
-.btn-dl-png{background:linear-gradient(135deg,#4338ca 0%,#6366f1 100%);color:#ffffff;box-shadow:0 4px 16px rgba(79,70,229,.28);}
-.btn-dl-png:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(79,70,229,.42);filter:brightness(1.06);}
-.btn-dl-pdf{background:linear-gradient(135deg,#b91c1c 0%,#dc2626 50%,#ef4444 100%);color:#ffffff;box-shadow:0 4px 16px rgba(220,38,38,.28);}
-.btn-dl-pdf:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(220,38,38,.42);filter:brightness(1.06);}
-.btn-dl-wa{background:linear-gradient(135deg,#047857 0%,#059669 50%,#10b981 100%);color:#ffffff;box-shadow:0 4px 18px rgba(5,150,105,.3);}
-.btn-dl-wa:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(5,150,105,.45);filter:brightness(1.06);}
+.download-group{display:flex;flex-direction:column;gap:10px;}
+.download-row{display:flex;gap:10px;}
+.btn-dl{
+  flex:1;
+  padding:10px 14px;
+  border-radius:var(--radius-sm);
+  font-family:var(--font-main);
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  letter-spacing:0.1px;
+}
+/* Secondary Buttons: PNG & PDF (Soft neutral slate styling, low contrast, zero competition with primary CTA) */
+.btn-dl-png, .btn-dl-pdf {
+  background: var(--white);
+  border: 1.5px solid #cbd5e1;
+  color: #334155;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.btn-dl-png:hover, .btn-dl-pdf:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+  color: #0f172a;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.06);
+}
+.btn-dl-png:active, .btn-dl-pdf:active {
+  transform: translateY(0);
+}
+.btn-dl-png svg, .btn-dl-pdf svg {
+  color: #64748b;
+  flex-shrink: 0;
+  transition: color .2s ease;
+}
+.btn-dl-png:hover svg, .btn-dl-pdf:hover svg {
+  color: #0f172a;
+}
+
+/* Primary Hero Call-to-Action: Send to WhatsApp */
+.btn-dl-wa{
+  width:100%;
+  padding:13px 18px;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:var(--font-main);
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  letter-spacing:0.2px;
+  background:linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color:#ffffff;
+  box-shadow:0 4px 14px rgba(16, 185, 129, 0.32);
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+}
+.btn-dl-wa:hover{
+  background:linear-gradient(135deg, #047857 0%, #059669 100%);
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(16, 185, 129, 0.44);
+  filter:brightness(1.03);
+}
+.btn-dl-wa:active{
+  transform:scale(0.99);
+}
+.btn-dl-wa svg{
+  flex-shrink:0;
+}
 .btn-dl:disabled{opacity:.6;cursor:not-allowed;transform:none !important;box-shadow:none !important;}
 
 /* Tip Box */
@@ -1472,6 +1542,37 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   background: #0f172a;
   color: #7dd3fc;
   border-color: #0284c7;
+}
+
+[data-theme="dark"] .btn-dl-png,
+[data-theme="dark"] .btn-dl-pdf {
+  background: #141f30;
+  border-color: #27374d;
+  color: #cbd5e1;
+  box-shadow: none;
+}
+[data-theme="dark"] .btn-dl-png:hover,
+[data-theme="dark"] .btn-dl-pdf:hover {
+  background: #1b2940;
+  border-color: #3b506d;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .btn-dl-png svg,
+[data-theme="dark"] .btn-dl-pdf svg {
+  color: #94a3b8;
+}
+[data-theme="dark"] .btn-dl-png:hover svg,
+[data-theme="dark"] .btn-dl-pdf:hover svg {
+  color: #f1f5f9;
+}
+[data-theme="dark"] .btn-dl-wa {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+[data-theme="dark"] .btn-dl-wa:hover {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.45);
 }
 
 [data-theme="dark"] .tip-box {
