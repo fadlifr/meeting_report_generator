@@ -487,6 +487,10 @@ async function captureImage(elementId) {
     backgroundColor: '#ffffff',
     windowWidth: 1200,
     onclone: (clonedDoc) => {
+      // ABSOLUTE EXPORT ISOLATION: Ensure html2canvas clone is rendered in 100% light mode
+      if (clonedDoc.documentElement) clonedDoc.documentElement.removeAttribute('data-theme');
+      if (clonedDoc.body) clonedDoc.body.removeAttribute('data-theme');
+
       const clonedEl = clonedDoc.getElementById(elementId);
       if (clonedEl) {
         clonedEl.style.transform = 'none';
@@ -1591,4 +1595,37 @@ window.initApp = function() {
   }
   autoUpdatePreview();
   setTimeout(fitPreviewScale, 100);
+
+  // Sync theme toggle state on UI
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  applyTheme(currentTheme);
 };
+
+// ============================================================
+// THEME SWITCHER (DARK / LIGHT MODE)
+// ============================================================
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  try { localStorage.setItem('td_mrg_theme', theme); } catch(e){}
+  const btn = document.getElementById('theme-toggle-btn');
+  if (btn) {
+    btn.innerHTML = (theme === 'dark') 
+      ? '☀️ <span class="theme-btn-text">Light Mode</span>' 
+      : '🌙 <span class="theme-btn-text">Dark Mode</span>';
+    btn.title = (theme === 'dark') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+  }
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+}
+
+// Initial self-executing sync
+(function() {
+  try {
+    const saved = localStorage.getItem('td_mrg_theme') || 'light';
+    applyTheme(saved);
+  } catch(e) {}
+})();
