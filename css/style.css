@@ -377,7 +377,7 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   left: 6px;
   width: 78px;
   opacity: 0.42;
-  transform: rotate(-45deg);
+  transform: rotate(-90deg);
 }
 .wm-badge {
   top: 142px;
@@ -720,9 +720,9 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   border: 1px solid #fbcfe8;
 }
 .card-level-badge.level-pro {
-  background: #f0fdfa;
-  color: #0d9488;
-  border: 1px solid #99f6e4;
+  background: #f0f9ff;
+  color: #0284c7;
+  border: 1px solid #bae6fd;
 }
 .card-course-title {
   display: inline-block;
