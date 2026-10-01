@@ -9,9 +9,11 @@
   <meta name="description"
     content="Generate meeting reports and daily student progress reports for Timedoor Academy classes. Export to PNG, PDF, or share via WhatsApp.">
   <meta name="robots" content="noindex, nofollow">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.4.1">
+  <link rel="stylesheet" href="css/style.css?v=2.5.0">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
@@ -113,10 +115,16 @@
       <div class="preview-scroll" id="scroll-auto">
         <div class="preview-scale-wrapper" id="wrapper-auto">
           <div id="auto-report-preview">
-          <div class="blob blob-tl"></div>
-          <div class="blob blob-tr"></div>
-          <div class="blob blob-br"></div>
-          <div class="blob blob-bl"></div>
+          <!-- Modern Geometric Academy Watermarks (img1-7) -->
+          <div class="rpt-watermarks-layer" aria-hidden="true">
+            <img src="img/img5.png" class="wm-shape wm-arches" alt="">
+            <img src="img/img2.png" class="wm-shape wm-brackets" alt="">
+            <img src="img/img1.png" class="wm-shape wm-asterisk" alt="">
+            <img src="img/img7.png" class="wm-shape wm-growth" alt="">
+            <img src="img/img3.png" class="wm-shape wm-diamond" alt="">
+            <img src="img/img6.png" class="wm-shape wm-badge" alt="">
+            <img src="img/img4.png" class="wm-shape wm-book" alt="">
+          </div>
 
           <!-- Executive Header Banner -->
           <div class="rpt-header rc">

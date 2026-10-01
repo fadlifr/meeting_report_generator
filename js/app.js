@@ -100,13 +100,14 @@ function fitPreviewScale() {
     el.style.transformOrigin = 'top left';
     wrapper.style.height = Math.ceil(el.offsetHeight * scale) + 'px';
     wrapper.style.width = '100%';
-    scroll.style.overflowX = 'hidden';
+    scroll.style.overflow = 'hidden';
     if (btn) btn.innerHTML = '🔍 100% Size';
   } else {
     el.style.transform = 'none';
     wrapper.style.height = 'auto';
     wrapper.style.width = '1000px';
     scroll.style.overflowX = 'auto';
+    scroll.style.overflowY = 'hidden';
     if (btn) btn.innerHTML = '🔍 Fit to Screen';
   }
 }
