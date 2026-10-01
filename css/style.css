@@ -374,22 +374,22 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
 }
 .wm-diamond {
   top: 310px;
-  left: 4px;
+  left: 6px;
   width: 78px;
   opacity: 0.42;
-  transform: rotate(-135deg);
+  transform: rotate(-45deg);
 }
 .wm-badge {
-  top: 290px;
-  right: 12px;
-  width: 62px;
-  opacity: 0.45;
-  transform: rotate(-6deg);
+  top: 142px;
+  left: 355px;
+  width: 44px;
+  opacity: 0.55;
+  transform: rotate(6deg);
 }
 .wm-book {
-  bottom: 16px;
+  bottom: -4px;
   left: 50%;
-  width: 85px;
+  width: 88px;
   opacity: 0.48;
   transform: translateX(-50%) rotate(4deg);
 }
