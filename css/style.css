@@ -1249,33 +1249,7 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   box-shadow: 0 0 0 3px rgba(34,197,94,.12);
   outline: none;
 }
-.lms-score-cell {
-  font-size: 15px;
-  font-weight: 800;
-  color: #0f172a;
-  text-align: center;
-  padding-top: 22px;
-}
-.lms-grade-cell {
-  text-align: center;
-  padding-top: 18px;
-}
-.lms-grade-letter {
-  font-size: 15px;
-  font-weight: 800;
-  margin-bottom: 4px;
-}
-.lms-stars {
-  font-size: 15px;
-  letter-spacing: 1px;
-  line-height: 1;
-}
-.star-filled {
-  color: #eab308;
-}
-.star-empty {
-  color: #cbd5e1;
-}
+
 
 /* ============================================================
    ABSOLUTE REPORT PREVIEW ISOLATION (IMMUNITY FROM DARK MODE)

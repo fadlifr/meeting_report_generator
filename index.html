@@ -197,18 +197,10 @@
   <div class="app-layout" id="view-exam" style="display:none;">
     <aside class="sidebar">
       <div class="card">
-        <div class="card-title">Class Information</div>
-        <div class="form-row">
-          <div class="form-group"><label>Class Name</label><input type="text" id="exam-kelas" placeholder="T33A"></div>
-          <div class="form-group"><label>Date</label><input type="date" id="exam-tanggal"></div>
-        </div>
-      </div>
-
-      <div class="card">
         <div class="card-title">🌐 Default Report Language</div>
         <div class="lang-toggle">
-          <button type="button" id="exam-lang-btn-en" class="lang-btn active" onclick="setExamGlobalLang('en')">English</button>
-          <button type="button" id="exam-lang-btn-id" class="lang-btn" onclick="setExamGlobalLang('id')">Indonesia</button>
+          <button type="button" id="exam-lang-btn-id" class="lang-btn active" onclick="setExamGlobalLang('id')">Indonesia</button>
+          <button type="button" id="exam-lang-btn-en" class="lang-btn" onclick="setExamGlobalLang('en')">English</button>
         </div>
       </div>
 
@@ -219,15 +211,8 @@
       </div>
 
       <div class="card">
-        <div class="card-title">⚡ Batch Actions</div>
-        <button type="button" class="btn-generate" onclick="generateAllExamReports()" style="margin-bottom:8px;">
-          ⚡ Generate All Reports
-        </button>
-        <button type="button" class="btn-dl btn-dl-wa" onclick="copyAllExamReports()" style="width:100%">
-          📋 Copy All Reports Text
-        </button>
-        <div class="tip-box" style="margin-top:10px;">
-          <strong>How to use:</strong> Input student name, select course and report period, input scores (0-100). Click ⚡ Generate, then copy notes directly to LMS.
+        <div class="tip-box">
+          <strong>How to use:</strong> Input student name, select course and report period, input scores (0–100). Click <strong>⚡ Generate Exam Report</strong> on each student, then copy notes directly to LMS.
         </div>
       </div>
     </aside>
@@ -236,11 +221,8 @@
       <div class="exam-preview-topbar">
         <div class="exam-preview-title">
           <span class="live-dot"></span>
-          <span>LMS Official Exam Report Preview</span>
+          <span>Exam Report Preview</span>
         </div>
-        <button type="button" class="btn-copy-exam" onclick="copyAllExamReports()">
-          📋 Copy All Reports Text
-        </button>
       </div>
 
       <div id="exam-preview-container">
