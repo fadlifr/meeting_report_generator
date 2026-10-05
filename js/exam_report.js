@@ -1218,6 +1218,28 @@ function copyCriteriaNote(studentIdx, categoryKey) {
   });
 }
 
+const EXAM_GUIDE_TEXTS = {
+  id: {
+    title: '💡 Cara Pakai',
+    steps: `<ol class="how-to-steps"><li><strong>Siswa & Periode:</strong> Isi nama, pilih bahasa rapor (ID/EN), course & periode.</li><li><strong>Nilai:</strong> Masukkan nilai (0–100) per kriteria (grade terhitung otomatis).</li><li><strong>Generate & Copas:</strong> Klik <strong>⚡ Generate</strong> &rarr; klik <strong>📋 Copy Note</strong> ke LMS.</li></ol>`
+  },
+  en: {
+    title: '💡 How to Use',
+    steps: `<ol class="how-to-steps"><li><strong>Student & Period:</strong> Enter name, select report lang (ID/EN), course & period.</li><li><strong>Scores:</strong> Enter score (0–100) per criteria (grade auto-calculated).</li><li><strong>Generate & Paste:</strong> Click <strong>⚡ Generate</strong> &rarr; click <strong>📋 Copy Note</strong> to LMS.</li></ol>`
+  }
+};
+
+function setExamGuideLang(lang) {
+  const titleEl = document.getElementById('exam-guide-title');
+  const contentEl = document.getElementById('exam-guide-content');
+  const btnId = document.getElementById('exam-guide-btn-id');
+  const btnEn = document.getElementById('exam-guide-btn-en');
+  if (btnId) btnId.classList.toggle('active', lang === 'id');
+  if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+  if (titleEl && EXAM_GUIDE_TEXTS[lang]) titleEl.textContent = EXAM_GUIDE_TEXTS[lang].title;
+  if (contentEl && EXAM_GUIDE_TEXTS[lang]) contentEl.innerHTML = EXAM_GUIDE_TEXTS[lang].steps;
+}
+
 // Tab Switching
 function switchMainTab(tab) {
   const dailyTabBtn = document.getElementById('tab-btn-daily');
@@ -1253,6 +1275,7 @@ function setExamGlobalLang(lang) {
 // Initialize on page load
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', () => {
+    setExamGuideLang(examLang || 'id');
     // If exam tab is active by default or clicked, render
     if (document.getElementById('view-exam') && document.getElementById('view-exam').style.display !== 'none') {
       renderExamInputs();

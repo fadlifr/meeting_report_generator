@@ -57,14 +57,21 @@
     <aside class="sidebar">
       <div class="card card-how-to-use">
         <div class="tip-box" id="auto-tip-box">
-          <div class="how-to-title">💡 How to Use (Workflow):</div>
-          <ol class="how-to-steps">
-            <li><strong>Class Information:</strong> Enter class name & session date.</li>
-            <li><strong>Report Language:</strong> Select WhatsApp message language (English / Indonesia).</li>
-            <li><strong>Documentation Photos:</strong> Upload 1–6 classroom activity photos (auto-cropped 16:9).</li>
-            <li><strong>Student Data:</strong> Enter student name, choose level, course, lesson, and status &rarr; click <strong>⚡ Generate</strong> (can toggle ID/EN per student).</li>
-            <li><strong>Export & Share:</strong> Download <strong>PNG</strong> / <strong>PDF</strong> or click <strong>Send to WhatsApp</strong> to share with parents.</li>
-          </ol>
+          <div class="how-to-header">
+            <div class="how-to-title" id="daily-guide-title">💡 How to Use</div>
+            <div class="how-to-lang-toggle">
+              <button type="button" class="how-to-lang-btn" id="daily-guide-btn-id" onclick="setDailyGuideLang('id')">ID</button>
+              <button type="button" class="how-to-lang-btn active" id="daily-guide-btn-en" onclick="setDailyGuideLang('en')">EN</button>
+            </div>
+          </div>
+          <div id="daily-guide-content">
+            <ol class="how-to-steps">
+              <li><strong>Class & WA:</strong> Fill class, date & choose WA message language.</li>
+              <li><strong>Photos:</strong> Upload 1–6 activity photos (auto-cropped 16:9).</li>
+              <li><strong>Students:</strong> Enter name, lesson & click <strong>⚡ Generate</strong>.</li>
+              <li><strong>Export:</strong> Download <strong>PNG/PDF</strong> or <strong>Send to WhatsApp</strong>.</li>
+            </ol>
+          </div>
         </div>
       </div>
 
@@ -208,14 +215,20 @@
     <aside class="sidebar">
       <div class="card card-how-to-use">
         <div class="tip-box">
-          <div class="how-to-title">💡 How to Use (Alur Pembuatan):</div>
-          <ol class="how-to-steps">
-            <li><strong>Nama & Bahasa:</strong> Isi nama siswa dan tentukan bahasa rapor (<strong>ID / EN</strong>).</li>
-            <li><strong>Level, Course & Periode:</strong> Pilih level & course, lalu pilih <strong>Periode Rapor</strong> (Report 1, 2, dst).</li>
-            <li><strong>Input Nilai:</strong> Masukkan nilai (0–100) di setiap kriteria (grade A–E terhitung otomatis).</li>
-            <li><strong>Generate:</strong> Klik <strong>⚡ Generate Exam Report</strong> pada siswa yang bersangkutan.</li>
-            <li><strong>Salin ke LMS:</strong> Klik tombol <strong>📋 Copy Note</strong> di tiap kriteria pada tabel kanan untuk paste langsung ke LMS.</li>
-          </ol>
+          <div class="how-to-header">
+            <div class="how-to-title" id="exam-guide-title">💡 Cara Pakai</div>
+            <div class="how-to-lang-toggle">
+              <button type="button" class="how-to-lang-btn active" id="exam-guide-btn-id" onclick="setExamGuideLang('id')">ID</button>
+              <button type="button" class="how-to-lang-btn" id="exam-guide-btn-en" onclick="setExamGuideLang('en')">EN</button>
+            </div>
+          </div>
+          <div id="exam-guide-content">
+            <ol class="how-to-steps">
+              <li><strong>Siswa & Periode:</strong> Isi nama, pilih bahasa rapor (ID/EN), course & periode.</li>
+              <li><strong>Nilai:</strong> Masukkan nilai (0–100) per kriteria (grade terhitung otomatis).</li>
+              <li><strong>Generate & Copas:</strong> Klik <strong>⚡ Generate</strong> &rarr; klik <strong>📋 Copy Note</strong> ke LMS.</li>
+            </ol>
+          </div>
         </div>
       </div>
 

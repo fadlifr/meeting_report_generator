@@ -281,10 +281,17 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .btn-dl:disabled{opacity:.6;cursor:not-allowed;transform:none !important;box-shadow:none !important;}
 
 /* Tip Box & Workflow Steps */
-.tip-box{background:#f8fafc;border:1.5px solid var(--border);border-left:4px solid var(--g500);border-radius:var(--radius-sm);padding:14px 16px;font-size:12px;color:var(--slate2);line-height:1.7;margin-top:0;font-family:var(--font-body);box-shadow:var(--shadow-sm);}
+.card-how-to-use{padding:0;background:transparent;border:none;box-shadow:none;}
+.card-how-to-use .tip-box{margin:0;}
+.how-to-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
+.how-to-title{display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:800;color:var(--g700);margin-bottom:0;font-family:var(--font-display);letter-spacing:0.3px;text-transform:uppercase;}
+.how-to-lang-toggle{display:inline-flex;align-items:center;background:#e2e8f0;border-radius:6px;padding:2px;gap:2px;}
+.how-to-lang-btn{background:transparent;border:none;border-radius:4px;padding:1px 7px;font-size:10px;font-weight:800;color:#64748b;cursor:pointer;transition:all .15s ease;line-height:1.4;}
+.how-to-lang-btn.active{background:#ffffff;color:var(--g700);box-shadow:0 1px 2px rgba(0,0,0,.1);}
+.how-to-lang-btn:hover:not(.active){color:#1e293b;}
+.tip-box{background:#f8fafc;border:1px solid var(--border);border-left:3.5px solid var(--g500);border-radius:var(--radius-sm);padding:10px 12px;font-size:11.5px;color:var(--slate2);line-height:1.5;margin-top:0;font-family:var(--font-body);box-shadow:var(--shadow-sm);}
 .tip-box strong{color:#059669;font-weight:700;}
-.how-to-title{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#0f172a;margin-bottom:8px;font-family:var(--font-display);letter-spacing:0.2px;}
-.how-to-steps{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:11.8px;line-height:1.55;color:var(--slate2);}
+.how-to-steps{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:3px;font-size:11px;line-height:1.45;color:var(--slate2);}
 .how-to-steps li strong{color:#0f172a;font-weight:700;}
 
 /* WA Preview */
@@ -1610,6 +1617,20 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   color: #10b981;
 }
 [data-theme="dark"] .how-to-title {
+  color: #4ade80;
+}
+[data-theme="dark"] .how-to-lang-toggle {
+  background: #1e293b;
+}
+[data-theme="dark"] .how-to-lang-btn {
+  color: #94a3b8;
+}
+[data-theme="dark"] .how-to-lang-btn.active {
+  background: #0b131f;
+  color: #4ade80;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+[data-theme="dark"] .how-to-lang-btn:hover:not(.active) {
   color: #f1f5f9;
 }
 [data-theme="dark"] .how-to-steps {

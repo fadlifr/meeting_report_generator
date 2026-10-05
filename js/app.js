@@ -745,6 +745,28 @@ const LANG_UI = {
   }
 };
 
+const DAILY_GUIDE_TEXTS = {
+  id: {
+    title: '💡 Cara Pakai',
+    steps: `<ol class="how-to-steps"><li><strong>Kelas & WA:</strong> Isi kelas & tgl, tentukan bahasa pesan WA.</li><li><strong>Foto:</strong> Upload 1–6 foto dokumentasi (auto 16:9).</li><li><strong>Siswa:</strong> Masukkan nama, materi & klik <strong>⚡ Generate</strong>.</li><li><strong>Export:</strong> Download <strong>PNG/PDF</strong> atau <strong>Kirim ke WA</strong>.</li></ol>`
+  },
+  en: {
+    title: '💡 How to Use',
+    steps: `<ol class="how-to-steps"><li><strong>Class & WA:</strong> Fill class & date, choose WA message language.</li><li><strong>Photos:</strong> Upload 1–6 activity photos (auto-cropped 16:9).</li><li><strong>Students:</strong> Enter name, lesson & click <strong>⚡ Generate</strong>.</li><li><strong>Export:</strong> Download <strong>PNG/PDF</strong> or <strong>Send to WhatsApp</strong>.</li></ol>`
+  }
+};
+
+function setDailyGuideLang(lang) {
+  const titleEl = document.getElementById('daily-guide-title');
+  const contentEl = document.getElementById('daily-guide-content');
+  const btnId = document.getElementById('daily-guide-btn-id');
+  const btnEn = document.getElementById('daily-guide-btn-en');
+  if (btnId) btnId.classList.toggle('active', lang === 'id');
+  if (btnEn) btnEn.classList.toggle('active', lang === 'en');
+  if (titleEl && DAILY_GUIDE_TEXTS[lang]) titleEl.textContent = DAILY_GUIDE_TEXTS[lang].title;
+  if (contentEl && DAILY_GUIDE_TEXTS[lang]) contentEl.innerHTML = DAILY_GUIDE_TEXTS[lang].steps;
+}
+
 function setLang(lang){
   autoLang = lang;
   document.getElementById('lang-btn-id').classList.toggle('active', lang==='id');
@@ -759,8 +781,7 @@ function setLang(lang){
   if(autoWaBtn) autoWaBtn.textContent = L.waBtn;
   const autoWaTitle = document.getElementById('auto-wa-title');
   if(autoWaTitle) autoWaTitle.textContent = L.waTitle;
-  const autoTipBox = document.getElementById('auto-tip-box');
-  if(autoTipBox) autoTipBox.innerHTML = L.tip;
+  setDailyGuideLang(lang);
   const autoPreviewLabel = document.getElementById('auto-preview-label-text');
   if(autoPreviewLabel) autoPreviewLabel.textContent = L.previewLabel;
   const autoRptTitle = document.getElementById('auto-rpt-title');
