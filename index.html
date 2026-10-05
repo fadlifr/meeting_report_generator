@@ -55,6 +55,19 @@
 
   <div class="app-layout" id="view-daily">
     <aside class="sidebar">
+      <div class="card card-how-to-use">
+        <div class="tip-box" id="auto-tip-box">
+          <div class="how-to-title">💡 How to Use (Workflow):</div>
+          <ol class="how-to-steps">
+            <li><strong>Class Information:</strong> Enter class name & session date.</li>
+            <li><strong>Report Language:</strong> Select WhatsApp message language (English / Indonesia).</li>
+            <li><strong>Documentation Photos:</strong> Upload 1–6 classroom activity photos (auto-cropped 16:9).</li>
+            <li><strong>Student Data:</strong> Enter student name, choose level, course, lesson, and status &rarr; click <strong>⚡ Generate</strong> (can toggle ID/EN per student).</li>
+            <li><strong>Export & Share:</strong> Download <strong>PNG</strong> / <strong>PDF</strong> or click <strong>Send to WhatsApp</strong> to share with parents.</li>
+          </ol>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-title">Class Information</div>
         <div class="form-row">
@@ -109,9 +122,6 @@
             <button type="button" class="btn-copy-wa" id="auto-btn-copy-wa" onclick="copyAutoWAMessage()" title="Copy Text">📋 Copy Text</button>
           </div>
           <textarea class="wa-bubble" id="auto-wa-bubble" placeholder="WhatsApp message preview..."></textarea>
-        </div>
-        <div class="tip-box" id="auto-tip-box"><strong>How to use:</strong> Enter student name → select level,
-          course, and lesson status → click ⚡ Generate to auto-create progress text.
         </div>
       </div>
     </aside>
@@ -196,16 +206,23 @@
   <!-- TAB 2: STUDENT EXAM REPORT (8-LESSON CYCLE) -->
   <div class="app-layout" id="view-exam" style="display:none;">
     <aside class="sidebar">
+      <div class="card card-how-to-use">
+        <div class="tip-box">
+          <div class="how-to-title">💡 How to Use (Alur Pembuatan):</div>
+          <ol class="how-to-steps">
+            <li><strong>Nama & Bahasa:</strong> Isi nama siswa dan tentukan bahasa rapor (<strong>ID / EN</strong>).</li>
+            <li><strong>Level, Course & Periode:</strong> Pilih level & course, lalu pilih <strong>Periode Rapor</strong> (Report 1, 2, dst).</li>
+            <li><strong>Input Nilai:</strong> Masukkan nilai (0–100) di setiap kriteria (grade A–E terhitung otomatis).</li>
+            <li><strong>Generate:</strong> Klik <strong>⚡ Generate Exam Report</strong> pada siswa yang bersangkutan.</li>
+            <li><strong>Salin ke LMS:</strong> Klik tombol <strong>📋 Copy Note</strong> di tiap kriteria pada tabel kanan untuk paste langsung ke LMS.</li>
+          </ol>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-title">Student Exam Data & Scores</div>
         <div class="students-list" id="exam-students-container"></div>
         <button type="button" class="btn-add" id="exam-add-btn" onclick="addExamStudent()">+ Add Student</button>
-      </div>
-
-      <div class="card">
-        <div class="tip-box">
-          <strong>How to use:</strong> Input student name, select course and report period, input scores (0–100). Click <strong>⚡ Generate Exam Report</strong> on each student, then copy notes directly to LMS.
-        </div>
       </div>
     </aside>
 
