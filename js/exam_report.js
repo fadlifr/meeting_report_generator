@@ -1265,7 +1265,7 @@ function renderExamPreview() {
           <div class="period-objectives-title">
             <span>🎯</span>
             <span><strong>${sLang === 'id' ? 'Learning Objectives Siklus Ini' : 'Learning Objectives Covered'}</strong> (Lesson ${pObj.from}–${pObj.to})</span>
-            <span class="obj-count-tag">${curDetails.lessons.length} Lessons</span>
+            <span class="obj-count-tag">${curDetails.allObjectivesList.length} Lessons</span>
           </div>
           <div class="obj-toggle-btn" id="obj-toggle-btn-${idx}">
             Show Objectives ▼
