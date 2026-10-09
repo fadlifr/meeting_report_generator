@@ -69,9 +69,9 @@ function ensurePeriod(str) {
   return str.trim().replace(/\.+$/, '') + '.';
 }
 
-function pickVariant(variants, idx = 0, seed = 0) {
+function pickVariant(variants, idx = 0) {
   if (!variants || variants.length === 0) return '';
-  const i = Math.abs(((parseInt(idx) || 0) + (parseInt(seed) || 0)) % variants.length);
+  const i = Math.abs(parseInt(idx) || 0) % variants.length;
   return variants[i];
 }
 
@@ -598,56 +598,70 @@ const LANG_UI = {
     errLesson2: 'Pilih lesson ke-2 terlebih dahulu!',
     errMinStudent: 'Minimum 1 siswa.',
     fallbackProgress: (nama, lessonNum, course, objectives) => {
-      if (!objectives || objectives.length === 0) return `berhasil menyelesaikan *Lesson ${lessonNum}* pada course ${course}.`;
-      return `berhasil ${formatObjectives(objectives, 'id')}.`;
+      if (!objectives || objectives.length === 0) return `menyelesaikan seluruh langkah pada *Lesson ${lessonNum}* di course ${course}.`;
+      return `mempraktikkan cara ${formatObjectives(objectives, 'id')}.`;
     },
-    doneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+    doneText: (nama, lessonTitle, action, idx = 0) => {
       const variants = [
-        `Pada pertemuan hari ini, ${nama} berhasil menyelesaikan *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-        `Dalam sesi ini, ${nama} telah menuntaskan materi *${lessonTitle}* dengan sangat baik. ${nama} ${ensurePeriod(action)}`,
-        `Di pertemuan kali ini, ${nama} menyelesaikan seluruh projek pada *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
+        `Pada pertemuan hari ini, ${nama} menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Konsep ini akan langsung diaplikasikan pada materi selanjutnya.`,
+        `Dalam sesi ini, ${nama} menyelesaikan pembuatan projek pada *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Pemahaman ini akan membantu di tantangan berikutnya.`,
+        `Di pertemuan kali ini, ${nama} mempraktikkan materi *${lessonTitle}* hingga selesai. ${nama} ${ensurePeriod(action)}`,
+        `Hari ini, ${nama} memfokuskan diri untuk menyelesaikan *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Tahap ini menjadi dasar penting untuk pelajaran ke depan.`,
+        `Dalam kelas ini, ${nama} berhasil mempraktikkan keseluruhan konsep pada *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Kemampuan ini siap digunakan di pertemuan mendatang.`,
+        `Pada kesempatan kali ini, ${nama} menuntaskan seluruh instruksi dari *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
       ];
-      return pickVariant(variants, idx, seed);
+      return pickVariant(variants, idx);
     },
-    continuedDoneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+    continuedDoneText: (nama, lessonTitle, action, idx = 0) => {
       const variants = [
-        `Pada pertemuan hari ini, ${nama} melanjutkan dan menuntaskan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-        `Dalam sesi ini, ${nama} melanjutkan pengerjaan projek *${lessonTitle}* hingga tuntas. ${nama} ${ensurePeriod(action)}`,
-        `Di pertemuan kali ini, ${nama} berhasil menyelesaikan kelanjutan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-        `Pada pertemuan ini, ${nama} menuntaskan sisa materi dan projek *${lessonTitle}* dengan baik. ${nama} ${ensurePeriod(action)}`
+        `Pada pertemuan hari ini, ${nama} melanjutkan dan menyelesaikan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Proses penyelesaian ini memperkuat pemahamannya.`,
+        `Dalam sesi ini, ${nama} fokus melanjutkan projek *${lessonTitle}* hingga selesai. ${nama} ${ensurePeriod(action)}`,
+        `Di pertemuan kali ini, ${nama} menyelesaikan tahap akhir dari materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Kemampuan problem-solving yang ditunjukkan cukup konsisten.`,
+        `Pada pertemuan ini, ${nama} menuntaskan sisa instruksi pada *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `Hari ini, ${nama} meneruskan pengerjaan *${lessonTitle}* dari minggu lalu dan menyelesaikannya. ${nama} ${ensurePeriod(action)} Langkah ini menunjukkan ketekunan yang baik.`,
+        `Dalam kelas ini, ${nama} berhasil merampungkan bagian akhir dari *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
       ];
-      return pickVariant(variants, idx, seed);
+      return pickVariant(variants, idx);
     },
     inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0) => {
       const partial = getPartialObjectives(objectives);
       if (!objectives || objectives.length === 0) {
         const variants = [
-          `${nama} saat ini sedang mempelajari *${lessonTitle}*. ${nama} telah memahami konsep dasarnya dan memulai projek, yang akan dilanjutkan pada pertemuan berikutnya.`,
-          `Dalam pertemuan hari ini, ${nama} tengah mengerjakan materi *${lessonTitle}*. ${nama} telah memahami konsep utamanya dan akan melanjutkan pengerjaannya di sesi berikutnya.`,
-          `Pada pertemuan ini, ${nama} mulai mengerjakan projek *${lessonTitle}*. Konsep dasar telah dipahami dengan baik dan akan diteruskan pada sesi selanjutnya.`
+          `Hari ini, ${nama} mempelajari *${lessonTitle}*. ${nama} mengidentifikasi konsep utamanya dan mulai menerapkan langkah-langkah awal projek, yang akan dilanjutkan pada pertemuan berikutnya.`,
+          `Dalam sesi ini, ${nama} fokus mengerjakan bagian pertama materi *${lessonTitle}*. Pembuatan kerangka dasar projek telah selesai dan siap untuk diteruskan di sesi selanjutnya.`,
+          `Pada pertemuan ini, ${nama} menyusun struktur awal projek *${lessonTitle}*. Tahapan ini membutuhkan ketelitian, dan pengerjaannya akan dilanjutkan minggu depan.`,
+          `Di kelas hari ini, ${nama} memulai tahap perancangan *${lessonTitle}*. Konsep dasarnya sudah dimengerti dan sisa pembuatannya akan diteruskan nanti.`,
+          `Hari ini, ${nama} mengawali pembelajaran pada materi *${lessonTitle}*. Persiapan awal sudah dilakukan untuk dilanjutkan pada pertemuan depan.`,
+          `Dalam sesi kali ini, ${nama} mengumpulkan materi dan membuat rancangan awal untuk *${lessonTitle}*, yang akan disempurnakan minggu depan.`
         ];
-        return pickVariant(variants, idx, lessonNum);
+        return pickVariant(variants, idx);
       }
       const variants = [
-        `${nama} saat ini sedang mempelajari *${lessonTitle}*. Pada sesi ini, ${nama} sudah mulai memahami cara ${formatObjectives(partial, 'id')}. Projek ini akan dilanjutkan pada pertemuan berikutnya.`,
-        `Dalam sesi ini, ${nama} tengah mengerjakan projek *${lessonTitle}*. ${nama} sudah mulai mempelajari cara ${formatObjectives(partial, 'id')}, dan akan menyelesaikannya pada pertemuan berikutnya.`,
-        `Pada pertemuan kali ini, ${nama} mulai mempelajari materi *${lessonTitle}* dan memahami cara ${formatObjectives(partial, 'id')}. Sisa materi dan projek akan dilanjutkan pada pertemuan selanjutnya.`
+        `Hari ini, ${nama} mempelajari *${lessonTitle}*. Pada tahap awal ini, ${nama} berlatih ${formatObjectives(partial, 'id')}. Sisa fitur pada projek akan diselesaikan pada pertemuan berikutnya.`,
+        `Dalam sesi ini, ${nama} mulai membangun projek *${lessonTitle}*. ${nama} mempraktikkan cara ${formatObjectives(partial, 'id')}, dan akan melengkapi komponen lainnya di sesi depan.`,
+        `Pada pertemuan kali ini, ${nama} menyusun struktur materi *${lessonTitle}* dengan berlatih ${formatObjectives(partial, 'id')}. Proses pengerjaan akan dilanjutkan pada pertemuan selanjutnya.`,
+        `Di kelas hari ini, ${nama} memulai *${lessonTitle}* dan berfokus pada cara ${formatObjectives(partial, 'id')}. Komponen yang belum tuntas akan diteruskan minggu depan.`,
+        `Hari ini, ${nama} mengeksplorasi konsep dasar *${lessonTitle}* dengan menerapkan cara ${formatObjectives(partial, 'id')}. Sisa materinya dijadwalkan untuk sesi mendatang.`,
+        `Dalam sesi kali ini, ${nama} mempersiapkan proyek *${lessonTitle}* dan mengaplikasikan tahapan awal untuk ${formatObjectives(partial, 'id')}. Pengerjaan utamanya akan dilanjutkan di kelas berikutnya.`
       ];
-      return pickVariant(variants, idx, lessonNum);
+      return pickVariant(variants, idx);
     },
     oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0) => {
       const variants = [
-        `Pada pertemuan hari ini, ${nama} berhasil menyelesaikan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Selanjutnya, ${nama} mulai mempelajari *${l2Title}*, yang akan dilanjutkan pada pertemuan berikutnya.`,
-        `Dalam sesi ini, ${nama} telah menuntaskan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Setelah itu, ${nama} langsung melangkah ke materi *${l2Title}* yang akan diteruskan pada sesi mendatang.`,
-        `Di pertemuan kali ini, ${nama} menyelesaikan *${l1Title}* dengan baik. ${nama} ${ensurePeriod(action1)} ${nama} kemudian mulai mengerjakan *${l2Title}*, dan akan melanjutkannya di pertemuan berikutnya.`
+        `Pada pertemuan hari ini, ${nama} menyelesaikan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Selanjutnya, ${nama} mulai menyusun kerangka *${l2Title}* yang akan diselesaikan minggu depan.`,
+        `Dalam sesi ini, ${nama} menuntaskan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Setelah itu, ${nama} beralih ke materi *${l2Title}* untuk mempelajari konsep awalnya terlebih dahulu.`,
+        `Di pertemuan kali ini, ${nama} mengaplikasikan konsep *${l1Title}* hingga selesai. ${nama} ${ensurePeriod(action1)} ${nama} kemudian melakukan persiapan awal untuk projek *${l2Title}*.`,
+        `Hari ini, ${nama} menyelesaikan materi *${l1Title}*. ${nama} ${ensurePeriod(action1)} Sebagai tambahan, langkah pertama untuk *${l2Title}* juga sudah dimulai dan siap dilanjutkan.`,
+        `Dalam kelas ini, ${nama} berhasil mempraktikkan *${l1Title}* secara utuh. ${nama} ${ensurePeriod(action1)} Waktu yang tersisa digunakan untuk mengawali pemahaman tentang *${l2Title}*.`,
+        `Pada pertemuan ini, ${nama} merampungkan *${l1Title}*. ${nama} ${ensurePeriod(action1)} Setelahnya, ${nama} membuat draf awal untuk materi *${l2Title}* yang akan dilanjutkan nanti.`
       ];
-      return pickVariant(variants, idx, l1Num);
+      return pickVariant(variants, idx);
     },
     doubleText: (nama, l1Num, l1Title, action1, l2Num, l2Title, action2) => {
       return `${nama} telah menyelesaikan 2 lesson pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`;
     },
-    waGreeting: (kelas, tgl) => `Selamat siang Bapak/Ibu Parents, ✨\n\nBerikut adalah laporan ringkas mengenai aktivitas dan perkembangan belajar anak-anak pada pertemuan kelas hari ini:\n\n📌 *Kelas:* ${kelas}\n📅 *Tanggal:* ${tgl}`,
-    waClose: 'Terima kasih atas perhatian dan dukungan Bapak/Ibu. Jika ada pertanyaan mengenai materi hari ini, jangan ragu untuk menghubungi kami.\n\nSemoga harinya menyenangkan! 😊',
+    waGreeting: (kelas, tgl) => `Selamat sore Parents 😊\n\nBerikut laporan progress belajar students hari ini:\n\n📌 *Kelas:* ${kelas}\n📅 *Tanggal:* ${tgl}`,
+    waClose: 'Terima kasih atas perhatian dan dukungan Bapak/Ibu. Jika ada pertanyaan terkait kelas hari ini, silakan hubungi kami kapan saja 😊',
     pdfTitle: 'Laporan Progress Siswa',
     pdfLabelKelas: 'Kelas: ', pdfOffsetKelas: 32,
     pdfLabelTanggal: 'Tanggal: ', pdfOffsetTanggal: 38,
@@ -686,50 +700,64 @@ const LANG_UI = {
     errLesson2: 'Please select the 2nd lesson first!',
     errMinStudent: 'Minimum 1 student.',
     fallbackProgress: (nama, lessonNum, course, objectives) => {
-      if (!objectives || objectives.length === 0) return `completed *Lesson ${lessonNum}* in the ${course} course.`;
-      return `successfully learned to ${formatObjectives(objectives, 'en')}.`;
+      if (!objectives || objectives.length === 0) return `completed all steps in *Lesson ${lessonNum}* for the ${course} course.`;
+      return `practiced how to ${formatObjectives(objectives, 'en')}.`;
     },
-    doneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+    doneText: (nama, lessonTitle, action, idx = 0) => {
       const variants = [
-        `In today's session, ${nama} successfully completed *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-        `In this session, ${nama} completed *${lessonTitle}* with great progress. ${nama} ${ensurePeriod(action)}`,
-        `In today's class, ${nama} finished all the materials in *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
+        `In today's session, ${nama} completed *${lessonTitle}*. ${nama} ${ensurePeriod(action)} This step builds a good foundation for the next topic.`,
+        `In this session, ${nama} finished building the project in *${lessonTitle}*. ${nama} ${ensurePeriod(action)} This understanding will help in the upcoming challenges.`,
+        `In today's class, ${nama} practiced the material in *${lessonTitle}* until completion. ${nama} ${ensurePeriod(action)}`,
+        `Today, ${nama} focused on completing *${lessonTitle}*. ${nama} ${ensurePeriod(action)} This forms a solid base for the upcoming lessons.`,
+        `During this class, ${nama} successfully applied all the concepts from *${lessonTitle}*. ${nama} ${ensurePeriod(action)} These skills are ready to be used in future meetings.`,
+        `In this opportunity, ${nama} finalized all the instructions of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
       ];
-      return pickVariant(variants, idx, seed);
+      return pickVariant(variants, idx);
     },
-    continuedDoneText: (nama, lessonTitle, action, idx = 0, seed = 0) => {
+    continuedDoneText: (nama, lessonTitle, action, idx = 0) => {
       const variants = [
-        `In today's session, ${nama} continued and successfully completed the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-        `In this session, ${nama} resumed and finished up *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-        `In today's class, ${nama} continued working on *${lessonTitle}* and successfully wrapped it up. ${nama} ${ensurePeriod(action)}`,
-        `Today, ${nama} finalized the remaining parts of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
+        `In today's session, ${nama} continued and finished the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)} This completion strengthens their understanding.`,
+        `In this session, ${nama} focused on completing *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `In today's class, ${nama} completed the final stages of *${lessonTitle}*. ${nama} ${ensurePeriod(action)} The problem-solving skills shown were quite consistent.`,
+        `Today, ${nama} finalized the remaining instructions of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+        `Today, ${nama} resumed the work on *${lessonTitle}* from last week and successfully finished it. ${nama} ${ensurePeriod(action)} This demonstrates good persistence.`,
+        `During this class, ${nama} managed to wrap up the final part of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`
       ];
-      return pickVariant(variants, idx, seed);
+      return pickVariant(variants, idx);
     },
     inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0) => {
       const partial = getPartialObjectives(objectives);
       if (!objectives || objectives.length === 0) {
         const variants = [
-          `${nama} is currently working on *${lessonTitle}*. ${nama} has understood the core concepts and started the project, which will be continued in the next session.`,
-          `In today's session, ${nama} is learning *${lessonTitle}*. ${nama} has grasped the key concepts and will continue the project in the next class.`,
-          `${nama} has started working on *${lessonTitle}* today. The core ideas were well understood, and the project will be continued in the next meeting.`
+          `Today, ${nama} studied *${lessonTitle}*. ${nama} identified the core concepts and started the initial project steps, which will be continued in the next session.`,
+          `In today's session, ${nama} focused on the first part of *${lessonTitle}*. The basic project structure is complete and ready to be continued next class.`,
+          `${nama} set up the initial project structure for *${lessonTitle}* today. This stage requires attention to detail and will be continued next week.`,
+          `In today's class, ${nama} began the design phase of *${lessonTitle}*. The core concepts are understood, and the rest will be continued later.`,
+          `Today, ${nama} started learning about *${lessonTitle}*. The initial preparations are done and ready to be continued in the upcoming meeting.`,
+          `In this session, ${nama} gathered the materials and created an early draft for *${lessonTitle}*, which will be refined next week.`
         ];
-        return pickVariant(variants, idx, lessonNum);
+        return pickVariant(variants, idx);
       }
       const variants = [
-        `${nama} is currently working on *${lessonTitle}*. In this session, ${nama} has started learning how to ${formatObjectives(partial, 'en')}. The project will be continued in the next session.`,
-        `In today's session, ${nama} is learning *${lessonTitle}*. ${nama} has begun exploring how to ${formatObjectives(partial, 'en')}, which will be continued in the next class.`,
-        `${nama} is progressing through *${lessonTitle}* today and started learning how to ${formatObjectives(partial, 'en')}. The remaining project will be completed in the next meeting.`
+        `Today, ${nama} studied *${lessonTitle}*. In this early stage, ${nama} practiced how to ${formatObjectives(partial, 'en')}. The remaining project features will be finished in the next session.`,
+        `In this session, ${nama} started building the project for *${lessonTitle}*. ${nama} practiced how to ${formatObjectives(partial, 'en')}, and will complete the other components next class.`,
+        `${nama} set up the structure of *${lessonTitle}* today by practicing how to ${formatObjectives(partial, 'en')}. The working process will be continued in the next meeting.`,
+        `In today's class, ${nama} started *${lessonTitle}* by focusing on how to ${formatObjectives(partial, 'en')}. The remaining components will be continued next week.`,
+        `Today, ${nama} explored the core concepts of *${lessonTitle}* by practicing how to ${formatObjectives(partial, 'en')}. The rest of the material is scheduled for the upcoming session.`,
+        `During this session, ${nama} prepared the project for *${lessonTitle}* and applied the initial steps to ${formatObjectives(partial, 'en')}. The main development will continue in the next class.`
       ];
-      return pickVariant(variants, idx, lessonNum);
+      return pickVariant(variants, idx);
     },
     oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0) => {
       const variants = [
-        `In today's session, ${nama} successfully completed *${l1Title}*. ${nama} ${ensurePeriod(action1)} ${nama} then began working on *${l2Title}*, which will be continued in the next session.`,
-        `In this session, ${nama} finished *${l1Title}*. ${nama} ${ensurePeriod(action1)} Afterward, ${nama} moved on to *${l2Title}*, which will be continued in the next class.`,
-        `In today's class, ${nama} completed *${l1Title}* with great enthusiasm. ${nama} ${ensurePeriod(action1)} ${nama} then started exploring *${l2Title}*, to be continued in the next meeting.`
+        `In today's session, ${nama} completed *${l1Title}*. ${nama} ${ensurePeriod(action1)} Next, ${nama} started outlining *${l2Title}*, which will be finished next week.`,
+        `In this session, ${nama} finished *${l1Title}*. ${nama} ${ensurePeriod(action1)} Afterward, ${nama} moved on to *${l2Title}* to learn the initial concepts.`,
+        `In today's class, ${nama} applied the concepts of *${l1Title}* until completion. ${nama} ${ensurePeriod(action1)} ${nama} then did the initial setup for *${l2Title}*.`,
+        `Today, ${nama} completed the material for *${l1Title}*. ${nama} ${ensurePeriod(action1)} In addition, the first steps for *${l2Title}* were also initiated and are ready to be continued.`,
+        `During this class, ${nama} successfully practiced *${l1Title}* entirely. ${nama} ${ensurePeriod(action1)} The remaining time was used to start understanding *${l2Title}*.`,
+        `In this meeting, ${nama} wrapped up *${l1Title}*. ${nama} ${ensurePeriod(action1)} Following that, ${nama} created an early draft for *${l2Title}* that will be continued later.`
       ];
-      return pickVariant(variants, idx, l1Num);
+      return pickVariant(variants, idx);
     },
     doubleText: (nama, l1Num, l1Title, action1, l2Num, l2Title, action2) => {
       return `${nama} completed 2 lessons in today's session (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`;

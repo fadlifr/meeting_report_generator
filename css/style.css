@@ -1258,6 +1258,223 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   border-color: var(--g500);
   box-shadow: 0 0 0 3px rgba(34,197,94,.12);
   outline: none;
+/* LMS Note Footer & Real-Time Character Counter */
+.lms-note-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 6px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.char-counter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  transition: all 0.2s ease;
+}
+.char-counter-pill.optimal {
+  background: #f0fdf4;
+  color: #15803d;
+  border-color: #86efac;
+}
+.char-counter-pill.under {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+.char-counter-pill.over {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+.note-quick-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-regen-mini {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-regen-mini:hover {
+  background: #dbeafe;
+  border-color: #3b82f6;
+}
+
+/* Learning Objectives Panel in Exam Report */
+.period-objectives-card {
+  margin-bottom: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.period-objectives-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  border-bottom: 1px solid transparent;
+  transition: background 0.2s;
+}
+.period-objectives-toggle:hover {
+  background: #f1f5f9;
+}
+.period-objectives-card.open .period-objectives-toggle {
+  border-bottom-color: #e2e8f0;
+}
+.period-objectives-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.obj-count-tag {
+  font-size: 10px;
+  font-weight: 800;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.obj-toggle-btn {
+  font-size: 11px;
+  font-weight: 700;
+  color: #16a34a;
+}
+.period-objectives-list {
+  padding: 12px 14px;
+  background: #ffffff;
+}
+.obj-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.btn-copy-obj {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-copy-obj:hover {
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+.obj-hint-text {
+  font-size: 11px;
+  color: #64748b;
+  font-style: italic;
+}
+.obj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px;
+}
+.obj-lesson-item {
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+.obj-lesson-head {
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.obj-lesson-list {
+  margin: 0;
+  padding-left: 16px;
+  color: #475569;
+}
+.obj-lesson-list li {
+  margin-bottom: 2px;
+}
+
+/* Sidebar Audience Toggle & Attendance Selector */
+.student-audience-toggle {
+  display: inline-flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 2px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  margin-left: 4px;
+}
+.audience-btn {
+  border: none;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 700;
+  color: #64748b;
+  padding: 3px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.audience-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+.exam-attendance-row {
+  margin-top: 6px;
+}
+.exam-sub-label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.exam-attendance-select {
+  width: 100%;
+  padding: 6px 8px;
+  font-size: 11.5px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+  box-sizing: border-box;
 }
 
 
@@ -1772,6 +1989,79 @@ textarea.wa-bubble::-webkit-scrollbar-thumb:hover{background:#94a3b8;}
   color: #cbd5e1;
 }
 [data-theme="dark"] .exam-score-input {
+  background: #182234;
+  border-color: #2d3d54;
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .char-counter-pill {
+  background: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+[data-theme="dark"] .char-counter-pill.optimal {
+  background: #064e3b;
+  border-color: #059669;
+  color: #a7f3d0;
+}
+[data-theme="dark"] .char-counter-pill.under {
+  background: #451a03;
+  border-color: #b45309;
+  color: #fde68a;
+}
+[data-theme="dark"] .char-counter-pill.over {
+  background: #450a0a;
+  border-color: #b91c1c;
+  color: #fecaca;
+}
+[data-theme="dark"] .btn-regen-mini {
+  background: #1e3a5f;
+  border-color: #2563eb;
+  color: #bfdbfe;
+}
+[data-theme="dark"] .btn-regen-mini:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+[data-theme="dark"] .period-objectives-card {
+  background: #131c2c;
+  border-color: #243245;
+}
+[data-theme="dark"] .period-objectives-toggle {
+  background: #0f172a;
+  color: #cbd5e1;
+}
+[data-theme="dark"] .period-objectives-toggle:hover {
+  background: #162234;
+}
+[data-theme="dark"] .period-objectives-card.open .period-objectives-toggle {
+  border-bottom-color: #243245;
+}
+[data-theme="dark"] .period-objectives-list {
+  background: #131c2c;
+}
+[data-theme="dark"] .obj-lesson-item {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+[data-theme="dark"] .obj-lesson-head {
+  color: #f1f5f9;
+}
+[data-theme="dark"] .obj-lesson-list {
+  color: #94a3b8;
+}
+[data-theme="dark"] .student-audience-toggle {
+  background: #0f172a;
+  border-color: #2d3d54;
+}
+[data-theme="dark"] .audience-btn {
+  color: #94a3b8;
+}
+[data-theme="dark"] .audience-btn.active {
+  background: #1e293b;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .exam-attendance-select {
   background: #182234;
   border-color: #2d3d54;
   color: #f1f5f9;

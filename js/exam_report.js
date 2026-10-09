@@ -125,6 +125,38 @@ function getCoursePeriods(courseName) {
   return periods;
 }
 
+// Helper to get all learning objectives for a specific period
+function getPeriodCurriculumDetails(course, from, to, lang = 'id') {
+  const cData = typeof COURSE_DATA !== 'undefined' ? COURSE_DATA[course] : null;
+  if (!cData) return { allObjectivesList: [], lessonTitles: [] };
+  
+  const allObjectivesList = [];
+  const lessonTitles = [];
+
+  for (let i = from; i <= to; i++) {
+    const lData = cData.find(l => l.num === i);
+    if (lData) {
+      let t = lData.title || `Lesson ${i}`;
+      t = t.replace(/^Lesson\s*\d+\s*[-:]?\s*/i, '').trim();
+      
+      const objs = (lang === 'en' && lData.objectives_en && lData.objectives_en.length > 0) 
+        ? lData.objectives_en 
+        : (lData.objectives || []);
+        
+      if (objs.length > 0) {
+        allObjectivesList.push({
+          num: i,
+          title: t,
+          objectives: objs
+        });
+      }
+      lessonTitles.push(t);
+    }
+  }
+
+  return { allObjectivesList, lessonTitles };
+}
+
 // Get dynamic categories for a course and report period
 function getCourseCategories(courseName, periodId = 'report_1') {
   const norm = normalizeCourseName(courseName);
@@ -210,645 +242,576 @@ function getCourseCategories(courseName, periodId = 'report_1') {
 }
 
 // ============================================================
-// OFFICIAL TIMEDOOR EXAM REPORT TEMPLATES
+// TEACHER'S NOTE TEMPLATE ENGINE (offline, tanpa AI API)
+// ------------------------------------------------------------
+// Score tiers (1 template per tier, per category, ID & EN):
+//   C1: <= 67 (incl. D/E)   C2: 68-74
+//   B1: 75-78   B2: 79-82   B3: 83-85
+//   A1: 86-90   A2: 91-95   A3: 96-100
+// Variasi saat Generate/Regenerate berasal dari: pemilihan topik
+// lesson secara acak, tips sesuai level, penutup acak, dan
+// kalibrasi panjang otomatis (350-500 karakter).
+// Tokens: {N}/{n} subject (nama / You / Kamu), {cN} ", Nama" di penutup,
+// {course}, {range}, {topics}, {projects}, {exam}, {score}, {tip}, {close}
 // ============================================================
-const EXAM_TEMPLATES = {
-  // ------------------------------------------------------------
-  // 3D ANIMATOR
-  // ------------------------------------------------------------
-  '3danimator': {
-    report_1: {
-      comp_lit: {
-        id: {
-          A: "{name} belajar cara mengoperasikan komputer, termasuk menggunakan mouse dan keyboard. {name} juga mengembangkan keterampilan motorik halus melalui aktivitas seperti mengklik, drag mouse, dan mengetik.",
-          B: "{name} belajar cara mengoperasikan komputer, termasuk menggunakan mouse dan keyboard. {name} juga mengembangkan keterampilan motorik halus melalui aktivitas seperti mengklik, drag mouse, dan mengetik.",
-          C: "{name} telah diperkenalkan dengan pengoperasian komputer dasar seperti penggunaan mouse dan keyboard. Latihan rutin mengklik dan drag mouse di rumah akan membantu kelancaran {name}."
-        },
-        en: {
-          A: "{name} learned how to operate a computer, including using a mouse and keyboard. {name} also developed fine motor skills through activities such as clicking, dragging the mouse, and typing.",
-          B: "{name} learned how to operate a computer, including using a mouse and keyboard. {name} also developed fine motor skills through activities such as clicking, dragging the mouse, and typing.",
-          C: "{name} was introduced to basic computer operations such as using a mouse and keyboard. Regular practice with mouse clicks and typing at home will greatly improve {name}'s fluency."
-        }
-      },
-      code_prac: {
-        id: {
-          A: "{name} mempelajari konsep dasar coding, termasuk algoritma, event, dan loop. Konsep-konsep ini diterapkan pada game koding interaktif sederhana, seperti rutinitas langkah demi langkah dan desain pola.",
-          B: "{name} mempelajari konsep dasar coding, termasuk algoritma, event, dan loop. Konsep-konsep ini diterapkan pada game koding interaktif sederhana, seperti rutinitas langkah demi langkah dan desain pola.",
-          C: "{name} mempelajari konsep dasar coding seperti algoritma dan event. Dengan sedikit pengulangan berkala, {name} akan semakin lancar dalam merancang alur logika codingnya."
-        },
-        en: {
-          A: "{name} learned fundamental coding concepts, including algorithms, events, and loops. These concepts were applied to simple interactive coding games, such as step-by-step routines and pattern designs.",
-          B: "{name} learned fundamental coding concepts, including algorithms, events, and loops. These concepts were applied to simple interactive coding games, such as step-by-step routines and pattern designs.",
-          C: "{name} was introduced to basic coding concepts like algorithms and events. Periodic review will help {name} grasp logical sequencing with greater ease."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} menunjukkan kerajinan dan pemahaman materi yang baik. Namun, ia masih sering merasa malu untuk bertanya saat kesulitan dan cenderung diam sebelum disapa. Perlu dorongan agar ia lebih berani dan aktif di kelas.",
-          B: "{name} dapat diandalkan dalam memahami materi dan menyelesaikan tugas dengan baik. Namun, ia masih perlu menjaga fokus saat belajar karena terkadang perhatiannya mudah teralihkan.",
-          C: "{name} memiliki antusiasme yang baik di kelas. Diperlukan sedikit dorongan agar {name} dapat mempertahankan konsentrasi sepanjang sesi pembelajaran."
-        },
-        en: {
-          A: "{name} demonstrates good diligence and solid comprehension of the material. However, {name} can still be shy about asking questions when facing difficulties. Encouragement will help build confidence to speak up.",
-          B: "{name} is dependable in understanding lessons and completing assignments well. However, {name} still needs to maintain focus during study time as attention can occasionally wander.",
-          C: "{name} shows a positive attitude in class. Continuous encouragement will help {name} sustain concentration throughout the whole learning session."
-        }
-      }
+
+const NOTE_MIN_CHARS = 350;
+const NOTE_MAX_CHARS = 500;
+
+const NOTE_TIERS = [
+  { id: 'C1', band: 'C', min: 0, max: 67 },
+  { id: 'C2', band: 'C', min: 68, max: 74 },
+  { id: 'B1', band: 'B', min: 75, max: 78 },
+  { id: 'B2', band: 'B', min: 79, max: 82 },
+  { id: 'B3', band: 'B', min: 83, max: 85 },
+  { id: 'A1', band: 'A', min: 86, max: 90 },
+  { id: 'A2', band: 'A', min: 91, max: 95 },
+  { id: 'A3', band: 'A', min: 96, max: 100 }
+];
+
+function getScoreTier(score) {
+  const s = Math.round(parseFloat(score));
+  if (isNaN(s)) return NOTE_TIERS[4];
+  return NOTE_TIERS.find(t => s >= t.min && s <= t.max) || (s > 100 ? NOTE_TIERS[7] : NOTE_TIERS[0]);
+}
+
+const NOTE_TEMPLATES = {
+  // ---------------- CODING: CONCEPT / LITERACY (ujian teori) ----------------
+  coding_concept: {
+    id: {
+      C1: "Di {range}, {n} mulai mengenal materi {course} seperti {topics}. Nilai ujian teori {n} {score}, dan beberapa konsep memang masih perlu diulang. Hal ini wajar karena materinya cukup banyak dan masih baru. {tip} {close}",
+      C2: "Selama {range}, {n} belajar {topics}. Di ujian teori, {n} mendapat nilai {score}. Sebagian konsep sudah mulai dipahami, hanya saja {n} masih ragu saat harus menjelaskan alurnya sendiri. Ini proses yang biasa dan akan membaik dengan latihan. {tip} {close}",
+      B1: "{N} sudah mengikuti materi {range} dengan baik, mencakup {topics}. Nilai ujian teori {n} {score}. Konsep dasarnya sudah dipahami, tapi beberapa detail kecil kadang masih tertukar. {tip} {close}",
+      B2: "Di {range}, {n} mempelajari {topics} dan bisa mengikuti penjelasan di kelas dengan cukup lancar. Pada ujian teori {n} meraih nilai {score}. Masih ada satu dua konsep yang perlu dimantapkan supaya tidak lupa di materi berikutnya. {tip} {close}",
+      B3: "{N} memahami materi {range} dengan baik, terutama {topics}. Nilai ujian teori {score} menunjukkan pemahaman yang sudah cukup matang, tinggal sedikit lagi untuk mencapai hasil maksimal. {tip} {close}",
+      A1: "{N} menguasai materi {range} dengan baik, seperti {topics}. Di ujian teori {n} mendapat nilai {score} dan bisa menjelaskan kembali konsep yang dipelajari dengan bahasa sendiri. {tip} {close}",
+      A2: "Pemahaman {n} di {range} sangat baik. Materi seperti {topics} bisa diikuti dengan cepat, dan nilai ujian teori {n} mencapai {score}. {N} juga sering menjawab pertanyaan di kelas dengan tepat. {tip} {close}",
+      A3: "Hasil yang sangat memuaskan di {range}! {N} memahami {topics} dengan sangat baik dan meraih nilai {score} di ujian teori. Konsep yang baru diajarkan bisa langsung dipahami tanpa banyak pengulangan. {tip} {close}"
     },
-    report_2: {
-      comp_lit: {
-        id: {
-          A: "{name} meningkatkan keterampilannya dalam mengoperasikan komputer dengan mengeksplor berbagai platform coding. {name} menunjukkan rasa percaya diri dan kemandirian yang lebih besar dalam menggunakan komputer.",
-          B: "{name} meningkatkan keterampilannya dalam mengoperasikan komputer dengan mengeksplor berbagai platform coding. {name} menunjukkan rasa percaya diri dan kemandirian yang lebih besar dalam menggunakan komputer."
-        },
-        en: {
-          A: "{name} improved their computer operation skills by exploring various coding platforms. {name} demonstrated greater confidence and independence in using the computer.",
-          B: "{name} improved their computer operation skills by exploring various coding platforms. {name} demonstrated greater confidence and independence in using the computer."
-        }
-      },
-      code_prac: {
-        id: {
-          A: "{name} memperdalam pemahaman mereka tentang loop dan event melalui latihan menggunakan berbagai game koding. Mereka mengimplementasikannya dengan membuat game animasi interaktif / game 3D.",
-          B: "{name} memperdalam pemahaman mereka tentang loop dan event melalui latihan menggunakan berbagai game koding. Mereka mengimplementasikannya dengan membuat game animasi interaktif / game 3D."
-        },
-        en: {
-          A: "{name} deepened their understanding of loops and events through exercises using various coding games. They implemented these concepts by creating interactive animated games / 3D games.",
-          B: "{name} deepened their understanding of loops and events through exercises using various coding games. They implemented these concepts by creating interactive animated games / 3D games."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} merupakan anak yang rajin dalam mengerjakan tugas dan memiliki pemahaman yang baik. Namun, {name} terkadang masih merasa malu untuk bertanya ketika mengalami kesulitan lalu {name} lebih memilih diam sampai ditanya.",
-          B: "{name} menunjukkan pemahaman materi yang sangat baik. Ia mampu menyelesaikan tugas dengan cepat dan tepat, menunjukkan potensi akademik yang kuat sejak awal pertemuan."
-        },
-        en: {
-          A: "{name} is diligent in completing tasks and possesses good understanding. However, {name} can still feel shy to ask when facing difficulties and tends to remain quiet until prompted.",
-          B: "{name} shows very good comprehension of the material. {name} is able to finish tasks quickly and accurately, demonstrating solid academic potential."
-        }
-      }
-    },
-    report_3: {
-      comp_lit: {
-        id: {
-          A: "{name} sudah lancar navigasi komputer dasar. {name} mampu mengelola pengerjaan proyek yang lebih rumit secara mandiri dengan rasa percaya diri yang terus meningkat di setiap tahapannya.",
-          B: "{name} sudah lancar navigasi komputer dasar. Dia mampu mengelola pengerjaan proyek yang lebih rumit secara mandiri dengan rasa percaya diri yang terus meningkat di setiap tahapannya."
-        },
-        en: {
-          A: "{name} is now fluent in basic computer navigation. {name} is able to manage more complex project work independently with growing confidence at every stage.",
-          B: "{name} is fluent in basic computer navigation and can handle project workflows independently with increasing confidence."
-        }
-      },
-      code_prac: {
-        id: {
-          A: "{name} mempelajari konsep baru yaitu conditional, dan mengaplikasikannya melalui berbagai game coding. Di akhir, {name} membuat sebuah game sebagai project akhirnya, menunjukkan pemahaman dan kreativitasnya sendiri.",
-          B: "{name} mempelajari konsep baru yaitu conditional, dan mengaplikasikannya melalui berbagai game coding. Di akhir, {name} membuat sebuah game sebagai project akhirnya, menunjukkan pemahaman dan kreativitasnya sendiri."
-        },
-        en: {
-          A: "{name} learned new concepts such as conditionals and applied them through various coding games. At the end, {name} created a game as the final project, demonstrating great understanding and creativity.",
-          B: "{name} learned conditionals and applied them in coding games, successfully finishing a final project game with good creativity."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} menunjukkan progres yang baik melalui ketekunannya. {name} memiliki pemahaman yang kuat, sekarang sudah mulai aktif bertanya saat kesulitan. Inisiatif bertanya perlu terus ditingkatkan.",
-          B: "{name} tetap dapat diandalkan dalam tugasnya, namun ia perlu menjaga fokus. Terkadang perhatiannya mudah teralihkan, sehingga konsentrasi penuh diperlukan agar hasilnya tetap maksimal."
-        },
-        en: {
-          A: "{name} shows good progress through diligence and strong comprehension. {name} has become more active in asking questions when stuck. Continuing this initiative is encouraged.",
-          B: "{name} remains dependable in assignments, though maintaining consistent focus will ensure optimal results throughout future sessions."
-        }
-      }
+    en: {
+      C1: "During {range}, {n} started learning {course} topics such as {topics}. {N} scored {score} on the theory exam, and some concepts still need more review. That is expected, since there was quite a lot of new material. {tip} {close}",
+      C2: "Throughout {range}, {n} learned about {topics}. On the theory exam, {n} scored {score}. Some concepts are starting to click, but explaining the steps without help still takes some effort. This will get easier with practice. {tip} {close}",
+      B1: "{N} followed the {range} material well, covering {topics}. With a theory exam score of {score}, the basics are clearly understood, although a few small details still get mixed up sometimes. {tip} {close}",
+      B2: "In {range}, {n} studied {topics} and could follow the class explanations quite smoothly. {N} scored {score} on the theory exam. One or two concepts still need some reinforcement so they stay fresh for the next topics. {tip} {close}",
+      B3: "{N} understood the {range} material well, especially {topics}. A theory exam score of {score} shows a good grasp of the concepts, and only a little more polish is needed to reach the top. {tip} {close}",
+      A1: "{N} handled the {range} material very well, including {topics}. On the theory exam, {n} scored {score} and could explain the concepts back in simple words. {tip} {close}",
+      A2: "{N} showed a strong understanding in {range}. Topics like {topics} were picked up quickly, and the theory exam score reached {score}. In class, {n} often answered questions correctly. {tip} {close}",
+      A3: "An excellent result for {range}! {N} understood {topics} really well and scored {score} on the theory exam. New concepts could be picked up right away without much repetition. {tip} {close}"
     }
   },
 
-  // ------------------------------------------------------------
-  // WEBSITE DESIGNER
-  // ------------------------------------------------------------
-  'websitedesigner': {
-    report_1: {
-      comp_lit: {
-        id: {
-          A: "{name} telah meningkatkan keterampilan motorik halusnya dengan berlatih mengoperasikan komputer, termasuk mengetik, mengklik, dan drag mouse dengan menggunakan berbagai platform coding dan VR/AR.",
-          B: "{name} telah meningkatkan keterampilan motorik halusnya dengan berlatih mengoperasikan komputer, termasuk mengetik, mengklik, dan drag mouse dengan menggunakan berbagai platform coding."
-        },
-        en: {
-          A: "{name} enhanced their fine motor skills by practicing computer operations, including typing, clicking, and dragging. She also navigated digital tools to explore coding platforms and VR/AR creation environments.",
-          B: "{name} practiced computer operations such as typing, clicking, and dragging, exploring coding platforms and digital creation tools effectively."
-        }
-      },
-      code_prac: {
-        id: {
-          A: "{name} telah mengimplementasikan kode dan mempelajari konsep coding seperti looping code, conditional loop, serta function. {name} juga mempelajari cara menerapkannya dalam lingkungan VR/AR dengan sangat baik.",
-          B: "{name} telah mengeksplor alat digital untuk mempelajari platform coding dan lingkungan pembuatan VR/AR, serta mempraktikkan konsep perulangan dan event."
-        },
-        en: {
-          A: "{name} has implemented the codes and learned about concepts like looping code, conditional loops, and functions. {name} also learned how to implement the concepts in VR/AR with great practice.",
-          B: "{name} learned core coding structures like loops and functions and explored how to implement them in VR/AR creation platforms."
-        }
-      },
-      creative: {
-        id: {
-          A: "Melalui pembuatan game animasi di CoSpaces Edu, {name} menumbuhkan kreativitas yang kuat berdasarkan imajinasinya dalam merancang dunia virtual yang menarik dan interaktif.",
-          B: "Dalam tahap ini, {name} menunjukkan keunikan kreativitasnya. Terkadang ia butuh waktu lebih di tahap desain sehingga perlu penyesuaian waktu agar codingnya selesai tepat waktu."
-        },
-        en: {
-          A: "Through the creation of an animated game on CoSpaces Edu, {name} grew strong creativity based on imagination and enjoyed implementing creative ideas in the project.",
-          B: "In this phase, {name} demonstrated unique creativity. At times, spending extra time on visual design required balancing so coding steps remained on schedule."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} murid yang sangat disiplin dan bersemangat dalam belajar. Ketika fokus, {name} mampu menyelesaikan gamenya dengan cepat dan tidak ragu untuk meminta bimbingan saat mengalami kendala.",
-          B: "{name} murid yang sangat disiplin dan selalu memberikan warna tersendiri di kelas. {name} perlu menjaga konsistensi fokus agar pengerjaan project berjalan optimal."
-        },
-        en: {
-          A: "{name} is a passionate and quiet student who readily helps herself to be better. While still developing independent design habits, {name} is honest about challenges and asks for assistance promptly. Congratulations on leveling up, {name}!",
-          B: "{name} is disciplined and brings positive energy to class. With sustained focus, {name} completes game projects quickly and enjoys sharing them with friends."
-        }
-      }
+  // ---------------- CODING: APPLICATION / PRACTICE (project + coding exam) ----------------
+  coding_application: {
+    id: {
+      C1: "Dalam praktik, {n} mengerjakan project seperti {projects}. Di {exam}, {n} mendapat nilai {score} dan masih butuh banyak bantuan untuk menyusun kodenya. Wajar kalau di tahap ini program sering belum jalan sesuai harapan. {tip} {close}",
+      C2: "{N} sudah mencoba membuat {projects} di kelas. Pada {exam}, nilai {n} {score}. Beberapa bagian sudah bisa dikerjakan sendiri, tapi saat ada error {n} masih perlu dibimbing untuk mencari penyebabnya. {tip} {close}",
+      B1: "{N} berhasil menyelesaikan project seperti {projects}. Di {exam}, {n} meraih nilai {score}. Programnya sudah berjalan, walaupun kadang masih perlu diingatkan langkah-langkahnya. {tip} {close}",
+      B2: "Project {projects} dikerjakan {n} dengan cukup rapi. Pada {exam}, nilainya {score}. Ketika menemukan error, {n} mulai bisa mencari sendiri bagian yang salah. Tinggal kecepatannya yang perlu dilatih. {tip} {close}",
+      B3: "{N} mampu mengerjakan {projects} hampir sepenuhnya secara mandiri. Pada {exam}, {n} mendapat nilai {score} dengan program yang sudah berjalan baik. Sedikit lagi ketelitian, hasilnya bisa lebih maksimal. {tip} {close}",
+      A1: "{N} menyelesaikan project {projects} dengan baik dan mandiri. Di {exam}, {n} meraih nilai {score}. Kodenya tersusun rapi dan bisa dijelaskan kembali saat ditanya. {tip} {close}",
+      A2: "Kemampuan praktik {n} sangat baik. Project seperti {projects} selesai lebih cepat dari target, dan di {exam} {n} meraih nilai {score}. Error kecil pun bisa diperbaiki sendiri tanpa banyak bantuan. {tip} {close}",
+      A3: "Praktik coding {n} di periode ini sangat menonjol. {N} menyelesaikan {projects} dengan hasil yang rapi dan kreatif, lalu meraih nilai {score} di {exam}. {N} bahkan sering menambahkan ide sendiri ke dalam project. {tip} {close}"
     },
-    report_2: {
-      comp_lit: {
-        id: {
-          A: "{name} berlatih menggunakan komputer untuk menavigasi pembuatan website. {name} telah mempelajari dasar-dasar desain website sederhana dan cara mengintegrasikan berbagai elemen ke dalam sebuah tata letak yang kohesif.",
-          B: "{name} berlatih menggunakan komputer untuk menavigasi alat dasar pengembangan website dan mempelajari tata letak dasar."
-        },
-        en: {
-          A: "{name} practiced using a computer to navigate basic website development tools. She learned the basics of web design and how to integrate multiple elements into a cohesive layout.",
-          B: "{name} practiced computer navigation for web development tools, learning how to combine text, headers, and media elements into a unified page layout."
-        }
-      },
-      code_prac: {
-        id: {
-          A: "{name} telah mempelajari pembuatan website dasar menggunakan Google Sites, termasuk cara mendesain tata letak, menyusun teks, dan menambahkan gambar untuk memamerkan karya proyeknya.",
-          B: "{name} telah berlatih menggunakan komputer untuk menavigasi alat dasar pengembangan website dan mengintegrasikan berbagai elemen portofolio."
-        },
-        en: {
-          A: "{name} learned basic website creation by using Google Sites, including how to design the layout, arrange the text, and add pictures to showcase portfolio projects.",
-          B: "{name} learned how to create websites on Google Sites, structuring layouts and organizing project presentations neatly."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} murid yang sangat disiplin dan selalu memberikan warna tersendiri untuk guru dan teman-temannya. Ia bahkan suka berbagi hasil desain dan bermain bersama game yang ia buat.",
-          B: "{name} menunjukkan dedikasi yang baik di kelas. Menjaga fokus tetap konsisten akan membantu {name} menyelesaikan setiap sesi dengan semakin cepat."
-        },
-        en: {
-          A: "{name} is a passionate and disciplined student who always strives to do their best. {name} communicates openly when facing questions and enjoys sharing creations with classmates. Congratulations on leveling up, {name}!",
-          B: "{name} is very disciplined and brings wonderful personality to class. Sustaining concentration helps {name} complete web modules rapidly."
-        }
-      },
-      creative: {
-        id: {
-          A: "Dalam tahap ini, {name} menunjukkan keunikan kreativitasnya yang unik. Desain website dan gamenya sangat menarik, dan kreativitasnya meningkat dengan sangat baik. Good Job dear {name}!",
-          B: "Dalam tahap ini, {name} menunjukkan keunikan kreativitasnya. Terkadang butuh waktu lebih di tahap visual, namun hasil akhirnya sangat kreatif."
-        },
-        en: {
-          A: "Through the creation of website designs and animated projects, {name} grew strong creativity based on imagination and genuinely enjoyed personalizing every layout.",
-          B: "{name} showcased wonderful creative ideas in website design. Balancing styling with page structure helped produce attractive project results."
-        }
-      }
+    en: {
+      C1: "In practice sessions, {n} worked on projects like {projects}. For {exam}, {n} scored {score} and still needed a lot of help putting the code together. At this stage it is normal for programs not to run as expected yet. {tip} {close}",
+      C2: "{N} tried building {projects} in class. For {exam}, {n} scored {score}. Some parts could be done independently, but when errors came up, {n} still needed guidance to find the cause. {tip} {close}",
+      B1: "{N} completed projects such as {projects}. For {exam}, {n} scored {score}. The programs ran well, although some steps still needed a reminder now and then. {tip} {close}",
+      B2: "{N} worked through {projects} quite neatly. The score for {exam} was {score}. When errors appeared, {n} started finding the problem without help. Speed is the next thing to work on. {tip} {close}",
+      B3: "{N} could complete {projects} almost fully independently. For {exam}, {n} scored {score} with a program that ran well. A bit more attention to detail will push the results even higher. {tip} {close}",
+      A1: "{N} completed {projects} well and independently. For {exam}, {n} scored {score}. The code was well organized, and {n} could explain how it works when asked. {tip} {close}",
+      A2: "{N} showed very strong practical skills. Projects like {projects} were finished ahead of time, and {n} scored {score} on {exam}. Small errors were usually fixed without much help. {tip} {close}",
+      A3: "The practical work this term stood out. {N} completed {projects} neatly and creatively, then scored {score} on {exam}. {N} often added personal ideas to the projects as well. {tip} {close}"
     }
   },
 
-  // ------------------------------------------------------------
-  // VIRTUAL WORLD MAKER
-  // ------------------------------------------------------------
-  'virtualworldmaker': {
-    report_1: {
-      code_lit: {
-        id: {
-          A: "{name} mengingat kembali konsep dasar coding dengan menyelesaikan game yang lebih menantang dan tingkat lanjut. {name} telah diperkenalkan dengan platform baru bernama Scratch, di mana Dia menerapkan konsep-konsep koding dasar untuk membuat game animasi tingkat lanjut.",
-          B: "{name} mengingat kembali konsep dasar coding dengan menyelesaikan game yang lebih menantang. {name} telah diperkenalkan dengan platform Scratch untuk membuat game animasi dasar.",
-          C: "{name} telah diperkenalkan dengan platform Scratch dan konsep dasar animasi. Review materi secara berkala akan sangat membantu memperkuat ingatan {name}."
-        },
-        en: {
-          A: "{name} reviewed fundamental coding concepts by solving more challenging and advanced games. {name} was introduced to Scratch, where they applied core coding concepts to make advanced animated games.",
-          B: "{name} reviewed basic coding concepts with Scratch and applied them to build interactive animated games.",
-          C: "{name} was introduced to Scratch block coding. Short review sessions at home will help reinforce foundational blocks and logic."
-        }
-      },
-      code_app: {
-        id: {
-          A: "{name} telah berlatih mengaplikasikan konsep-konsep coding yang telah dipelajari sebelumnya untuk membuat sebuah game animasi di Scratch, dengan fokus pada penggunaan blok koding untuk merancang animasi yang interaktif sembari beradaptasi dengan berbagai fitur yang ada di platform tersebut.",
-          B: "{name} telah berlatih mengaplikasikan konsep-konsep coding untuk membuat game animasi di Scratch, menggunakan blok koding dasar dengan bimbingan guru.",
-          C: "{name} mempraktikkan pembuatan game animasi sederhana di Scratch dengan panduan berkala dari teacher."
-        },
-        en: {
-          A: "{name} practiced applying learned coding concepts to create an animated game in Scratch, focusing on using code blocks to design interactive animations while mastering the platform's features.",
-          B: "{name} practiced applying coding concepts to build animated games in Scratch, utilizing core code blocks successfully.",
-          C: "{name} practiced building simple animated games in Scratch with step-by-step guidance from the teacher."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} sangat disiplin dan pantang menyerah. Walaupun masih berproses dalam membaca, saat dibantu Teacher dalam penggunaan coding {name} mampu dengan cepat mengingatnya. {name} tidak malu untuk bertanya atau berdiskusi.",
-          B: "{name} memiliki sifat bersosialisasi yang sangat baik, {name} juga mampu mengikuti pembelajaran dengan baik tetapi perlu review beberapa kali agar pembelajaran yang lalu dapat diingat dengan baik.",
-          C: "{name} menunjukkan antusiasme yang baik di kelas. Perlu pendampingan agar {name} dapat menjaga fokus dan konsentrasi saat mengerjakan tantangan coding."
-        },
-        en: {
-          A: "{name} is very disciplined and persistent. Guided step-by-step by the teacher, {name} grasps coding blocks quickly and is never shy about asking questions or sharing thoughts.",
-          B: "{name} socializes warmly with classmates and follows lessons well. Occasional reviews help {name} retain previously learned concepts with stronger confidence.",
-          C: "{name} is enthusiastic in class. Supportive guidance helps {name} build longer concentration spans during coding challenges."
-        }
-      }
+  // ---------------- DESIGN: CONCEPT ----------------
+  design_concept: {
+    id: {
+      C1: "Di {range}, {n} mulai mengenal materi {course} seperti {topics}. Nilai ujian teori {n} {score}, dan beberapa istilah desain masih perlu diulang. Wajar, karena banyak istilah baru yang dikenalkan di periode ini. {tip} {close}",
+      C2: "Selama {range}, {n} belajar {topics}. Di ujian teori, {n} mendapat nilai {score}. Konsep dasarnya mulai dipahami, tapi {n} masih ragu saat harus menjelaskan alasan di balik pilihan desainnya. {tip} {close}",
+      B1: "{N} mengikuti materi {range} dengan baik, mencakup {topics}. Nilai ujian teori {n} {score}. Prinsip dasarnya sudah dipahami, hanya beberapa istilah kadang masih tertukar. {tip} {close}",
+      B2: "Di {range}, {n} mempelajari {topics} dan cukup lancar mengikuti diskusi di kelas. Pada ujian teori {n} meraih nilai {score}. Beberapa prinsip masih perlu dimantapkan agar bisa dipakai dengan tepat di project berikutnya. {tip} {close}",
+      B3: "{N} memahami materi {range} dengan baik, terutama {topics}. Nilai ujian teori {score} menunjukkan pemahaman yang sudah cukup matang. Sedikit lagi pendalaman, hasilnya bisa maksimal. {tip} {close}",
+      A1: "{N} menguasai materi {range} dengan baik, seperti {topics}. Di ujian teori {n} mendapat nilai {score} dan bisa menjelaskan alasan di balik pilihan desainnya dengan jelas. {tip} {close}",
+      A2: "Pemahaman {n} di {range} sangat baik. Materi seperti {topics} cepat dipahami, dan nilai ujian teori {n} mencapai {score}. Saat diskusi, {n} sering memberi masukan desain yang tepat. {tip} {close}",
+      A3: "Hasil yang sangat memuaskan di {range}! {N} memahami {topics} dengan sangat baik dan meraih nilai {score} di ujian teori. Prinsip desain yang baru diajarkan bisa langsung diterapkan. {tip} {close}"
     },
-    report_2: {
-      code_lit: {
-        id: {
-          A: "{name} telah mempelajari konsep debugging, yaitu mengidentifikasi dan memperbaiki kesalahan dalam kode. {name} juga mengaplikasikan konsep coding yang lebih kompleks untuk membuat animasi di Scratch. Kerja bagus {name}!",
-          B: "{name} telah mempelajari konsep debugging, yaitu mengidentifikasi dan memperbaiki kesalahan dalam kode. {name} juga mengaplikasikan konsep coding yang lebih kompleks untuk membuat animasi di Scratch."
-        },
-        en: {
-          A: "{name} learned the concept of debugging, identifying and fixing errors in code. {name} also applied more complex coding logic to create animations in Scratch. Keep it up, {name}!",
-          B: "{name} learned debugging to find and correct coding errors, applying structured logic in Scratch animation projects."
-        }
-      },
-      code_app: {
-        id: {
-          A: "{name} telah membuat game animasi sederhana menggunakan Scratch, dengan menerapkan logika coding yang kompleks seperti event, loop, conditional dan lainnya. Semangat terus {name}!",
-          B: "{name} telah membuat game animasi sederhana menggunakan Scratch, dengan menerapkan logika coding seperti event, loop, dan conditional."
-        },
-        en: {
-          A: "{name} created animated games using Scratch, applying complex coding logic such as events, loops, conditionals, and more. Great job, {name}!",
-          B: "{name} built animated games in Scratch, applying event handling and loop logic effectively."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} adalah anak yang sangat aktif di kelas, {name} juga sangat suka untuk bergaul dengan teman sekelasnya. {name} tidak malu untuk bertanya apabila ada suatu materi/lesson yang kurang Ia pahami dan tidak malu untuk meminta bantuan ketika terdapat kendala dalam melakukan coding. Kerja bagus dan semangat terus {name}!!",
-          B: "{name} sangat disiplin dan pantang menyerah. Walaupun masih perlu sedikit bantuan dalam mengingat konsep coding, {name} berusaha mengingat tiap materi seperti forever, looping dan algoritma. {name} selalu sopan dan ramah di kelas."
-        },
-        en: {
-          A: "{name} is very active in class and loves socializing with peers. {name} is never hesitant to ask questions when needed and actively seeks assistance during coding. Fantastic effort and keep it up, {name}!",
-          B: "{name} is disciplined and persistent. {name} strives to remember every coding concept like forever loops and algorithms, maintaining polite and friendly behavior."
-        }
-      }
-    },
-    report_3: {
-      code_lit: {
-        id: {
-          A: "{name} telah mempelajari konsep variabel dan operator, serta memahami cara menyimpan dan memanipulasi data dalam kode mereka. {name} juga mengeksplor konsep function dalam koding untuk pembuatan dunia VR yang lebih kompleks. Semangat terus {name}!",
-          B: "{name} mempelajari konsep variabel dan operator, serta memahami cara menyimpan data dalam kode mereka. {name} juga mengeksplor function dalam koding untuk pembuatan dunia VR."
-        },
-        en: {
-          A: "{name} learned the concepts of variables and operators, understanding how to store and manipulate data. {name} also explored functions for building more complex VR worlds. Keep it up, {name}!",
-          B: "{name} learned variables and operators to store data, exploring functions to construct virtual reality environments."
-        }
-      },
-      code_app: {
-        id: {
-          A: "{name} telah membuat game animasi di Scratch menggunakan kode variabel dan operator. {name} juga mengaplikasikan kode function untuk membangun dunia VR yang kompleks, menunjukkan pemahaman yang lebih mendalam tentang konsep coding. Kerja bagus {name}!!",
-          B: "{name} telah membuat game animasi di Scratch menggunakan variabel dan operator, serta mengaplikasikan function untuk membangun dunia VR."
-        },
-        en: {
-          A: "{name} created animated games in Scratch using variables and operators, and applied functions to build complex VR environments, demonstrating a deeper understanding of coding concepts. Great job, {name}!",
-          B: "{name} built Scratch games using variables and operators, implementing functions in 3D/VR creation tools."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} adalah anak yang sangat aktif di kelas terutama pada sesi diskusi dan {name} juga sering berinteraksi dengan teman di kelasnya. {name} tidak malu untuk bertanya apabila ada suatu materi/lesson yang {name} kurang mengerti. Semangat terus {name}!",
-          B: "{name} sangat disiplin dan pantang menyerah. Ia selalu berusaha mengingat tiap konsep coding yang Ia pelajari seperti function, forever, looping dan algoritma. Selamat atas kenaikan levelnya!"
-        },
-        en: {
-          A: "{name} is very active during class discussions and communicates warmly with classmates. {name} asks questions confidently whenever encountering tricky topics. Keep up the high spirits, {name}!",
-          B: "{name} is disciplined and determined, making conscientious efforts to remember functions, loops, and algorithmic thinking. Congratulations on leveling up!"
-        }
-      }
+    en: {
+      C1: "During {range}, {n} started learning {course} topics such as {topics}. {N} scored {score} on the theory exam, and some design terms still need more review. That is expected, as many new terms were introduced this term. {tip} {close}",
+      C2: "Throughout {range}, {n} learned about {topics}. On the theory exam, {n} scored {score}. The basic ideas are starting to make sense, but explaining the reasons behind design choices still takes some effort. {tip} {close}",
+      B1: "{N} followed the {range} material well, covering {topics}. With a theory exam score of {score}, the main principles are understood, though a few terms still get mixed up. {tip} {close}",
+      B2: "In {range}, {n} studied {topics} and kept up well during class discussions. {N} scored {score} on the theory exam. A few principles still need reinforcement so they can be applied correctly in the next projects. {tip} {close}",
+      B3: "{N} understood the {range} material well, especially {topics}. A theory exam score of {score} shows a good grasp of the principles, and only a little more depth is needed to reach the top. {tip} {close}",
+      A1: "{N} handled the {range} material very well, including {topics}. On the theory exam, {n} scored {score} and could clearly explain the reasons behind each design choice. {tip} {close}",
+      A2: "{N} showed a strong understanding in {range}. Topics like {topics} were picked up quickly, and the theory exam score reached {score}. During discussions, {n} often gave useful design feedback. {tip} {close}",
+      A3: "An excellent result for {range}! {N} understood {topics} really well and scored {score} on the theory exam. New design principles could be applied right away. {tip} {close}"
     }
   },
 
-  // ------------------------------------------------------------
-  // LITTLE PROGRAMMER
-  // ------------------------------------------------------------
-  'littleprogrammer': {
-    report_1: {
-      code_lit: {
-        id: {
-          A: "{name} telah mempelajari konsep list dan kode broadcast, yang kemudian diterapkan untuk membuat game animasinya. {name} telah mengeksplor cara mengimplementasikan konsep list dan menggunakan kode broadcast secara efektif. Kerja bagus {name}!",
-          B: "{name} telah mempelajari konsep list dan kode broadcast, yang kemudian diterapkan untuk membuat game animasinya. {name} telah mengeksplor cara mengimplementasikan konsep list dan menggunakan kode broadcast."
-        },
-        en: {
-          A: "{name} learned the concepts of lists and broadcast codes, which were applied to create their animation projects. They explored how to implement lists concept and used broadcasting to control the animation games effectively. Keep it up {name}!",
-          B: "{name} has learned the concepts of lists and broadcast codes, which were applied to create animation projects, exploring how to use broadcast signals effectively."
-        }
-      },
-      code_app: {
-        id: {
-          A: "{name} menerapkan berbagai konsep coding, menggabungkan list dan broadcast untuk menyelesaikan tugas dan membuat game animasi. Proyeknya menunjukkan pemahaman tentang cara menyinkronkan berbagai konsep dalam satu program. Kerja bagus {name}!",
-          B: "{name} menerapkan berbagai konsep coding, menggabungkan list dan broadcast untuk menyelesaikan tugas dan membuat game animasi. Proyeknya menunjukkan pemahaman yang baik."
-        },
-        en: {
-          A: "{name} implemented various coding concepts, combining lists and broadcast codes to complete tasks and create animation games. Their projects demonstrated an understanding of how to synchronize different concepts within a single program. Good Job {name}!",
-          B: "{name} has been able to implement various coding concepts, combining lists and broadcasts to complete the animated game project effectively."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} sangat aktif di kelas terutama pada sesi diskusi. {name} tidak malu bertanya jika ada materi/lesson yang belum dipahami dan sangat menikmati berinteraksi dengan teman sekelasnya. Pertahankan prestasimu, {name}!",
-          B: "{name} bersikap sangat baik dan sopan di kelas. {name} mampu mengerjakan materi secara mandiri serta sesekali bertanya ketika ada hal yang kurang dipahami. Semangat terus!"
-        },
-        en: {
-          A: "{name} is a very active student in class, especially during discussion sessions. {name} is also not shy about asking questions if there is any material/lesson she doesn't understand. {name} really enjoys interacting with her classmates. Keep up the good work, {name}!",
-          B: "{name} behaves well in class. She is polite to both the teacher and her classmates. {name} is also able to work on the material independently and occasionally asks the teacher when there is something she doesn't understand. Keep it up!"
-        }
-      }
+  // ---------------- DESIGN: APPLICATION / PRACTICE ----------------
+  design_application: {
+    id: {
+      C1: "Dalam praktik, {n} mengerjakan tugas desain seperti {projects}. Di {exam}, {n} mendapat nilai {score} dan masih butuh banyak arahan untuk menyusun komposisinya. Wajar kalau hasil awal masih perlu beberapa kali revisi. {tip} {close}",
+      C2: "{N} sudah mencoba membuat {projects} di kelas. Pada {exam}, nilai {n} {score}. Beberapa bagian sudah bisa dikerjakan sendiri, tapi pemilihan warna dan tata letak masih perlu dibimbing. {tip} {close}",
+      B1: "{N} berhasil menyelesaikan tugas seperti {projects}. Di {exam}, {n} meraih nilai {score}. Hasil desainnya sudah sesuai arahan, walaupun detail kecil kadang masih terlewat. {tip} {close}",
+      B2: "Tugas {projects} dikerjakan {n} dengan cukup rapi. Pada {exam}, nilainya {score}. {N} mulai bisa merevisi desain sendiri setelah diberi masukan. Tinggal konsistensi gayanya yang perlu dilatih. {tip} {close}",
+      B3: "{N} mampu mengerjakan {projects} hampir sepenuhnya secara mandiri. Pada {exam}, {n} mendapat nilai {score} dengan hasil yang sudah enak dilihat. Sedikit lagi ketelitian di detail, hasilnya bisa lebih maksimal. {tip} {close}",
+      A1: "{N} menyelesaikan {projects} dengan baik dan mandiri. Di {exam}, {n} meraih nilai {score}. Komposisi dan pilihan warnanya rapi, dan {n} bisa menjelaskan konsep desainnya saat ditanya. {tip} {close}",
+      A2: "Kemampuan praktik desain {n} sangat baik. Tugas seperti {projects} selesai lebih cepat dari target, dan di {exam} {n} meraih nilai {score}. Masukan dari teacher bisa langsung diterapkan dengan tepat. {tip} {close}",
+      A3: "Karya {n} di periode ini sangat menonjol. {N} menyelesaikan {projects} dengan hasil yang rapi dan kreatif, lalu meraih nilai {score} di {exam}. {N} juga sering menambahkan ide visual sendiri. {tip} {close}"
     },
-    report_2: {
-      code_lit: {
-        id: {
-          A: "{name} telah mengeksplor pembuatan AR tingkat lanjut dengan mempelajari cara mengimplementasikan konsep coding yang lebih kompleks ke dalam desain mereka. Ia mempelajari cara menyusun dunia AR interaktif untuk membuat AR Quiz yang menarik.",
-          B: "{name} telah mengeksplor pembuatan AR dengan mempelajari cara mengimplementasikan konsep coding ke dalam desain, menyusun dunia AR interaktif untuk membuat kuis AR."
-        },
-        en: {
-          A: "{name} had explored advanced AR creation by learning how to integrate complex coding concepts into their designs. They learned how to structure interactive AR experiences and applied coding to create an engaging AR Quiz.",
-          B: "{name} has explored advanced AR creation by learning how to integrate complex coding concepts into their designs, creating an interactive AR Quiz."
-        }
-      },
-      code_app: {
-        id: {
-          A: "{name} menerapkan berbagai konsep coding untuk membangun AR Quiz yang fungsional dan interaktif. Proyek ini memadukan keterampilan teknis dan kreativitas untuk menghadirkan pengalaman pengguna yang menarik.",
-          B: "{name} telah menerapkan berbagai konsep coding untuk membangun AR Quiz yang fungsional dan interaktif dengan hasil yang memuaskan."
-        },
-        en: {
-          A: "{name} had applied various coding concepts to build a functional and interactive AR Quiz. Their project combined technical skills and creativity to deliver an immersive user experience.",
-          B: "{name} has applied various coding concepts to build a functional and interactive AR Quiz, demonstrating great technical skills."
-        }
-      },
-      char: {
-        id: {
-          A: "{name} sangat aktif di kelas terutama pada sesi diskusi. {name} tidak ragu untuk bertanya saat mengalami kendala dan sangat menikmati berinteraksi dengan teman-temannya. Kerja bagus!",
-          B: "{name} bersikap santun dan mandiri di kelas. {name} tekun mengerjakan proyek AR dan mampu mengikuti arahan dengan baik."
-        },
-        en: {
-          A: "{name} is a very active student in class, especially during discussion sessions. {name} is also not shy when she asks questions if there is any material/lesson she doesn't understand. Keep up the good work!",
-          B: "{name} behaves well in class, working independently on AR challenges and asking thoughtful questions whenever needed."
-        }
-      }
-    },
-    report_3: {
-      code_lit: {
-        id: {
-          A: "{name} menggabungkan pengetahuan coding mereka dengan merancang dan mengimplementasikan proyek akhir di Scratch. Tugas ini mendorong {name} untuk mengaplikasikan berbagai konsep yang telah mereka pelajari sepanjang kursus.",
-          B: "{name} menggabungkan pengetahuan coding mereka dengan merancang proyek akhir di Scratch, mengaplikasikan materi yang telah dipelajari."
-        },
-        en: {
-          A: "{name} had consolidated her coding knowledge by designing and implementing a final project in Scratch. This assignment encouraged them to integrate multiple concepts they had learned throughout the course.",
-          B: "{name} consolidated coding knowledge by designing and implementing a final project in Scratch, integrating concepts learned across the level."
-        }
-      },
-      code_app: {
-        id: {
-          A: "{name} telah membuat proyek akhir di Scratch sebagai penugasan kursus. Proyek ini menampilkan kemampuan menggabungkan berbagai konsep coding untuk mengembangkan program yang komprehensif dan interaktif.",
-          B: "{name} telah membuat proyek akhir di Scratch yang menampilkan kemampuan menggabungkan konsep coding menjadi game interaktif."
-        },
-        en: {
-          A: "{name} had created a final project in Scratch as her course assignment. The project showcased their ability to combine various coding concepts to develop a comprehensive and interactive program.",
-          B: "{name} created a final project in Scratch as their course assignment, showcasing their ability to build a comprehensive interactive program."
-        }
-      },
-      char: {
-        id: {
-          A: "Pada akhir level ini, {name} menunjukkan kemampuan kreativitas mandiri dan kedisiplinan yang tinggi. {name} selalu berusaha membuat game secara mandiri dan menyimak instruksi dengan sangat baik. Selamat atas pencapaianmu, {name}!",
-          B: "{name} berperilaku sangat baik dan santun di kelas. {name} mampu bekerja secara mandiri dan tekun dalam menyelesaikan proyek akhirnya. Pertahankan prestasimu!"
-        },
-        en: {
-          A: "At the end of this level, {name} can demonstrate the ability to create her own creativity. Also, {name} is a disciplined student who always tries to create the game by herself and listens attentively to instructions. Good job!",
-          B: "{name} behaves well in class, polite to both teacher and peers, working on materials independently and completing the final project successfully."
-        }
-      }
+    en: {
+      C1: "In practice sessions, {n} worked on design tasks like {projects}. For {exam}, {n} scored {score} and still needed a lot of direction to arrange the composition. It is normal for early designs to need several revisions. {tip} {close}",
+      C2: "{N} tried creating {projects} in class. For {exam}, {n} scored {score}. Some parts could be done independently, but choosing colors and layout still needed guidance. {tip} {close}",
+      B1: "{N} completed tasks such as {projects}. For {exam}, {n} scored {score}. The designs followed the brief, although small details were sometimes missed. {tip} {close}",
+      B2: "{N} worked through {projects} quite neatly. The score for {exam} was {score}. After receiving feedback, {n} started revising designs independently. Keeping a consistent style is the next thing to practice. {tip} {close}",
+      B3: "{N} could complete {projects} almost fully independently. For {exam}, {n} scored {score} with results that looked clean. A bit more attention to detail will push the results even higher. {tip} {close}",
+      A1: "{N} completed {projects} well and independently. For {exam}, {n} scored {score}. The composition and color choices were neat, and {n} could explain the design concept when asked. {tip} {close}",
+      A2: "{N} showed very strong design skills. Tasks like {projects} were finished ahead of time, and {n} scored {score} on {exam}. Feedback from the teacher was applied quickly and accurately. {tip} {close}",
+      A3: "The design work this term stood out. {N} completed {projects} neatly and creatively, then scored {score} on {exam}. {N} often added personal visual ideas as well. {tip} {close}"
     }
   },
 
-  // ------------------------------------------------------------
-  // CODE & DESIGN WITH ROBLOX
-  // ------------------------------------------------------------
-  'codeanddesignwithroblox': {
-    report_1: {
-      design_prac: {
-        id: {
-          A: "{name} mempelajari dasar-dasar modelling untuk membuat objek dengan baik dan mampu memahami penjelasan Guru dengan cepat. {name} mampu membangun lingkungan realistis seperti bukit dan sungai pada Mini Adventure Game serta membuat model objek seperti Pulau, Bangunan, dan Pohon pada Obby Game secara mandiri.",
-          B: "{name} mempelajari dasar-dasar modelling untuk membuat objek dengan baik dan mampu membangun lingkungan seperti bukit dan sungai pada Mini Adventure Game dengan bimbingan Guru, serta membuat objek model pada Obby Game."
-        },
-        en: {
-          A: "{name} shows a very good ability in learning the basics of modeling to make objects and understands the Teacher's explanation very well. {name} is also able to build realistic environments such as hills and rivers in Mini Adventure Game and make object models independently, such as Islands, Buildings, and Trees in Obby Game.",
-          B: "{name} learned the basics of 3D modeling in Roblox Studio well, building environmental terrains and creating game models with teacher guidance."
-        }
-      },
-      code_prac: {
-        id: {
-          A: "{name} mempelajari konsep Variable, Properties, Function, While Loop, dan Conditional Statement yang digunakan dalam Coding dengan baik. Saat penerapannya dalam Game, {name} sudah mampu menjelaskan bagaimana konsep-konsep tersebut berjalan dan mempraktikkannya ke dalam game Roblox.",
-          B: "{name} mempelajari konsep Variable, Properties, Function, While Loop, dan Conditional Statement yang digunakan dalam Coding dengan cukup baik. Saat penerapannya dalam Game, {name} sudah mampu mempraktikkannya meskipun masih perlu dibimbing dalam penulisan sintaksnya. Perbanyak latihan lagi ya {name}!"
-        },
-        en: {
-          A: "{name} well learned the concepts of Variables, Properties, Functions, While Loops, and Conditional Statements used in Coding. When applied to the game, {name} demonstrates how the concepts work and applies them into Roblox games.",
-          B: "{name} learned Variables, Properties, Functions, Loops, and Conditionals in Lua. When applied to Roblox games, {name} understands the logic while continuing to practice syntax precision. Keep exploring, {name}!"
-        }
-      },
-      char: {
-        id: {
-          A: "{name} sangat bersemangat dalam belajar sehingga menjadi contoh positif untuk teman sekelasnya. {name} selalu siap dengan Roblox Studio dan komputernya serta aktif mengerjakan tugas dengan tekun. Tingkatkan lagi ya {name}!",
-          B: "{name} sangat antusias belajar coding Roblox. Terkadang {name} perlu diingatkan agar tetap fokus di tempat duduk dan berkonsentrasi penuh pada instruksi guru agar hasil belajarnya semakin maksimal."
-        },
-        en: {
-          A: "{name} is passionate about learning, becoming a positive role model for classmates. {name} arrives on time, comes prepared with Roblox Studio, and works diligently on assignments. Keep it high, {name}!",
-          B: "{name} shows high excitement for Roblox coding. Staying focused and following instructions attentively will help {name} achieve even greater progress."
-        }
-      }
+  // ---------------- CREATIVITY (Website Designer, dll) ----------------
+  creative: {
+    id: {
+      C1: "Dari sisi kreativitas, {n} masih cenderung mengikuti contoh dari teacher saat mengerjakan project seperti {projects}. Wajar di tahap ini, karena {n} masih membiasakan diri dengan tools-nya. {tip} {close}",
+      C2: "{N} mulai mencoba sedikit perubahan pada project seperti {projects}, misalnya mengganti warna atau karakter. Ide {n} sebenarnya sudah ada, hanya perlu lebih berani dituangkan. {tip} {close}",
+      B1: "{N} sudah mulai menambahkan ide sendiri ke dalam project seperti {projects}, walaupun masih sederhana. Kadang waktu habis di tahap mendesain, jadi perlu belajar membagi waktu. {tip} {close}",
+      B2: "Kreativitas {n} mulai terlihat dari pilihan warna dan tata letak di project {projects}. {N} cukup percaya diri mencoba ide baru setelah diberi contoh. {tip} {close}",
+      B3: "{N} punya ide-ide yang menarik dan mampu menuangkannya ke dalam {projects} dengan cukup rapi. Sedikit lagi keberanian bereksperimen akan membuat hasilnya makin unik. {tip} {close}",
+      A1: "{N} kreatif dalam mendesain project seperti {projects}. Ide-ide yang dituangkan menarik dan sesuai dengan tema yang diberikan. {tip} {close}",
+      A2: "Kreativitas {n} sangat baik. Project seperti {projects} punya ciri khas sendiri, dan {n} senang menambahkan detail di luar instruksi. {tip} {close}",
+      A3: "Kreativitas {n} sangat menonjol di periode ini. Project seperti {projects} dibuat dengan ide yang unik dan detail yang rapi, sampai sering menjadi inspirasi bagi teman-teman di kelas. {tip} {close}"
+    },
+    en: {
+      C1: "In terms of creativity, {n} still tended to follow the teacher's example closely when working on projects like {projects}. That is normal at this stage while getting used to the tools. {tip} {close}",
+      C2: "{N} started making small changes to projects like {projects}, such as changing colors or characters. The ideas are there, they just need to be expressed more boldly. {tip} {close}",
+      B1: "{N} started adding personal ideas to projects like {projects}, though they were still simple. Sometimes too much time went into the design stage, so time management needs some practice. {tip} {close}",
+      B2: "Creativity showed in the color and layout choices {n} made in {projects}. {N} felt confident trying new ideas after seeing an example. {tip} {close}",
+      B3: "{N} came up with interesting ideas and turned them into fairly neat work in {projects}. Being a little braver with experiments will make the results even more unique. {tip} {close}",
+      A1: "{N} showed good creativity in projects like {projects}. The ideas were interesting and matched the given theme. {tip} {close}",
+      A2: "{N} showed very strong creativity. Projects like {projects} had a personal touch, and {n} enjoyed adding details beyond the instructions. {tip} {close}",
+      A3: "Creativity really stood out this term. Projects like {projects} came with unique ideas and neat details, often inspiring classmates as well. {tip} {close}"
+    }
+  },
+
+  // ---------------- CHARACTER (semua level) ----------------
+  character: {
+    id: {
+      C1: "Di kelas, {n} masih sering kehilangan fokus dan butuh diingatkan untuk menyelesaikan tugas. Ini hal yang biasa dan bisa dilatih pelan-pelan. Saat sudah tertarik dengan materinya, {n} sebenarnya bisa mengikuti dengan baik. {tip} {close}",
+      C2: "{N} cukup antusias di awal kelas, tapi fokusnya kadang turun di tengah sesi. {N} juga masih malu bertanya saat mengalami kesulitan. Dengan sedikit dorongan, hal ini pasti bisa membaik. {tip} {close}",
+      B1: "{N} mengikuti kelas dengan sikap yang baik dan sopan. Tugas umumnya diselesaikan, walaupun kadang perlu diingatkan agar tidak terburu-buru. {N} juga mulai berani bertanya saat ada yang belum jelas. {tip} {close}",
+      B2: "{N} cukup aktif di kelas dan mau mencoba saat diberi tantangan. Sesekali fokus {n} teralihkan, tapi bisa kembali setelah diingatkan. Sikap {n} terhadap teman dan teacher juga baik. {tip} {close}",
+      B3: "{N} menunjukkan sikap belajar yang baik. {N} datang siap belajar, mengikuti instruksi dengan tertib, dan mau mencoba lagi saat hasilnya belum sesuai. Sedikit lebih berani berpendapat akan membuat {n} makin berkembang. {tip} {close}",
+      A1: "{N} rajin dan bertanggung jawab di kelas. Tugas selalu diselesaikan dengan sungguh-sungguh, dan {n} tidak ragu bertanya saat menemui kesulitan. {tip} {close}",
+      A2: "{N} sangat antusias dan fokus selama kelas. Saat menemui kesulitan, {n} mencoba mencari solusinya dulu sebelum bertanya. {N} juga senang membantu teman yang sedang kesulitan. {tip} {close}",
+      A3: "Sikap belajar {n} patut dicontoh. {N} selalu fokus, mandiri, dan pantang menyerah saat menghadapi tantangan. Di kelas, {n} sering menjadi penyemangat bagi teman-teman yang lain. {tip} {close}"
+    },
+    en: {
+      C1: "In class, {n} often lost focus and needed reminders to finish tasks. This is common and can be trained step by step. When the topic felt interesting, {n} could actually follow along well. {tip} {close}",
+      C2: "{N} started classes with good energy, but focus tended to drop in the middle of the session. {N} also felt shy asking for help when stuck. With a little encouragement, this will surely improve. {tip} {close}",
+      B1: "{N} joined classes with a good and polite attitude. Tasks were usually completed, although {n} sometimes needed a reminder not to rush. {N} also started asking questions when something felt unclear. {tip} {close}",
+      B2: "{N} took part actively in class and showed willingness to try new challenges. Attention drifted now and then, but {n} could refocus after a reminder. {N} also treated classmates and the teacher kindly. {tip} {close}",
+      B3: "{N} showed a good learning attitude. {N} came ready to learn, followed instructions well, and kept trying when the result did not work out at first. Speaking up a bit more in class will help {n} grow further. {tip} {close}",
+      A1: "{N} showed diligence and responsibility in class. Tasks were always done seriously, and {n} never hesitated to ask questions when facing difficulties. {tip} {close}",
+      A2: "{N} stayed very enthusiastic and focused during class. When facing a problem, {n} tried to find the solution first before asking. {N} also liked helping classmates who were stuck. {tip} {close}",
+      A3: "{N} set a great example in class. {N} stayed focused, worked independently, and never gave up when facing challenges. {N} also often motivated classmates during activities. {tip} {close}"
     }
   }
 };
 
-// Aliases for template lookup
-EXAM_TEMPLATES['codedesignroblox'] = EXAM_TEMPLATES['codeanddesignwithroblox'];
-
-// Extract curriculum topics and project context from COURSE_DATA
-function getCurriculumContext(courseName, fromLesson, toLesson, lang) {
-  if (typeof COURSE_DATA === 'undefined' || !COURSE_DATA[courseName]) {
-    return {
-      topics: lang === 'id' ? 'konsep dasar dan logika pemrograman' : 'core programming concepts and logic',
-      project: lang === 'id' ? 'project coding dan ujian praktik' : 'the term coding project and practical exam'
-    };
+// Tips perbaikan (dipakai tier C & B), disesuaikan level siswa
+const NOTE_TIPS = {
+  junior: {
+    id: [
+      "Latihan singkat 10 menit di rumah bersama orang tua, misalnya mengulang animasi dari kelas, akan sangat membantu.",
+      "Mengulang kembali satu project dari kelas di rumah, cukup 10 menit saja, bisa membantu {n} makin lancar."
+    ],
+    en: [
+      "A short 10-minute practice at home with a parent, such as replaying the class animation, will help a lot.",
+      "Redoing one class project at home for about 10 minutes can help {n} become more fluent."
+    ]
+  },
+  kids: {
+    id: [
+      "Review materi 10-15 menit sebelum kelas akan membantu {n} lebih cepat nyambung dengan materi baru.",
+      "Coba ulangi satu latihan dari kelas di rumah setiap minggu supaya konsepnya makin nempel."
+    ],
+    en: [
+      "Reviewing the material for 10-15 minutes before class will help {n} connect with new topics faster.",
+      "Redoing one class exercise at home each week will help these concepts stick."
+    ]
+  },
+  teens: {
+    id: [
+      "Membiasakan menulis ulang kode dari kelas tanpa melihat contoh, sekitar 15 menit beberapa kali seminggu, akan sangat membantu.",
+      "Mencoba membuat program kecil sendiri di rumah akan melatih {n} memahami alur kode dengan lebih cepat."
+    ],
+    en: [
+      "Rewriting class code without looking at the example, about 15 minutes a few times a week, will help a lot.",
+      "Building a small program at home will train {n} to follow the code flow faster."
+    ]
+  },
+  pro: {
+    id: [
+      "Meluangkan 20-30 menit di luar kelas untuk mengulang materi dan mencoba variasi kode sendiri akan mempercepat progres.",
+      "Mencatat error yang sering muncul beserta solusinya bisa jadi referensi yang berguna untuk sesi berikutnya."
+    ],
+    en: [
+      "Setting aside 20-30 minutes outside class to revisit the material and try small code variations will speed things up.",
+      "Keeping a short note of common errors and how they were fixed makes a handy reference for the next sessions."
+    ]
+  },
+  design: {
+    id: [
+      "Mencoba membuat satu sketsa atau desain kecil di rumah setiap minggu akan membantu {n} makin percaya diri.",
+      "Melihat contoh karya desainer lain lalu mencoba meniru gayanya bisa jadi latihan yang menyenangkan."
+    ],
+    en: [
+      "Making one small sketch or design at home each week will help {n} grow more confident.",
+      "Looking at other designers' work and trying to recreate the style is a fun way to practice."
+    ]
   }
+};
 
-  const lessons = COURSE_DATA[courseName].filter(l => l.num >= fromLesson && l.num <= toLesson);
-  if (!lessons || lessons.length === 0) {
-    return {
-      topics: lang === 'id' ? 'konsep pemrograman' : 'programming concepts',
-      project: lang === 'id' ? 'project akhir' : 'final project'
-    };
+// Saran tantangan lanjutan (dipakai tier A)
+const NOTE_STRETCH = {
+  junior: {
+    id: [
+      "Di rumah, {n} bisa diajak bercerita tentang animasi yang dibuat di kelas supaya makin percaya diri.",
+      "Untuk tantangan berikutnya, {n} bisa mencoba menambah karakter atau gerakan baru di project-nya."
+    ],
+    en: [
+      "At home, {n} can be invited to talk about the animation made in class, which builds confidence.",
+      "As a next step, {n} can try adding new characters or movements to the project."
+    ]
+  },
+  kids: {
+    id: [
+      "Tantangan berikutnya, {n} bisa mencoba menambahkan fitur sendiri di luar instruksi kelas.",
+      "{N} juga sudah siap membantu teman yang masih kesulitan, dan ini bagus untuk memperdalam pemahaman."
+    ],
+    en: [
+      "As a next challenge, {n} can try adding personal features beyond the class instructions.",
+      "{N} can also help classmates who are stuck, which is a great way to deepen understanding."
+    ]
+  },
+  teens: {
+    id: [
+      "Langkah berikutnya, {n} bisa mencoba merapikan kode agar lebih efisien dan mudah dibaca.",
+      "{N} bisa mulai mencoba project pribadi kecil untuk mengasah kreativitas di luar materi kelas."
+    ],
+    en: [
+      "As a next step, {n} can work on making the code cleaner and more efficient.",
+      "{N} can start a small personal project to stretch creativity beyond the class material."
+    ]
+  },
+  pro: {
+    id: [
+      "Langkah selanjutnya, {n} bisa mulai membaca dokumentasi resmi untuk menemukan pendekatan lain.",
+      "{N} juga bisa mulai menyusun portofolio dari project yang sudah dibuat."
+    ],
+    en: [
+      "As a next step, {n} can start reading the official documentation to discover other approaches.",
+      "{N} can also start building a portfolio from the projects completed so far."
+    ]
+  },
+  design: {
+    id: [
+      "Langkah berikutnya, {n} bisa mencoba gaya visual baru agar karyanya makin berkarakter.",
+      "{N} juga bisa mulai mengumpulkan karya terbaik menjadi portofolio kecil."
+    ],
+    en: [
+      "As a next step, {n} can experiment with new visual styles to give the work more character.",
+      "{N} can also start gathering the best pieces into a small portfolio."
+    ]
   }
+};
 
-  // Collect key topics
-  const allObjectives = [];
+// Kalimat khusus absensi (kategori Character). Alasan absen TIDAK disebutkan.
+const NOTE_ATTENDANCE_TIPS = {
+  valid_absence: {
+    id: [
+      "Setelah beberapa kali berhalangan hadir, recap singkat 5 menit di awal sesi akan membantu {n} cepat nyambung lagi dengan materi.",
+      "Untuk sesi yang terlewat, mengulang materi sebentar sebelum kelas sudah cukup membantu {n} mengejar ketinggalan."
+    ],
+    en: [
+      "After missing a few sessions, a quick 5-minute recap at the start of class will help {n} catch up with the material.",
+      "For the sessions that were missed, a short review before class will be enough to help {n} catch up."
+    ]
+  },
+  unexcused: {
+    id: [
+      "Kehadiran yang lebih rutin dan jadwal latihan mingguan yang tetap akan sangat membantu {n} menjaga progres.",
+      "Hadir lebih konsisten di setiap sesi akan membuat {n} lebih mudah mengikuti materi yang terus berlanjut."
+    ],
+    en: [
+      "More regular attendance and a fixed weekly practice time will really help {n} keep up the progress.",
+      "Attending more consistently will make it easier for {n} to follow the material as it builds up."
+    ]
+  }
+};
+
+const NOTE_CHAR_TRAITS = {
+  creative: {
+    id: ["Selain itu, {n} sangat kreatif dan suka bereksperimen memodifikasi projek di luar instruksi yang diberikan.", "Teacher juga melihat {n} punya kreativitas tinggi dan senang menambahkan idenya sendiri pada hasil akhir projek."],
+    en: ["In addition, {n} is highly creative and loves experimenting to modify projects beyond the given instructions.", "The teacher also noticed that {n} is very creative and enjoys adding personal ideas to the final project."]
+  },
+  active: {
+    id: ["Selain itu, {n} sangat aktif, punya inisiatif tinggi, serta berani bertanya saat sesi kelas.", "Teacher sangat mengapresiasi keaktifan {n} di kelas yang sering berinisiatif dan antusias dalam berdiskusi."],
+    en: ["In addition, {n} is very active, highly proactive, and confident in asking questions during class.", "The teacher really appreciates {n}'s active participation, showing initiative and enthusiasm in class discussions."]
+  },
+  focus: {
+    id: ["Teacher juga salut karena {n} mampu fokus bekerja mandiri dan pantang menyerah saat memecahkan error.", "Ketekunan {n} sangat baik, terlihat dari fokusnya saat bekerja sendiri dan kemauannya mencoba lagi saat ada bug."],
+    en: ["The teacher is also impressed that {n} stays focused working independently and never gives up when solving errors.", "{N}'s persistence is great, shown by the strong focus while working and the willingness to keep trying when facing bugs."]
+  },
+  shy: {
+    id: ["Ke depannya, sedikit dorongan agar {n} lebih berani mengekspresikan ide dan bertanya akan membuat potensinya makin bersinar.", "Teacher yakin {n} sebenarnya paham, hanya butuh dorongan agar lebih percaya diri untuk mengutarakan pendapat di kelas."],
+    en: ["Moving forward, a little encouragement for {n} to express ideas and ask questions will help that potential shine even more.", "The teacher believes {n} understands the material well and just needs a little push to be more confident in speaking up."]
+  },
+  distracted: {
+    id: ["Latihan perlahan untuk menjaga konsentrasi dari awal hingga akhir sesi akan sangat membantu {n} menangkap materi secara utuh.", "Ke depannya, membiasakan agar tidak mudah terdistraksi di tengah kelas akan membantu {n} menyelesaikan projek lebih cepat."],
+    en: ["Practicing to maintain concentration from start to finish will really help {n} grasp the full material.", "Going forward, practicing not to get easily distracted mid-class will help {n} finish projects much faster."]
+  }
+};
+
+const NOTE_CLOSINGS = {
+  A: {
+    id: ["Good job{cN}, pertahankan!", "Mantap{cN}, terus semangat ya!", "Pertahankan semangatnya{cN}!"],
+    en: ["Great job{cN}!", "Keep it up{cN}!", "Well done{cN}, keep going!"]
+  },
+  B: {
+    id: ["Semangat terus{cN}!", "Ayo terus berlatih{cN}!", "Kerja bagus{cN}, terus semangat!"],
+    en: ["Keep it up{cN}!", "Nice work{cN}, keep practicing!", "Keep going{cN}!"]
+  },
+  C: {
+    id: ["Semangat terus{cN}, pelan-pelan pasti bisa!", "Ayo kita terus berlatih bersama{cN}!", "Teacher yakin {n} bisa!"],
+    en: ["Keep going{cN}, step by step!", "Let's keep practicing together{cN}!", "I believe {n} can do it!"]
+  }
+};
+
+// Kalimat tambahan bila note masih di bawah 350 karakter
+const NOTE_EXTRAS = {
+  concept: {
+    id: ["Materi berikutnya akan dibangun dari konsep-konsep ini, jadi pemahaman yang kuat sekarang akan sangat membantu.", "Konsep di periode ini akan sering dipakai lagi di lesson-lesson selanjutnya."],
+    en: ["The next topics build on these concepts, so a strong understanding now will help a lot.", "These concepts will come up again often in the upcoming lessons."]
+  },
+  application: {
+    id: ["Setiap project yang selesai jadi bekal penting untuk tantangan di level berikutnya.", "Project di periode ini juga bisa jadi bahan latihan yang bagus untuk diulang di rumah."],
+    en: ["Every finished project is a useful step toward the challenges ahead.", "The projects from this term are also good material to practice again at home."]
+  },
+  creative: {
+    id: ["Setiap ide yang dicoba, sekecil apa pun, akan memperkaya gaya {n} sendiri.", "Project di periode ini bisa jadi awal yang bagus untuk portofolio kecil."],
+    en: ["Every idea tried, however small, will help {n} build a personal style.", "The projects from this term make a nice start for a small portfolio."]
+  },
+  character: {
+    id: ["Usaha yang ditunjukkan di setiap sesi sangat teacher hargai.", "Teacher senang melihat perkembangan sikap belajar {n} di periode ini."],
+    en: ["The effort shown in every session is truly appreciated.", "It has been great to see this learning attitude grow throughout the term."]
+  }
+};
+
+function noteShuffle(arr) {
+  const a = (arr || []).slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Ambil n item acak tapi tetap urut sesuai urutan lesson
+function noteSampleOrdered(arr, n) {
+  if (!arr || arr.length <= n) return (arr || []).slice();
+  const idx = noteShuffle(arr.map((_, i) => i)).slice(0, n).sort((a, b) => a - b);
+  return idx.map(i => arr[i]);
+}
+
+function noteJoinList(items, lang) {
+  const list = (items || []).filter(Boolean);
+  const and = lang === 'id' ? 'dan' : 'and';
+  if (list.length === 0) return '';
+  if (list.length === 1) return list[0];
+  if (list.length === 2) return `${list[0]} ${and} ${list[1]}`;
+  return `${list.slice(0, -1).join(', ')}, ${and} ${list[list.length - 1]}`;
+}
+
+function cleanLessonTitleForNote(raw) {
+  let t = String(raw || '').replace(/^Lesson\s*\d+\s*(?:-|:|–)\s*/i, '').trim();
+  t = t.replace(/^(?:What\s+(?:is|are)\s+(?:an?\s+)?|Introduction\s+(?:to|of)\s+|Intro\s+to\s+|Getting\s+Started\s+with\s+|Let'?s\s+)/i, '');
+  t = t.replace(/[?!.]+$/g, '').trim();
+  return t.charAt(0).toUpperCase() + t.slice(1);
+}
+
+const NOTE_EXAM_RE = /\b(?:exam|ujian|challenge|overview|review|quiz|kuis|test)\b/i;
+const NOTE_PROJECT_RE = /project|projek|game|maker|app\b|animation|animasi|bot\b|design|world|scene|web|site|mechanic|story|quiz|logo|poster|mascot|portfolio|landing|clone/i;
+
+// Materi spesifik dari kurikulum (topik konsep, project, nama ujian)
+function getNoteMaterials(courseName, fromLesson, toLesson, lang) {
+  const result = { concepts: [], projects: [], exam: '' };
+  const lessons = (typeof COURSE_DATA !== 'undefined' && COURSE_DATA[courseName])
+    ? COURSE_DATA[courseName].filter(l => l.num >= fromLesson && l.num <= toLesson)
+    : [];
+
+  const others = [];
   lessons.forEach(l => {
-    if (lang === 'en') {
-      if (l.objectives_en && l.objectives_en.length > 0) {
-        l.objectives_en.forEach(o => {
-          const clean = o.replace(/^Understanding\s+|^Capable of\s+|^Learning\s+/i, '').trim();
-          if (clean && !allObjectives.includes(clean)) allObjectives.push(clean);
-        });
-      } else {
-        const cleanTitle = (l.title_en || l.title || '').replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '').trim();
-        if (cleanTitle && !/^(?:overview|exam|review|ujian|kuis|exam\s*\d*)$/i.test(cleanTitle) && !allObjectives.includes(cleanTitle)) {
-          allObjectives.push(cleanTitle);
-        }
-      }
+    const raw = (lang === 'id' && l.title_id) ? l.title_id : (l.title_en || l.title || '');
+    const title = cleanLessonTitleForNote(raw);
+    if (!title) return;
+    if (NOTE_EXAM_RE.test(title)) {
+      if (!result.exam) result.exam = title;
+    } else if (NOTE_PROJECT_RE.test(title)) {
+      if (!result.projects.includes(title)) result.projects.push(title);
+      others.push(title);
     } else {
-      const objs = l.objectives || [];
-      objs.forEach(o => {
-        const clean = o.replace(/^Memahami\s+|^Mampu\s+|^Mempelajari\s+/i, '').trim();
-        if (clean && !allObjectives.includes(clean)) allObjectives.push(clean);
-      });
+      if (!result.concepts.includes(title)) result.concepts.push(title);
+      others.push(title);
     }
   });
 
-  const sampledTopics = allObjectives.slice(0, 4).join(', ');
-  const topicsText = sampledTopics || (lang === 'id' ? 'konsep logika dan struktur kode' : 'core logic and coding structures');
+  if (result.concepts.length === 0) result.concepts = others.slice();
+  if (result.projects.length === 0) result.projects = others.slice(-3);
 
-  // Find project or exam lesson name
-  let cleanProject = '';
-  for (let i = lessons.length - 1; i >= 0; i--) {
-    const l = lessons[i];
-    const raw = (lang === 'id' && l.title_id) ? l.title_id : (l.title_en || l.title || '');
-    const clean = raw.replace(/^Lesson\s*\d+\s*(?:-|:)\s*/i, '').trim();
-    if (clean && !/^(?:exam|ujian|review|kuis|exam\s*\d*|overview and exam)$/i.test(clean)) {
-      cleanProject = clean;
-      break;
-    }
+  if (result.concepts.length === 0) {
+    result.concepts = [lang === 'id' ? 'konsep dasar dan logika' : 'core concepts and logic'];
+  }
+  if (result.projects.length === 0) {
+    result.projects = [lang === 'id' ? 'latihan project di kelas' : 'the class practice projects'];
   }
 
-  if (!cleanProject) {
-    cleanProject = lang === 'id' ? 'project coding dan ujian praktik' : 'the term coding project and practical exam';
-  } else {
-    cleanProject = (lang === 'id' ? `project ${cleanProject}` : `the ${cleanProject} project`);
+  let exam = result.exam.replace(/^(?:Overview|Review)\s*(?:&|and)\s*/i, '').trim();
+  if (!exam || /^(?:overview|review)$/i.test(exam)) {
+    exam = lang === 'id' ? 'ujian akhir periode ini' : 'the end-of-term exam';
+  } else if (lang === 'en' && /exam|test|quiz/i.test(exam) && !/^the\s/i.test(exam)) {
+    exam = 'the ' + exam;
   }
-
-  return {
-    topics: topicsText,
-    project: cleanProject
-  };
+  result.exam = exam;
+  return result;
 }
 
-// Fallback dynamic note generator for any course/category
-function generateFallbackCategoryNote(category, student, gradeObj, periodObj, lang) {
-  const sName = student.nama && student.nama.trim() ? student.nama.trim() : 'Student';
-  const course = student.course || 'Coding';
-  const localizedCourse = (typeof getLocalizedCourseName === 'function') ? getLocalizedCourseName(course, lang) : course;
-  const context = getCurriculumContext(course, periodObj.from, periodObj.to, lang);
-
-  const catKey = category.key;
-  const catName = category.name.toLowerCase();
-
-  // 1. Concept / Literacy category
-  if (catKey === 'comp_lit' || catKey === 'code_lit' || catKey === 'concept' || catName.includes('concept') || catName.includes('literacy')) {
-    if (lang === 'en') {
-      if (gradeObj.grade === 'A') {
-        return `${sName} learned the core concepts in ${localizedCourse} this term, such as ${context.topics}. ${sName} grasps programming ideas effortlessly, follows complex logic independently, and understands the purpose behind each code block. Well done mastering these concepts with high excellence, ${sName}!`;
-      } else if (gradeObj.grade === 'B') {
-        return `${sName} learned the basic ideas in ${localizedCourse} this term, such as ${context.topics}. ${sName} can follow the LMS instructions well and understands what each idea is for. With a short review before each class to strengthen recall, ${sName} will master these concepts even faster. Well done learning these new ideas, ${sName}!`;
-      } else if (gradeObj.grade === 'C') {
-        return `${sName} was introduced to fundamental concepts in ${localizedCourse} this term, including ${context.topics}. While ${sName} understands the general workflow, some technical logic took longer to absorb. A regular 10-15 minute review of past lessons at home will greatly help solidify these ideas. Keep practicing and reviewing, ${sName}!`;
-      } else {
-        return `${sName} has been guided through the essential concepts in ${localizedCourse} this term, such as ${context.topics}. ${sName} is making progress, though several foundational ideas require consistent repetition and step-by-step review to build full confidence. We encourage regular review at home to support ${sName}'s learning journey. Keep going, ${sName}!`;
-      }
-    } else {
-      if (gradeObj.grade === 'A') {
-        return `${sName} telah mempelajari konsep-konsep inti dalam ${localizedCourse} pada term ini, seperti ${context.topics}. ${sName} mampu memahami logika pemrograman dengan sangat mandiri, cepat menangkap ide-ide baru, serta memahami fungsi dari setiap blok kode. Kerja yang luar biasa dalam menguasai materi ini, ${sName}!`;
-      } else if (gradeObj.grade === 'B') {
-        return `${sName} mempelajari konsep-konsep dasar dalam ${localizedCourse} pada term ini, seperti ${context.topics}. ${sName} dapat mengikuti instruksi LMS dengan baik dan memahami tujuan dari setiap materi. Sedikit review materi sebelum sesi kelas akan membantu ${sName} mengingat konsep dengan lebih kuat. Kerja bagus dalam mempelajari materi baru ini, ${sName}!`;
-      } else if (gradeObj.grade === 'C') {
-        return `${sName} telah mempelajari konsep-konsep penting dalam ${localizedCourse} pada term ini, termasuk ${context.topics}. Meskipun sudah memahami alur umumnya, beberapa logika teknis membutuhkan waktu lebih untuk dipahami. Review rutin 10-15 menit di rumah akan sangat membantu memperkuat pemahaman ${sName}. Tetap semangat dan terus berlatih, ${sName}!`;
-      } else {
-        return `${sName} telah diperkenalkan pada konsep-konsep dasar dalam ${localizedCourse} pada term ini, seperti ${context.topics}. ${sName} terus berproses, meski beberapa logika dasar masih memerlukan bimbingan intensif dan pengulangan berkala. Latihan rutin di rumah akan sangat mendukung kemajuan ${sName}. Tetap semangat, ${sName}!`;
-      }
-    }
-  }
-
-  // 2. Application / Practice / Creation / Design
-  if (catKey === 'code_app' || catKey === 'code_prac' || catKey === 'code_dig' || catKey === 'design_prac' || catKey === 'creative' || catName.includes('application') || catName.includes('practice') || catName.includes('creation') || catName.includes('creativity')) {
-    if (lang === 'en') {
-      if (gradeObj.grade === 'A') {
-        return `${sName} applied these concepts brilliantly to develop ${context.project}. ${sName} demonstrated strong problem-solving skills, implemented features with minimal assistance, and finished the term exam covering all this material with impressive results. Fantastic effort and creativity throughout the project, ${sName}! Keep it up!`;
-      } else if (gradeObj.grade === 'B') {
-        return `${sName} used these ideas to build a complete project — working on ${context.project}. ${sName} followed the development steps well and finished the term exam covering all this material. More practice at home between classes can help ${sName} build and assemble these project components even faster. Good job finishing the exam, ${sName}! Keep it up.`;
-      } else if (gradeObj.grade === 'C') {
-        return `${sName} worked on applying these concepts to create ${context.project}. ${sName} was able to complete the required features with guidance during debugging and finished the term exam. Practicing similar mechanics independently at home will give ${sName} greater speed and agility in coding. Keep practicing, ${sName}!`;
-      } else {
-        return `${sName} participated in creating ${context.project} this term. ${sName} completed the project tasks with close guidance and finished the term exam. Dedicating extra time for hands-on practice will help ${sName} feel more comfortable writing and applying code independently. Keep up the effort, ${sName}!`;
-      }
-    } else {
-      if (gradeObj.grade === 'A') {
-        return `${sName} berhasil menerapkan konsep-konsep ini dengan sangat baik dalam mengembangkan ${context.project}. ${sName} menunjukkan kemampuan problem solving yang matang, menyusun fitur project secara mandiri, dan menyelesaikan ujian praktik term ini dengan hasil yang memuaskan. Prestasi dan kreativitas yang luar biasa, ${sName}! Terus pertahankan!`;
-      } else if (gradeObj.grade === 'B') {
-        return `${sName} menggunakan materi ini untuk membangun project lengkap — mengerjakan ${context.project}. ${sName} mengikuti langkah-langkah pembuatan dengan baik dan menyelesaikan ujian term yang mencakup seluruh materi ini. Latihan tambahan di rumah akan membantu ${sName} menyusun komponen project dengan lebih cepat. Kerja bagus dalam menyelesaikan ujian, ${sName}! Terus pertahankan.`;
-      } else if (gradeObj.grade === 'C') {
-        return `${sName} mempraktikkan konsep yang dipelajari untuk membuat ${context.project}. ${sName} berhasil menyelesaikan fitur-fitur yang ditentukan dengan sedikit pendampingan saat memperbaiki kesalahan kode (debugging) serta menyelesaikan ujian term. Latihan mandiri di rumah akan membantu ${sName} lebih mandiri dan terbiasa. Tetap semangat, ${sName}!`;
-      } else {
-        return `${sName} telah berpartisipasi dalam pembuatan ${context.project} pada term ini. ${sName} menyelesaikan tugas-tugas project dengan panduan langsung dari teacher dan menyelesaikan ujian term. Meluangkan waktu latihan praktik tambahan akan membantu ${sName} merasa lebih nyaman memprogram secara mandiri. Terus berjuang, ${sName}!`;
-      }
-    }
-  }
-
-  // 3. Character category
-  if (catKey === 'char' || catName.includes('character')) {
-    if (lang === 'en') {
-      if (gradeObj.grade === 'A') {
-        return `${sName} consistently displays an outstanding learning attitude in class. ${sName} is enthusiastic, stays focused on tasks, asks thoughtful questions, and readily overcomes coding difficulties with patience and resilience. An absolute pleasure to teach. Keep up the wonderful character and passion, ${sName}!`;
-      } else if (gradeObj.grade === 'B') {
-        return `${sName} pays attention in class and likes working on coding projects, but can get distracted sometimes and may need a small reminder to stay on task. Maintaining consistent attendance and a quick review after class will help ${sName} catch up and advance even faster. Good job staying focused in class, ${sName}! Keep it up.`;
-      } else if (gradeObj.grade === 'C') {
-        return `${sName} shows interest in the lessons and enjoys interactive coding activities. At times, ${sName} needs encouragement to maintain concentration throughout the whole session. Building a steady routine and practicing sustained focus will boost ${sName}'s learning stamina significantly. Keep working hard, ${sName}!`;
-      } else {
-        return `${sName} is friendly and interactive during class. ${sName} requires supportive motivation and guidance to stay engaged with the assignments and develop disciplined learning habits. With patience and consistent encouragement, ${sName}'s focus will steadily improve. Keep trying your best, ${sName}!`;
-      }
-    } else {
-      if (gradeObj.grade === 'A') {
-        return `${sName} senantiasa menunjukkan sikap belajar yang sangat teladan di kelas. ${sName} selalu antusias, fokus penuh saat mengerjakan tugas, aktif bertanya, dan memiliki daya juang tinggi saat memecahkan kendala coding. Sangat menyenangkan membimbing ${sName}. Terus pertahankan karakter dan semangat hebat ini, ${sName}!`;
-      } else if (gradeObj.grade === 'B') {
-        return `${sName} memperhatikan penjelasan di kelas dengan baik dan senang mengerjakan project coding-nya, namun terkadang sedikit terdistraksi dan memerlukan pengingat ringan agar tetap fokus pada tugas. Konsistensi kehadiran dan review singkat setelah kelas akan sangat membantu ${sName} belajar lebih cepat. Kerja bagus dalam menjaga fokus, ${sName}! Terus pertahankan.`;
-      } else if (gradeObj.grade === 'C') {
-        return `${sName} menunjukkan ketertarikan yang baik dalam belajar coding dan menikmati kegiatan di kelas. Terkadang ${sName} membutuhkan dorongan semangat agar dapat mempertahankan konsentrasi sepanjang sesi. Membangun kebiasaan fokus yang stabil akan sangat mendukung perkembangan ${sName}. Terus bersemangat, ${sName}!`;
-      } else {
-        return `${sName} sangat ramah dan komunikatif di kelas. ${sName} membutuhkan bimbingan suportif dan motivasi teratur untuk mempertahankan fokus pada instruksi serta membangun kebiasaan belajar yang disiplin. Dengan dorongan positif yang konsisten, fokus ${sName} akan semakin berkembang. Tetap semangat melakukan yang terbaik, ${sName}!`;
-      }
-    }
-  }
-
-  // Generic fallback
-  return lang === 'id'
-    ? `${sName} telah menyelesaikan penilaian untuk ${category.name} dengan pencapaian yang baik (Nilai: ${student.scores[catKey] || 85}). Terus pertahankan semangat belajar!`
-    : `${sName} has successfully completed assessment for ${category.name} with good achievement (Score: ${student.scores[catKey] || 85}). Keep up the great work!`;
+function getNoteLevelGroup(criteria) {
+  const c = String(criteria || '').toLowerCase();
+  if (c.startsWith('junior')) return 'junior';
+  if (c === 'teens') return 'teens';
+  if (c === 'design') return 'design';
+  if (c === 'pro') return 'pro';
+  return 'kids';
 }
 
-// Generate Note for a specific category
-function generateSingleNote(category, student, lang) {
-  const sName = student.nama && student.nama.trim() ? student.nama.trim() : 'Student';
+// Tentukan jenis note dari kategori LMS
+function resolveNoteType(category, criteria) {
+  const key = category.key;
+  const name = String(category.name || '').toLowerCase();
+  const isDesignLevel = String(criteria || '').toLowerCase() === 'design';
+  const domain = isDesignLevel ? 'design' : 'coding';
+
+  if (key === 'char' || name.includes('character')) return { type: 'character', tpl: 'character' };
+  if (key === 'creative' || name.includes('creativ')) return { type: 'creative', tpl: 'creative' };
+  if (key === 'design_prac' || key === 'design_app') return { type: 'application', tpl: 'design_application' };
+  if (key === 'design_concept') return { type: 'concept', tpl: 'design_concept' };
+  if (['comp_lit', 'code_lit', 'concept', 'dig_lit'].includes(key)) return { type: 'concept', tpl: `${domain}_concept` };
+  if (['code_app', 'code_prac', 'code_dig'].includes(key)) return { type: 'application', tpl: `${domain}_application` };
+  if (name.includes('application') || name.includes('practice') || name.includes('creation')) return { type: 'application', tpl: `${domain}_application` };
+  return { type: 'concept', tpl: `${domain}_concept` };
+}
+
+function fillNoteTokens(text, tokens) {
+  let out = text;
+  for (let pass = 0; pass < 3 && /\{\w+\}/.test(out); pass++) {
+    out = out.replace(/\{(\w+)\}/g, (m, k) => (tokens[k] !== undefined ? tokens[k] : m));
+  }
+  return out.replace(/\s{2,}/g, ' ').replace(/\s+([.,!?])/g, '$1').trim();
+}
+
+// Generate Note for a specific category using the offline template engine
+function generateSingleNote(category, student, lang = 'en') {
+  const sName = student.nama && student.nama.trim() ? student.nama.trim() : (lang === 'id' ? 'Siswa' : 'Student');
   const course = student.course || 'Coding';
-  const periodId = student.period || 'report_1';
-  const normCourse = normalizeCourseName(course);
-  const score = parseFloat(student.scores[category.key]) || 85;
-  const gradeObj = calculateGrade(score);
   const periods = getCoursePeriods(course);
-  const periodObj = periods.find(p => p.id === periodId) || periods[0] || { from: 1, to: 8 };
+  const periodObj = periods.find(p => p.id === (student.period || 'report_1')) || periods[0] || { from: 1, to: 8 };
+  const localizedCourse = (typeof getLocalizedCourseName === 'function') ? getLocalizedCourseName(course, lang) : course;
+  const isAdult = student.audience === 'adult';
+  const attendance = student.attendance || 'normal';
+  const score = Math.round(parseFloat(student.scores[category.key]));
+  const scoreVal = isNaN(score) ? 85 : score;
 
-  // Check in curated EXAM_TEMPLATES first
-  const courseTpl = EXAM_TEMPLATES[normCourse];
-  if (courseTpl && courseTpl[periodId] && courseTpl[periodId][category.key]) {
-    const catTpl = courseTpl[periodId][category.key];
-    const langTpl = catTpl[lang] || catTpl['id'] || catTpl['en'];
-    if (langTpl) {
-      let tplText = langTpl[gradeObj.grade] || langTpl['B'] || langTpl['A'] || Object.values(langTpl)[0];
-      if (tplText) {
-        return tplText.replace(/\{name\}|\(student_name\)|\[Student Name\]/gi, sName);
+  const tier = getScoreTier(scoreVal);
+  const noteType = resolveNoteType(category, student.criteria);
+  const tplSet = NOTE_TEMPLATES[noteType.tpl] || NOTE_TEMPLATES.coding_concept;
+  const L = lang === 'id' ? 'id' : 'en';
+  const template = tplSet[L][tier.id];
+
+  const levelGroup = getNoteLevelGroup(student.criteria);
+  const tipGroup = (noteType.tpl.startsWith('design') || noteType.type === 'creative') ? 'design' : levelGroup;
+
+  let tipPool;
+  if (noteType.type === 'character' && NOTE_ATTENDANCE_TIPS[attendance]) {
+    tipPool = NOTE_ATTENDANCE_TIPS[attendance][L];
+  } else if (noteType.type === 'character' && student.charTrait && student.charTrait !== 'default' && NOTE_CHAR_TRAITS[student.charTrait]) {
+    tipPool = NOTE_CHAR_TRAITS[student.charTrait][L];
+  } else if (tier.band === 'A') {
+    tipPool = NOTE_STRETCH[tipGroup][L];
+  } else {
+    tipPool = NOTE_TIPS[tipGroup][L];
+  }
+  const closePool = NOTE_CLOSINGS[tier.band][L];
+  const extraPool = NOTE_EXTRAS[noteType.type][L];
+
+  const materials = getNoteMaterials(course, periodObj.from, periodObj.to, L);
+  const conceptSample = noteSampleOrdered(materials.concepts, 3);
+  const projectSample = noteSampleOrdered(materials.projects, 2);
+
+  const baseTokens = {
+    N: isAdult ? (L === 'id' ? 'Kamu' : 'You') : sName,
+    n: isAdult ? (L === 'id' ? 'kamu' : 'you') : sName,
+    cN: isAdult ? '' : `, ${sName}`,
+    course: localizedCourse,
+    range: `Lesson ${periodObj.from}-${periodObj.to}`,
+    exam: materials.exam,
+    score: String(scoreVal)
+  };
+
+  // Coba kombinasi (jumlah topik, tip, penutup, kalimat tambahan) lalu pilih acak yang 350-500 karakter
+  const valid = [];
+  let best = null;
+  let bestDist = Infinity;
+  const tips = noteShuffle(tipPool);
+  const closes = noteShuffle(closePool);
+  const extras = noteShuffle(extraPool);
+
+  for (const k of [3, 2, 1]) {
+    for (const pk of [2, 1]) {
+      for (const tip of tips) {
+        for (const close of closes) {
+          for (const extra of ['', extras[0]]) {
+            const tokens = Object.assign({}, baseTokens, {
+              topics: noteJoinList(conceptSample.slice(0, k), L),
+              projects: noteJoinList(projectSample.slice(0, pk), L),
+              tip: extra ? `${tip} ${extra}` : tip,
+              close
+            });
+            const text = fillNoteTokens(template, tokens);
+            const len = text.length;
+            if (len >= NOTE_MIN_CHARS && len <= NOTE_MAX_CHARS) {
+              if (!valid.includes(text)) valid.push({ text, k, pk });
+            }
+            const dist = len < NOTE_MIN_CHARS ? NOTE_MIN_CHARS - len : (len > NOTE_MAX_CHARS ? len - NOTE_MAX_CHARS : 0);
+            if (dist < bestDist) { bestDist = dist; best = text; }
+          }
+        }
       }
     }
   }
 
-  // Fallback to curriculum-informed generator
-  return generateFallbackCategoryNote(category, student, gradeObj, periodObj, lang);
+  if (valid.length > 0) {
+    // Utamakan note yang menyebut topik/project paling spesifik (lebih banyak)
+    const maxRich = Math.max(...valid.map(v => v.k + v.pk));
+    const rich = valid.filter(v => v.k + v.pk === maxRich);
+    return rich[Math.floor(Math.random() * rich.length)].text;
+  }
+  return best || '';
 }
+
 
 // Generate all notes for a student
 function generateStudentExamNotes(student) {
@@ -873,6 +836,8 @@ let examStudents = [
     course: '3D ANIMATOR',
     period: 'report_1',
     lang: 'id',
+    audience: 'parent',
+    attendance: 'normal',
     scores: {
       comp_lit: 90,
       code_prac: 90,
@@ -887,6 +852,8 @@ function ensureStudentCategories(s) {
   const cats = getCourseCategories(s.course, s.period);
   if (!s.scores) s.scores = {};
   if (!s.notes) s.notes = {};
+  if (!s.audience) s.audience = 'parent';
+  if (!s.attendance) s.attendance = 'normal';
 
   cats.forEach((cat, idx) => {
     if (s.scores[cat.key] === undefined || s.scores[cat.key] === '') {
@@ -897,6 +864,18 @@ function ensureStudentCategories(s) {
       s.notes[cat.key] = '';
     }
   });
+}
+
+// Audience toggle handler (Parent vs Adult Student)
+function setExamStudentAudience(idx, aud) {
+  examStudents[idx].audience = aud;
+  renderExamInputs();
+  renderExamPreview();
+}
+
+// Attendance change handler
+function onExamAttendanceChange(idx, val) {
+  examStudents[idx].attendance = val;
 }
 
 // Render student inputs in the sidebar
@@ -940,10 +919,32 @@ function renderExamInputs() {
       `;
     });
 
+    const hasChar = categories.some(c => c.key === 'char' || c.type === 'character');
+    if (hasChar) {
+      const traitVal = s.charTrait || 'default';
+      scoreRowsHtml += `
+        <div class="exam-score-row" style="margin-top: 10px; background: rgba(0,0,0,0.02); padding: 8px; border-radius: 6px; border: 1px dashed rgba(0,0,0,0.1);">
+          <div class="exam-score-label" style="margin-bottom: 6px;">
+            <span class="score-cat-title" style="font-size: 0.85rem;">📝 ${sLang === 'id' ? 'Highlight Karakter' : 'Character Highlight'}</span>
+          </div>
+          <select class="trait-dropdown" style="width: 100%; padding: 6px; font-size: 0.85rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color);" 
+            onchange="examStudents[${i}].charTrait = this.value; renderExamPreview()">
+            <option value="default" ${traitVal === 'default' ? 'selected' : ''}>${sLang === 'id' ? '(Default) Sesuai Nilai' : '(Default) Based on Score'}</option>
+            <option value="creative" ${traitVal === 'creative' ? 'selected' : ''}>${sLang === 'id' ? 'Kreatif & Eksploratif' : 'Creative & Explorative'}</option>
+            <option value="active" ${traitVal === 'active' ? 'selected' : ''}>${sLang === 'id' ? 'Aktif & Inisiatif Tinggi' : 'Highly Active & Proactive'}</option>
+            <option value="focus" ${traitVal === 'focus' ? 'selected' : ''}>${sLang === 'id' ? 'Fokus & Mandiri (Pantang Menyerah)' : 'Focused & Independent'}</option>
+            <option value="shy" ${traitVal === 'shy' ? 'selected' : ''}>${sLang === 'id' ? 'Butuh Dorongan Percaya Diri' : 'Needs Confidence Boost'}</option>
+            <option value="distracted" ${traitVal === 'distracted' ? 'selected' : ''}>${sLang === 'id' ? 'Mudah Terdistraksi' : 'Easily Distracted'}</option>
+          </select>
+        </div>
+      `;
+    }
+
     card.innerHTML = `
       <div class="student-card-header">
         <div class="student-num">${i + 1}</div>
         <input type="text" id="exam-name-${i}" placeholder="${sLang === 'id' ? 'Nama Siswa' : 'Student Name'}" value="${esc(s.nama)}" oninput="examStudents[${i}].nama=this.value;renderExamPreview()">
+
         <div class="student-lang-toggle" title="Report Language">
           <button type="button" class="student-lang-btn ${sLang === 'id' ? 'active' : ''}" onclick="setExamStudentLang(${i},'id')">ID</button>
           <button type="button" class="student-lang-btn ${sLang === 'en' ? 'active' : ''}" onclick="setExamStudentLang(${i},'en')">EN</button>
@@ -971,6 +972,8 @@ function renderExamInputs() {
             ${periods.map(p => `<option value="${p.id}" ${s.period === p.id ? 'selected' : ''}>${sLang === 'id' ? p.label_id : p.label}</option>`).join('')}
           </select>
         </div>
+
+
 
         <!-- Dynamic Category Scores -->
         <div class="exam-scores-box" id="exam-scores-box-${i}">
@@ -1074,6 +1077,8 @@ function addExamStudent() {
     course: '3D ANIMATOR',
     period: 'report_1',
     lang: examLang,
+    audience: 'parent',
+    attendance: 'normal',
     scores: {},
     notes: {}
   };
@@ -1115,6 +1120,101 @@ function generateStudentExamReport(idx) {
   if (cardEl) cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+// Regenerate single criteria note for a student
+function regenerateCriteriaNote(idx, catKey) {
+  const s = examStudents[idx];
+  const sLang = s.lang || examLang;
+  const categories = getCourseCategories(s.course, s.period);
+  const catObj = categories.find(c => c.key === catKey) || { key: catKey, name: catKey };
+
+  const newNote = generateSingleNote(catObj, s, sLang);
+  s.notes[catKey] = newNote;
+
+  const textarea = document.getElementById(`lms-note-${catKey}-${idx}`);
+  if (textarea) {
+    textarea.value = newNote;
+    updateNoteCharCount(idx, catKey, newNote.length);
+  }
+
+  showToast(sLang === 'id' ? `Note ${catObj.name} diperbarui!` : `Regenerated ${catObj.name} note!`, 'success');
+}
+
+// Live typing note input handler
+function onExamNoteInput(idx, catKey, val) {
+  examStudents[idx].notes[catKey] = val;
+  updateNoteCharCount(idx, catKey, val.length);
+}
+
+// Live character counter update
+function updateNoteCharCount(idx, catKey, count) {
+  const s = examStudents[idx];
+  const sLang = (s && s.lang) || examLang;
+  const pill = document.getElementById(`char-counter-${catKey}-${idx}`);
+  const valEl = document.getElementById(`char-val-${catKey}-${idx}`);
+  const statusEl = document.getElementById(`char-status-${catKey}-${idx}`);
+  if (!pill || !valEl || !statusEl) return;
+
+  valEl.textContent = count;
+  pill.className = 'char-counter-pill';
+  if (count >= 350 && count <= 500) {
+    pill.classList.add('optimal');
+    statusEl.textContent = sLang === 'id' ? '✓ Optimal (350–500)' : '✓ Optimal (350–500)';
+  } else if (count < 350) {
+    pill.classList.add('under');
+    statusEl.textContent = sLang === 'id' ? `⚠️ Kurang ${350 - count} karakter` : `⚠️ ${350 - count} chars below target`;
+  } else {
+    pill.classList.add('over');
+    statusEl.textContent = sLang === 'id' ? `⚠️ Melebihi batas (${count - 500})` : `⚠️ ${count - 500} chars over limit`;
+  }
+}
+
+// Toggle period objectives panel visibility
+function toggleStudentObjectives(idx) {
+  const listEl = document.getElementById(`obj-list-${idx}`);
+  const btnEl = document.getElementById(`obj-toggle-btn-${idx}`);
+  const cardEl = document.getElementById(`period-obj-card-${idx}`);
+  if (!listEl || !btnEl) return;
+
+  const isOpen = listEl.style.display !== 'none';
+  if (isOpen) {
+    listEl.style.display = 'none';
+    btnEl.textContent = 'Show Objectives ▼';
+    if (cardEl) cardEl.classList.remove('open');
+  } else {
+    listEl.style.display = 'block';
+    btnEl.textContent = 'Hide Objectives ▲';
+    if (cardEl) cardEl.classList.add('open');
+  }
+}
+
+// Copy all period objectives to clipboard
+function copyPeriodObjectives(idx) {
+  const s = examStudents[idx];
+  const sLang = s.lang || examLang;
+  const periods = getCoursePeriods(s.course);
+  const pObj = periods.find(p => p.id === s.period) || periods[0] || { from: 1, to: 8 };
+  const curDetails = getPeriodCurriculumDetails(s.course, pObj.from, pObj.to, sLang);
+
+  if (!curDetails.allObjectivesList || curDetails.allObjectivesList.length === 0) {
+    showToast('No objectives found.', 'error');
+    return;
+  }
+
+  let text = `🎯 Learning Objectives — ${s.course} (Lesson ${pObj.from}–${pObj.to}):\n\n`;
+  curDetails.allObjectivesList.forEach(l => {
+    text += `• Lesson ${l.num}: ${l.title}\n`;
+    l.objectives.forEach(o => {
+      text += `  - ${o}\n`;
+    });
+  });
+
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    showToast('Copied all period objectives!', 'success');
+  }).catch(() => {
+    showToast('Failed to copy objectives.', 'error');
+  });
+}
+
 // ============================================================
 // EXAM REPORT PREVIEW (RIGHT SIDE)
 // ============================================================
@@ -1127,10 +1227,11 @@ function renderExamPreview() {
     const sName = s.nama && s.nama.trim() ? s.nama.trim() : (s.lang === 'id' ? 'Nama Siswa' : 'Student Name');
     const sLang = s.lang || examLang;
     const periods = getCoursePeriods(s.course);
-    const pObj = periods.find(p => p.id === s.period) || periods[0] || { label: 'Report 1', label_id: 'Rapor 1' };
+    const pObj = periods.find(p => p.id === s.period) || periods[0] || { label: 'Report 1', label_id: 'Rapor 1', from: 1, to: 8 };
     const periodLabel = sLang === 'id' ? pObj.label_id : pObj.label;
     const localizedCourse = (typeof getLocalizedCourseName === 'function') ? getLocalizedCourseName(s.course, sLang) : (s.course || 'Course');
     const categories = getCourseCategories(s.course, s.period);
+    const curDetails = getPeriodCurriculumDetails(s.course, pObj.from, pObj.to, sLang);
 
     // Auto-populate notes if empty
     ensureStudentCategories(s);
@@ -1146,9 +1247,58 @@ function renderExamPreview() {
     wrapper.className = 'exam-report-card';
     wrapper.id = `exam-report-table-${idx}`;
 
+    // Build Learning Objectives Accordion HTML
+    let objItemsHtml = '';
+    curDetails.allObjectivesList.forEach(item => {
+      const bulletsHtml = item.objectives.map(o => `<li>${esc(o)}</li>`).join('');
+      objItemsHtml += `
+        <div class="obj-lesson-item">
+          <div class="obj-lesson-head">Lesson ${item.num}: ${esc(item.title)}</div>
+          <ul class="obj-lesson-list">${bulletsHtml || `<li>${esc(item.title)}</li>`}</ul>
+        </div>
+      `;
+    });
+
+    const objectivesCardHtml = `
+      <div class="period-objectives-card" id="period-obj-card-${idx}">
+        <div class="period-objectives-toggle" onclick="toggleStudentObjectives(${idx})">
+          <div class="period-objectives-title">
+            <span>🎯</span>
+            <span><strong>${sLang === 'id' ? 'Learning Objectives Siklus Ini' : 'Learning Objectives Covered'}</strong> (Lesson ${pObj.from}–${pObj.to})</span>
+            <span class="obj-count-tag">${curDetails.lessons.length} Lessons</span>
+          </div>
+          <div class="obj-toggle-btn" id="obj-toggle-btn-${idx}">
+            Show Objectives ▼
+          </div>
+        </div>
+        <div class="period-objectives-list" id="obj-list-${idx}" style="display: none;">
+          <div class="obj-actions-bar">
+            <button type="button" class="btn-copy-obj" onclick="copyPeriodObjectives(${idx})">
+              📋 ${sLang === 'id' ? 'Salin Semua Objective' : 'Copy All Objectives'}
+            </button>
+            <span class="obj-hint-text">💡 ${sLang === 'id' ? 'Materi & konsep riil yang dipelajari siswa sepanjang 8 lesson ini' : 'Actual curriculum concepts & projects studied by student in this 8-lesson cycle'}</span>
+          </div>
+          <div class="obj-grid">
+            ${objItemsHtml}
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Build Table Rows HTML
     let rowsHtml = '';
     categories.forEach((cat) => {
       const noteVal = s.notes[cat.key] || '';
+      const charCount = noteVal.length;
+      let charClass = 'optimal';
+      let statusText = sLang === 'id' ? '✓ Optimal (350–500)' : '✓ Optimal (350–500)';
+      if (charCount < 350) {
+        charClass = 'under';
+        statusText = sLang === 'id' ? `⚠️ Kurang ${350 - charCount} karakter` : `⚠️ ${350 - charCount} chars below target`;
+      } else if (charCount > 500) {
+        charClass = 'over';
+        statusText = sLang === 'id' ? `⚠️ Melebihi batas (${charCount - 500})` : `⚠️ ${charCount - 500} chars over limit`;
+      }
 
       rowsHtml += `
         <tr>
@@ -1160,13 +1310,31 @@ function renderExamPreview() {
           </td>
           <td class="lms-note-cell">
             <textarea class="lms-note-input" id="lms-note-${cat.key}-${idx}"
-              oninput="examStudents[${idx}].notes['${cat.key}']=this.value"
-              placeholder="${sLang === 'id' ? 'Catatan guru untuk kriteria ini...' : 'Teacher note for this criteria...'}"
+              oninput="onExamNoteInput(${idx}, '${cat.key}', this.value)"
+              placeholder="${sLang === 'id' ? 'Catatan guru untuk kriteria ini (target 350–500 karakter)...' : 'Teacher note for this criteria (target 350–500 characters)...'}"
               rows="4">${esc(noteVal)}</textarea>
+            <div class="lms-note-footer">
+              <div class="char-counter-pill ${charClass}" id="char-counter-${cat.key}-${idx}">
+                <span class="char-count-val" id="char-val-${cat.key}-${idx}">${charCount}</span> / 350–500 chars
+                <span class="char-count-status" id="char-status-${cat.key}-${idx}">${statusText}</span>
+              </div>
+              <div class="note-quick-actions">
+                <button type="button" class="btn-regen-mini" onclick="regenerateCriteriaNote(${idx}, '${cat.key}')" title="Regenerate note">
+                  🔄 Regenerate
+                </button>
+                <button type="button" class="btn-copy-mini" onclick="copyCriteriaNote(${idx}, '${cat.key}')" title="Copy note">
+                  📋 Copy Note
+                </button>
+              </div>
+            </div>
           </td>
         </tr>
       `;
     });
+
+    const audienceBadge = s.audience === 'adult'
+      ? `<span class="exam-period-badge" style="background:#eff6ff;color:#2563eb;border-color:#bfdbfe;">🧑 ${sLang === 'id' ? 'Siswa Dewasa (Kamu)' : 'Adult Student (You)'}</span>`
+      : `<span class="exam-period-badge" style="background:#f0fdf4;color:#15803d;border-color:#bbf7d0;">👨‍👩‍👧 ${sLang === 'id' ? 'Orang Tua (Dia)' : 'Parent (3rd Person)'}</span>`;
 
     wrapper.innerHTML = `
       <div class="exam-report-header">
@@ -1174,8 +1342,12 @@ function renderExamPreview() {
           <span class="exam-student-title">${esc(sName)}</span>
           <span class="exam-period-badge">🗓️ ${esc(periodLabel)}</span>
           <span class="exam-course-badge">📚 ${esc(localizedCourse)}</span>
+          ${audienceBadge}
         </div>
       </div>
+
+      <!-- Objectives Accordion (Curriculum Context for Teacher) -->
+      ${objectivesCardHtml}
 
       <!-- Clean LMS Table Replica (Notes Only) -->
       <div class="lms-table-responsive">
@@ -1183,7 +1355,7 @@ function renderExamPreview() {
           <thead>
             <tr>
               <th class="col-criteria" style="width: 220px;">Criteria</th>
-              <th class="col-notes">Teacher's Note</th>
+              <th class="col-notes">Teacher's Note (350–500 Chars)</th>
             </tr>
           </thead>
           <tbody>
@@ -1192,7 +1364,6 @@ function renderExamPreview() {
         </table>
       </div>
     `;
-
 
     container.appendChild(wrapper);
   });
@@ -1218,16 +1389,18 @@ function copyCriteriaNote(studentIdx, categoryKey) {
   });
 }
 
+
 const EXAM_GUIDE_TEXTS = {
   id: {
     title: '💡 Cara Pakai',
-    steps: `<ol class="how-to-steps"><li><strong>Siswa & Periode:</strong> Isi nama, pilih bahasa rapor (ID/EN), course & periode.</li><li><strong>Nilai:</strong> Masukkan nilai (0–100) per kriteria (grade terhitung otomatis).</li><li><strong>Generate & Copas:</strong> Klik <strong>⚡ Generate</strong> &rarr; klik <strong>📋 Copy Note</strong> ke LMS.</li></ol>`
+    steps: `<ol class="how-to-steps"><li><strong>Siswa & Periode:</strong> Isi nama, pilih pembaca (👨‍👩‍👧 Ortu / 🧑 Dewasa), bahasa, course & periode 8 lesson.</li><li><strong>Nilai & Absensi:</strong> Masukkan nilai (0–100) & atur status kehadiran jika siswa sempat izin.</li><li><strong>Objective & 350–500 Karakter:</strong> Klik <strong>⚡ Generate</strong> &rarr; cek objective kurikulum & pastikan note optimal (350–500 karakter) &rarr; klik <strong>📋 Copy Note</strong> ke LMS.</li></ol>`
   },
   en: {
     title: '💡 How to Use',
-    steps: `<ol class="how-to-steps"><li><strong>Student & Period:</strong> Enter name, select report lang (ID/EN), course & period.</li><li><strong>Scores:</strong> Enter score (0–100) per criteria (grade auto-calculated).</li><li><strong>Generate & Paste:</strong> Click <strong>⚡ Generate</strong> &rarr; click <strong>📋 Copy Note</strong> to LMS.</li></ol>`
+    steps: `<ol class="how-to-steps"><li><strong>Student & Period:</strong> Enter name, lang, course & 8-lesson period.</li><li><strong>Scores:</strong> Enter scores (0–100) for each criteria.</li><li><strong>Objectives & 350–500 Chars:</strong> Click <strong>⚡ Generate</strong> &rarr; review curriculum objectives & ensure optimal note length (350–500 chars) &rarr; click <strong>📋 Copy Note</strong> to LMS.</li></ol>`
   }
 };
+
 
 function setExamGuideLang(lang) {
   const titleEl = document.getElementById('exam-guide-title');
