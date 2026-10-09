@@ -1247,77 +1247,22 @@ function renderExamPreview() {
     wrapper.className = 'exam-report-card';
     wrapper.id = `exam-report-table-${idx}`;
 
-    // Build Learning Objectives Accordion HTML
-    let objItemsHtml = '';
-    curDetails.allObjectivesList.forEach(item => {
-      const bulletsHtml = item.objectives.map(o => `<li>${esc(o)}</li>`).join('');
-      objItemsHtml += `
-        <div class="obj-lesson-item">
-          <div class="obj-lesson-head">Lesson ${item.num}: ${esc(item.title)}</div>
-          <ul class="obj-lesson-list">${bulletsHtml || `<li>${esc(item.title)}</li>`}</ul>
-        </div>
-      `;
-    });
-
-    const objectivesCardHtml = `
-      <div class="period-objectives-card" id="period-obj-card-${idx}">
-        <div class="period-objectives-toggle" onclick="toggleStudentObjectives(${idx})">
-          <div class="period-objectives-title">
-            <span>🎯</span>
-            <span><strong>${sLang === 'id' ? 'Learning Objectives Siklus Ini' : 'Learning Objectives Covered'}</strong> (Lesson ${pObj.from}–${pObj.to})</span>
-            <span class="obj-count-tag">${curDetails.allObjectivesList.length} Lessons</span>
-          </div>
-          <div class="obj-toggle-btn" id="obj-toggle-btn-${idx}">
-            Show Objectives ▼
-          </div>
-        </div>
-        <div class="period-objectives-list" id="obj-list-${idx}" style="display: none;">
-          <div class="obj-actions-bar">
-            <button type="button" class="btn-copy-obj" onclick="copyPeriodObjectives(${idx})">
-              📋 ${sLang === 'id' ? 'Salin Semua Objective' : 'Copy All Objectives'}
-            </button>
-            <span class="obj-hint-text">💡 ${sLang === 'id' ? 'Materi & konsep riil yang dipelajari siswa sepanjang 8 lesson ini' : 'Actual curriculum concepts & projects studied by student in this 8-lesson cycle'}</span>
-          </div>
-          <div class="obj-grid">
-            ${objItemsHtml}
-          </div>
-        </div>
-      </div>
-    `;
-
     // Build Table Rows HTML
     let rowsHtml = '';
     categories.forEach((cat) => {
       const noteVal = s.notes[cat.key] || '';
-      const charCount = noteVal.length;
-      let charClass = 'optimal';
-      let statusText = sLang === 'id' ? '✓ Optimal (350–500)' : '✓ Optimal (350–500)';
-      if (charCount < 350) {
-        charClass = 'under';
-        statusText = sLang === 'id' ? `⚠️ Kurang ${350 - charCount} karakter` : `⚠️ ${350 - charCount} chars below target`;
-      } else if (charCount > 500) {
-        charClass = 'over';
-        statusText = sLang === 'id' ? `⚠️ Melebihi batas (${charCount - 500})` : `⚠️ ${charCount - 500} chars over limit`;
-      }
 
       rowsHtml += `
         <tr>
           <td class="lms-criteria-cell">
             <strong>${esc(cat.name)}</strong>
-            <button type="button" class="btn-copy-mini" onclick="copyCriteriaNote(${idx}, '${cat.key}')" title="Copy note">
-              📋 Copy Note
-            </button>
           </td>
           <td class="lms-note-cell">
             <textarea class="lms-note-input" id="lms-note-${cat.key}-${idx}"
               oninput="onExamNoteInput(${idx}, '${cat.key}', this.value)"
-              placeholder="${sLang === 'id' ? 'Catatan guru untuk kriteria ini (target 350–500 karakter)...' : 'Teacher note for this criteria (target 350–500 characters)...'}"
-              rows="4">${esc(noteVal)}</textarea>
+              placeholder="${sLang === 'id' ? 'Catatan guru untuk kriteria ini...' : 'Teacher note for this criteria...'}"
+              rows="6" style="resize: vertical; min-height: 120px;">${esc(noteVal)}</textarea>
             <div class="lms-note-footer">
-              <div class="char-counter-pill ${charClass}" id="char-counter-${cat.key}-${idx}">
-                <span class="char-count-val" id="char-val-${cat.key}-${idx}">${charCount}</span> / 350–500 chars
-                <span class="char-count-status" id="char-status-${cat.key}-${idx}">${statusText}</span>
-              </div>
               <div class="note-quick-actions">
                 <button type="button" class="btn-regen-mini" onclick="regenerateCriteriaNote(${idx}, '${cat.key}')" title="Regenerate note">
                   🔄 Regenerate
@@ -1332,29 +1277,22 @@ function renderExamPreview() {
       `;
     });
 
-    const audienceBadge = s.audience === 'adult'
-      ? `<span class="exam-period-badge" style="background:#eff6ff;color:#2563eb;border-color:#bfdbfe;">🧑 ${sLang === 'id' ? 'Siswa Dewasa (Kamu)' : 'Adult Student (You)'}</span>`
-      : `<span class="exam-period-badge" style="background:#f0fdf4;color:#15803d;border-color:#bbf7d0;">👨‍👩‍👧 ${sLang === 'id' ? 'Orang Tua (Dia)' : 'Parent (3rd Person)'}</span>`;
-
     wrapper.innerHTML = `
       <div class="exam-report-header">
         <div class="exam-report-student-meta">
           <span class="exam-student-title">${esc(sName)}</span>
           <span class="exam-period-badge">🗓️ ${esc(periodLabel)}</span>
           <span class="exam-course-badge">📚 ${esc(localizedCourse)}</span>
-          ${audienceBadge}
         </div>
       </div>
 
-      <!-- Objectives Accordion (Curriculum Context for Teacher) -->
-      ${objectivesCardHtml}
 
       <!-- Clean LMS Table Replica (Notes Only) -->
       <div class="lms-table-responsive">
         <table class="lms-table">
           <thead>
             <tr>
-              <th class="col-criteria" style="width: 220px;">Criteria</th>
+              <th class="col-criteria" style="width: 140px;">Criteria</th>
               <th class="col-notes">Teacher's Note (350–500 Chars)</th>
             </tr>
           </thead>
