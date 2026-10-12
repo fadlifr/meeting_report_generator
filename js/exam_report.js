@@ -161,71 +161,34 @@ function getPeriodCurriculumDetails(course, from, to, lang = 'id') {
 function getCourseCategories(courseName, periodId = 'report_1') {
   const norm = normalizeCourseName(courseName);
 
-  // 1. Website Designer (Junior) - 4 categories
-  if (norm.includes('websitedesigner')) {
-    return [
-      { key: 'comp_lit', name: 'Computer & Literacy Concept' },
-      { key: 'code_prac', name: 'Coding Concept & Practice' },
-      { key: 'creative', name: 'Creativity' },
-      { key: 'char', name: 'Character' }
-    ];
-  }
-
-  // 2. 3D ANIMATOR (Junior)
-  if (norm.includes('3danimator')) {
-    return [
-      { key: 'comp_lit', name: 'Computer & Literacy Concept' },
-      { key: 'code_prac', name: 'Coding Concept & Practice' },
-      { key: 'char', name: 'Character' }
-    ];
-  }
-
-  // 3. Virtual World Maker & Little Programmer (Junior)
-  if (norm.includes('virtualworld') || norm.includes('littleprogrammer')) {
-    return [
-      { key: 'code_lit', name: 'Coding and Literacy Concept' },
-      { key: 'code_app', name: 'Coding Application' },
-      { key: 'char', name: 'Character' }
-    ];
-  }
-
-  // 4. Code & Design with Roblox (Kids)
-  if (norm.includes('codeanddesignwithroblox') || norm.includes('codedesignroblox') || (norm.includes('roblox') && norm.includes('design'))) {
+  // 1. Roblox Explorer / Designer / Coder
+  if (norm.includes('roblox')) {
     if (periodId === 'report_1') {
       return [
-        { key: 'design_prac', name: 'Design Concepts & Practice' },
-        { key: 'code_prac', name: 'Coding Concepts & Practice' },
+        { key: 'dig_lit', name: 'Digital & Studio Literacy' },
+        { key: 'design_prac', name: 'Design Concept & Practice' },
         { key: 'char', name: 'Character' }
       ];
     }
     return [
       { key: 'dig_lit', name: 'Digital & Studio Literacy' },
-      { key: 'design_prac', name: 'Design Concepts & Practice' },
-      { key: 'code_prac', name: 'Coding Concepts & Practice' },
+      { key: 'design_prac', name: 'Design Concept & Practice' },
+      { key: 'code_prac', name: 'Coding Concept & Practice' },
       { key: 'char', name: 'Character' }
     ];
   }
 
-  // 5. Other Roblox Courses: Interactive Mechanics, Full Stack, Advanced Lua
-  if (norm.includes('roblox')) {
+  // 2. Data Science, Machine Learning, Computer Vision
+  if (norm.includes('datascience') || norm.includes('machinelearning') || norm.includes('computervision') || norm.includes('pythonfor')) {
     return [
-      { key: 'design_prac', name: 'Design Concepts & Practice' },
-      { key: 'code_prac', name: 'Coding Concepts & Practice' },
+      { key: 'concept', name: 'Coding Concept' },
+      { key: 'code_prac', name: 'Coding Practice' },
       { key: 'char', name: 'Character' }
     ];
   }
 
-  // 6. Tech Explorer (Kids)
-  if (norm.includes('techexplorer')) {
-    return [
-      { key: 'code_lit', name: 'Coding Literacy and Concept' },
-      { key: 'code_dig', name: 'Coding & Digital Creation' },
-      { key: 'char', name: 'Character' }
-    ];
-  }
-
-  // 7. Teens Websites Developer / Web Developer Teens, Python for Data Science, AI Machine Learning, AI Computer Vision
-  if (norm.includes('webdeveloper') || norm.includes('datascience') || norm.includes('machinelearning') || norm.includes('computervision')) {
+  // 3. Web Dev 3 & 4 (Teens Web Developer)
+  if (norm.includes('webdev') && (periodId === 'report_3' || periodId === 'report_4')) {
     return [
       { key: 'concept', name: 'Coding Concept' },
       { key: 'code_app', name: 'Coding Application' },
@@ -233,10 +196,16 @@ function getCourseCategories(courseName, periodId = 'report_1') {
     ];
   }
 
-  // 8. Standard Kids & Teens Courses (Coding Explorer, Game Developer, Python Coder, Python Game Developer, Python for AI, Teens Programmer, JavaScript Developer, Android Developer, etc.)
+  // 4. Default for Kids & Teens (Xplorer, Programmer, AppDev, GameDev, WebDev 1-2, Python Coder, AI)
+  // Usually "Coding Literacy and Concept", "Coding Practice" (or Application), and "Character"
+  let pracName = 'Coding Practice';
+  if (norm.includes('xplorer') || norm.includes('appdev') || norm.includes('webdev') || norm.includes('virtualworld') || norm.includes('littleprogrammer')) {
+      pracName = 'Coding Application';
+  }
+
   return [
     { key: 'code_lit', name: 'Coding Literacy and Concept' },
-    { key: 'code_app', name: 'Coding Application' },
+    { key: 'code_app', name: pracName },
     { key: 'char', name: 'Character' }
   ];
 }
@@ -279,48 +248,48 @@ const NOTE_TEMPLATES = {
   // ---------------- CODING: CONCEPT / LITERACY (ujian teori) ----------------
   coding_concept: {
     id: {
-      C1: "Di {range}, {n} mulai mengenal materi {course} seperti {topics}. Nilai ujian teori {n} {score}, dan beberapa konsep memang masih perlu diulang. Hal ini wajar karena materinya cukup banyak dan masih baru. {tip} {close}",
-      C2: "Selama {range}, {n} belajar {topics}. Di ujian teori, {n} mendapat nilai {score}. Sebagian konsep sudah mulai dipahami, hanya saja {n} masih ragu saat harus menjelaskan alurnya sendiri. Ini proses yang biasa dan akan membaik dengan latihan. {tip} {close}",
-      B1: "{N} sudah mengikuti materi {range} dengan baik, mencakup {topics}. Nilai ujian teori {n} {score}. Konsep dasarnya sudah dipahami, tapi beberapa detail kecil kadang masih tertukar. {tip} {close}",
-      B2: "Di {range}, {n} mempelajari {topics} dan bisa mengikuti penjelasan di kelas dengan cukup lancar. Pada ujian teori {n} meraih nilai {score}. Masih ada satu dua konsep yang perlu dimantapkan supaya tidak lupa di materi berikutnya. {tip} {close}",
-      B3: "{N} memahami materi {range} dengan baik, terutama {topics}. Nilai ujian teori {score} menunjukkan pemahaman yang sudah cukup matang, tinggal sedikit lagi untuk mencapai hasil maksimal. {tip} {close}",
-      A1: "{N} menguasai materi {range} dengan baik, seperti {topics}. Di ujian teori {n} mendapat nilai {score} dan bisa menjelaskan kembali konsep yang dipelajari dengan bahasa sendiri. {tip} {close}",
-      A2: "Pemahaman {n} di {range} sangat baik. Materi seperti {topics} bisa diikuti dengan cepat, dan nilai ujian teori {n} mencapai {score}. {N} juga sering menjawab pertanyaan di kelas dengan tepat. {tip} {close}",
-      A3: "Hasil yang sangat memuaskan di {range}! {N} memahami {topics} dengan sangat baik dan meraih nilai {score} di ujian teori. Konsep yang baru diajarkan bisa langsung dipahami tanpa banyak pengulangan. {tip} {close}"
+      C1: "{N} mempelajari materi {course} seperti topik mengenai {topics}. Di ujian teorinya, {n} mendapatkan nilai {score}. Walaupun masih ada beberapa kebingungan, wajar karena materi yang dipelajari cukup baru dan banyak. Alangkah lebih baik jika {n} mengulang kembali materi di rumah agar pemahamannya lebih matang. {tip} {close}",
+      C2: "Pemahaman {n} terkait {course} yang mencakup materi tentang {topics} mulai menunjukkan progres. Pada ujian teori, nilai {n} adalah {score}. Sebagian konsep sudah mulai dipahami, hanya saja {n} terkadang masih keliru saat mengerjakannya secara mandiri. Perlu lebih sering berlatih. {tip} {close}",
+      B1: "Pemahaman {n} terkait materi {course} seperti {topics} sudah cukup baik. Di ujian teori, {n} meraih nilai {score}. Konsep utamanya sudah dikuasai, walaupun masih terdapat beberapa kekeliruan kecil pada penerapannya. Semangat terus berlatih ya. {tip} {close}",
+      B2: "Pemahaman {n} mengenai konsep {course} yang meliputi {topics} sudah baik dan ia bisa mengikuti alur pelajaran dengan lancar. Saat ujian teori, nilainya {score}. Ada beberapa materi spesifik yang perlu dimantapkan lagi agar pemahamannya benar-benar kuat. {tip} {close}",
+      B3: "{N} memahami materi {course} dengan sangat baik, khususnya pada topik seputar {topics}. Hasil ujian teorinya adalah {score}, yang menunjukkan dasar pemahamannya sangat solid. Dengan sedikit pendalaman dan fokus, hasilnya pasti bisa maksimal. {tip} {close}",
+      A1: "{N} mampu memahami materi {course} yang mencakup tentang {topics} dengan sangat baik. Nilai ujian teori {n} juga bagus, yaitu {score}. {N} mampu mengingat dan menjelaskan kembali konsep yang dipelajari di kelas dengan baik. {tip} {close}",
+      A2: "Kemampuan {n} memahami teori {course} sangat mengesankan, terutama terkait materi {topics}. Ia bisa belajar dengan cepat, sehingga mampu meraih skor {score} di ujian teori. {N} juga tanggap dan kritis di kelas. {tip} {close}",
+      A3: "Pemahaman yang luar biasa! {N} menguasai {course} yang meliputi topik-topik seperti {topics} dengan sangat matang. Ia berhasil meraih skor {score} di ujian teori. Materi yang baru diajarkan bisa diserap dengan sangat tajam tanpa butuh banyak pengulangan. {tip} {close}"
     },
     en: {
-      C1: "During {range}, {n} started learning {course} topics such as {topics}. {N} scored {score} on the theory exam, and some concepts still need more review. That is expected, since there was quite a lot of new material. {tip} {close}",
-      C2: "Throughout {range}, {n} learned about {topics}. On the theory exam, {n} scored {score}. Some concepts are starting to click, but explaining the steps without help still takes some effort. This will get easier with practice. {tip} {close}",
-      B1: "{N} followed the {range} material well, covering {topics}. With a theory exam score of {score}, the basics are clearly understood, although a few small details still get mixed up sometimes. {tip} {close}",
-      B2: "In {range}, {n} studied {topics} and could follow the class explanations quite smoothly. {N} scored {score} on the theory exam. One or two concepts still need some reinforcement so they stay fresh for the next topics. {tip} {close}",
-      B3: "{N} understood the {range} material well, especially {topics}. A theory exam score of {score} shows a good grasp of the concepts, and only a little more polish is needed to reach the top. {tip} {close}",
-      A1: "{N} handled the {range} material very well, including {topics}. On the theory exam, {n} scored {score} and could explain the concepts back in simple words. {tip} {close}",
-      A2: "{N} showed a strong understanding in {range}. Topics like {topics} were picked up quickly, and the theory exam score reached {score}. In class, {n} often answered questions correctly. {tip} {close}",
-      A3: "An excellent result for {range}! {N} understood {topics} really well and scored {score} on the theory exam. New concepts could be picked up right away without much repetition. {tip} {close}"
+      C1: "{N} has been learning {course} topics such as {topics}. In the theory exam, {n} got a {score}. Although there is still some confusion, it is perfectly normal since the material is new and extensive. It would be highly beneficial to review the lessons at home to build a stronger foundation. {tip} {close}",
+      C2: "{N}'s understanding of {course}, covering {topics}, is starting to show progress. On the theory exam, {n} scored {score}. The core concepts are beginning to click, but {n} sometimes makes mistakes when working independently. Consistent practice will help. {tip} {close}",
+      B1: "{N} has a fairly good understanding of {course} material, such as {topics}. In the theory exam, {n} achieved a {score}. The main concepts are clear, though there are still a few minor errors in the finer details. Keep practicing! {tip} {close}",
+      B2: "{N} grasps the {course} concepts regarding {topics} quite well and can follow the lessons smoothly. During the theory exam, the score was {score}. There are just a couple of specific topics that need a bit more reinforcement for better accuracy. {tip} {close}",
+      B3: "{N} understands the {course} material very well, specifically regarding {topics}. The theory exam score of {score} shows a strong foundational grasp. With just a little more deep-diving and focus, the results will be optimal. {tip} {close}",
+      A1: "{N} understands {course} material, covering {topics}, very well. The theory exam score is also great at {score}. {N} is fully capable of remembering and explaining the concepts learned in class. {tip} {close}",
+      A2: "{N}'s ability to grasp {course} theory is highly impressive, especially concerning {topics}. {N} learns very quickly, leading to a score of {score} in the theory exam. {N} is also very responsive and critical during lessons. {tip} {close}",
+      A3: "Outstanding understanding! {N} has completely mastered the {course} concepts, including topics like {topics}. {N} successfully scored {score} in the theory exam. New materials are absorbed rapidly and sharply without needing much repetition. {tip} {close}"
     }
   },
 
   // ---------------- CODING: APPLICATION / PRACTICE (project + coding exam) ----------------
   coding_application: {
     id: {
-      C1: "Dalam praktik, {n} mengerjakan project seperti {projects}. Di {exam}, {n} mendapat nilai {score} dan masih butuh banyak bantuan untuk menyusun kodenya. Wajar kalau di tahap ini program sering belum jalan sesuai harapan. {tip} {close}",
-      C2: "{N} sudah mencoba membuat {projects} di kelas. Pada {exam}, nilai {n} {score}. Beberapa bagian sudah bisa dikerjakan sendiri, tapi saat ada error {n} masih perlu dibimbing untuk mencari penyebabnya. {tip} {close}",
-      B1: "{N} berhasil menyelesaikan project seperti {projects}. Di {exam}, {n} meraih nilai {score}. Programnya sudah berjalan, walaupun kadang masih perlu diingatkan langkah-langkahnya. {tip} {close}",
-      B2: "Project {projects} dikerjakan {n} dengan cukup rapi. Pada {exam}, nilainya {score}. Ketika menemukan error, {n} mulai bisa mencari sendiri bagian yang salah. Tinggal kecepatannya yang perlu dilatih. {tip} {close}",
-      B3: "{N} mampu mengerjakan {projects} hampir sepenuhnya secara mandiri. Pada {exam}, {n} mendapat nilai {score} dengan program yang sudah berjalan baik. Sedikit lagi ketelitian, hasilnya bisa lebih maksimal. {tip} {close}",
-      A1: "{N} menyelesaikan project {projects} dengan baik dan mandiri. Di {exam}, {n} meraih nilai {score}. Kodenya tersusun rapi dan bisa dijelaskan kembali saat ditanya. {tip} {close}",
-      A2: "Kemampuan praktik {n} sangat baik. Project seperti {projects} selesai lebih cepat dari target, dan di {exam} {n} meraih nilai {score}. Error kecil pun bisa diperbaiki sendiri tanpa banyak bantuan. {tip} {close}",
-      A3: "Praktik coding {n} di periode ini sangat menonjol. {N} menyelesaikan {projects} dengan hasil yang rapi dan kreatif, lalu meraih nilai {score} di {exam}. {N} bahkan sering menambahkan ide sendiri ke dalam project. {tip} {close}"
+      C1: "Dalam penerapannya, {n} masih banyak memerlukan bimbingan saat membuat project seperti {projects}. Saat {exam}, nilai yang didapat adalah {score}. Sangat wajar apabila program sering mengalami error di awal. {tip} {close}",
+      C2: "{N} sudah mencoba mengerjakan project {projects} sesuai instruksi. Di {exam}, ia mendapat nilai {score}. Ia sudah mulai terbiasa, namun saat menghadapi error (bugs) {n} masih kesulitan mencari penyebabnya secara mandiri. {tip} {close}",
+      B1: "{N} bisa mengerjakan latihan coding seperti {projects} dengan cukup baik. Walaupun kadang masih menemui error saat ngoding, di {exam} ia sukses meraih {score}. Alangkah baiknya jika ketelitian saat menulis sintaks makin ditingkatkan. {tip} {close}",
+      B2: "Project {projects} mampu diselesaikan {n} dengan cukup baik dan terstruktur. Pada {exam}, {n} mendapatkan nilai {score}. Kemampuan debugging-nya perlahan membaik dan ia mulai terbiasa mengatasi kesalahannya sendiri. {tip} {close}",
+      B3: "{N} berhasil mengaplikasikan konsep di project {projects} hampir seluruhnya tanpa bantuan. Saat {exam}, nilainya mencapai {score}. Program berjalan sangat mulus dan hanya sedikit perbaikan kecil yang diperlukan agar lebih sempurna. {tip} {close}",
+      A1: "Kemampuan praktik coding {n} sangat baik karena mampu menyelesaikan {projects} sesuai instruksi dengan mandiri. Di {exam}, {n} berhasil memperoleh nilai {score}. Susunan kodenya sangat rapi dan logis. {tip} {close}",
+      A2: "Praktik {n} sangat memuaskan! Project seperti {projects} diselesaikan dengan tepat dan cepat. Di {exam}, {n} meraih nilai {score}. Ia juga jarang melakukan kesalahan, dan bisa langsung memperbaiki masalah kodenya sendiri. {tip} {close}",
+      A3: "Hasil coding practice {n} benar-benar luar biasa. Ia membuat project {projects} dengan mandiri, bereksperimen dengan fitur baru, dan mendapat nilai sempurna {score} di {exam}. {N} punya potensi sangat besar di bidang ini. {tip} {close}"
     },
     en: {
-      C1: "In practice sessions, {n} worked on projects like {projects}. For {exam}, {n} scored {score} and still needed a lot of help putting the code together. At this stage it is normal for programs not to run as expected yet. {tip} {close}",
-      C2: "{N} tried building {projects} in class. For {exam}, {n} scored {score}. Some parts could be done independently, but when errors came up, {n} still needed guidance to find the cause. {tip} {close}",
-      B1: "{N} completed projects such as {projects}. For {exam}, {n} scored {score}. The programs ran well, although some steps still needed a reminder now and then. {tip} {close}",
-      B2: "{N} worked through {projects} quite neatly. The score for {exam} was {score}. When errors appeared, {n} started finding the problem without help. Speed is the next thing to work on. {tip} {close}",
-      B3: "{N} could complete {projects} almost fully independently. For {exam}, {n} scored {score} with a program that ran well. A bit more attention to detail will push the results even higher. {tip} {close}",
-      A1: "{N} completed {projects} well and independently. For {exam}, {n} scored {score}. The code was well organized, and {n} could explain how it works when asked. {tip} {close}",
-      A2: "{N} showed very strong practical skills. Projects like {projects} were finished ahead of time, and {n} scored {score} on {exam}. Small errors were usually fixed without much help. {tip} {close}",
-      A3: "The practical work this term stood out. {N} completed {projects} neatly and creatively, then scored {score} on {exam}. {N} often added personal ideas to the projects as well. {tip} {close}"
+      C1: "In its application, {n} still requires a lot of guidance when creating projects like {projects}. In the {exam}, the score obtained was {score}. It is very normal for programs to frequently encounter errors at this stage. {tip} {close}",
+      C2: "{N} has tried working on the {projects} project according to instructions. For the {exam}, the score is {score}. {N} is getting used to it, but still struggles to independently find the root cause when facing errors or bugs. {tip} {close}",
+      B1: "{N} is able to do coding exercises like {projects} fairly well. Even though there are still occasional errors when coding, {n} successfully scored {score} in the {exam}. It would be great to increase attention to detail when writing syntax. {tip} {close}",
+      B2: "The {projects} project was completed by {n} quite well and structured. In the {exam}, {n} received a score of {score}. The debugging skills are slowly improving, and {n} is becoming accustomed to fixing mistakes independently. {tip} {close}",
+      B3: "{N} successfully applied concepts in the {projects} project almost entirely without assistance. For the {exam}, the score reached {score}. The program runs very smoothly, and only minor tweaks are needed to make it perfect. {tip} {close}",
+      A1: "{N}'s practical coding skills are excellent as they are able to independently complete {projects} according to instructions. In the {exam}, {n} managed to score {score}. The code structure is very neat and logical. {tip} {close}",
+      A2: "{N}'s practical work is highly satisfying! Projects like {projects} were completed accurately and quickly. In the {exam}, {n} achieved a score of {score}. Errors are rare, and code issues can be fixed independently right away. {tip} {close}",
+      A3: "The results of {n}'s coding practice are truly outstanding. {N} completed the {projects} project independently, experimented with new features, and scored a perfect {score} in the {exam}. {N} shows immense potential in this field. {tip} {close}"
     }
   },
 
@@ -399,24 +368,24 @@ const NOTE_TEMPLATES = {
   // ---------------- CHARACTER (semua level) ----------------
   character: {
     id: {
-      C1: "Di kelas, {n} masih sering kehilangan fokus dan butuh diingatkan untuk menyelesaikan tugas. Ini hal yang biasa dan bisa dilatih pelan-pelan. Saat sudah tertarik dengan materinya, {n} sebenarnya bisa mengikuti dengan baik. {tip} {close}",
-      C2: "{N} cukup antusias di awal kelas, tapi fokusnya kadang turun di tengah sesi. {N} juga masih malu bertanya saat mengalami kesulitan. Dengan sedikit dorongan, hal ini pasti bisa membaik. {tip} {close}",
-      B1: "{N} mengikuti kelas dengan sikap yang baik dan sopan. Tugas umumnya diselesaikan, walaupun kadang perlu diingatkan agar tidak terburu-buru. {N} juga mulai berani bertanya saat ada yang belum jelas. {tip} {close}",
-      B2: "{N} cukup aktif di kelas dan mau mencoba saat diberi tantangan. Sesekali fokus {n} teralihkan, tapi bisa kembali setelah diingatkan. Sikap {n} terhadap teman dan teacher juga baik. {tip} {close}",
-      B3: "{N} menunjukkan sikap belajar yang baik. {N} datang siap belajar, mengikuti instruksi dengan tertib, dan mau mencoba lagi saat hasilnya belum sesuai. Sedikit lebih berani berpendapat akan membuat {n} makin berkembang. {tip} {close}",
-      A1: "{N} rajin dan bertanggung jawab di kelas. Tugas selalu diselesaikan dengan sungguh-sungguh, dan {n} tidak ragu bertanya saat menemui kesulitan. {tip} {close}",
-      A2: "{N} sangat antusias dan fokus selama kelas. Saat menemui kesulitan, {n} mencoba mencari solusinya dulu sebelum bertanya. {N} juga senang membantu teman yang sedang kesulitan. {tip} {close}",
-      A3: "Sikap belajar {n} patut dicontoh. {N} selalu fokus, mandiri, dan pantang menyerah saat menghadapi tantangan. Di kelas, {n} sering menjadi penyemangat bagi teman-teman yang lain. {tip} {close}"
+      C1: "Di kelas, {n} masih sering kehilangan fokus saat mengerjakan latihan. Ia juga cenderung pendiam dan jarang bertanya ketika mengalami kesulitan, sehingga beberapa latihannya kadang tertunda. {N} masih butuh sedikit dorongan dan perhatian agar belajarnya bisa lebih maksimal. {tip} {close}",
+      C2: "{N} sebenarnya cukup antusias di kelas, namun fokusnya mudah teralihkan saat mengerjakan project. {N} juga masih agak malu untuk bertanya langsung jika ada yang membingungkan. Dengan sedikit bimbingan, potensinya pasti lebih terlihat. {tip} {close}",
+      B1: "{N} mengikuti kelas dengan sikap yang baik dan sopan. Walaupun sesekali masih perlu diingatkan untuk tetap fokus pada layarnya, {n} mulai berani bertanya jika ada langkah yang tertinggal. {tip} {close}",
+      B2: "{N} cukup aktif di dalam kelas dan mau mencoba saat diberi instruksi. Walau kadang-kadang fokusnya teralihkan oleh hal lain, ia selalu tidak sungkan bertanya tentang materi yang dirasa kurang dipahami. {tip} {close}",
+      B3: "{N} menunjukkan semangat belajar yang sangat positif. Ia datang tepat waktu, fokus mengerjakan latihan secara mandiri, dan jarang mengeluh saat kodenya error. Kalau {n} lebih berani menyampaikan pendapat, pasti makin hebat. {tip} {close}",
+      A1: "{N} sangat aktif dan antusias selama di kelas. Ia tidak ragu-ragu apalagi malu untuk bertanya kepada teacher jika merasa bingung. Selain itu, {n} juga sangat fokus saat mengerjakan latihan coding. {tip} {close}",
+      A2: "Sikap belajar {n} sangat patut diacungi jempol. Ia sangat mandiri, telaten saat mencari letak error, dan bahkan bersedia membantu teman sekelasnya yang sedang kesulitan. Motivasi belajarnya memang tinggi. {tip} {close}",
+      A3: "{N} benar-benar bersemangat setiap kali mengikuti kelas. Fokusnya sangat baik dan ia sangat kritis bertanya jika mendapati sesuatu yang baru. Ia juga berinteraksi dengan sangat baik dengan teman dan teachernya. {tip} {close}"
     },
     en: {
-      C1: "In class, {n} often lost focus and needed reminders to finish tasks. This is common and can be trained step by step. When the topic felt interesting, {n} could actually follow along well. {tip} {close}",
-      C2: "{N} started classes with good energy, but focus tended to drop in the middle of the session. {N} also felt shy asking for help when stuck. With a little encouragement, this will surely improve. {tip} {close}",
-      B1: "{N} joined classes with a good and polite attitude. Tasks were usually completed, although {n} sometimes needed a reminder not to rush. {N} also started asking questions when something felt unclear. {tip} {close}",
-      B2: "{N} took part actively in class and showed willingness to try new challenges. Attention drifted now and then, but {n} could refocus after a reminder. {N} also treated classmates and the teacher kindly. {tip} {close}",
-      B3: "{N} showed a good learning attitude. {N} came ready to learn, followed instructions well, and kept trying when the result did not work out at first. Speaking up a bit more in class will help {n} grow further. {tip} {close}",
-      A1: "{N} showed diligence and responsibility in class. Tasks were always done seriously, and {n} never hesitated to ask questions when facing difficulties. {tip} {close}",
-      A2: "{N} stayed very enthusiastic and focused during class. When facing a problem, {n} tried to find the solution first before asking. {N} also liked helping classmates who were stuck. {tip} {close}",
-      A3: "{N} set a great example in class. {N} stayed focused, worked independently, and never gave up when facing challenges. {N} also often motivated classmates during activities. {tip} {close}"
+      C1: "In class, {n} still frequently loses focus during exercises. {N} also tends to be quiet and rarely asks for help when struggling, so some tasks get delayed. {N} just needs a little extra encouragement to maximize learning. {tip} {close}",
+      C2: "{N} is actually quite enthusiastic in class, but gets easily distracted while working on projects. {N} is also still a bit shy to ask questions directly when confused. With a little guidance, {n}'s true potential will shine. {tip} {close}",
+      B1: "{N} attends class with a good and polite attitude. Even though occasional reminders are needed to stay focused on the screen, {n} is starting to feel confident enough to ask questions when falling behind. {tip} {close}",
+      B2: "{N} is fairly active in class and willing to follow instructions. Although sometimes distracted by other things, {n} never hesitates to ask about any material that feels unclear. {tip} {close}",
+      B3: "{N} shows a very positive attitude toward learning. {N} comes on time, focuses on doing exercises independently, and rarely complains when the code gets an error. If {n} becomes just a bit more vocal, the progress will be even better. {tip} {close}",
+      A1: "{N} is highly active and enthusiastic during class. {N} never hesitates or feels shy to ask the teacher when confused. Moreover, {n} is also highly focused when working on coding exercises. {tip} {close}",
+      A2: "{N}'s learning attitude is highly commendable. {N} is very independent, patient when hunting for errors, and even willing to assist classmates who are stuck. The motivation to learn is clearly very high. {tip} {close}",
+      A3: "{N} is truly passionate every time {n} attends class. The focus is excellent, and {n} asks highly critical questions when discovering something new. {N} also interacts wonderfully with friends and the teacher. {tip} {close}"
     }
   }
 };
@@ -638,9 +607,13 @@ function noteJoinList(items, lang) {
 
 function cleanLessonTitleForNote(raw) {
   let t = String(raw || '').replace(/^Lesson\s*\d+\s*(?:-|:|–)\s*/i, '').trim();
-  t = t.replace(/^(?:What\s+(?:is|are)\s+(?:an?\s+)?|Introduction\s+(?:to|of)\s+|Intro\s+to\s+|Getting\s+Started\s+with\s+|Let'?s\s+)/i, '');
+  t = t.replace(/^(?:What\s+(?:is|are)\s+(?:an?\s+)?|Introduction\s+(?:to|of)\s+|Intro\s+to\s+|Getting\s+Started\s+with\s+|Let'?s\s+|Pengenalan\s+|Belajar\s+)/i, '');
   t = t.replace(/[?!.]+$/g, '').trim();
-  return t.charAt(0).toUpperCase() + t.slice(1);
+  // Lowercase all so it flows naturally in a sentence, unless it contains acronyms
+  if (t === t.toUpperCase() && t.length > 1) {
+    return t; // Keep acronyms like "HTML"
+  }
+  return t.toLowerCase();
 }
 
 const NOTE_EXAM_RE = /\b(?:exam|ujian|challenge|overview|review|quiz|kuis|test)\b/i;
@@ -758,8 +731,8 @@ function generateSingleNote(category, student, lang = 'en') {
   const extraPool = NOTE_EXTRAS[noteType.type][L];
 
   const materials = getNoteMaterials(course, periodObj.from, periodObj.to, L);
-  const conceptSample = noteSampleOrdered(materials.concepts, 3);
-  const projectSample = noteSampleOrdered(materials.projects, 2);
+  const allConcepts = materials.concepts;
+  const allProjects = materials.projects;
 
   const baseTokens = {
     N: isAdult ? (L === 'id' ? 'Kamu' : 'You') : sName,
@@ -771,7 +744,6 @@ function generateSingleNote(category, student, lang = 'en') {
     score: String(scoreVal)
   };
 
-  // Coba kombinasi (jumlah topik, tip, penutup, kalimat tambahan) lalu pilih acak yang 350-500 karakter
   const valid = [];
   let best = null;
   let bestDist = Infinity;
@@ -779,25 +751,26 @@ function generateSingleNote(category, student, lang = 'en') {
   const closes = noteShuffle(closePool);
   const extras = noteShuffle(extraPool);
 
-  for (const k of [3, 2, 1]) {
-    for (const pk of [2, 1]) {
-      for (const tip of tips) {
-        for (const close of closes) {
-          for (const extra of ['', extras[0]]) {
-            const tokens = Object.assign({}, baseTokens, {
-              topics: noteJoinList(conceptSample.slice(0, k), L),
-              projects: noteJoinList(projectSample.slice(0, pk), L),
-              tip: extra ? `${tip} ${extra}` : tip,
-              close
-            });
-            const text = fillNoteTokens(template, tokens);
-            const len = text.length;
-            if (len >= NOTE_MIN_CHARS && len <= NOTE_MAX_CHARS) {
-              if (!valid.includes(text)) valid.push({ text, k, pk });
-            }
-            const dist = len < NOTE_MIN_CHARS ? NOTE_MIN_CHARS - len : (len > NOTE_MAX_CHARS ? len - NOTE_MAX_CHARS : 0);
-            if (dist < bestDist) { bestDist = dist; best = text; }
-          }
+  for (const tip of tips) {
+    for (const close of closes) {
+      for (const extra of ['', extras[0]]) {
+        const tokens = Object.assign({}, baseTokens, {
+          topics: noteJoinList(allConcepts, L),
+          projects: noteJoinList(allProjects, L),
+          tip: extra ? `${tip} ${extra}` : tip,
+          close
+        });
+        const text = fillNoteTokens(template, tokens);
+        const len = text.length;
+        
+        if (len >= NOTE_MIN_CHARS && len <= NOTE_MAX_CHARS) {
+          if (!valid.includes(text)) valid.push({ text, k: allConcepts.length, pk: allProjects.length });
+        }
+        
+        const dist = len < NOTE_MIN_CHARS ? NOTE_MIN_CHARS - len : (len > NOTE_MAX_CHARS ? len - NOTE_MAX_CHARS : 0);
+        if (dist < bestDist) { 
+          bestDist = dist; 
+          best = text; 
         }
       }
     }
@@ -1331,11 +1304,11 @@ function copyCriteriaNote(studentIdx, categoryKey) {
 const EXAM_GUIDE_TEXTS = {
   id: {
     title: '💡 Cara Pakai',
-    steps: `<ol class="how-to-steps"><li><strong>Siswa & Periode:</strong> Isi nama, pilih pembaca (👨‍👩‍👧 Ortu / 🧑 Dewasa), bahasa, course & periode 8 lesson.</li><li><strong>Nilai & Absensi:</strong> Masukkan nilai (0–100) & atur status kehadiran jika siswa sempat izin.</li><li><strong>Objective & 350–500 Karakter:</strong> Klik <strong>⚡ Generate</strong> &rarr; cek objective kurikulum & pastikan note optimal (350–500 karakter) &rarr; klik <strong>📋 Copy Note</strong> ke LMS.</li></ol>`
+    steps: `<ol class="how-to-steps"><li><strong>Siswa & Periode:</strong> Isi nama, bahasa rapor (ID/EN), course & periode 8 lesson.</li><li><strong>Nilai:</strong> Masukkan nilai (0–100) untuk masing-masing kriteria (grade terhitung otomatis).</li><li><strong>Objective & 350–500 Karakter:</strong> Klik <strong>⚡ Generate</strong> &rarr; cek objective kurikulum & pastikan note optimal (350–500 karakter) &rarr; klik <strong>📋 Copy Note</strong> ke LMS.</li></ol>`
   },
   en: {
     title: '💡 How to Use',
-    steps: `<ol class="how-to-steps"><li><strong>Student & Period:</strong> Enter name, lang, course & 8-lesson period.</li><li><strong>Scores:</strong> Enter scores (0–100) for each criteria.</li><li><strong>Objectives & 350–500 Chars:</strong> Click <strong>⚡ Generate</strong> &rarr; review curriculum objectives & ensure optimal note length (350–500 chars) &rarr; click <strong>📋 Copy Note</strong> to LMS.</li></ol>`
+    steps: `<ol class="how-to-steps"><li><strong>Student & Period:</strong> Enter name, report language (ID/EN), course & 8-lesson period.</li><li><strong>Scores:</strong> Enter scores (0–100) for each criteria (grades calculated automatically).</li><li><strong>Objectives & 350–500 Chars:</strong> Click <strong>⚡ Generate</strong> &rarr; review curriculum objectives & ensure optimal note length (350–500 chars) &rarr; click <strong>📋 Copy Note</strong> to LMS.</li></ol>`
   }
 };
 

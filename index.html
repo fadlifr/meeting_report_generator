@@ -4,25 +4,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meeting Report App - TD</title>
+  <title>Daily Journal & Exam Report - Timedoor Academy</title>
   <link rel="icon" type="image/png" href="img/cobee_cover.png">
   <meta name="description"
-    content="Generate meeting reports and daily student progress reports for Timedoor Academy classes. Export to PNG, PDF, or share via WhatsApp.">
+    content="Generate daily journals and student exam progress reports for Timedoor Academy classes. Export to PNG, PDF, or share via WhatsApp.">
   <meta name="robots" content="noindex, nofollow">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2.9.1">
+  <link rel="stylesheet" href="css/style.css?v=2.9.2">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('td_mrg_theme', theme); } catch(e){}
+      const btn = document.getElementById('theme-toggle-btn');
+      if (btn) {
+        btn.innerHTML = (theme === 'dark') 
+          ? '☀️ <span class="theme-btn-text">Light Mode</span>' 
+          : '🌙 <span class="theme-btn-text">Dark Mode</span>';
+        btn.title = (theme === 'dark') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      }
+    }
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    }
+    // Immediate execution on head parse to prevent flash of wrong theme
     (function() {
       try {
         var t = localStorage.getItem('td_mrg_theme') || 'light';
         document.documentElement.setAttribute('data-theme', t);
       } catch(e) {}
     })();
+    // Sync button text as soon as DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      var saved = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(saved);
+    });
   </script>
 </head>
 
@@ -32,7 +54,7 @@
     <div class="topnav-left">
       <img src="img/timedoor_logo_putih.png" class="topnav-logo" alt="Timedoor Academy">
       <div class="topnav-divider"></div>
-      <h1>Meeting Report Generator</h1>
+      <h1>Daily Journal & Exam Report Generator</h1>
     </div>
     <div class="topnav-right">
       <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
@@ -44,11 +66,10 @@
   <div class="main-tab-bar">
     <div class="main-tab-bar-inner">
       <button type="button" class="main-tab-btn active" id="tab-btn-daily" onclick="switchMainTab('daily')">
-        <span>📋 Daily Meeting Report</span>
+        <span>📋 Daily Journal</span>
       </button>
       <button type="button" class="main-tab-btn" id="tab-btn-exam" onclick="switchMainTab('exam')">
         <span>🎓 Student Exam Report</span>
-        <span class="tab-badge-new">NEW</span>
       </button>
     </div>
   </div>
@@ -135,7 +156,7 @@
 
     <div class="preview-area">
       <div class="preview-header-bar">
-        <div class="preview-label"><span class="live-dot"></span><span id="auto-preview-label-text">Live Preview — Daily Report</span></div>
+        <div class="preview-label"><span class="live-dot"></span><span id="auto-preview-label-text">Live Preview — Daily Journal</span></div>
         <button type="button" class="btn-zoom-toggle" id="btn-zoom-auto" onclick="toggleZoomMode('auto')" title="Toggle View Mode">🔍 Fit to Screen</button>
       </div>
       <div class="preview-scroll" id="scroll-auto">
@@ -265,8 +286,8 @@
   <script src="js/secure_data.js?v=2.2.6"></script>
   <script src="js/auth.js?v=2.2.6"></script>
   <!-- App logic: all UI functions, language switching, PDF/PNG export -->
-  <script src="js/app.js?v=2.4.0"></script>
-  <script src="js/exam_report.js?v=2.4.3"></script>
+  <script src="js/app.js?v=2.5.0"></script>
+  <script src="js/exam_report.js?v=2.5.0"></script>
 
   <!-- Exam Reminder Modal -->
   <div id="exam-reminder-modal" class="modal-overlay" style="display: none;">
