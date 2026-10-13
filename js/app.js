@@ -584,10 +584,18 @@ const LANG_UI = {
     lessonPlaceholder: '— Lesson —',
     lesson2Placeholder: '— Lesson ke-2 —',
     statusDone: '✓ Selesai 1 Lesson',
-    statusContinuedDone: '🔄 Selesai Melanjutkan (Lanjutan Minggu Lalu)',
-    statusInProgress: '⏳ Belum Selesai (1 Lesson In Progress)',
-    statusOneAndHalf: '🌖 Selesai 1.5 Lesson (1 Selesai + 1 Lanjut)',
+    statusInProgress1: '⏳ Belum Selesai (Pertemuan ke-1)',
+    statusInProgress2: '🔄 Belum Selesai (Pertemuan ke-2)',
+    statusContinuedDone: '🔄 Selesai Melanjutkan (Meeting ke-2/ke-3)',
+    statusOneAndHalf: '🌖 Selesai 1.5 Lesson',
     statusDouble: '🚀 Selesai 2 Lesson',
+    // Fallback statusInProgress for backward compatibility
+    statusInProgress: '⏳ Belum Selesai (Pertemuan ke-1)',
+    contextDetail: '🎯 Pengerjaan Detail & Teknis Banyak',
+    contextFocus: '👀 Pendampingan Fokus Layar & Materi',
+    contextPace: '☕ Ritme / Tempo Pengerjaan Santai',
+    contextLogic: '💡 Bimbingan Konsep & Logika Baru',
+    contextTired: '🔋 Penyesuaian Stamina Setelah Sekolah',
     generateBtn: '⚡ Generate Progress',
     studentPlaceholder: 'Nama siswa…',
     progressPlaceholder: 'Progress akan ter-generate otomatis, atau ketik manual…',
@@ -606,7 +614,7 @@ const LANG_UI = {
         `Pada pertemuan hari ini, ${nama} menyelesaikan pembelajaran *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Selama kelas berlangsung, ${nama} menunjukkan fokus yang sangat baik serta mampu menyusun logika kode secara mandiri tanpa banyak arahan. Pemahaman konsep ini sangat penting karena memperkuat fondasi berpikir komputasional dan pemecahan masalah secara terstruktur. Di pertemuan berikutnya, ${nama} sudah siap melangkah ke materi logika yang lebih menantang.`,
         `Dalam sesi ini, ${nama} berhasil menuntaskan projek pada materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Teramati di kelas, ${nama} memiliki ketelitian tinggi dan proaktif melakukan debugging secara mandiri ketika menemui error pada programnya. Latihan ini melatih daya analisis kritis siswa agar mampu mengidentifikasi akar masalah pada alur algoritma. Di rumah, ${nama} disarankan untuk mencoba memodifikasi atau memainkan ulang projeknya agar logika kode yang dipelajari semakin melekat kuat.`,
         `Di pertemuan kali ini, ${nama} menyelesaikan seluruh target materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} ${nama} tampak sangat antusias dan berinisiatif menambahkan variasi elemen kreatif ke dalam projeknya di luar instruksi dasar. Eksplorasi ini sangat bermakna dalam mengasah kreativitas digital serta fleksibilitas berpikir saat mengimplementasikan logika program. Di sesi selanjutnya, kemampuan eksploratif ini akan terus diasah untuk membangun fitur yang lebih interaktif.`,
-        `Hari ini, ${nama} berhasil merampungkan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Di kelas, ${nama} menunjukkan persistensi yang hebat dengan mengikuti setiap tahapan pembuatan kode secara terstruktur dan tidak mudah menyerah saat menghadapi tantangan. Penguasaan tahapan ini memberikan pemahaman mendalam tentang bagaimana instruksi terprogram dieksekusi oleh komputer secara presisi. Terus dukung semangat belajar ${nama} agar pencapaian belajarnya selalu optimal.`,
+        `Hari ini, ${nama} berhasil menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Di kelas, ${nama} menunjukkan persistensi yang hebat dengan mengikuti setiap tahapan pembuatan kode secara terstruktur dan tidak mudah menyerah saat menghadapi tantangan. Penguasaan tahapan ini memberikan pemahaman mendalam tentang bagaimana instruksi terprogram dieksekusi oleh komputer secara presisi. Terus dukung semangat belajar ${nama} agar pencapaian belajarnya selalu optimal.`,
         `Dalam kelas hari ini, ${nama} menuntaskan proyek *${lessonTitle}* dengan hasil yang sangat baik. ${nama} ${ensurePeriod(action)} ${nama} aktif berdiskusi dan bertanya secara kritis terkait fungsi blok kode yang digunakan, membuktikan rasa ingin tahu yang tinggi terhadap materi. Memahami konsep ini membantu ${nama} menghubungkan berbagai komponen logika menjadi satu kesatuan program yang utuh. Modal pemahaman ini menjadi bekal yang sangat baik untuk menyambut materi baru minggu depan.`,
         `Pada sesi kali ini, ${nama} sukses menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} ${nama} bekerja dengan cermat, memperhatikan detail algoritma, dan memastikan setiap fitur projek berfungsi dengan lancar sebelum beralih ke tahap berikutnya. Keberhasilan ini melatih kebiasaan coding yang bersih dan terstruktur sejak dini. Di pertemuan berikutnya, ${nama} dapat langsung melanjutkan ke level materi selanjutnya.`
       ];
@@ -616,32 +624,79 @@ const LANG_UI = {
       const variants = [
         `Pada pertemuan hari ini, ${nama} melanjutkan dan berhasil menyelesaikan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Teramati di kelas, ${nama} mampu mengingat kembali alur proyek sebelumnya dengan cepat dan fokus menuntaskan bagian kode yang tersisa. Ketekunan ini sangat bermakna dalam melatih daya ingat prosedural dan konsistensi menyelesaikan tugas hingga tuntas. Dengan selesainya materi ini, ${nama} siap melangkah ke materi baru di pertemuan berikutnya.`,
         `Dalam sesi ini, ${nama} menuntaskan kelanjutan projek *${lessonTitle}* dari minggu lalu. ${nama} ${ensurePeriod(action)} ${nama} menunjukkan kemampuan problem-solving yang matang saat mengintegrasikan sisa komponen kode ke dalam kerangka projek yang sudah ada. Keberhasilan menuntaskan proyek multi-pertemuan ini membuktikan peningkatan ketahanan mental dan ketelitian siswa. Di rumah, ${nama} dapat mencoba membagikan hasil karya projeknya kepada keluarga.`,
-        `Di pertemuan kali ini, ${nama} merampungkan tahap akhir materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Selama kelas, ${nama} cermat memeriksa kembali fungsi kode secara menyeluruh dan memastikan seluruh mekanisme projek bekerja tanpa hambatan. Proses evaluasi mandiri ini sangat penting dalam membangun standar kerja yang berkualitas dan terukur dalam membuat program. Minggu depan, ${nama} dapat langsung memulai materi baru dengan penuh percaya diri.`,
+        `Di pertemuan kali ini, ${nama} menuntaskan tahap akhir materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)} Selama kelas, ${nama} cermat memeriksa kembali fungsi kode secara menyeluruh dan memastikan seluruh mekanisme projek bekerja tanpa hambatan. Proses evaluasi mandiri ini sangat penting dalam membangun standar kerja yang berkualitas dan terukur dalam membuat program. Minggu depan, ${nama} dapat langsung memulai materi baru dengan penuh percaya diri.`,
         `Hari ini, ${nama} meneruskan pengerjaan *${lessonTitle}* hingga selesai sempurna. ${nama} ${ensurePeriod(action)} ${nama} bekerja dengan penuh konsentrasi, berinisiatif memperbaiki bug yang tersisa, dan berhasil menuntaskan seluruh tantangan projek. Sikap pantang menyerah ini menjadi modal berharga bagi perkembangan logika berpikirnya. Progres ini patut diapresiasi karena menunjukkan dedikasi belajar yang sangat positif.`,
         `Pada sesi kali ini, ${nama} menuntaskan sisa materi dan projek *${lessonTitle}* dengan sangat baik. ${nama} ${ensurePeriod(action)} ${nama} terlihat sangat fokus menghubungkan kode yang telah dibuat sebelumnya dengan fitur baru hari ini. Menyelesaikan projek bertahap ini melatih daya tahan belajar serta rasa tanggung jawab dalam menyelesaikan karya digital. Di pertemuan berikutnya, ${nama} siap menyambut topik baru.`,
         `Dalam pertemuan hari ini, ${nama} berhasil menyempurnakan keseluruhan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)} ${nama} secara teliti menguji ulang interaksi program dan memastikan tidak ada error yang tertinggal. Kebiasaan menguji program ini sangat baik untuk menanamkan budaya coding yang rapi dan terverifikasi. Minggu depan, ${nama} dapat langsung beralih ke materi selanjutnya.`
       ];
       return pickVariant(variants, idx, seed);
     },
-    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0) => {
+    inProgress1Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0) => {
       const partial = getPartialObjectives(objectives);
       const actionDesc = (partial && partial.length > 0) ? `berlatih ${formatObjectives(partial, 'id')}` : 'membangun kerangka dasar logika projek';
-      const variants = [
-        `Hari ini, ${nama} memulai pembelajaran pada materi *${lessonTitle}*. Pada tahap awal ini, ${nama} ${actionDesc}. Teramati di kelas, ${nama} menyimak penjelasan konsep dengan cermat dan mulai menyusun blok kode awal secara teliti. Langkah dasar ini sangat penting untuk memahami arsitektur projek sebelum menambahkan logika interaktif yang lebih kompleks. Pengerjaan sisa fitur projek akan dilanjutkan pada pertemuan berikutnya.`,
-        `Dalam sesi ini, ${nama} mulai merancang projek *${lessonTitle}*. ${nama} berfokus ${actionDesc}. Selama pengerjaan, ${nama} aktif bereksperimen dengan elemen kode baru dan memahami cara kerja setiap perintah yang dipelajari. Membangun pemahaman fondasi yang kokoh sejak awal akan mempermudah tahap penyelesaian nanti. Pekan depan, ${nama} akan melanjutkan penambahan fitur lanjutan hingga projek selesai sempurna.`,
-        `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}*. ${nama} telah menyelesaikan tahapan untuk ${actionDesc}. Di kelas, ${nama} menunjukkan rasa ingin tahu yang tinggi dan tekun mengikuti instruksi bertahap dari guru. Menguasai bagian pertama ini melatih kesabaran dan ketelitian siswa dalam merealisasikan ide menjadi program terstruktur. Tahapan penyelesaian projek telah dijadwalkan pada sesi selanjutnya.`,
-        `Hari ini, ${nama} memulai pengerjaan materi *${lessonTitle}*. ${nama} telah mempraktikkan langkah awal untuk ${actionDesc}. Selama sesi berlangsung, ${nama} menunjukkan konsentrasi yang baik dan aktif bertanya saat mempelajari alur logika baru. Memahami komponen dasar ini sangat bermakna agar siswa tidak kebingungan saat logika program semakin kompleks. Sisa materi dan fitur projek akan dituntaskan pada pertemuan berikutnya.`,
-        `Dalam kelas hari ini, ${nama} melangkah ke materi *${lessonTitle}* dengan berfokus ${actionDesc}. ${nama} terlihat cermat menyusun blok kode dasar dan memastikan logika awal berjalan tanpa error. Fondasi awal yang rapi ini melatih kebiasaan berpikir runtut dan sistematis. Kelanjutan pengembangan projek akan diteruskan pada sesi mendatang.`,
-        `Di pertemuan ini, ${nama} mengawali pembelajaran pada materi *${lessonTitle}* dan berhasil ${actionDesc}. Teramati di kelas, ${nama} mengikuti setiap langkah dengan antusias dan berusaha memahami fungsi setiap perintah coding. Proses ini sangat bermanfaat untuk membangun pemahaman konseptual yang matang. Pengerjaan bagian akhir projek telah direncanakan untuk pertemuan minggu depan.`
-      ];
-      return pickVariant(variants, idx, seed);
+      const templates = {
+        detail: [
+          `Hari ini, ${nama} memulai pembelajaran materi *${lessonTitle}*. Pada sesi ini, ${nama} ${actionDesc}. Di kelas, ${nama} menyusun kode projeknya secara cermat dan memperhatikan setiap detail teknis dengan baik. Karena projek ini memiliki komponen logika yang cukup padat dan memerlukan ketelitian tinggi, teacher mendampingi ${nama} memastikan setiap alurnya berjalan lancar. Pengerjaan sisa fitur projek akan dilanjutkan pada pertemuan berikutnya. Di rumah, Bapak/Ibu dapat menanyakan serunya projek yang sedang dibuat agar ${nama} semakin bersemangat saat lanjut koding minggu depan.`,
+          `Dalam sesi ini, ${nama} mengawali materi *${lessonTitle}* dengan ${actionDesc}. Teramati di kelas, ${nama} tekun menyusun blok kode awal dan mengecek fungsi setiap elemen secara bertahap. Projek pada materi ini memiliki rancangan yang kaya fitur, sehingga membutuhkan waktu lebih untuk memastikan kodenya terstruktur rapi. Bersama arahan teacher, langkah awal projek telah terbangun dengan baik. Kelanjutan pengerjaan akan diteruskan pada pertemuan mendatang.`
+        ],
+        focus: [
+          `Hari ini, ${nama} memulai pembelajaran pada materi *${lessonTitle}* dan ${actionDesc}. Di kelas, rasa ingin tahu ${nama} cukup besar terhadap hal-hal baru, sehingga perhatiannya sesekali teralihkan ke tab atau aplikasi lain di luar materi koding. Teacher secara aktif terus mendampingi dan mengarahkan kembali fokus ${nama} ke lembar kerja projek agar kodenya tersusun dengan baik. Progres projek telah mulai berjalan dan sisa materi akan dilanjutkan di pertemuan berikutnya. Di rumah, Bapak/Ibu dapat membantu mengingatkan agar ${nama} tetap fokus pada lembar kerja saat kelas berlangsung sehingga projeknya dapat tuntas maksimal.`,
+          `Pada sesi hari ini, ${nama} mulai mempelajari *${lessonTitle}* untuk ${actionDesc}. Teramati di kelas, ${nama} memiliki antusiasme tinggi, namun sesekali fokusnya terbagi membuka aplikasi lain. Teacher secara konsisten membimbing dan mengingatkan ${nama} untuk tetap fokus pada instruksi projek. Fondasi awal projek sudah berhasil dibuat dan bagian yang tersisa akan dilanjutkan minggu depan. Dukungan Bapak/Ibu di rumah untuk mengingatkan pentingnya fokus saat sesi koding akan sangat membantu kelancaran belajarnya.`
+        ],
+        pace: [
+          `Dalam kelas hari ini, ${nama} memulai materi *${lessonTitle}* dengan ${actionDesc}. Di kelas, ${nama} tampak ceria dan aktif berinteraksi dengan teman sekelas, sehingga tempo pengerjaannya berjalan santai namun tetap terarah. Teacher mendampingi ${nama} langkah demi langkah untuk menyusun kode projeknya serta memperbaiki kendala yang ditemui satu per satu. Tahap awal sudah terbentuk dan sisa projek akan dilanjutkan pada sesi berikutnya agar hasilnya lebih optimal. Di rumah, Bapak/Ibu dapat memberi dorongan semangat agar ritme belajarnya semakin produktif minggu depan.`,
+          `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}* untuk ${actionDesc}. Teramati di kelas, suasana belajar yang menyenangkan membuat ${nama} menikmati sesi ini dengan ritme pengerjaan yang cukup santai. Teacher terus memandu agar ${nama} tetap menyelesaikan target kode utamanya secara runtut. Pengerjaan bagian akhir projek telah dijadwalkan untuk dilanjutkan pada pertemuan mendatang.`
+        ],
+        logic: [
+          `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}* untuk ${actionDesc}. Di kelas, ${nama} menemui beberapa tantangan konsep dan alur logika baru pada projek ini. Teacher memberikan pendampingan intensif langkah demi langkah agar ${nama} benar-benar memahami cara kerja perintah kodingnya sebelum melangkah lebih jauh. Memahami dasar algoritma ini sangat penting agar ${nama} percaya diri menyusun sisa fiturnya. Kelanjutan pengerjaan kode akan diselesaikan pada sesi berikutnya.`,
+          `Hari ini, ${nama} memulai langkah awal pada *${lessonTitle}* dengan ${actionDesc}. Menghadapi instruksi logika baru yang cukup menantang, ${nama} belajar menganalisis alur program dengan bimbingan seksama dari teacher. Proses ini sangat bermanfaat untuk melatih daya nalar dan pemecahan masalah secara terstruktur. Sisa fitur projek akan dituntaskan pada pertemuan berikutnya.`
+        ],
+        tired: [
+          `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}* dan fokus pada ${actionDesc}. Di kelas, energi ${nama} tampak sedikit menurun setelah menjalani padatnya aktivitas sekolah sebelumnya, sehingga ritme belajarnya disesuaikan agar tetap nyaman dan tidak terburu-buru. Bersama arahan teacher, ${nama} tetap berusaha menyusun kerangka awal kode projeknya secara bertahap. Sisa pengerjaan projek telah dijadwalkan untuk dilanjutkan pada pertemuan berikutnya saat staminanya sudah kembali prima.`,
+          `Dalam sesi hari ini, ${nama} memulai materi *${lessonTitle}* dengan ${actionDesc}. Karena kondisi fisik yang tampak lelah sepulang sekolah, teacher menyesuaikan tempo belajar agar ${nama} tetap bisa menyerap konsep koding tanpa tekanan. Langkah awal projek telah tersusun dengan aman dan akan dilanjutkan kembali minggu depan.`
+        ]
+      };
+      const list = templates[context] || templates['detail'];
+      return pickVariant(list, idx, seed);
+    },
+    inProgress2Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0) => {
+      const partial = getPartialObjectives(objectives);
+      const actionDesc = (partial && partial.length > 0) ? `menyusun kelanjutan ${formatObjectives(partial, 'id')}` : 'mengembangkan logika lanjutan pada projek';
+      const templates = {
+        detail: [
+          `Pada pertemuan kedua untuk materi *${lessonTitle}* ini, ${nama} melanjutkan penyusunan kode projeknya dari minggu lalu. ${nama} ${actionDesc} dan menambahkan mekanisme logika utama ke dalam program. Di kelas, ${nama} sangat berhati-hati dalam menata alur kode serta memperbaiki kendala teknis yang ditemui. Mengingat detail fitur yang dibangun cukup kompleks, proses ini membutuhkan waktu tambahan agar hasilnya rapi dan bebas bug. Tahap penyempurnaan akhir akan diselesaikan tuntas pada pertemuan ketiga minggu depan.`,
+          `Dalam sesi lanjutan *${lessonTitle}* hari ini, ${nama} meneruskan pengembangan projeknya. ${nama} ${actionDesc} dan melengkapi struktur fungsi pada programnya. Teramati di kelas, ${nama} teliti memastikan setiap animasi dan respon program berjalan selaras. Sebagian besar kode utama telah terbangun dengan baik, dan tahap finalisasi serta pengujian akhir akan dituntaskan pada pertemuan berikutnya.`
+        ],
+        focus: [
+          `Dalam sesi lanjutan materi *${lessonTitle}* ini, ${nama} meneruskan pengerjaan kode projeknya. ${nama} telah menyelesaikan sebagian fungsi inti projek, termasuk ${actionDesc}. Selama kelas, teacher terus mendampingi dan mengingatkan ${nama} untuk menjaga fokus pada layar koding ketika perhatiannya beralih ke tab atau aplikasi lain. Dengan pendampingan konsisten dari teacher, progres koding ${nama} tetap maju secara bertahap. Sisa penyelesaian dan pengujian akhir projek akan diselesaikan pada pertemuan berikutnya. Di rumah, mohon bantuan Bapak/Ibu untuk terus mengingatkan ${nama} agar fokus belajarnya tetap terjaga optimal.`,
+          `Hari ini, ${nama} masuk ke pertemuan kedua untuk materi *${lessonTitle}*. ${nama} melanjutkan pembuatan program dan berhasil ${actionDesc}. Di kelas, teacher terus memusatkan perhatian ${nama} agar tetap konsisten menyelesaikan alur kode hingga tuntas tanpa terdistraksi. Berkat bimbingan langsung, fitur-fitur penting projek sudah terpasang dan tahap akhir penyelesaian akan dituntaskan pada sesi minggu depan.`
+        ],
+        pace: [
+          `Di pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan pengembangan projeknya. ${nama} telah ${actionDesc} dan menyusun fungsi-fungsi penting pada program. Di kelas, ${nama} menikmati suasana belajar dengan tempo pengerjaan yang santai. Teacher terus memandu ${nama} untuk mengarahkan fokusnya menyelesaikan bagian kode yang krusial. Sebagian besar projek telah terbangun dan tahap penuntasan akhir siap diselesaikan pada pertemuan berikutnya.`,
+          `Pada sesi ini, ${nama} meneruskan proyek *${lessonTitle}* dari minggu lalu. ${nama} ${actionDesc} dengan ritme pengerjaan yang stabil. Teacher aktif mengarahkan alur kerja agar waktu belajar termanfaatkan secara efektif untuk menyusun sisa mekanisme program. Projek sudah mendekati tahap akhir dan akan dituntaskan pada sesi berikutnya.`
+        ],
+        logic: [
+          `Pada sesi lanjutan materi *${lessonTitle}* ini, ${nama} melanjutkan penyusunan algoritma projeknya. ${nama} ${actionDesc} dengan bimbingan intensif dari teacher. ${nama} mulai memahami logika bertingkat yang sebelumnya terasa menantang dan berhasil memperbaiki alur kode yang sempat keliru. Pemahaman ini memperkuat fondasi berpikir komputasionalnya secara nyata. Seluruh fitur akhir projek akan diselesaikan dan diuji coba pada pertemuan selanjutnya.`,
+          `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* pada tahap logika lanjutan. ${nama} ${actionDesc} dan mendiskusikan pemecahan masalah pada fungsi kode yang rumit bersama teacher. Melalui proses ini, pemahaman konseptual ${nama} berkembang jauh lebih matang. Tahap akhir penggabungan seluruh fitur projek akan diselesaikan tuntas pada sesi berikutnya.`
+        ],
+        tired: [
+          `Hari ini, ${nama} meneruskan proyek materi *${lessonTitle}* yang sedang berjalan. ${nama} ${actionDesc} dan melengkapi beberapa fungsi utama program. Menyadari kondisi ${nama} yang masih menyesuaikan energi setelah kegiatan harian sekolah, teacher mendampingi pengerjaan dengan ritme yang stabil agar materi tetap terserap baik. Kerangka projek sudah hampir tuntas dan akan diselesaikan secara penuh pada pertemuan berikutnya.`,
+          `Dalam sesi kedua *${lessonTitle}* ini, ${nama} melanjutkan bagian tengah projek dengan bimbingan guru. Walaupun energi ${nama} tampak terbatas setelah seharian beraktivitas di sekolah, ${nama} tetap menunjukkan komitmen untuk menyusun kode penting pada projeknya. Tahap akhir penyelesaian projek dijadwalkan pada pertemuan berikutnya.`
+        ]
+      };
+      const list = templates[context] || templates['detail'];
+      return pickVariant(list, idx, seed);
+    },
+    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0) => {
+      // Alias backward compatibility
+      return LANG_UI.id.inProgress1Text(nama, lessonNum, lessonTitle, objectives, 'detail', idx, seed);
     },
     oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0, seed = 0) => {
       const variants = [
         `Pada pertemuan hari ini, ${nama} menunjukkan performa belajar yang sangat produktif dengan menyelesaikan *${l1Title}* sekaligus memulai materi berikutnya. ${nama} ${ensurePeriod(action1)} Di kelas, ${nama} bekerja dengan tempo cepat dan teliti, sehingga waktu yang tersisa dapat dimanfaatkan untuk menyusun kerangka awal materi *${l2Title}*. Kemampuan beradaptasi dengan materi baru secara cepat ini menunjukkan pemahaman logika yang sudah terbentuk dengan sangat baik. Di pertemuan mendatang, ${nama} akan langsung melanjutkan penyelesaian materi *${l2Title}*.`,
         `Dalam sesi ini, ${nama} menuntaskan seluruh materi *${l1Title}* secara mandiri, lalu langsung mengawali projek *${l2Title}*. ${nama} ${ensurePeriod(action1)} Teramati di kelas, ${nama} sangat antusias dan mampu menangkap instruksi baru dengan cepat saat memulai rancangan dasar *${l2Title}*. Langkah awal ini memberi keunggulan waktu untuk eksplorasi lebih mendalam di pertemuan berikutnya. Terus jaga konsistensi belajar yang luar biasa ini.`,
         `Di pertemuan kali ini, ${nama} mencapai progres yang impresif dengan menyelesaikan materi *${l1Title}* lebih awal dan langsung melangkah ke *${l2Title}*. ${nama} ${ensurePeriod(action1)} Selama sesi berlangsung, ${nama} konsisten menunjukkan fokus tinggi dan kemandirian dalam menyusun logika dasar materi berikutnya. Kemampuan menghubungkan konsep antarmateri ini membuktikan fleksibilitas kognitif yang sangat baik. Minggu depan, ${nama} akan melanjutkan penuntasan materi *${l2Title}*.`,
-        `Hari ini, ${nama} menunjukkan ritme belajar yang sangat efisien dengan merampungkan *${l1Title}* serta memulai tahapan awal *${l2Title}*. ${nama} ${ensurePeriod(action1)} ${nama} bekerja secara mandiri dan cepat beradaptasi dengan tantangan logika pada materi baru. Ketangkasan ini menunjukkan kematangan berpikir komputasional yang terus berkembang pesat. Pada pertemuan selanjutnya, ${nama} siap menyelesaikan projek *${l2Title}* hingga tuntas.`
+        `Hari ini, ${nama} menunjukkan ritme belajar yang sangat efisien dengan menyelesaikan *${l1Title}* serta memulai tahapan awal *${l2Title}*. ${nama} ${ensurePeriod(action1)} ${nama} bekerja secara mandiri dan cepat beradaptasi dengan tantangan logika pada materi baru. Ketangkasan ini menunjukkan kematangan berpikir komputasional yang terus berkembang pesat. Pada pertemuan selanjutnya, ${nama} siap menyelesaikan projek *${l2Title}* hingga tuntas.`
       ];
       return pickVariant(variants, idx, seed);
     },
@@ -649,7 +704,7 @@ const LANG_UI = {
       const variants = [
         `${nama} menunjukkan akselerasi belajar yang luar biasa dengan menyelesaikan 2 materi sekaligus pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}\n\nDi kelas, ${nama} bekerja dengan konsentrasi tinggi, mandiri menyelesaikan kode, dan mampu mengaplikasikan instruksi dengan cepat tanpa mengurangi kualitas projek. Keberhasilan menuntaskan dua materi dalam satu sesi membuktikan pemahaman logika koding yang sangat kuat dan kesiapan menghadapi materi berikutnya dengan penuh percaya diri. Di pertemuan mendatang, ${nama} dapat langsung melangkah ke level selanjutnya.`,
         `${nama} mencapai pencapaian belajar yang impresif dengan menuntaskan 2 lesson secara tuntas hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}\n\nTeramati di kelas, ${nama} memiliki ketelitian tinggi dan proaktif melakukan debugging secara mandiri pada kedua projek tersebut. Penguasaan cepat ini memperkuat ketahanan mental dan daya analisis kritis siswa dalam menyusun algoritma yang lebih rumit. Di rumah, ${nama} disarankan untuk menunjukkan hasil karya projeknya kepada orang tua agar semakin termotivasi.`,
-        `${nama} tampil sangat produktif dan antusias dengan merampungkan 2 materi sekaligus pada pertemuan ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}\n\n${nama} mampu menyerap instruksi dengan cepat, menunjukkan pemikiran komputasional yang tajam, dan menyelesaikan setiap tantangan koding secara terstruktur. Keberhasilan ini menjadi fondasi yang kokoh untuk mengembangkan fitur projek yang lebih interaktif. Di pertemuan selanjutnya, potensi eksplorasi ${nama} akan terus diasah ke tingkat yang lebih tinggi.`,
+        `${nama} tampil sangat produktif dan antusias dengan menyelesaikan 2 materi sekaligus pada pertemuan ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}\n\n${nama} mampu menyerap instruksi dengan cepat, menunjukkan pemikiran komputasional yang tajam, dan menyelesaikan setiap tantangan koding secara terstruktur. Keberhasilan ini menjadi fondasi yang kokoh untuk mengembangkan fitur projek yang lebih interaktif. Di pertemuan selanjutnya, potensi eksplorasi ${nama} akan terus diasah ke tingkat yang lebih tinggi.`,
         `Hari ini, ${nama} menunjukkan efisiensi belajar yang hebat dengan menguasai 2 topik pembelajaran penuh (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}\n\nDi kelas, ${nama} mempertahankan fokus yang prima serta mampu memprogram mekanisme projek dengan sangat rapi tanpa banyak bimbingan. Menuntaskan dua lesson dalam satu sesi membuktikan ketahanan berpikir dan kematangan logika coding ${nama} yang sangat membanggakan. Bekal pemahaman ini membuat ${nama} sangat siap menyambut materi baru pekan depan.`
       ];
       return pickVariant(variants, idx, seed);
@@ -680,10 +735,18 @@ const LANG_UI = {
     lessonPlaceholder: '— Lesson —',
     lesson2Placeholder: '— 2nd Lesson —',
     statusDone: '✓ Completed 1 Lesson',
-    statusContinuedDone: '🔄 Continued & Completed (From Previous Session)',
-    statusInProgress: '⏳ In Progress (1 Unfinished Lesson)',
-    statusOneAndHalf: '🌖 Completed 1.5 Lessons (1 Finished + 1 In Progress)',
+    statusInProgress1: '⏳ In Progress (1st Meeting)',
+    statusInProgress2: '🔄 In Progress (2nd Meeting)',
+    statusContinuedDone: '🔄 Continued & Completed (2nd or 3rd Meeting)',
+    statusOneAndHalf: '🌖 Completed 1.5 Lessons',
     statusDouble: '🚀 Completed 2 Lessons',
+    // Fallback statusInProgress for backward compatibility
+    statusInProgress: '⏳ In Progress (1st Meeting)',
+    contextDetail: '🎯 Detailed & Heavy Technical Project',
+    contextFocus: '👀 Guiding Screen Focus & Work Tab',
+    contextPace: '☕ Relaxed & Steady Work Rhythm',
+    contextLogic: '💡 Step-by-Step Logic Guidance',
+    contextTired: '🔋 Pacing After-School Energy',
     generateBtn: '⚡ Generate Report',
     studentPlaceholder: 'Student name…',
     progressPlaceholder: 'Progress will be auto-generated, or type manually…',
@@ -719,18 +782,65 @@ const LANG_UI = {
       ];
       return pickVariant(variants, idx, seed);
     },
-    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0) => {
+    inProgress1Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0) => {
       const partial = getPartialObjectives(objectives);
-      const actionDesc = (partial && partial.length > 0) ? `practiced how to ${formatObjectives(partial, 'en')}` : 'built the initial project structure and algorithms';
-      const variants = [
-        `Today, ${nama} began learning *${lessonTitle}*. In this foundational phase, ${nama} ${actionDesc}. In class, ${nama} listened attentively to conceptual explanations and assembled the initial code logic carefully. This foundational phase is crucial for grasping project architecture before adding more complex interactive mechanics. The remaining features will be completed in the next session.`,
-        `In this session, ${nama} started designing the project for *${lessonTitle}*. ${nama} focused on learning how to ${actionDesc}. Throughout class, ${nama} actively experimented with new code blocks and understood the purpose of each command. Building solid fundamentals early on ensures smoother completion in upcoming steps. Next week, ${nama} will resume development to finish the remaining project objectives.`,
-        `During today's meeting, ${nama} explored the new topic *${lessonTitle}*. ${nama} successfully ${actionDesc}. In class, ${nama} showed keen curiosity and followed step-by-step guidance diligently. Mastering this initial phase nurtures patience and methodical thinking when translating ideas into code. The remaining milestones are scheduled to be finalized in our upcoming class.`,
-        `Today, ${nama} initiated the project workflow for *${lessonTitle}*. In this session, ${nama} worked on ${actionDesc}. ${nama} demonstrated commendable persistence while setting up the core mechanisms and asking thoughtful questions whenever encountering new syntax. Understanding these building blocks is essential for structured algorithmic reasoning. The rest of the project will be continued and finalized in the next session.`,
-        `In today's class, ${nama} progressed through the first stage of *${lessonTitle}*. ${nama} focused on ${actionDesc}. In the classroom, ${nama} was engaged and took time to test each script segment to ensure it behaved as expected. This deliberate pacing builds a strong base for more advanced game logic. ${nama} will continue adding the remaining features in our next meeting.`,
-        `During this session, ${nama} commenced work on *${lessonTitle}*, successfully completing initial steps to ${actionDesc}. ${nama} displayed good focus while translating concepts into working code logic. Grasping these preliminary mechanisms lays a solid groundwork for completing the entire project. We will carry this momentum into the next class to wrap up all remaining elements.`
-      ];
-      return pickVariant(variants, idx, seed);
+      const actionDesc = (partial && partial.length > 0) ? `practiced how to ${formatObjectives(partial, 'en')}` : 'built the foundational project structure and algorithms';
+      const templates = {
+        detail: [
+          `Today, ${nama} began working on *${lessonTitle}*. In this session, ${nama} ${actionDesc}. In class, ${nama} assembled the project code carefully and paid close attention to technical details. Because this project contains substantial components that require thorough precision, the teacher guided ${nama} step-by-step to ensure each algorithm functioned properly. The remaining features will be completed in the next meeting. At home, parents are welcome to ask about the exciting project being built to keep ${nama} motivated for next week's session.`,
+          `In this session, ${nama} started *${lessonTitle}* and ${actionDesc}. In the classroom, ${nama} diligently constructed the starting code blocks and verified each function step-by-step. With rich project features that require structured care, setting up the initial architecture cleanly is essential. With the teacher's guidance, a solid foundation is in place, and development will resume next week.`
+        ],
+        focus: [
+          `Today, ${nama} started learning *${lessonTitle}* and ${actionDesc}. In class, ${nama} has strong curiosity, which occasionally led to exploring other browser tabs or applications outside the lesson. The teacher actively guided ${nama}'s focus back to the coding workspace so progress could continue steadily. The rest of the project will be continued in the upcoming session. Gentle reminders at home will help ${nama} maintain good focus during coding sessions to complete the project smoothly.`,
+          `During today's class, ${nama} initiated *${lessonTitle}* and ${actionDesc}. ${nama} showed high energy in class, though attention occasionally shifted to other apps. The teacher consistently guided ${nama} back to the project tasks. The initial code blocks are successfully assembled, and the remaining features will be continued next week. Your encouragement at home regarding classroom focus will greatly support their ongoing progress.`
+        ],
+        pace: [
+          `In today's session, ${nama} began *${lessonTitle}* and ${actionDesc}. In class, ${nama} was cheerful and engaged socially with peers, maintaining a relaxed yet steady work rhythm. The teacher guided ${nama} step-by-step in constructing the project code and resolving errors one by one. Project development will continue in the next meeting to achieve optimal results. Encouragement at home will help ${nama} stay enthusiastic and productive next week.`,
+          `Today, ${nama} started *${lessonTitle}* and ${actionDesc}. In a fun and lively classroom atmosphere, ${nama} worked with a relaxed rhythm. The teacher provided clear direction so essential project goals were met sequentially. The final project steps will be continued in our next session.`
+        ],
+        logic: [
+          `During today's class, ${nama} explored the new topic *${lessonTitle}* and ${actionDesc}. In the classroom, ${nama} encountered new logic structures that presented a good challenge. The teacher provided intensive, step-by-step guidance to ensure ${nama} truly understood how each programming command operates before moving forward. Grasping this foundation ensures confidence when completing the rest of the features in our next class.`,
+          `Today, ${nama} commenced *${lessonTitle}* and ${actionDesc}. Facing novel algorithmic challenges, ${nama} learned to analyze code logic with close teacher assistance. This process strengthens computational problem-solving resilience. The remaining milestones will be completed in the upcoming session.`
+        ],
+        tired: [
+          `Today, ${nama} commenced work on *${lessonTitle}* and focused on ${actionDesc}. In class, ${nama}'s energy was slightly lower after a busy school day, so the learning pace was comfortably adapted to maintain understanding without rushing. With the teacher's guidance, ${nama} steadily built the initial code structure. The rest of the project is scheduled to continue in the next session once energy is fully restored.`,
+          `In this session, ${nama} started *${lessonTitle}* and ${actionDesc}. Due to tiredness after a long school day, the teacher adjusted the pace so ${nama} could absorb coding concepts comfortably. The initial project framework is securely built and will resume next week.`
+        ]
+      };
+      const list = templates[context] || templates['detail'];
+      return pickVariant(list, idx, seed);
+    },
+    inProgress2Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0) => {
+      const partial = getPartialObjectives(objectives);
+      const actionDesc = (partial && partial.length > 0) ? `continued working on ${formatObjectives(partial, 'en')}` : 'developed advanced project logic';
+      const templates = {
+        detail: [
+          `In this second session for *${lessonTitle}*, ${nama} continued developing the project code from last week. ${nama} ${actionDesc} and integrated core logic mechanisms into the program. In class, ${nama} was thorough in arranging the code flow and troubleshooting technical hurdles. Due to the rich features in this project, extra development time ensures clean and error-free code. The final polish and testing will be completed in the third meeting next week.`,
+          `In this follow-up session for *${lessonTitle}*, ${nama} progressed with project development. ${nama} ${actionDesc} and completed key functional structures. In class, ${nama} meticulously verified that all interactions responded accurately. Most core mechanisms are now in place, and final testing will be wrapped up in the next class.`
+        ],
+        focus: [
+          `In this follow-up session on *${lessonTitle}*, ${nama} continued developing the project code. ${nama} completed key functions, including ${actionDesc}. Throughout the class, the teacher provided close guidance to help ${nama} keep attention directed at the coding workspace whenever curiosity drifted to other tabs. With consistent guidance, ${nama}'s project progress advanced steadily. Finalizing and testing the project will be completed in the next session. Continued reminders at home regarding screen focus will help ensure optimal learning.`,
+          `Today, ${nama} entered the second meeting for *${lessonTitle}*. ${nama} continued building the program and successfully ${actionDesc}. In class, the teacher kept ${nama} on track to complete algorithms without getting sidetracked. Thanks to direct mentoring, vital project features are operational, and final completion is set for next week.`
+        ],
+        pace: [
+          `In this second meeting for *${lessonTitle}*, ${nama} continued building the project. ${nama} ${actionDesc} and assembled essential program features. In class, ${nama} enjoyed the interactive learning atmosphere at a comfortable, steady pace. The teacher actively guided ${nama} to focus energy on key code milestones. The project has reached its concluding phase and will be wrapped up in the next class.`,
+          `In this session, ${nama} resumed the project for *${lessonTitle}* from last week. ${nama} worked on ${actionDesc} with a steady rhythm. The teacher helped channel class time effectively to finish leftover logic. The project is nearing completion and will be finalized in the upcoming meeting.`
+        ],
+        logic: [
+          `During this second session for *${lessonTitle}*, ${nama} continued assembling the project algorithms. ${nama} ${actionDesc} with dedicated guidance from the teacher. ${nama} began grasping multi-step logic that was previously challenging and resolved earlier coding hurdles. This practice steadily strengthens computational thinking. The remaining features and testing will be completed in the upcoming meeting.`,
+          `Today, ${nama} advanced further into *${lessonTitle}*, tackling deeper logical requirements. ${nama} ${actionDesc} and collaborated with the teacher on debugging complex functions. This hands-on problem solving deepened ${nama}'s algorithmic reasoning. The project will be finalized in the next session.`
+        ],
+        tired: [
+          `Today, ${nama} continued working on the ongoing project for *${lessonTitle}*. ${nama} ${actionDesc} and built several main functions. Recognizing that ${nama} was pacing energy after a full day of school, the teacher facilitated a steady, supportive rhythm to ensure strong conceptual grasp. The project framework is nearly complete and will be finalized in the next session.`,
+          `In this second session for *${lessonTitle}*, ${nama} worked through the middle phase of the project with teacher support. Although energy was limited after regular school, ${nama} remained committed to building key project scripts. Final project completion is scheduled for next week.`
+        ]
+      };
+      const list = templates[context] || templates['detail'];
+      return pickVariant(list, idx, seed);
+    },
+    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0) => {
+      // Alias backward compatibility
+      return LANG_UI.en.inProgress1Text(nama, lessonNum, lessonTitle, objectives, 'detail', idx, seed);
     },
     oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0, seed = 0) => {
       const variants = [
@@ -1000,7 +1110,21 @@ function onStatusChange(idx, selectEl) {
     lesson2Select.style.display = (status === 'double' || status === 'one_and_half') ? 'block' : 'none';
     setupCustomSelect(lesson2Select);
   }
+  const contextRow = document.getElementById(`auto-context-row-${idx}`);
+  const contextSelect = document.getElementById(`auto-context-${idx}`);
+  if (contextRow && contextSelect) {
+    const isProg = (status === 'in_progress_1' || status === 'in_progress_2' || status === 'in_progress');
+    contextRow.style.display = isProg ? 'flex' : 'none';
+    contextSelect.style.display = isProg ? 'block' : 'none';
+    setupCustomSelect(contextSelect);
+  }
   autoUpdateTable();
+}
+
+function onContextChange(idx, selectEl) {
+  if (!autoStudents[idx]) return;
+  autoStudents[idx].context = selectEl.value;
+  setupCustomSelect(selectEl);
 }
 
 function onLessonChange(idx, selectEl) {
@@ -1053,8 +1177,10 @@ function generateProgress(idx) {
     text = L.doneText(s.nama, l1Title, action1, idx, s.lesson);
   } else if (s.status === 'continued_done') {
     text = L.continuedDoneText(s.nama, l1Title, action1, idx, s.lesson);
-  } else if (s.status === 'in_progress') {
-    text = L.inProgressText(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], idx, s.lesson);
+  } else if (s.status === 'in_progress_1' || s.status === 'in_progress') {
+    text = (L.inProgress1Text || L.inProgressText)(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', idx, s.lesson);
+  } else if (s.status === 'in_progress_2') {
+    text = (L.inProgress2Text || L.inProgressText)(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', idx, s.lesson);
   } else if (s.status === 'one_and_half') {
     text = L.oneAndHalfText(s.nama, s.lesson, l1Title, action1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : [], idx, s.lesson);
   } else if (s.status === 'double') {
@@ -1088,6 +1214,8 @@ function syncStudentFromDOM(idx) {
   if(lesson2El) autoStudents[idx].lesson2 = lesson2El.value;
   const statusEl = document.getElementById(`auto-status-${idx}`);
   if(statusEl) autoStudents[idx].status = statusEl.value;
+  const contextEl = document.getElementById(`auto-context-${idx}`);
+  if(contextEl) autoStudents[idx].context = contextEl.value;
   const progEl = document.getElementById(`auto-progress-${idx}`);
   if(progEl) autoStudents[idx].progress = progEl.value;
 }
@@ -1106,8 +1234,10 @@ function renderAutoInputs(){
   autoStudents.forEach((s,i) => {
     const sLang = s.lang || autoLang;
     const sStatus = s.status || 'done';
+    const sContext = s.context || 'detail';
     s.lang = sLang;
     s.status = sStatus;
+    s.context = sContext;
 
     const div = document.createElement('div');
     div.className = 'student-card';
@@ -1138,10 +1268,20 @@ function renderAutoInputs(){
         <div class="auto-gen-selectors" style="margin-top:4px;">
           <select id="auto-status-${i}" onchange="onStatusChange(${i},this)" style="flex:1;min-width:0;">
             <option value="done" ${sStatus==='done'?'selected':''}>${L.statusDone}</option>
+            <option value="in_progress_1" ${(sStatus==='in_progress_1'||sStatus==='in_progress')?'selected':''}>${L.statusInProgress1}</option>
+            <option value="in_progress_2" ${sStatus==='in_progress_2'?'selected':''}>${L.statusInProgress2}</option>
             <option value="continued_done" ${sStatus==='continued_done'?'selected':''}>${L.statusContinuedDone}</option>
-            <option value="in_progress" ${sStatus==='in_progress'?'selected':''}>${L.statusInProgress}</option>
             <option value="one_and_half" ${sStatus==='one_and_half'?'selected':''}>${L.statusOneAndHalf}</option>
             <option value="double" ${sStatus==='double'?'selected':''}>${L.statusDouble}</option>
+          </select>
+        </div>
+        <div class="auto-gen-selectors" id="auto-context-row-${i}" style="margin-top:4px;display:${(sStatus==='in_progress_1'||sStatus==='in_progress_2'||sStatus==='in_progress')?'flex':'none'};">
+          <select id="auto-context-${i}" onchange="onContextChange(${i},this)" style="flex:1;min-width:0;">
+            <option value="detail" ${(sContext==='detail'||!sContext)?'selected':''}>${L.contextDetail}</option>
+            <option value="focus" ${sContext==='focus'?'selected':''}>${L.contextFocus}</option>
+            <option value="pace" ${sContext==='pace'?'selected':''}>${L.contextPace}</option>
+            <option value="logic" ${sContext==='logic'?'selected':''}>${L.contextLogic}</option>
+            <option value="tired" ${sContext==='tired'?'selected':''}>${L.contextTired}</option>
           </select>
         </div>
         <div class="auto-gen-selectors" style="margin-top:4px;">
@@ -1159,7 +1299,7 @@ function renderAutoInputs(){
     
     populateCourseDropdown(i);
     populateLessonDropdown(i);
-    ['criteria', 'course', 'status', 'lesson', 'lesson2'].forEach(field => {
+    ['criteria', 'course', 'status', 'context', 'lesson', 'lesson2'].forEach(field => {
       setupCustomSelect(document.getElementById(`auto-${field}-${i}`));
     });
   });
@@ -1168,7 +1308,7 @@ function renderAutoInputs(){
 
 function addAutoStudent(){
   autoStudents.forEach((_, idx) => syncStudentFromDOM(idx));
-  autoStudents.push({nama:'',progress:'',criteria:'',course:'',lesson:'',lesson2:'',status:'done',lang:autoLang});
+  autoStudents.push({nama:'',progress:'',criteria:'',course:'',lesson:'',lesson2:'',status:'done',context:'detail',lang:autoLang});
   renderAutoInputs();
   const cards = document.querySelectorAll('#auto-students-container .student-card');
   if(cards.length) cards[cards.length-1].scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -1271,8 +1411,10 @@ function buildAutoWAMessage(){
       let statusText = '';
       if (s.status === 'done' || s.status === 'continued_done') {
         statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
-      } else if (s.status === 'in_progress') {
-        statusText = autoLang === 'en' ? '(In Progress)' : '(Sedang Dikerjakan)';
+      } else if (s.status === 'in_progress_1' || s.status === 'in_progress') {
+        statusText = autoLang === 'en' ? '(In Progress - 1st Meeting)' : '(Belum Selesai - Pertemuan ke-1)';
+      } else if (s.status === 'in_progress_2') {
+        statusText = autoLang === 'en' ? '(In Progress - 2nd Meeting)' : '(Belum Selesai - Pertemuan ke-2)';
       } else if (s.status === 'double') {
         statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
       }
@@ -1452,7 +1594,7 @@ function checkExamReminder(callback) {
     const l1 = parseInt(s.lesson) || 0;
     const l2 = parseInt(s.lesson2) || 0;
     const isExam = (l1 == 8 || l1 == 16 || l1 == 24 || l1 == 32 || l2 == 8 || l2 == 16 || l2 == 24 || l2 == 32);
-    const isFinished = s.status !== 'in_progress';
+    const isFinished = s.status !== 'in_progress' && s.status !== 'in_progress_1' && s.status !== 'in_progress_2';
     return isExam && isFinished;
   });
   
@@ -1642,6 +1784,9 @@ window.initApp = function() {
 // ============================================================
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
+  if (document.body) {
+    document.body.setAttribute('data-theme', theme);
+  }
   try { localStorage.setItem('td_mrg_theme', theme); } catch(e){}
   const btn = document.getElementById('theme-toggle-btn');
   if (btn) {
@@ -1653,7 +1798,7 @@ function applyTheme(theme) {
 }
 
 function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const current = document.documentElement.getAttribute('data-theme') || (document.body && document.body.getAttribute('data-theme')) || 'light';
   const next = current === 'dark' ? 'light' : 'dark';
   applyTheme(next);
 }
