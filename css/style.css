@@ -184,6 +184,118 @@ input[type="file"]{padding:10px 14px;cursor:pointer;font-size:13px;color:var(--m
 .student-lang-btn:not(.active):hover{color:var(--slate);background:rgba(255,255,255,.5);}
 .student-card textarea{min-height:90px;resize:vertical;font-size:13px;line-height:1.6;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);font-family:var(--font-body);}
 
+/* CMS Split Output (Meeting Summary & Teacher Notes) */
+.cms-split-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.cms-box {
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.cms-box:focus-within {
+  border-color: var(--g500);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.cms-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cms-box-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--slate);
+  font-family: var(--font-display);
+}
+
+.cms-box-icon {
+  font-size: 13px;
+}
+
+.cms-box-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.cms-box-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cms-char-counter {
+  font-size: 11px;
+  font-weight: 700;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-variant-numeric: tabular-nums;
+  transition: all 0.2s ease;
+}
+
+.cms-char-counter.optimal {
+  color: #15803d;
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.cms-char-counter.over {
+  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fca5a5;
+  font-weight: 800;
+  animation: pulseOver 0.8s ease infinite alternate;
+}
+
+@keyframes pulseOver {
+  from { transform: scale(1); }
+  to { transform: scale(1.04); }
+}
+
+.cms-textarea {
+  width: 100%;
+  min-height: 74px;
+  max-height: 240px;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #334155;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 8px 10px;
+  resize: vertical;
+  transition: border-color 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.cms-textarea:focus {
+  background: #ffffff;
+  border-color: var(--g500);
+  outline: none;
+}
+
 /* Auto-generate section in student card */
 .auto-gen-row{display:flex;flex-direction:column;gap:8px;}
 .auto-gen-selectors{display:flex;gap:8px;}
@@ -2105,5 +2217,55 @@ html[data-theme="dark"] body {
   color: #f1f5f9 !important;
   border-color: #2d3d54 !important;
 }
+
+/* CMS Split Container Dark Mode */
+[data-theme="dark"] .cms-box {
+  background: #111a2c;
+  border-color: #243245;
+}
+
+[data-theme="dark"] .cms-box:focus-within {
+  background: #152136;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+[data-theme="dark"] .cms-box-title {
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] .cms-box-subtitle {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .cms-char-counter {
+  background: #0d1524;
+  color: #94a3b8;
+  border-color: #243245;
+}
+
+[data-theme="dark"] .cms-char-counter.optimal {
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+[data-theme="dark"] .cms-char-counter.over {
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+[data-theme="dark"] .cms-textarea {
+  background: #0d1524;
+  color: #f1f5f9;
+  border-color: #243245;
+}
+
+[data-theme="dark"] .cms-textarea:focus {
+  background: #111a2c;
+  border-color: #10b981;
+}
+
 
 
