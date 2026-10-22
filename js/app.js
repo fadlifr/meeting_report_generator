@@ -665,27 +665,27 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Pada pertemuan hari ini, ${nama} menyelesaikan pembelajaran *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Selama kelas, ${nama} menunjukkan fokus yang sangat baik serta mampu menyusun logika kode secara mandiri tanpa banyak arahan. Siap lanjut ke materi berikutnya.`
+          notes: `Selama kelas berlangsung, ${nama} menunjukkan fokus yang sangat baik serta mampu menyusun logika *code* secara mandiri tanpa banyak arahan. Pemahaman konsep ini sangat penting karena memperkuat fondasi berpikir komputasional dan pemecahan masalah secara terstruktur. Di pertemuan berikutnya, ${nama} sudah siap melangkah ke materi logika yang lebih menantang.`
         },
         {
-          summary: `Dalam sesi ini, ${nama} berhasil menuntaskan projek pada materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Teramati di kelas, ${nama} memiliki ketelitian tinggi dan proaktif melakukan debugging secara mandiri saat menemui error pada programnya. Terus pertahankan semangatnya!`
+          summary: `Dalam sesi ini, ${nama} berhasil menyelesaikan *project* untuk materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+          notes: `Di kelas, ${nama} melakukan *debugging* pada *code* secara mandiri. Dengan latihan ini, ${nama} berlatih mencari penyebab masalah dalam *code*. Di rumah, ${nama} bisa mencoba mengubah *project* atau memainkannya lagi untuk mengingat materi yang dipelajari.`
         },
         {
           summary: `Di pertemuan kali ini, ${nama} menyelesaikan seluruh target materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} tampak sangat antusias dan berinisiatif menambahkan variasi elemen kreatif ke dalam projeknya di luar instruksi dasar. Daya eksplorasinya sangat bagus.`
+          notes: `${nama} bersemangat dan menambahkan ide sendiri ke dalam *project*. Ini memberi ${nama} kesempatan untuk berkreasi saat membuat program. Di pertemuan berikutnya, ${nama} bisa mencoba menambahkan fitur lain.`
         },
         {
           summary: `Hari ini, ${nama} berhasil menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Di kelas, ${nama} menunjukkan persistensi hebat dengan mengikuti alur kode secara terstruktur dan pantang menyerah saat menghadapi kendala. Kerja bagus hari ini!`
+          notes: `Di kelas, ${nama} menunjukkan persistensi yang hebat dengan mengikuti setiap tahapan pembuatan *code* secara terstruktur dan tidak mudah menyerah saat menghadapi tantangan. Penguasaan tahapan ini memberikan pemahaman mendalam tentang bagaimana instruksi terprogram dieksekusi oleh komputer secara presisi. Terus dukung semangat belajar ${nama} agar pencapaian belajarnya selalu optimal.`
         },
         {
-          summary: `Dalam kelas hari ini, ${nama} menuntaskan proyek *${lessonTitle}* dengan hasil yang sangat baik. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} aktif berdiskusi dan bertanya secara kritis terkait fungsi blok kode yang digunakan, membuktikan rasa ingin tahu yang tinggi. Pemahamannya sudah sangat mantap.`
+          summary: `Dalam kelas hari ini, ${nama} menuntaskan *project* *${lessonTitle}* dengan hasil yang sangat baik. ${nama} ${ensurePeriod(action)}`,
+          notes: `${nama} aktif berdiskusi dan bertanya secara kritis terkait fungsi *code block* yang digunakan, membuktikan rasa ingin tahu yang tinggi terhadap materi. Memahami konsep ini membantu ${nama} menghubungkan berbagai komponen logika menjadi satu kesatuan program yang utuh. Modal pemahaman ini menjadi bekal yang sangat baik untuk menyambut materi baru minggu depan.`
         },
         {
           summary: `Pada sesi kali ini, ${nama} sukses menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} bekerja dengan cermat, memperhatikan detail algoritma, dan memastikan setiap fitur projek berfungsi lancar sebelum beralih ke materi selanjutnya.`
+          notes: `${nama} bekerja dengan cermat, memperhatikan detail *algorithm*, dan memastikan setiap fitur *project* berfungsi dengan lancar sebelum beralih ke tahap berikutnya. Keberhasilan ini melatih kebiasaan *coding* yang bersih dan terstruktur sejak dini. Di pertemuan berikutnya, ${nama} dapat langsung melanjutkan ke level materi selanjutnya.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -712,28 +712,28 @@ const LANG_UI = {
       }
       const variants = [
         {
-          summary: `Pada pertemuan hari ini, ${nama} melanjutkan dan berhasil menyelesaikan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Teramati di kelas, ${nama} mampu mengingat alur proyek sebelumnya dengan cepat dan fokus menuntaskan bagian kode yang tersisa hingga selesai sempurna.`
+          summary: `Pada pertemuan hari ini, ${nama} melanjutkan dan berhasil menyelesaikan *project* untuk *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+          notes: `Di kelas, ${nama} mampu mengingat kembali alur *project* sebelumnya dengan cepat dan fokus menuntaskan bagian *code* yang tersisa. Ketekunan ini sangat bermakna dalam melatih daya ingat prosedural dan konsistensi menyelesaikan tugas hingga tuntas. Dengan selesainya materi ini, ${nama} siap melangkah ke materi baru di pertemuan berikutnya.`
         },
         {
-          summary: `Dalam sesi ini, ${nama} menuntaskan kelanjutan projek *${lessonTitle}* dari minggu lalu. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} menunjukkan kemampuan problem-solving yang matang saat mengintegrasikan sisa kode ke dalam kerangka projek. Ketekunannya sangat membanggakan.`
+          summary: `Dalam sesi ini, ${nama} menyelesaikan *project* untuk *${lessonTitle}* dari minggu lalu. ${nama} ${ensurePeriod(action)}`,
+          notes: `${nama} memecahkan masalah saat menambahkan bagian akhir pada *project*. Menyelesaikan *project* dalam beberapa pertemuan menunjukkan ketekunan ${nama}. Di rumah, ${nama} bisa menunjukkan hasil *project* kepada keluarga.`
         },
         {
           summary: `Di pertemuan kali ini, ${nama} menuntaskan tahap akhir materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Selama kelas, ${nama} cermat memeriksa kembali fungsi kode dan memastikan seluruh mekanisme projek bekerja lancar. Siap memulai materi baru minggu depan.`
+          notes: `Di kelas, ${nama} memeriksa *code* dan memastikan fitur *project* berjalan dengan baik. Memeriksa program sendiri membantu ${nama} memastikan *code* berjalan dengan baik. Minggu depan, ${nama} akan memulai materi baru.`
         },
         {
           summary: `Hari ini, ${nama} meneruskan pengerjaan *${lessonTitle}* hingga selesai sempurna. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} bekerja penuh konsentrasi, berinisiatif memperbaiki sisa error, dan menuntaskan seluruh tantangan projek dengan mandiri. Kerja bagus!`
+          notes: `${nama} bekerja dengan penuh konsentrasi, berinisiatif memperbaiki bug yang tersisa, dan berhasil menuntaskan seluruh tantangan *project*. Sikap pantang menyerah ini menjadi modal berharga bagi perkembangan logika berpikirnya. Kemajuan ini patut diapresiasi karena menunjukkan dedikasi belajar yang sangat positif.`
         },
         {
-          summary: `Pada sesi kali ini, ${nama} menuntaskan sisa materi dan projek *${lessonTitle}* dengan sangat baik. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} terlihat sangat fokus menghubungkan kode sebelumnya dengan fitur baru hari ini. Menuntaskan projek bertahap melatih daya tahan belajarnya.`
+          summary: `Pada sesi kali ini, ${nama} menuntaskan sisa materi dan *project* *${lessonTitle}* dengan sangat baik. ${nama} ${ensurePeriod(action)}`,
+          notes: `${nama} terlihat sangat fokus menghubungkan *code* yang telah dibuat sebelumnya dengan fitur baru hari ini. Menyelesaikan *project* bertahap ini melatih daya tahan belajar serta rasa tanggung jawab dalam menyelesaikan karya digital. Di pertemuan berikutnya, ${nama} siap menyambut topik baru.`
         },
         {
-          summary: `Dalam pertemuan hari ini, ${nama} berhasil menyempurnakan keseluruhan projek *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} secara teliti menguji ulang interaksi program dan memastikan tidak ada error yang tertinggal. Kebiasaan coding yang sangat rapi dan teruji.`
+          summary: `Dalam pertemuan hari ini, ${nama} berhasil menyempurnakan keseluruhan *project* *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+          notes: `${nama} secara teliti menguji ulang interaksi program dan memastikan tidak ada *error* yang tertinggal. Kebiasaan menguji program ini sangat baik untuk menanamkan budaya *coding* yang rapi dan terverifikasi. Minggu depan, ${nama} dapat langsung beralih ke materi selanjutnya.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1004,20 +1004,20 @@ const LANG_UI = {
       }
       const variants = [
         {
-          summary: `Pada pertemuan hari ini, ${nama} menyelesaikan pembelajaran *${l1Title}* sekaligus memulai materi berikutnya. ${nama} ${ensurePeriod(action1)}`,
-          notes: `Di kelas, ${nama} bekerja dengan tempo cepat dan teliti, sehingga waktu tersisa dimanfaatkan untuk menyusun kerangka awal materi berikutnya secara mandiri.`
+          summary: `Pada pertemuan hari ini, ${nama} menunjukkan performa belajar yang sangat produktif dengan menyelesaikan *${l1Title}* sekaligus memulai materi berikutnya. ${nama} ${ensurePeriod(action1)}`,
+          notes: `Di kelas, ${nama} bekerja dengan tempo cepat dan teliti, sehingga waktu yang tersisa dapat dimanfaatkan untuk menyusun kerangka awal materi *${l2Title}*. ${nama} dapat memahami ide baru dan mulai menggunakannya dalam *project*. Di pertemuan mendatang, ${nama} akan langsung melanjutkan penyelesaian materi *${l2Title}*.`
         },
         {
-          summary: `Dalam sesi ini, ${nama} menuntaskan seluruh materi *${l1Title}* secara mandiri, lalu langsung mengawali projek *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `Teramati di kelas, ${nama} sangat antusias dan mampu menangkap instruksi baru dengan cepat saat memulai rancangan dasar *${l2Title}*. Performa luar biasa!`
+          summary: `Dalam sesi ini, ${nama} menuntaskan seluruh materi *${l1Title}* secara mandiri, lalu langsung mulai mengerjakan *project* untuk *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
+          notes: `Di kelas, ${nama} antusias dan cepat memahami materi baru saat mulai mengerjakan *project* untuk *${l2Title}*. ${nama} bisa melanjutkan dan mengembangkan *project* ini pada pertemuan berikutnya. Semoga ${nama} terus semangat belajar.`
         },
         {
-          summary: `Di pertemuan kali ini, ${nama} menyelesaikan materi *${l1Title}* lebih awal dan langsung melangkah ke *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `Selama sesi berlangsung, ${nama} konsisten menunjukkan fokus tinggi dan kemandirian dalam menyusun logika dasar materi berikutnya. Daya adaptasi yang hebat.`
+          summary: `Di pertemuan kali ini, ${nama} mencapai kemajuan yang baik dengan menyelesaikan materi *${l1Title}* lebih awal dan langsung melangkah ke *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
+          notes: `Di kelas, ${nama} tetap fokus dan mulai menyusun *code* untuk materi berikutnya. ${nama} mampu menghubungkan materi yang sudah dipelajari dengan materi baru. Minggu depan, ${nama} akan melanjutkan penuntasan materi *${l2Title}*.`
         },
         {
-          summary: `Hari ini, ${nama} menyelesaikan *${l1Title}* serta memulai tahapan awal materi *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `${nama} bekerja mandiri dan cepat beradaptasi dengan tantangan logika materi baru. Ketangkasan berpikir komputasionalnya berkembang sangat pesat.`
+          summary: `Hari ini, ${nama} menunjukkan ritme belajar yang sangat efisien dengan menyelesaikan *${l1Title}* serta memulai tahapan awal *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
+          notes: `${nama} bekerja mandiri dan mencoba memahami materi baru. Ini menunjukkan bahwa kemampuan ${nama} menyusun langkah-langkah *code* terus berkembang. Pada pertemuan selanjutnya, ${nama} siap menyelesaikan *project* untuk *${l2Title}* hingga tuntas.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1040,20 +1040,32 @@ const LANG_UI = {
       }
       const variants = [
         {
-          summary: `${nama} menyelesaikan 2 materi sekaligus pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `Di kelas, ${nama} bekerja dengan konsentrasi tinggi, mandiri menyelesaikan kode, dan mampu mengaplikasikan instruksi dengan cepat tanpa mengurangi kualitas projek.`
+          summary: `${nama} menyelesaikan dua materi pada pertemuan ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `Di kelas, ${nama} bekerja dengan konsentrasi tinggi, mandiri menyelesaikan *code*, dan mampu mengaplikasikan instruksi dengan cepat tanpa mengurangi kualitas *project*. Menuntaskan dua materi dalam satu pertemuan menunjukkan kemajuan yang baik. Di pertemuan berikutnya, ${nama} siap belajar materi selanjutnya.`
         },
         {
-          summary: `${nama} mencapai pencapaian belajar yang impresif dengan menuntaskan 2 lesson secara tuntas hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `Teramati di kelas, ${nama} memiliki ketelitian tinggi dan proaktif melakukan debugging secara mandiri pada kedua projek tersebut. Daya analisisnya teruji sangat matang.`
+          summary: `${nama} menyelesaikan dua materi hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `Di kelas, ${nama} melakukan *debugging* pada *code* di kedua *project* secara mandiri. ${nama} berlatih menyusun langkah-langkah *code* dan mencari solusi dari setiap tantangan. Di rumah, ${nama} bisa menunjukkan *project* kepada Bapak/Ibu.`
         },
         {
-          summary: `${nama} tampil sangat produktif dan antusias dengan menyelesaikan 2 materi sekaligus pada pertemuan ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `${nama} menyerap instruksi dengan cepat, menunjukkan computational thinking yang tajam, dan menyelesaikan tantangan koding secara terstruktur.`
+          summary: `${nama} menyelesaikan dua materi pada pertemuan ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `${nama} mampu menyerap instruksi dengan cepat, menunjukkan pemikiran komputasional yang tajam, dan menyelesaikan setiap tantangan *coding* secara terstruktur. Keberhasilan ini menjadi fondasi yang kokoh untuk mengembangkan fitur *project* yang lebih interaktif. Di pertemuan selanjutnya, potensi eksplorasi ${nama} akan terus diasah ke tingkat yang lebih tinggi.`
         },
         {
-          summary: `Hari ini, ${nama} menunjukkan efisiensi belajar yang hebat dengan menguasai 2 topik pembelajaran penuh (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `Di kelas, ${nama} mempertahankan fokus yang prima serta mampu memprogram mekanisme projek dengan sangat rapi tanpa banyak bimbingan. Sangat membanggakan!`
+          summary: `Hari ini, ${nama} menunjukkan efisiensi belajar yang hebat dengan menguasai 2 topik pembelajaran penuh (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `Di kelas, ${nama} fokus menyusun *code* dan menyelesaikan *project* dengan sedikit bantuan. Menyelesaikan dua materi dalam satu pertemuan menunjukkan kemajuan ${nama} dalam *coding*. Bekal pemahaman ini membuat ${nama} sangat siap menyambut materi baru pekan depan.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1140,27 +1152,27 @@ const LANG_UI = {
       const variants = [
         {
           summary: `In today's session, ${nama} successfully completed *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Throughout class, ${nama} showed great focus and assembled code logic independently with minimal guidance. Well-prepared for the next challenge!`
+          notes: `Throughout the class, ${nama} demonstrated great focus and was able to assemble code logic independently with minimal teacher guidance. Mastering this concept is crucial as it strengthens computational thinking and structured problem-solving skills. ${nama} is well-prepared to tackle more advanced logic challenges in the upcoming session.`
         },
         {
           summary: `In this session, ${nama} finished building the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `In class, ${nama} displayed keen attention to detail and proactively debugged code errors independently. Excellent problem-solving mindset today!`
+          notes: `In class, ${nama} paid close attention and fixed code errors independently. This helped ${nama} practise finding the cause of a problem in the code. At home, ${nama} can try changing the project or playing it again to practise what they learned.`
         },
         {
           summary: `During today's class, ${nama} achieved all learning objectives for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} was highly enthusiastic and took initiative to add creative personal touches beyond basic steps. Great digital exploration!`
+          notes: `${nama} was excited to add personal ideas to the project. This gave ${nama} a chance to be creative while coding. ${nama} can use these ideas to add more features in future classes.`
         },
         {
           summary: `Today, ${nama} completed all instructions in *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `In class, ${nama} showed strong persistence, following code steps methodically without getting discouraged. Great effort and dedication!`
+          notes: `In class, ${nama} kept trying when a task was difficult. This helped ${nama} understand how computers follow instructions. Encouragement at home can help ${nama} feel more confident about coding.`
         },
         {
           summary: `In this class, ${nama} wrapped up *${lessonTitle}* with solid results. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} proactively asked insightful questions about code functions, reflecting genuine curiosity and solid comprehension. Keep up the great work!`
+          notes: `${nama} asked how the code blocks work and showed curiosity. This gives ${nama} a good base for connecting different parts of a program. This progress builds a solid launchpad for the next topic next week.`
         },
         {
           summary: `In today's lesson, ${nama} accomplished the goals of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} worked with diligence, double-checking algorithm conditions and ensuring each feature ran smoothly. Very neat, structured coding!`
+          notes: `${nama} worked with great diligence, double-checking algorithm conditions and ensuring each feature ran smoothly before concluding. This practice establishes clean, structured coding habits essential for long-term growth. In the upcoming session, ${nama} can readily proceed to the next curriculum milestone.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1187,28 +1199,28 @@ const LANG_UI = {
       }
       const variants = [
         {
-          summary: `In today's session, ${nama} continued and successfully finalized the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `In class, ${nama} quickly recalled previous project logic and stayed dedicated to finishing remaining code blocks. Ready for new challenges!`
+          summary: `Today, ${nama} finalized all remaining stages of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+          notes: `${nama} methodically verified that every event trigger and game mechanism responded accurately. Mastering this completion phase instills systematic quality assurance habits. We look forward to seeing ${nama} tackle the upcoming lesson with this same enthusiasm.`
         },
         {
-          summary: `In this class, ${nama} concluded the ongoing project in *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} demonstrated mature problem-solving skills when integrating final code components. Multi-session perseverance was impressive!`
+          summary: `In this class, ${nama} finished the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+          notes: `${nama} solved problems while adding the final parts to the project. Finishing a project over several classes shows ${nama}'s patience and care. At home, ${nama} can show the finished project to you.`
         },
         {
           summary: `During today's lesson, ${nama} accomplished the final stage of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} diligently reviewed all script interactions, verifying that every mechanism functioned seamlessly without glitches. Great quality assurance!`
+          notes: `${nama} checked the code and made sure the project features worked. Checking their own work helps ${nama} learn to make sure the code works. Next week, ${nama} will start the next topic.`
         },
         {
           summary: `Today, ${nama} resumed working on *${lessonTitle}* and brought it to completion. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} worked with great concentration, proactively resolving leftover bugs and finalizing all project features independently.`
+          notes: `${nama} worked with great concentration, proactively resolving leftover bugs and finalizing all project features. This determined mindset is a valuable asset for long-term analytical learning. ${nama} stayed focused and worked hard in class today.`
         },
         {
           summary: `In this session, ${nama} successfully completed the continuation of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} showed impressive focus while connecting previously built logic with new features. Confidence and execution grew steadily!`
+          notes: `Throughout the session, ${nama} showed impressive focus while connecting previously built logic with new features. Successfully wrapping up a multi-step project reinforces confidence and independent coding execution. ${nama} is now fully prepared for the next exciting lesson.`
         },
         {
-          summary: `Today, ${nama} finalized all remaining stages of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} methodically verified that every event trigger and mechanism responded accurately. Highly systematic coding habits!`
+          summary: `In today's session, ${nama} continued and successfully finalized the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
+          notes: `In class, ${nama} quickly recalled previous project logic and stayed dedicated to finishing the remaining code blocks. This persistence is vital for building procedural memory and task-completion stamina in programming. Having concluded this topic, ${nama} is ready to embrace a new subject in the next session.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1479,20 +1491,20 @@ const LANG_UI = {
       }
       const variants = [
         {
-          summary: `In today's session, ${nama} completed *${l1Title}* and immediately initiated the next topic. ${nama} ${ensurePeriod(action1)}`,
-          notes: `In class, ${nama} worked quickly and methodically, using leftover time to build the starting framework for the next topic independently.`
+          summary: `In today's session, ${nama} demonstrated remarkable productivity by completing *${l1Title}* and getting a head start on the next topic. ${nama} ${ensurePeriod(action1)}`,
+          notes: `Working with great pace and precision in class, ${nama} utilized the remaining time to construct the initial foundation for *${l2Title}*. This shows that ${nama} is getting more comfortable with new coding ideas. In the upcoming session, ${nama} will seamlessly continue and finalize *${l2Title}*.`
         },
         {
           summary: `In this session, ${nama} completed *${l1Title}* independently and immediately initiated the next project *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `In class, ${nama} showed high enthusiasm and picked up new concepts rapidly, completing initial setup for *${l2Title}* with ease.`
+          notes: `In class, ${nama} quickly understood the new ideas and completed the first part of *${l2Title}*. Starting the next project gave ${nama} extra time to explore it in the next class. We look forward to seeing ${nama} continue next week.`
         },
         {
-          summary: `During today's class, ${nama} finished *${l1Title}* ahead of schedule and transitioned straight into *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `Throughout class, ${nama} stayed dedicated, solving code challenges smoothly and quickly adapting to the new project structure.`
+          summary: `During today's class, ${nama} accomplished an impressive learning milestone by finishing *${l1Title}* ahead of schedule and transitioning straight into *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
+          notes: `Throughout the class, ${nama} remained dedicated, solving code challenges smoothly and quickly adapting to the new project structure of *${l2Title}*. This shows that ${nama} can adapt to new ideas. ${nama} will resume and finalize *${l2Title}* in our next session.`
         },
         {
-          summary: `Today, ${nama} completed *${l1Title}* and embarked on *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `${nama} maintained sharp focus throughout, rapidly adapting to new programming concepts with growing computational maturity.`
+          summary: `Today, ${nama} displayed exceptional learning efficiency by completing *${l1Title}* and embarking on *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
+          notes: `${nama} maintained sharp focus throughout, allowing ample time to explore the initial mechanisms of *${l2Title}*. Learning more than one topic in a class helps ${nama} build a strong coding foundation. In the upcoming class, ${nama} will build upon this foundation to wrap up *${l2Title}*.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1515,20 +1527,32 @@ const LANG_UI = {
       }
       const variants = [
         {
-          summary: `${nama} completed 2 full lessons during today's class (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `In class, ${nama} worked with high concentration, independently finishing code and applying instructions quickly without sacrificing project quality.`
+          summary: `${nama} completed two lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `Throughout the class, ${nama} worked with immense focus, solved code challenges independently, and applied complex instructions swiftly without sacrificing project quality. Finishing two distinct topics in a single meeting reflects strong computational mastery and readiness for advanced challenges ahead. In the upcoming session, ${nama} can confidently proceed to the next milestone.`
         },
         {
-          summary: `${nama} achieved an exceptional milestone by finishing 2 full lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `In class, ${nama} showed high persistence and great attention to detail, debugging code errors autonomously across both projects.`
+          summary: `${nama} completed two lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `In the classroom, ${nama} showed high persistence and great attention to detail, debugging code errors autonomously across both projects. This shows that ${nama} is learning to solve coding problems step by step. At home, you can celebrate with ${nama} and try the finished projects together.`
         },
         {
-          summary: `${nama} displayed impressive efficiency, completing 2 full lessons in today's session (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `${nama} actively engaged with every challenge, demonstrating sharp analytical logic and executing multi-step algorithms smoothly.`
+          summary: `${nama} completed two lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `${nama} took part in each coding activity and followed the steps well. Completing two lessons gives ${nama} a good base for the next coding topics. We will continue challenging ${nama}'s creative logic in the upcoming meeting.`
         },
         {
-          summary: `Today, ${nama} showed remarkable learning agility by mastering 2 full lessons (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `In class, ${nama} demonstrated steady concentration and a strong grasp of code mechanics, completing all project requirements with minimal guidance.`
+          summary: `Today, ${nama} completed two lessons (*Lesson ${l1Num}* & *Lesson ${l2Num}*):
+
+• *${l1Title}*: ${nama} ${ensurePeriod(action1)}
+• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+          notes: `In class, ${nama} stayed focused and completed the project with little help. Completing two topics in one class shows ${nama} can stay focused and follow several steps. ${nama} is well-prepared to take on the next curriculum level next week.`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
