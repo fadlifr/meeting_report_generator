@@ -66,7 +66,17 @@ function extractAction(template, nama, lang) {
 
 function ensurePeriod(str) {
   if (!str) return '';
-  return str.trim().replace(/\.+$/, '') + '.';
+  const trimmed = str.trim().replace(/!\.+$/, '!').replace(/\.+$/, '');
+  if (/[!?]$/.test(trimmed)) return trimmed;
+  return trimmed + '.';
+}
+
+function getPartialAction(action, nama) {
+  if (!action) return '';
+  const escapedNama = (nama || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const splitRegex = new RegExp(`\\.\\s+(?=(?:Selain itu,\\s*|Tak hanya itu,\\s*)?${escapedNama}\\b)`, 'i');
+  const parts = action.split(splitRegex);
+  return ensurePeriod(parts[0]);
 }
 
 function createSplitReport(summary, notes) {
@@ -681,11 +691,11 @@ const LANG_UI = {
         },
         {
           summary: `Hari ini, ${nama} menyelesaikan materi *${lessonTitle}* dengan baik. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} cepat memahami instruksi dan bekerja mandiri. ${nama} teliti dan bisa melakukan _debugging_ sendiri. ${nama} sudah siap lanjut ke next lesson. Good job ${nama}!`
+          notes: `${nama} cepat memahami instruksi dan bekerja mandiri. ${nama} teliti dan bisa memperbaiki sendiri saat ada _code_ yang kurang tepat. ${nama} sudah siap lanjut ke materi berikutnya. Good job ${nama}!`
         },
         {
           summary: `Hari ini, ${nama} berhasil menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} teliti dan bisa melakukan _debugging_ sendiri. ${nama} sudah siap untuk mempelajari materi selanjutnya. Keep it up ${nama}!`
+          notes: `${nama} teliti dan bisa memperbaiki sendiri saat ada susunan _code_ yang kurang tepat. ${nama} sudah siap untuk mempelajari materi selanjutnya. Keep it up ${nama}!`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -747,62 +757,63 @@ const LANG_UI = {
       const chosen = pickVariant(variants, idx, seed);
       return createSplitReport(chosen.summary, chosen.notes);
     },
-    inProgress1Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '') => {
+    inProgress1Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '', action = '') => {
       const isExam = isExamOrProject(lessonNum, lessonTitle);
       const targetType = isExam ? 'ujian' : 'projek';
       const partial = getPartialObjectives(objectives);
+      const partialAction = getPartialAction(action, nama);
       
       if (isRobloxCourse(course)) {
         const defaultAction = isExam ? 'merancang model 3D dan menyiapkan arena ujian di Roblox Studio' : 'membangun model 3D dan merancang tata letak arena di Roblox Studio';
-        const actionDesc = (partial && partial.length > 0) ? `berlatih ${formatObjectives(partial, 'id')} di Roblox Studio` : defaultAction;
+        const actionSentence = partialAction || ((partial && partial.length > 0) ? `berlatih ${formatObjectives(partial, 'id')} di Roblox Studio.` : `${defaultAction}.`);
         const templates = {
           detail: [
             {
-              summary: `Hari ini, ${nama} mulai mengerjakan *${lessonTitle}*. Pada sesi ini, ${nama} ${actionDesc}.`,
+              summary: `Hari ini, ${nama} mulai mengerjakan *${lessonTitle}*. Pada sesi ini, ${nama} ${actionSentence}`,
               notes: `Di kelas, ${nama} teliti merancang model 3D dengan detail yang rapi. Projek masih tahap pembangunan model, sehingga ${targetType} berlanjut minggu depan dan mulai membuat script.`
             },
             {
-              summary: `Dalam sesi ini, ${nama} mengawali *${lessonTitle}* di Roblox Studio dengan ${actionDesc}.`,
+              summary: `Dalam sesi ini, ${nama} mengawali *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teramati di kelas, ${nama} fokus merancang aset 3D secara presisi. Model dasar telah terbangun rapi, dan pembuatan script akan dimulai pada pertemuan berikutnya.`
             }
           ],
           focus: [
             {
-              summary: `Hari ini, ${nama} mulai mempelajari *${lessonTitle}* dan ${actionDesc}.`,
+              summary: `Hari ini, ${nama} mulai mempelajari *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Di kelas, ${nama} antusias membangun objek 3D walau perhatiannya sesekali beralih layar. Dengan arahan guru, model tersusun baik dan script dimulai minggu depan.`
             },
             {
-              summary: `Pada sesi hari ini, ${nama} memulai *${lessonTitle}* di Roblox Studio untuk ${actionDesc}.`,
+              summary: `Pada sesi hari ini, ${nama} memulai *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teacher konsisten mengarahkan fokus ${nama} pada lembar kerja Roblox Studio. Model 3D sudah tertata rapi, dan penulisan script dilanjutkan pertemuan berikutnya.`
             }
           ],
           pace: [
             {
-              summary: `Dalam kelas hari ini, ${nama} mengawali *${lessonTitle}* dengan ${actionDesc}.`,
+              summary: `Dalam kelas hari ini, ${nama} mengawali *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Di kelas, ${nama} merancang model 3D dengan ritme santai namun terarah. Pembangunan model berjalan lancar dan ${nama} akan mulai membuat script minggu depan.`
             },
             {
-              summary: `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}* untuk ${actionDesc}.`,
+              summary: `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Suasana santai membuat ${nama} nyaman menyusun aset 3D di Roblox Studio. Tahap membangun model berjalan baik dan penulisan script berlanjut sesi depan.`
             }
           ],
           logic: [
             {
-              summary: `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}* untuk ${actionDesc}.`,
+              summary: `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Teacher membimbing ${nama} langkah demi langkah dalam penataan posisi part dan grouping model 3D. Model sudah siap, dan pembuatan script dimulai minggu depan.`
             },
             {
-              summary: `Hari ini, ${nama} memulai langkah awal pada *${lessonTitle}* dengan ${actionDesc}.`,
+              summary: `Hari ini, ${nama} memulai langkah awal pada *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Menghadapi konsep perancangan 3D yang baru, ${nama} teliti menata model dengan bimbingan guru. Struktur arena sudah siap dan tahap scripting dimulai sesi depan.`
             }
           ],
           tired: [
             {
-              summary: `Hari ini, ${nama} mulai mengerjakan *${lessonTitle}* di Roblox Studio dan berfokus pada ${actionDesc}.`,
+              summary: `Hari ini, ${nama} mulai mengerjakan *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teacher menyesuaikan ritme belajar agar tetap nyaman saat ${nama} merakit model 3D sepulang sekolah. Pembangunan model selesai baik dan script dimulai minggu depan.`
             },
             {
-              summary: `Dalam sesi ini, ${nama} mengawali *${lessonTitle}* dengan ${actionDesc}.`,
+              summary: `Dalam sesi ini, ${nama} mengawali *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Ritme belajar disesuaikan dengan kondisi stamina ${nama} sepulang sekolah. Pembangunan aset 3D berjalan terarah, dan pembuatan script dilanjutkan minggu depan.`
             }
           ]
@@ -812,55 +823,55 @@ const LANG_UI = {
         return createSplitReport(chosen.summary, chosen.notes);
       }
 
-      const actionDesc = (partial && partial.length > 0) ? `berlatih ${formatObjectives(partial, 'id')}` : 'membangun kerangka dasar logika projek';
+      const actionSentence = partialAction || ((partial && partial.length > 0) ? `berlatih ${formatObjectives(partial, 'id')}.` : 'membangun kerangka dasar logika projek.');
       const templates = {
         detail: [
           {
-            summary: `Hari ini, ${nama} memulai pembelajaran materi *${lessonTitle}*. Pada sesi ini, ${nama} ${actionDesc}.`,
+            summary: `Hari ini, ${nama} memulai pembelajaran materi *${lessonTitle}*. Pada sesi ini, ${nama} ${actionSentence}`,
             notes: `Di kelas, ${nama} menyusun kode projeknya secara cermat. Karena projek ini cukup padat dan kaya fitur, sisa pengerjaan akan dilanjutkan di pertemuan berikutnya.`
           },
           {
-            summary: `Dalam sesi ini, ${nama} mengawali materi *${lessonTitle}* dengan ${actionDesc}.`,
+            summary: `Dalam sesi ini, ${nama} mengawali materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Teramati di kelas, ${nama} tekun menyusun blok kode awal. Bersama arahan teacher, fondasi proyek sudah terbangun baik dan akan dilanjutkan minggu depan.`
           }
         ],
         focus: [
           {
-            summary: `Hari ini, ${nama} memulai pembelajaran pada materi *${lessonTitle}* dan ${actionDesc}.`,
+            summary: `Hari ini, ${nama} memulai pembelajaran pada materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Di kelas, perhatian ${nama} sesekali teralihkan dari lembar koding. Teacher aktif mengarahkan kembali fokus ${nama} agar kodenya tersusun rapi. Sisa projek lanjut minggu depan.`
           },
           {
-            summary: `Pada sesi hari ini, ${nama} mulai mempelajari *${lessonTitle}* untuk ${actionDesc}.`,
+            summary: `Pada sesi hari ini, ${nama} mulai mempelajari *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Teramati di kelas, antusiasme ${nama} tinggi namun sesekali fokusnya terbagi. Bimbingan konsisten terus diberikan agar progres kodingnya selesai maksimal.`
           }
         ],
         pace: [
           {
-            summary: `Dalam kelas hari ini, ${nama} memulai materi *${lessonTitle}* dengan ${actionDesc}.`,
+            summary: `Dalam kelas hari ini, ${nama} memulai materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Di kelas, ${nama} tampak ceria dengan tempo santai namun terarah. Teacher mendampingi langkah demi langkah agar target kode tercapai. Sisa projek dilanjutkan pertemuan berikutnya.`
           },
           {
-            summary: `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}* untuk ${actionDesc}.`,
+            summary: `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Suasana belajar menyenangkan membuat ${nama} menikmati sesi ini dengan ritme santai. Teacher terus memandu agar target kode utama selesai terstruktur.`
           }
         ],
         logic: [
           {
-            summary: `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}* untuk ${actionDesc}.`,
+            summary: `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Di kelas, ${nama} menemui tantangan logika baru. Teacher mendampingi intensif agar konsep dipahami dengan matang. Sisa pengerjaan diselesaikan di sesi berikutnya.`
           },
           {
-            summary: `Hari ini, ${nama} memulai langkah awal pada *${lessonTitle}* dengan ${actionDesc}.`,
+            summary: `Hari ini, ${nama} memulai langkah awal pada *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Menghadapi logika baru yang cukup menantang, ${nama} belajar menganalisis alur program dengan seksama. Sisa fitur projek akan dituntaskan pertemuan berikutnya.`
           }
         ],
         tired: [
           {
-            summary: `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}* dan fokus pada ${actionDesc}.`,
+            summary: `Hari ini, ${nama} mulai mengerjakan materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Di kelas, energi ${nama} sedikit menurun setelah aktivitas sekolah. Teacher menyesuaikan tempo agar belajar tetap nyaman. Sisa projek dilanjutkan pertemuan berikutnya.`
           },
           {
-            summary: `Dalam sesi hari ini, ${nama} memulai materi *${lessonTitle}* dengan ${actionDesc}.`,
+            summary: `Dalam sesi hari ini, ${nama} memulai materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Karena kondisi fisik yang lelah sepulang sekolah, teacher menyesuaikan ritme agar konsep tetap terserap tanpa tekanan. Langkah awal selesai dengan baik.`
           }
         ]
@@ -869,62 +880,63 @@ const LANG_UI = {
       const chosen = pickVariant(list, idx, seed);
       return createSplitReport(chosen.summary, chosen.notes);
     },
-    inProgress2Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '') => {
+    inProgress2Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '', action = '') => {
       const isExam = isExamOrProject(lessonNum, lessonTitle);
       const targetType = isExam ? 'ujian' : 'projek';
       const partial = getPartialObjectives(objectives);
+      const partialAction = getPartialAction(action, nama);
 
       if (isRobloxCourse(course)) {
         const defaultAction2 = isExam ? 'menulis script Lua dan menguji mekanisme game ujian di Roblox Studio' : 'menulis script Lua dan memprogram mekanisme interaktif di Roblox Studio';
-        const actionDesc = (partial && partial.length > 0) ? `melanjutkan ${formatObjectives(partial, 'id')} di Roblox Studio` : defaultAction2;
+        const actionSentence = partialAction || ((partial && partial.length > 0) ? `melanjutkan ${formatObjectives(partial, 'id')} di Roblox Studio.` : `${defaultAction2}.`);
         const templates = {
           detail: [
             {
-              summary: `Dalam sesi lanjutan *${lessonTitle}* ini, ${nama} meneruskan pengerjaan di Roblox Studio. ${nama} ${actionDesc}.`,
+              summary: `Dalam sesi lanjutan *${lessonTitle}* ini, ${nama} meneruskan pengerjaan di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Di kelas, ${nama} cermat menulis script Lua dan menguji mekanisme interaksi game. Pengujian akhir dan penyempurnaan akan dituntaskan pada pertemuan berikutnya.`
             },
             {
-              summary: `Pada pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan pembuatan script projek dengan ${actionDesc}.`,
+              summary: `Pada pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan pembuatan script projek. ${nama} ${actionSentence}`,
               notes: `Sebagian besar script interaktif dan event trigger sudah berfungsi. Pengujian menyeluruh dan finalisasi projek akan diselesaikan minggu depan.`
             }
           ],
           focus: [
             {
-              summary: `Pada sesi kedua *${lessonTitle}* ini, ${nama} meneruskan penulisan script di Roblox Studio.`,
+              summary: `Pada sesi kedua *${lessonTitle}* ini, ${nama} meneruskan penulisan script di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teacher aktif mendampingi fokus ${nama} saat menyusun kode script. Fungsi-fungsi utama sudah terhubung, dan pengujian akhir dilanjutkan minggu depan.`
             },
             {
-              summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* di Roblox Studio untuk ${actionDesc}.`,
+              summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Dengan bimbingan terarah, ${nama} kembali fokus memprogram interaksi game. Mekanisme script sudah terbentuk, dan tahap akhir diselesaikan sesi berikutnya.`
             }
           ],
           pace: [
             {
-              summary: `Dalam kelas hari ini, ${nama} melanjutkan projek *${lessonTitle}* dengan menulis script di Roblox Studio.`,
+              summary: `Dalam kelas hari ini, ${nama} melanjutkan projek *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Di kelas, ${nama} menyusun script Lua dengan ritme santai namun terarah. Logika utama game sudah berjalan, dan penyempurnaan tuntas minggu depan.`
             },
             {
-              summary: `Hari ini, ${nama} meneruskan *${lessonTitle}* di Roblox Studio untuk ${actionDesc}.`,
+              summary: `Hari ini, ${nama} meneruskan *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teacher memfasilitasi tempo belajar yang menyenangkan saat memprogram script. Mekanisme game sudah aktif dan pengujian tuntas di pertemuan berikutnya.`
             }
           ],
           logic: [
             {
-              summary: `Pada sesi kelanjutan *${lessonTitle}* ini, ${nama} mendalami logika script Lua dan ${actionDesc}.`,
+              summary: `Pada sesi kelanjutan *${lessonTitle}* ini, ${nama} mendalami logika script Lua. ${nama} ${actionSentence}`,
               notes: `Teacher mendampingi intensif pemahaman event trigger dan alur script Lua. Mekanisme projek berfungsi baik, dan tahap akhir dituntaskan minggu depan.`
             },
             {
-              summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* dengan ${actionDesc}.`,
+              summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Mempelajari logika script dan pengkondisian bersama guru memperkuat pemahaman pemrograman ${nama}. Sisa pengujian game diselesaikan sesi berikutnya.`
             }
           ],
           tired: [
             {
-              summary: `Hari ini, ${nama} meneruskan materi *${lessonTitle}* dengan berfokus pada penulisan script dasar di Roblox Studio.`,
+              summary: `Hari ini, ${nama} meneruskan materi *${lessonTitle}* di Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teacher memfasilitasi ritme yang suportif agar penulisan script tetap terserap baik sepulang sekolah. Mekanisme dasar siap dan selesai minggu depan.`
             },
             {
-              summary: `Dalam sesi kedua *${lessonTitle}* ini, ${nama} melanjutkan penulisan script game dengan bimbingan guru.`,
+              summary: `Dalam sesi kedua *${lessonTitle}* ini, ${nama} melanjutkan penulisan script game. ${nama} ${actionSentence}`,
               notes: `Ritme belajar disesuaikan dengan energi ${nama} sepulang sekolah. Script interaktif berhasil diprogram dan pengujian final tuntas minggu depan.`
             }
           ]
@@ -934,55 +946,55 @@ const LANG_UI = {
         return createSplitReport(chosen.summary, chosen.notes);
       }
 
-      const actionDesc = (partial && partial.length > 0) ? `menyusun kelanjutan ${formatObjectives(partial, 'id')}` : 'mengembangkan logika lanjutan pada projek';
+      const actionSentence = partialAction || ((partial && partial.length > 0) ? `menyusun kelanjutan ${formatObjectives(partial, 'id')}.` : 'mengembangkan logika lanjutan pada projek.');
       const templates = {
         detail: [
           {
-            summary: `Pada pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan penyusunan kode projeknya dari minggu lalu. ${nama} ${actionDesc}.`,
+            summary: `Pada pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan penyusunan kode projeknya dari minggu lalu. ${nama} ${actionSentence}`,
             notes: `Di kelas, ${nama} teliti memastikan setiap animasi dan respon program berjalan selaras. Tahap finalisasi dan pengujian akhir akan dituntaskan pada pertemuan berikutnya.`
           },
           {
-            summary: `Dalam sesi lanjutan *${lessonTitle}* hari ini, ${nama} meneruskan pengembangan projeknya. ${nama} ${actionDesc}.`,
+            summary: `Dalam sesi lanjutan *${lessonTitle}* hari ini, ${nama} meneruskan pengembangan projeknya. ${nama} ${actionSentence}`,
             notes: `Sebagian besar kode utama telah terbangun rapi. Mengingat detail projek yang cukup padat, tahap pengujian akhir akan dituntaskan pada pertemuan berikutnya.`
           }
         ],
         focus: [
           {
-            summary: `Dalam sesi lanjutan materi *${lessonTitle}* ini, ${nama} meneruskan pengerjaan kode projeknya. ${nama} ${actionDesc}.`,
+            summary: `Dalam sesi lanjutan materi *${lessonTitle}* ini, ${nama} meneruskan pengerjaan kode projeknya. ${nama} ${actionSentence}`,
             notes: `Teacher terus mendampingi dan mengingatkan ${nama} menjaga fokus pada layar koding. Fitur penting sudah terpasang dan sisa projek dituntaskan di pertemuan berikutnya.`
           },
           {
-            summary: `Hari ini, ${nama} masuk ke pertemuan kedua untuk materi *${lessonTitle}*. ${nama} berhasil ${actionDesc}.`,
+            summary: `Hari ini, ${nama} masuk ke pertemuan kedua untuk materi *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Teacher terus memusatkan perhatian ${nama} agar konsisten menyelesaikan alur kode hingga tuntas tanpa terdistraksi. Tahap akhir diselesaikan minggu depan.`
           }
         ],
         pace: [
           {
-            summary: `Di pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan pengembangan projeknya. ${nama} telah ${actionDesc}.`,
+            summary: `Di pertemuan kedua materi *${lessonTitle}* ini, ${nama} melanjutkan pengembangan projeknya. ${nama} ${actionSentence}`,
             notes: `Di kelas, ${nama} bekerja dengan ritme santai namun stabil. Sebagian besar projek telah terbangun dan tahap penuntasan siap diselesaikan pada pertemuan berikutnya.`
           },
           {
-            summary: `Pada sesi ini, ${nama} meneruskan proyek *${lessonTitle}* dari minggu lalu dan ${actionDesc}.`,
+            summary: `Pada sesi ini, ${nama} meneruskan proyek *${lessonTitle}* dari minggu lalu. ${nama} ${actionSentence}`,
             notes: `Teacher aktif mengarahkan alur kerja agar waktu kelas termanfaatkan efektif. Projek sudah mendekati tahap akhir dan tuntas di sesi berikutnya.`
           }
         ],
         logic: [
           {
-            summary: `Pada sesi lanjutan materi *${lessonTitle}* ini, ${nama} melanjutkan penyusunan algoritma projeknya. ${nama} ${actionDesc}.`,
+            summary: `Pada sesi lanjutan materi *${lessonTitle}* ini, ${nama} melanjutkan penyusunan algoritma projeknya. ${nama} ${actionSentence}`,
             notes: `${nama} mulai memahami logika bertingkat dengan bimbingan guru dan berhasil memperbaiki error. Seluruh fitur akhir siap diselesaikan di pertemuan selanjutnya.`
           },
           {
-            summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* pada tahap logika lanjutan bersama teacher. ${nama} ${actionDesc}.`,
+            summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* pada tahap logika lanjutan bersama teacher. ${nama} ${actionSentence}`,
             notes: `Melalui pemecahan masalah langsung di kelas, pemahaman konseptual ${nama} berkembang jauh lebih matang. Tahap akhir akan diselesaikan minggu depan.`
           }
         ],
         tired: [
           {
-            summary: `Hari ini, ${nama} meneruskan proyek materi *${lessonTitle}* yang sedang berjalan. ${nama} ${actionDesc}.`,
+            summary: `Hari ini, ${nama} meneruskan proyek materi *${lessonTitle}* yang sedang berjalan. ${nama} ${actionSentence}`,
             notes: `Walaupun energi ${nama} terbatas sepulang sekolah, ${nama} tetap berkomitmen menyusun kode penting projeknya. Tahap akhir dijadwalkan pada pertemuan berikutnya.`
           },
           {
-            summary: `Dalam sesi kedua *${lessonTitle}* ini, ${nama} melanjutkan bagian tengah projek dengan bimbingan guru.`,
+            summary: `Dalam sesi kedua *${lessonTitle}* ini, ${nama} melanjutkan bagian tengah projek dengan bimbingan guru. ${nama} ${actionSentence}`,
             notes: `Teacher memfasilitasi ritme belajar yang suportif agar materi tetap terserap baik. Kerangka projek hampir tuntas dan selesai minggu depan.`
           }
         ]
@@ -991,9 +1003,9 @@ const LANG_UI = {
       const chosen = pickVariant(list, idx, seed);
       return createSplitReport(chosen.summary, chosen.notes);
     },
-    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0, course = '') => {
+    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0, course = '', action = '') => {
       // Alias backward compatibility
-      return LANG_UI.id.inProgress1Text(nama, lessonNum, lessonTitle, objectives, 'detail', idx, seed, course);
+      return LANG_UI.id.inProgress1Text(nama, lessonNum, lessonTitle, objectives, 'detail', idx, seed, course, action);
     },
     oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0, seed = 0, course = '') => {
       if (isRobloxCourse(course)) {
@@ -1053,7 +1065,7 @@ const LANG_UI = {
         },
         {
           summary: `Di pertemuan hari ini, ${nama} berhasil menyelesaikan 2 materi (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `${nama} teliti dan bisa _debugging_ sendiri di kedua _project_. ${nama} sudah siap untuk belajar topik baru. Terus pertahankan ${nama}!`
+          notes: `${nama} teliti dan bisa memperbaiki sendiri saat ada _code_ yang kurang tepat di kedua _project_. ${nama} sudah siap untuk belajar topik baru. Terus pertahankan ${nama}!`
         },
         {
           summary: `Di kelas hari ini, ${nama} menyelesaikan 2 lesson (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
@@ -1230,62 +1242,63 @@ const LANG_UI = {
       const chosen = pickVariant(variants, idx, seed);
       return createSplitReport(chosen.summary, chosen.notes);
     },
-    inProgress1Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '') => {
+    inProgress1Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '', action = '') => {
       const isExam = isExamOrProject(lessonNum, lessonTitle);
       const targetType = isExam ? 'exam' : 'project';
       const partial = getPartialObjectives(objectives);
+      const partialAction = getPartialAction(action, nama);
 
       if (isRobloxCourse(course)) {
-        const defaultAction = isExam ? 'reviewed materials and began 3D modeling for the exam in Roblox Studio' : 'focused on building 3D models and designing the environment in Roblox Studio';
-        const actionDesc = (partial && partial.length > 0) ? `practiced how to ${formatObjectives(partial, 'en')} in Roblox Studio` : defaultAction;
+        const defaultAction = isExam ? 'reviewed materials and began 3D modeling for the exam in Roblox Studio.' : 'focused on building 3D models and designing the environment in Roblox Studio.';
+        const actionSentence = partialAction || ((partial && partial.length > 0) ? `practiced how to ${formatObjectives(partial, 'en')} in Roblox Studio.` : defaultAction);
         const templates = {
           detail: [
             {
-              summary: `Today, ${nama} began working on *${lessonTitle}*. In this session, ${nama} ${actionDesc}.`,
+              summary: `Today, ${nama} began working on *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `In class, ${nama} built the models carefully with close attention to detail. As the project is in the building stage, the ${targetType} continues next week and ${nama} will start scripting after that.`
             },
             {
-              summary: `In this session, ${nama} started *${lessonTitle}* in Roblox Studio and ${actionDesc}.`,
+              summary: `In this session, ${nama} started *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `In class, ${nama} constructed 3D assets with great precision. As the project is in the building stage, the ${targetType} continues next week and scripting will begin after that.`
             }
           ],
           focus: [
             {
-              summary: `Today, ${nama} started *${lessonTitle}* in Roblox Studio and ${actionDesc}.`,
+              summary: `Today, ${nama} started *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `In class, ${nama} was excited to build 3D models, with the teacher actively directing focus to the workspace. The building stage went well, and scripting starts next week.`
             },
             {
-              summary: `During today's class, ${nama} began *${lessonTitle}* and ${actionDesc}.`,
+              summary: `During today's class, ${nama} began *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `The teacher kept ${nama} engaged on 3D asset building tasks. The models are well-aligned, and ${nama} will continue the ${targetType} and start scripting next session.`
             }
           ],
           pace: [
             {
-              summary: `In today's session, ${nama} began *${lessonTitle}* and ${actionDesc}.`,
+              summary: `In today's session, ${nama} began *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `In class, ${nama} designed 3D models at a relaxed and steady rhythm. The building stage is progressing well, and ${nama} will start scripting next week.`
             },
             {
-              summary: `Today, ${nama} initiated *${lessonTitle}* in Roblox Studio and ${actionDesc}.`,
+              summary: `Today, ${nama} initiated *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `With calm and steady guidance, ${nama} assembled 3D models smoothly. The ${targetType} remains in the building stage, and scripting will resume next class.`
             }
           ],
           logic: [
             {
-              summary: `During today's class, ${nama} began *${lessonTitle}* in Roblox Studio and ${actionDesc}.`,
+              summary: `During today's class, ${nama} began *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `The teacher guided ${nama} step-by-step on 3D spatial alignment and model grouping. The structure is established, and scripting will begin next class.`
             },
             {
-              summary: `Today, ${nama} started *${lessonTitle}* and focused on ${actionDesc}.`,
+              summary: `Today, ${nama} started *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `Facing new 3D design challenges, ${nama} learned to arrange models with teacher assistance. Building is underway, and scripting starts next week.`
             }
           ],
           tired: [
             {
-              summary: `Today, ${nama} began *${lessonTitle}* in Roblox Studio and focused on ${actionDesc}.`,
+              summary: `Today, ${nama} began *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `The learning pace was comfortably adapted while ${nama} assembled 3D models after school. Building is well on track, and scripting starts next week.`
             },
             {
-              summary: `In this session, ${nama} started *${lessonTitle}* and ${actionDesc}.`,
+              summary: `In this session, ${nama} started *${lessonTitle}*. ${nama} ${actionSentence}`,
               notes: `To manage after-school fatigue, teacher paced 3D modeling gently so ${nama} stayed engaged. Building went well, and scripting begins next meeting.`
             }
           ]
@@ -1295,55 +1308,55 @@ const LANG_UI = {
         return createSplitReport(chosen.summary, chosen.notes);
       }
 
-      const actionDesc = (partial && partial.length > 0) ? `practiced how to ${formatObjectives(partial, 'en')}` : 'built foundational project algorithms';
+      const actionSentence = partialAction || ((partial && partial.length > 0) ? `practiced how to ${formatObjectives(partial, 'en')}.` : 'built foundational project algorithms.');
       const templates = {
         detail: [
           {
-            summary: `Today, ${nama} began working on *${lessonTitle}*. In this session, ${nama} ${actionDesc}.`,
+            summary: `Today, ${nama} began working on *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `In class, ${nama} assembled code carefully with close attention to detail. Due to rich project features, remaining parts continue next week.`
           },
           {
-            summary: `In this session, ${nama} started *${lessonTitle}* and ${actionDesc}.`,
+            summary: `In this session, ${nama} started *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `With teacher guidance, a solid initial project framework is in place. Code development will resume next week.`
           }
         ],
         focus: [
           {
-            summary: `Today, ${nama} started learning *${lessonTitle}* and ${actionDesc}.`,
+            summary: `Today, ${nama} started learning *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `In class, ${nama} had strong curiosity, though attention occasionally shifted to other apps. Guided by teacher, code progress continues next week.`
           },
           {
-            summary: `During today's class, ${nama} initiated *${lessonTitle}* and ${actionDesc}.`,
+            summary: `During today's class, ${nama} initiated *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `The teacher consistently guided ${nama} back to workspace tasks. Initial code is set and remaining features continue next session.`
           }
         ],
         pace: [
           {
-            summary: `In today's session, ${nama} began *${lessonTitle}* and ${actionDesc}.`,
+            summary: `In today's session, ${nama} began *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `In class, ${nama} was cheerful and maintained a relaxed yet steady work rhythm. The teacher provided clear guidance and steps resume next week.`
           },
           {
-            summary: `Today, ${nama} started *${lessonTitle}* and ${actionDesc}.`,
+            summary: `Today, ${nama} started *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `The teacher provided clear direction so essential project goals were met sequentially. Final steps continue next session.`
           }
         ],
         logic: [
           {
-            summary: `During today's class, ${nama} explored the new topic *${lessonTitle}* and ${actionDesc}.`,
+            summary: `During today's class, ${nama} explored the new topic *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `The teacher provided intensive guidance to ensure ${nama} truly understood new coding logic before moving forward. Progress continues next class.`
           },
           {
-            summary: `Today, ${nama} commenced *${lessonTitle}* and ${actionDesc}.`,
+            summary: `Today, ${nama} commenced *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Facing novel algorithmic challenges, ${nama} learned to analyze code logic with close assistance. Remaining steps resume next session.`
           }
         ],
         tired: [
           {
-            summary: `Today, ${nama} commenced work on *${lessonTitle}* and focused on ${actionDesc}.`,
+            summary: `Today, ${nama} commenced work on *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `The learning pace was comfortably adapted so ${nama} absorbed concepts without rushing. Rest of project resumes next meeting.`
           },
           {
-            summary: `In this session, ${nama} started *${lessonTitle}* and ${actionDesc}.`,
+            summary: `In this session, ${nama} started *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Due to fatigue after school, teacher adjusted pace so ${nama} could absorb concepts comfortably. Resuming next week!`
           }
         ]
@@ -1352,62 +1365,63 @@ const LANG_UI = {
       const chosen = pickVariant(list, idx, seed);
       return createSplitReport(chosen.summary, chosen.notes);
     },
-    inProgress2Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '') => {
+    inProgress2Text: (nama, lessonNum, lessonTitle, objectives, context = 'detail', idx = 0, seed = 0, course = '', action = '') => {
       const isExam = isExamOrProject(lessonNum, lessonTitle);
       const targetType = isExam ? 'exam' : 'project';
       const partial = getPartialObjectives(objectives);
+      const partialAction = getPartialAction(action, nama);
 
       if (isRobloxCourse(course)) {
-        const defaultAction2 = isExam ? 'wrote Lua scripts and tested exam game mechanics in Roblox Studio' : 'wrote Lua scripts and programmed interactive game mechanics in Roblox Studio';
-        const actionDesc = (partial && partial.length > 0) ? `continued working on ${formatObjectives(partial, 'en')} in Roblox Studio` : defaultAction2;
+        const defaultAction2 = isExam ? 'wrote Lua scripts and tested exam game mechanics in Roblox Studio.' : 'wrote Lua scripts and programmed interactive game mechanics in Roblox Studio.';
+        const actionSentence = partialAction || ((partial && partial.length > 0) ? `continued working on ${formatObjectives(partial, 'en')} in Roblox Studio.` : defaultAction2);
         const templates = {
           detail: [
             {
-              summary: `In this second session for *${lessonTitle}*, ${nama} continued developing the project in Roblox Studio. ${nama} ${actionDesc}.`,
+              summary: `In this second session for *${lessonTitle}*, ${nama} continued developing the project in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `In class, ${nama} focused on writing Lua scripts carefully and testing game mechanics. Final script polish and gameplay verification will wrap up next class.`
             },
             {
-              summary: `In this follow-up session for *${lessonTitle}*, ${nama} progressed with Lua scripting and ${actionDesc}.`,
+              summary: `In this follow-up session for *${lessonTitle}*, ${nama} progressed with Lua scripting in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Most interactive scripts and event triggers are now in place. Final testing and project completion will wrap up in the next class.`
             }
           ],
           focus: [
             {
-              summary: `In this follow-up session on *${lessonTitle}*, ${nama} continued writing Lua scripts in Roblox Studio.`,
+              summary: `In this follow-up session on *${lessonTitle}*, ${nama} continued writing Lua scripts in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `The teacher actively guided ${nama}'s focus during script creation. Key functions and event connections are running, with final testing next week.`
             },
             {
-              summary: `Today, ${nama} resumed *${lessonTitle}* in Roblox Studio and ${actionDesc}.`,
+              summary: `Today, ${nama} resumed *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `With teacher encouragement, ${nama} stayed on track while scripting game events. Interactive mechanics are set, and final testing wraps up next session.`
             }
           ],
           pace: [
             {
-              summary: `In this follow-up class for *${lessonTitle}*, ${nama} continued scripting game interactions in Roblox Studio.`,
+              summary: `In this follow-up class for *${lessonTitle}*, ${nama} continued scripting game interactions in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `In class, ${nama} enjoyed scripting at a steady, enjoyable rhythm. Core Lua mechanics are functioning, and final polish will finish next week.`
             },
             {
-              summary: `Today, ${nama} proceeded with *${lessonTitle}* and ${actionDesc}.`,
+              summary: `Today, ${nama} proceeded with *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `The teacher supported ${nama} in writing scripts steadily without pressure. The main gameplay scripts are in place, resuming next session.`
             }
           ],
           logic: [
             {
-              summary: `During this continuation session for *${lessonTitle}*, ${nama} tackled advanced Lua scripts and ${actionDesc}.`,
+              summary: `During this continuation session for *${lessonTitle}*, ${nama} tackled advanced Lua scripts in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `The teacher provided step-by-step guidance on script conditions and event triggers. Mechanics are working well, and final testing wraps up next class.`
             },
             {
-              summary: `Today, ${nama} continued *${lessonTitle}* in Roblox Studio, working through ${actionDesc}.`,
+              summary: `Today, ${nama} continued *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Analyzing Lua syntax and event connections with teacher guidance helped ${nama} grasp script logic thoroughly. Final details wrap up next week.`
             }
           ],
           tired: [
             {
-              summary: `In this session, ${nama} continued *${lessonTitle}* and focused on essential Lua scripting in Roblox Studio.`,
+              summary: `In this session, ${nama} continued *${lessonTitle}* and focused on essential Lua scripting in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `The teacher adjusted the pace to keep ${nama} comfortable while coding scripts after school. Core scripts are active, and final testing completes next meeting.`
             },
             {
-              summary: `Today, ${nama} resumed *${lessonTitle}* and ${actionDesc}.`,
+              summary: `Today, ${nama} resumed *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
               notes: `Teacher paced the scripting session gently to maintain good understanding. The interactive code is running smoothly, wrapping up next week.`
             }
           ]
@@ -1417,55 +1431,55 @@ const LANG_UI = {
         return createSplitReport(chosen.summary, chosen.notes);
       }
 
-      const actionDesc = (partial && partial.length > 0) ? `continued working on ${formatObjectives(partial, 'en')}` : 'developed advanced project logic';
+      const actionSentence = partialAction || ((partial && partial.length > 0) ? `continued working on ${formatObjectives(partial, 'en')}.` : 'developed advanced project logic.');
       const templates = {
         detail: [
           {
-            summary: `In this second session for *${lessonTitle}*, ${nama} continued developing the project code from last week. ${nama} ${actionDesc}.`,
+            summary: `In this second session for *${lessonTitle}*, ${nama} continued developing the project code from last week. ${nama} ${actionSentence}`,
             notes: `In class, ${nama} meticulously verified that all interactions responded accurately. Final testing and polish will wrap up next class.`
           },
           {
-            summary: `In this follow-up session for *${lessonTitle}*, ${nama} progressed with project development and ${actionDesc}.`,
+            summary: `In this follow-up session for *${lessonTitle}*, ${nama} progressed with project development. ${nama} ${actionSentence}`,
             notes: `Most core mechanisms are now in place, and final testing and completion will wrap up in the next class.`
           }
         ],
         focus: [
           {
-            summary: `In this follow-up session on *${lessonTitle}*, ${nama} continued developing the project code. ${nama} completed key functions.`,
+            summary: `In this follow-up session on *${lessonTitle}*, ${nama} continued developing the project code. ${nama} ${actionSentence}`,
             notes: `The teacher actively kept attention directed at workspace whenever curiosity drifted. Key features are in place and finish next week.`
           },
           {
-            summary: `Today, ${nama} entered the second meeting for *${lessonTitle}* and worked on ${actionDesc}.`,
+            summary: `Today, ${nama} entered the second meeting for *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `The teacher kept ${nama} on track to complete algorithms without getting sidetracked. Final completion is set for next week.`
           }
         ],
         pace: [
           {
-            summary: `In this second meeting for *${lessonTitle}*, ${nama} continued building the project with ${actionDesc}.`,
+            summary: `In this second meeting for *${lessonTitle}*, ${nama} continued building the project. ${nama} ${actionSentence}`,
             notes: `In class, ${nama} worked at a steady, enjoyable pace. Most core mechanisms are now in place, and completion is set for next meeting.`
           },
           {
-            summary: `In this session, ${nama} resumed the project for *${lessonTitle}* and worked on ${actionDesc}.`,
+            summary: `In this session, ${nama} resumed the project for *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `The teacher helped channel class time effectively to finish leftover logic. Project will be finalized in the upcoming meeting.`
           }
         ],
         logic: [
           {
-            summary: `During this second session for *${lessonTitle}*, ${nama} continued assembling project algorithms with teacher guidance.`,
+            summary: `During this second session for *${lessonTitle}*, ${nama} continued assembling project algorithms with teacher guidance. ${nama} ${actionSentence}`,
             notes: `${nama} began grasping multi-step logic with teacher support and resolved earlier hurdles. Final features wrap up in our next class.`
           },
           {
-            summary: `Today, ${nama} advanced further into *${lessonTitle}*, tackling deeper logical requirements.`,
+            summary: `Today, ${nama} advanced further into *${lessonTitle}*, tackling deeper logical requirements. ${nama} ${actionSentence}`,
             notes: `Hands-on debugging deepened ${nama}'s algorithmic reasoning. The project will be finalized in the next session.`
           }
         ],
         tired: [
           {
-            summary: `Today, ${nama} continued working on the ongoing project for *${lessonTitle}* and completed core functions.`,
+            summary: `Today, ${nama} continued working on the ongoing project for *${lessonTitle}*. ${nama} ${actionSentence}`,
             notes: `Although energy was limited after school, ${nama} remained committed to building key project scripts. Final wrap-up scheduled next week.`
           },
           {
-            summary: `In this second session for *${lessonTitle}*, ${nama} worked through the middle phase of the project.`,
+            summary: `In this second session for *${lessonTitle}*, ${nama} worked through the middle phase of the project. ${nama} ${actionSentence}`,
             notes: `The teacher facilitated a supportive rhythm to ensure strong conceptual grasp. Completion scheduled next week.`
           }
         ]
@@ -1474,9 +1488,9 @@ const LANG_UI = {
       const chosen = pickVariant(list, idx, seed);
       return createSplitReport(chosen.summary, chosen.notes);
     },
-    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0, course = '') => {
+    inProgressText: (nama, lessonNum, lessonTitle, objectives, idx = 0, seed = 0, course = '', action = '') => {
       // Alias backward compatibility
-      return LANG_UI.en.inProgress1Text(nama, lessonNum, lessonTitle, objectives, 'detail', idx, seed, course);
+      return LANG_UI.en.inProgress1Text(nama, lessonNum, lessonTitle, objectives, 'detail', idx, seed, course, action);
     },
     oneAndHalfText: (nama, l1Num, l1Title, action1, l2Num, l2Title, obj2, idx = 0, seed = 0, course = '') => {
       if (isRobloxCourse(course)) {
@@ -1868,9 +1882,9 @@ function generateProgress(idx) {
   } else if (s.status === 'continued_done') {
     result = L.continuedDoneText(s.nama, l1Title, action1, idx, s.lesson, s.course);
   } else if (s.status === 'in_progress_1' || s.status === 'in_progress') {
-    result = (L.inProgress1Text || L.inProgressText)(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', idx, s.lesson, s.course);
+    result = (L.inProgress1Text || L.inProgressText)(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', idx, s.lesson, s.course, action1);
   } else if (s.status === 'in_progress_2') {
-    result = (L.inProgress2Text || L.inProgressText)(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', idx, s.lesson, s.course);
+    result = (L.inProgress2Text || L.inProgressText)(s.nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', idx, s.lesson, s.course, action1);
   } else if (s.status === 'one_and_half') {
     result = L.oneAndHalfText(s.nama, s.lesson, l1Title, action1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : [], idx, s.lesson, s.course);
   } else if (s.status === 'double') {

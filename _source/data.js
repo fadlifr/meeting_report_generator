@@ -65,11 +65,11 @@ const COURSE_DATA = {
       "num": 5,
       "title": "Lesson 5 - What is Loop?",
       "objectives": [
-        " Memahami Bahaya Buble Information",
+        "Memahami Bahaya Information Bubble",
         "Mempelajari Konsep Loop dalam Osmo Coding"
       ],
       "objectives_en": [
-        "Understanding the Dangers of Buble Information",
+        "Understanding the Dangers of Information Bubble",
         "Learning the Concept of Loops in Osmo Coding"
       ]
     },
@@ -95,7 +95,7 @@ const COURSE_DATA = {
         "Menambahkan animasi dan teks ke Delightex Edu"
       ],
       "objectives_en": [
-        "Be able to understand the concept of daily logins in video games and how to avoid video game addiction",
+        "understand the concept of daily logins in video games and how to avoid video game addiction",
         "Understanding the concept of simple home design",
         "Understanding Color Concepts in 3D Design",
         "Adding animations and text to Delightex Edu"
@@ -171,10 +171,10 @@ const COURSE_DATA = {
       ],
       "objectives_en": [
         "Understanding the Definition of Block Coding Sounds in Scratch",
-        "Be Able to Identify the Sound Blocks Available in Scratch",
-        "Be able to identify when to use sound blocks in Scratch",
-        "Be able to create a project in Scratch using block coding motion",
-        "Be Able to Edit Sound in Scratch"
+        "Identify the Sound Blocks Available in Scratch",
+        "identify when to use sound blocks in Scratch",
+        "create a project in Scratch using block coding motion",
+        "Edit Sound in Scratch"
       ]
     },
     {
@@ -218,9 +218,9 @@ const COURSE_DATA = {
       "objectives_en": [
         "Understanding the Concept of Search Engines",
         "Understanding the Definition of Block Coding and Sensing in Scratch",
-        "Be Able to Identify the Sensing Blocks Available in Scratch",
-        "Be Able to Identify When to Use Block Coding and Sensing in Scratch",
-        "Be Able to Create Projects in Scratch Using Block Coding and Sensors"
+        "Identify the Sensing Blocks Available in Scratch",
+        "Identify When to Use Block Coding and Sensing in Scratch",
+        "Create Projects in Scratch Using Block Coding and Sensors"
       ]
     },
     {
@@ -252,9 +252,9 @@ const COURSE_DATA = {
       "objectives_en": [
         "Ability to Create Strong Passwords",
         "Understanding the Definition of the Block Coding Operator in Scratch",
-        "Be able to identify the block coding operators available in Scratch",
-        "Be able to identify when to use block coding operators in Scratch",
-        "Be able to create projects in Scratch using block coding"
+        "identify the block coding operators available in Scratch",
+        "identify when to use block coding operators in Scratch",
+        "create projects in Scratch using block coding"
       ]
     },
     {
@@ -271,9 +271,9 @@ const COURSE_DATA = {
       "objectives_en": [
         "Understanding the Concept of Deepfakes",
         "Understanding the Definition of Block Coding Variables in Scratch",
-        "Be Able to Identify the Block Coding Variables Available in Scratch",
-        "Be Able to Identify When to Use Variable Blocks in Scratch",
-        "Be Able to Create Projects in Scratch Using Block Coding and Variables",
+        "Identify the Block Coding Variables Available in Scratch",
+        "Identify When to Use Variable Blocks in Scratch",
+        "Create Projects in Scratch Using Block Coding and Variables",
         "Introduction to Variables and Lists"
       ]
     },
@@ -339,7 +339,7 @@ const COURSE_DATA = {
       "num": 23,
       "title": "Lesson 23 - AI Ethics",
       "objectives": [
-        "Menanggapi Konsep Kepemilikian pada Seni AI",
+        "Memahami Konsep Kepemilikan pada Karya Seni AI",
         "Menyelesaikan Tahap Coding pada Project Final ",
         "Mengerti Apa Saja yang Harus Dilakukan Saat Coding Project Final"
       ],
@@ -955,8 +955,8 @@ const COURSE_DATA = {
       "num": 6,
       "title": "Lesson 6 - Review Classification",
       "objectives": [
-        "Mengetahui bagaimana cara kerja algortima Random Forest Classifier",
-        "Mengetahui bagaimana cara kerja Naive bayes Classifier bekerja",
+        "Mempelajari cara kerja algoritma Random Forest Classifier",
+        "Mempelajari cara kerja algoritma Naive Bayes Classifier",
         "Meningkatkan skor akurasi model yang sudah di latih",
         "Membuat prediksi berdasarkan model sentiment analysis yang sudah dibuat"
       ]
@@ -1439,7 +1439,7 @@ const COURSE_DATA = {
       "num": 30,
       "title": "Lesson 30 - App exploration and assets preparation",
       "objectives": [
-        "Explorasi ide aplikasi buatanmu",
+        "Mengeksplorasi ide aplikasi buatannya sendiri",
         "Menyiapkan assets"
       ]
     },
@@ -2274,7 +2274,7 @@ const COURSE_DATA = {
       "num": 1,
       "title": "Lesson 1 - Hello, World!",
       "objectives": [
-        "Mengetahui apa itu coding beserta cangkupannya.",
+        "Memahami apa itu coding beserta cakupannya",
         "Mengetahui bahasa pemrograman JavaScript.",
         "Mengetahui apa itu algoritma."
       ]
@@ -2933,7 +2933,7 @@ const COURSE_DATA = {
       "title": "Lesson 5 - Condition in Python",
       "objectives": [
         "Memahami konsep conditions dalam Python",
-        "Memahami konsep conditions disi bersarang di Python",
+        "Memahami konsep kondisi bersarang (nested condition) di Python",
         "Menggabungkan conditions dengan perulangan",
         "Membuat Proyek Jumbled Word"
       ]
@@ -3124,7 +3124,7 @@ const COURSE_DATA = {
         "Lebih mendalami Behavior pygame.Rect() !",
         "Mendalami konsep velocity untuk membuat object bergerak",
         "Memahami konsep method pygame.key.get_pressed()",
-        "Membuat kode menjadi lebih modular dengan memecar program menjadi beberapa function"
+        "Membuat kode menjadi lebih modular dengan memecah program menjadi beberapa function"
       ]
     },
     {
@@ -3212,7 +3212,7 @@ const COURSE_DATA = {
       "title": "Lesson 16 - CreateYour Own Game (Build and Publish your Game)",
       "objectives": [
         "Build game menjadi executable file",
-        "Publish the game"
+        "Mempublikasikan game yang telah dibuat"
       ]
     }
   ],
@@ -3866,7 +3866,7 @@ const COURSE_DATA = {
         "Menggunakan conditional loop dalam JavaScript"
       ],
       "objectives_en": [
-        "Directing students to have a balance life",
+        "Understanding how to maintain a balanced digital life",
         "Using conditional loops in JavaScript"
       ]
     },
@@ -4068,7 +4068,7 @@ const COURSE_DATA = {
       "num": 4,
       "title": "Lesson 4 - Moodboard",
       "objectives": [
-        "Student mengerti bagaimana referensi dapat membantu dalam membuat dan menentukan desain",
+        "Memahami bagaimana referensi dapat membantu dalam membuat dan menentukan desain",
         "Mempelajari Copyright"
       ],
       "objectives_en": [
@@ -4090,9 +4090,9 @@ const COURSE_DATA = {
       "num": 6,
       "title": "Lesson 6 - Photo Editing",
       "objectives": [
-        "Student mengerti tentang basic Photo Editing",
-        "Student paham tentang apa itu Exposure",
-        "Student mengerti tentang adjustment layer masking",
+        "Memahami konsep dasar Photo Editing",
+        "Memahami konsep Exposure",
+        "Memahami penggunaan adjustment layer masking",
         "Pengenalan Content-Aware Tools"
       ],
       "objectives_en": [
@@ -4109,7 +4109,7 @@ const COURSE_DATA = {
       "objectives": [
         "Mengenalkan istilah Photo Composite",
         "Mengenalkan penggunaan filter di PS",
-        "Student paham dengan apa itu Smart Object"
+        "Memahami konsep dan fungsi Smart Object"
       ],
       "objectives_en": [
         "Introducing the term Composite Photo",
@@ -4131,8 +4131,8 @@ const COURSE_DATA = {
       "num": 9,
       "title": "Lesson 9 - Intro to Illustrator",
       "objectives": [
-        "Student paham perbedaan Raster & Vector",
-        "Basic Illustrator operation skills"
+        "Memahami perbedaan grafik Raster dan Vector",
+        "Mempelajari teknik dasar pengoperasian Adobe Illustrator"
       ],
       "objectives_en": [
         "Students understand the difference between Raster and Vector",
@@ -4143,21 +4143,21 @@ const COURSE_DATA = {
       "num": 10,
       "title": "Lesson 10 - Advanced Typography",
       "objectives": [
-        "Student mampu membuat desain grafis sederhana dengan belajar tipografi di Illustrator"
+        "Membuat desain grafis sederhana dengan menerapkan tipografi di Illustrator"
       ],
       "objectives_en": [
-        "Students are able to create simple graphic designs by learning typography in Illustrator"
+        "create simple graphic designs by learning typography in Illustrator"
       ]
     },
     {
       "num": 11,
       "title": "Lesson 11 - Pen Tool",
       "objectives": [
-        "Student mampu menggunakan Pen Tool",
-        "Melatih student untuk membuat tracing referensi menggunakan Pen Tool"
+        "Menggunakan Pen Tool di Adobe Illustrator",
+        "Berlatih membuat tracing objek referensi menggunakan Pen Tool"
       ],
       "objectives_en": [
-        "Students are able to use the Pen Tool",
+        "use the Pen Tool",
         "Train students to create reference tracing using the Pen Tool"
       ]
     },
@@ -4165,8 +4165,8 @@ const COURSE_DATA = {
       "num": 12,
       "title": "Lesson 12 - Postcard Illustration",
       "objectives": [
-        "Student mengerti fungsi dari artboard tool",
-        "Student mengerti cara untuk merapikan letak objek dengan guide dan object alignment"
+        "Memahami fungsi dari Artboard Tool",
+        "Merapikan tata letak objek dengan Guide dan Object Alignment"
       ],
       "objectives_en": [
         "Students understand the function of the artboard tool",
@@ -4187,7 +4187,7 @@ const COURSE_DATA = {
       "num": 14,
       "title": "Lesson 14 - 3D Paper Technique",
       "objectives": [
-        "Student mengerti cara layer bekerja di Illustrator"
+        "Memahami cara kerja Layer di Adobe Illustrator"
       ],
       "objectives_en": [
         "Students understand how layers work in Illustrator"
@@ -4197,10 +4197,10 @@ const COURSE_DATA = {
       "num": 15,
       "title": "Lesson 15 - Character Making",
       "objectives": [
-        "Student mampu membuat desain karakter dengan basic shape tools atau pen tool"
+        "Membuat desain karakter dengan Basic Shape Tools dan Pen Tool"
       ],
       "objectives_en": [
-        "Students are able to create character designs with basic shape tools or pen tools"
+        "create character designs with basic shape tools or pen tools"
       ]
     },
     {
@@ -4505,23 +4505,23 @@ const COURSE_DATA = {
       "num": 1,
       "title": "Lesson 1 - Introduction to Illustrator",
       "objectives": [
-        "Student paham perbedaan Raster & Vector",
+        "Memahami perbedaan grafik Raster dan Vector",
         "Menguasai basic Illustrator operation skills"
       ],
       "objectives_en": [
         "Students understand the difference between Raster and Vector",
-        "Basic Illustrator operation skills"
+        "Mempelajari teknik dasar pengoperasian Adobe Illustrator"
       ]
     },
     {
       "num": 2,
       "title": "Lesson 2 - Pen Tool",
       "objectives": [
-        "Student mampu menggunakan pen tool",
-        "Melatih student untuk membuat tracing referensi menggunakan pen tool"
+        "Menggunakan Pen Tool",
+        "Berlatih membuat tracing objek referensi menggunakan Pen Tool"
       ],
       "objectives_en": [
-        "Students are able to use pen tools",
+        "use pen tools",
         "Train students to create reference tracing using the pen tool"
       ]
     },
@@ -4541,29 +4541,29 @@ const COURSE_DATA = {
       "num": 4,
       "title": "Lesson 4 - Character Making",
       "objectives": [
-        "Student mampu membuat desain karakter dengan basic shape tools atau pen tool"
+        "Membuat desain karakter dengan Basic Shape Tools dan Pen Tool"
       ],
       "objectives_en": [
-        "Students are able to create character designs with basic shape tools or pen tools"
+        "create character designs with basic shape tools or pen tools"
       ]
     },
     {
       "num": 5,
       "title": "Lesson 5 - Basic After Effects",
       "objectives": [
-        "Student mampu membuat animasi dengan custom path",
-        "Student mampu membuat Transition Effect & text Effect"
+        "Membuat animasi gerakan dengan Custom Path",
+        "Membuat efek transisi (Transition Effect) dan efek teks (Text Effect)"
       ],
       "objectives_en": [
-        "Students are able to create animations with custom paths",
-        "Students are able to create Transition Effects & Text Effects"
+        "create animations with custom paths",
+        "create Transition Effects & Text Effects"
       ]
     },
     {
       "num": 6,
       "title": "Lesson 6 - Frames in Animation",
       "objectives": [
-        "Student paham mengenai Frames dalam animasi",
+        "Memahami konsep Frames dalam animasi",
         "Memahami apa itu Frames",
         "Mengetahui perbedaan jumlah frames dalam animasi"
       ],
@@ -4601,8 +4601,8 @@ const COURSE_DATA = {
       "num": 9,
       "title": "Lesson 9 - Start Drawing Cartoon!",
       "objectives": [
-        "Student mengetahui tipe-tipe kartun",
-        "Student dapat melakukan image tracing"
+        "Mengenal berbagai tipe desain kartun",
+        "Melakukan proses Image Tracing pada objek"
       ],
       "objectives_en": [
         "Students know the types of cartoons",
@@ -4661,7 +4661,7 @@ const COURSE_DATA = {
       "num": 14,
       "title": "Lesson 14 - After Effects Preset",
       "objectives": [
-        "Student mengetahui tipe-tipe file yang dapat dibuka di After Effects",
+        "Mengenal tipe-tipe file yang dapat diolah di After Effects",
         "Menggunakan preset After Effects"
       ],
       "objectives_en": [
@@ -4891,8 +4891,8 @@ const COURSE_DATA = {
       "num": 1,
       "title": "Lesson 1 - Start Drawing Cartoons",
       "objectives": [
-        "Student mengetahui tipe-tipe kartun",
-        "Student dapat melakukan image tracing"
+        "Mengenal berbagai tipe desain kartun",
+        "Melakukan proses Image Tracing pada objek"
       ],
       "objectives_en": [
         "Students know the types of cartoons",
@@ -4927,8 +4927,8 @@ const COURSE_DATA = {
       "num": 4,
       "title": "Lesson 4 - What is Animation?",
       "objectives": [
-        "Perkenalan animasi",
-        "Perkenalan After Effects"
+        "Mengenal konsep dasar animasi",
+        "Mengenal tampilan dan fungsi dasar Adobe After Effects"
       ],
       "objectives_en": [
         "Introduction to animation",
@@ -4951,7 +4951,7 @@ const COURSE_DATA = {
       "num": 6,
       "title": "Lesson 6 - Preset After Effects",
       "objectives": [
-        "Student mengetahui tipe-tipe file yang dapat dibuka di After Effects",
+        "Mengenal tipe-tipe file yang dapat diolah di After Effects",
         "Menggunakan preset After Effects"
       ],
       "objectives_en": [
@@ -5599,7 +5599,7 @@ const COURSE_DATA = {
       "num": 12,
       "title": "Lesson 12 - Understanding Icon in UI Design",
       "objectives": [
-        "Siswa mampu merancang ikon yang baik dan benar",
+        "merancang ikon yang baik dan benar",
         "Memahami jenis dan penggunaan masing-masing jenis ikon dalam desain UI"
       ],
       "objectives_en": [
@@ -8198,13 +8198,13 @@ const COURSE_DATA = {
       "title_en": "Lesson 5 - Condition in Python",
       "objectives": [
         "Memahami konsep conditions dalam Python",
-        "Memahami konsep conditions disi bersarang di Python",
+        "Memahami konsep kondisi bersarang (nested condition) di Python",
         "Menggabungkan conditions dengan perulangan",
         "Membuat Proyek Jumbled Word"
       ],
       "objectives_en": [
         "Memahami konsep conditions dalam Python",
-        "Memahami konsep conditions disi bersarang di Python",
+        "Memahami konsep kondisi bersarang (nested condition) di Python",
         "Menggabungkan conditions dengan perulangan",
         "Membuat Proyek Jumbled Word"
       ]
@@ -8507,14 +8507,14 @@ const COURSE_DATA = {
       "title_id": "Lesson 22 - Review Classification",
       "title_en": "Lesson 22 - Review Classification",
       "objectives": [
-        "Mengetahui bagaimana cara kerja algortima Random Forest Classifier",
-        "Mengetahui bagaimana cara kerja Naive bayes Classifier bekerja",
+        "Mempelajari cara kerja algoritma Random Forest Classifier",
+        "Mempelajari cara kerja algoritma Naive Bayes Classifier",
         "Meningkatkan skor akurasi model yang sudah di latih",
         "Membuat prediksi berdasarkan model sentiment analysis yang sudah dibuat"
       ],
       "objectives_en": [
-        "Mengetahui bagaimana cara kerja algortima Random Forest Classifier",
-        "Mengetahui bagaimana cara kerja Naive bayes Classifier bekerja",
+        "Mempelajari cara kerja algoritma Random Forest Classifier",
+        "Mempelajari cara kerja algoritma Naive Bayes Classifier",
         "Meningkatkan skor akurasi model yang sudah di latih",
         "Membuat prediksi berdasarkan model sentiment analysis yang sudah dibuat"
       ]
