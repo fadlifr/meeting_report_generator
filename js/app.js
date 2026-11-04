@@ -2591,16 +2591,11 @@ window.initApp = function() {
   const tglInput = document.getElementById('auto-tanggal');
   if (tglInput) tglInput.value = todayVal;
 
-  // Init auto tab with sample students matching user's courses
+  // Init auto tab with 1 empty student card by default
   autoStudents = [
-    {nama:'Student One',summary:'',notes:'',progress:'',criteria:'Pro',course:'Basic Website',lesson:'12',status:'done',lang:'en'},
-    {nama:'Student Two',summary:'',notes:'',progress:'',criteria:'Kids',course:'Game Developer',lesson:'18',lesson2:'19',status:'double',lang:'en'}
+    {nama:'',summary:'',notes:'',progress:'',criteria:'',course:'',lesson:'',lesson2:'',status:'done',context:'detail',lang:'en'}
   ];
   setLang('en');
-  if (typeof generateProgress === 'function') {
-    generateProgress(0);
-    generateProgress(1);
-  }
   autoUpdatePreview();
   setTimeout(fitPreviewScale, 100);
 
