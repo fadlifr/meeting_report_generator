@@ -82,8 +82,8 @@ function getPartialAction(action, nama) {
 function createSplitReport(summary, notes) {
   const cleanSummary = (summary || '').trim();
   const cleanNotes = (notes || '').trim();
-  const combined = cleanSummary && cleanNotes 
-    ? `${cleanSummary}\n\n${cleanNotes}` 
+  const combined = cleanSummary && cleanNotes
+    ? `${cleanSummary}\n\n${cleanNotes}`
     : (cleanSummary || cleanNotes || '');
   return {
     summary: cleanSummary,
@@ -201,10 +201,15 @@ function escHtml(s) {
   if (!s) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+const ITALIC_MARKER_RE = /(?<=^|[^A-Za-z0-9_])_([^_\n]+?)_(?![A-Za-z0-9_])/g;
+function stripItalicMarkers(text) {
+  return String(text || '').replace(ITALIC_MARKER_RE, '$1');
+}
 function formatProgressHTML(text) {
   if (!text) return '<em style="color:#94a3b8">—</em>';
   let formatted = escHtml(text);
   formatted = formatted.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+  formatted = formatted.replace(ITALIC_MARKER_RE, '<em>$1</em>');
   formatted = formatted.replace(/\n/g, '<br>');
   return formatted;
 }
@@ -390,7 +395,7 @@ function getStudentLevel(s) {
   if (course && typeof COURSE_MAP !== 'undefined') {
     for (const [lvl, list] of Object.entries(COURSE_MAP)) {
       if (Array.isArray(list)) {
-        if (list.includes(course) || 
+        if (list.includes(course) ||
             (COURSE_LANG_MAP[course] && (list.includes(COURSE_LANG_MAP[course].en) || list.includes(COURSE_LANG_MAP[course].id)))) {
           if (lvl.toLowerCase() === 'junior') return 'Juniors';
           return lvl;
@@ -516,7 +521,7 @@ async function captureImage(elementId) {
   const el = document.getElementById(elementId);
   const originalOverflow = el.style.overflow;
   el.style.overflow = 'visible';
-  
+
   const canvas = await html2canvas(el, {
     scale: 1.5,
     useCORS: true,
@@ -582,7 +587,7 @@ async function captureImage(elementId) {
       }
     }
   });
-  
+
   el.style.overflow = originalOverflow;
   return canvas;
 }
@@ -754,7 +759,7 @@ const LANG_UI = {
       const targetType = isExam ? 'ujian' : 'projek';
       const partial = getPartialObjectives(objectives);
       const partialAction = getPartialAction(action, nama);
-      
+
       if (isRobloxCourse(course)) {
         const defaultAction = isExam ? 'merancang model 3D dan menyiapkan arena ujian di Roblox Studio' : 'membangun model 3D dan merancang tata letak arena di Roblox Studio';
         const actionSentence = partialAction || ((partial && partial.length > 0) ? `berlatih ${formatObjectives(partial, 'id')} di Roblox Studio.` : `${defaultAction}.`);
@@ -1586,7 +1591,7 @@ function setLang(lang){
   document.getElementById('lang-btn-id').classList.toggle('active', lang==='id');
   document.getElementById('lang-btn-en').classList.toggle('active', lang==='en');
   const L = LANG_UI[lang];
-  
+
   const studentCardTitle = document.getElementById('auto-student-card-title');
   if(studentCardTitle) studentCardTitle.textContent = L.cardTitle;
   const autoAddBtn = document.getElementById('auto-add-btn');
@@ -1606,17 +1611,17 @@ function setLang(lang){
   if(autoLabelTanggal) autoLabelTanggal.textContent = L.labelTanggal;
   // Re-render photo inputs with updated language labels
   renderAutoPhotoInputs();
-  
+
   const photoSecTitle = document.getElementById('auto-photo-sec-title');
   if(photoSecTitle) photoSecTitle.textContent = lang === 'id' ? 'Foto Dokumentasi Kegiatan' : 'Classroom Activity Snapshots';
   const progressSecTitle = document.getElementById('auto-progress-sec-title');
   if(progressSecTitle) progressSecTitle.textContent = lang === 'id' ? 'Progress & Perkembangan Siswa' : 'Student Learning & Progress';
-  
+
   const autoLegendDone = document.getElementById('auto-legend-done');
   if(autoLegendDone) autoLegendDone.textContent = lang === 'id' ? 'Selesai Lesson' : 'Completed Lesson';
   const autoLegendProg = document.getElementById('auto-legend-prog');
   if(autoLegendProg) autoLegendProg.textContent = lang === 'id' ? 'Dalam Proses' : 'In Progress';
-  
+
   renderAutoInputs();
 }
 
@@ -1736,13 +1741,13 @@ function populateLessonDropdown(idx) {
   if (!lessonSelect) return;
   const s = autoStudents[idx];
   const sLang = s.lang || autoLang;
-  
+
   lessonSelect.innerHTML = `<option value="">${LANG_UI[sLang].lessonPlaceholder}</option>`;
   if (lesson2Select) {
     lesson2Select.innerHTML = `<option value="">${LANG_UI[sLang].lesson2Placeholder}</option>`;
     lesson2Select.style.display = (s.status === 'double' || s.status === 'one_and_half') ? 'block' : 'none';
   }
-  
+
   if (s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length > 0) {
     COURSE_DATA[s.course].forEach(l => {
       const lTitle = (sLang === 'id' && l.title_id) ? l.title_id : (l.title_en || l.title);
@@ -1750,7 +1755,7 @@ function populateLessonDropdown(idx) {
       opt1.value = l.num; opt1.textContent = `${lTitle}`;
       if (String(l.num) === String(s.lesson)) opt1.selected = true;
       lessonSelect.appendChild(opt1);
-      
+
       if (lesson2Select) {
         const opt2 = document.createElement('option');
         opt2.value = l.num; opt2.textContent = `${lTitle}`;
@@ -1945,7 +1950,7 @@ async function copyStudentField(idx, field) {
   const s = autoStudents[idx];
   const isSummary = field === 'summary';
   const text = isSummary ? (s.summary || '') : (s.notes || '');
-  const label = isSummary 
+  const label = isSummary
     ? (autoLang === 'id' ? 'Meeting Summary' : 'Meeting Summary')
     : (autoLang === 'id' ? 'Teacher Notes' : 'Teacher Notes');
 
@@ -2124,7 +2129,7 @@ function renderAutoInputs(){
         </div>
       </div>`;
     c.appendChild(div);
-    
+
     populateCourseDropdown(i);
     populateLessonDropdown(i);
     ['criteria', 'course', 'status', 'context', 'lesson', 'lesson2'].forEach(field => {
@@ -2156,18 +2161,18 @@ function autoUpdateTable(){
   autoStudents.forEach((s, idx) => {
     syncStudentFromDOM(idx);
     if(!s.nama && !s.progress) return;
-    
+
     // Status dot color
     const isDone = s.status === 'done' || s.status === 'double' || s.status === 'continued_done';
     const dotClass = isDone ? 'dot-done' : 'dot-progress';
-    
+
     const lessonTag = getLessonTag(s);
     const courseName = getStudentCourse(s);
     const sLang = s.lang || autoLang;
     const localizedCourse = getLocalizedCourseName(courseName, sLang);
     const levelName = getStudentLevel(s);
     const levelKey = (levelName || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-    
+
     const div = document.createElement('div');
     div.className = 'rpt-student-card';
     div.innerHTML = `
@@ -2204,17 +2209,17 @@ function autoUpdatePreview(){
 
 function updateMascots() {
   let criteria = 'Teens'; // default
-  
+
   if (typeof autoStudents !== 'undefined' && autoStudents.length > 0 && autoStudents[0].criteria) {
      criteria = autoStudents[0].criteria;
   }
-  
+
   let mascotSrc = 'img/cobee2.png'; // Teens (Default)
   if (criteria === 'Junior' || criteria === 'Juniors') mascotSrc = 'img/cobee4.png';
   if (criteria === 'Kids') mascotSrc = 'img/cobee5.png';
   if (criteria === 'Design') mascotSrc = 'img/cobee9.png';
   if (criteria === 'Pro') mascotSrc = 'img/cobee10.png';
-  
+
   const m2 = document.getElementById('auto-mascot');
   if (m2) m2.src = mascotSrc;
 }
@@ -2225,25 +2230,25 @@ function buildAutoWAMessage(){
   const kelas = document.getElementById('auto-kelas').value || '-';
   const studentLines = autoStudents.map(s => {
     if(!s.nama && !s.progress) return '';
-    
+
     let shortSummary = s.progress || '-';
     const courseName = getStudentCourse(s);
     const localizedCourse = getLocalizedCourseName(courseName, autoLang);
     const lessonTag = getLessonTag(s);
     const levelName = getStudentLevel(s);
     const levelPrefix = levelName ? `${levelName} • ` : '';
-    
+
     if (courseName && s.lesson) {
       const courseList = (typeof COURSE_DATA !== 'undefined') ? COURSE_DATA[courseName] : null;
       const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
-      
+
       let statusText = '';
       if (s.status === 'done' || s.status === 'continued_done' || s.status === 'double') {
         statusText = autoLang === 'en' ? '(Completed)' : '(Selesai)';
       } else if (s.status === 'in_progress_1' || s.status === 'in_progress_2' || s.status === 'in_progress') {
         statusText = autoLang === 'en' ? '(In Progress)' : '(Belum Selesai)';
       }
-      
+
       const coursePrefix = localizedCourse ? `${levelPrefix}${localizedCourse} - ` : (levelPrefix ? `${levelPrefix}` : '');
       if (s.status === 'double' && s.lesson2) {
         shortSummary = `${coursePrefix}Lesson ${s.lesson} & ${s.lesson2} ${statusText}`;
@@ -2259,7 +2264,7 @@ function buildAutoWAMessage(){
     } else if (courseName && lessonTag) {
       shortSummary = `${levelPrefix}${localizedCourse || courseName} - ${lessonTag}`;
     }
-    
+
     return `*${s.nama||'-'}*\n${shortSummary}`;
   }).filter(Boolean).join('\n\n');
   return `${L.waGreeting(kelas, formatDateLong(tgl, autoLang))}\n\n${studentLines}\n\n${L.waClose}`;
@@ -2283,7 +2288,7 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   const W=doc.internal.pageSize.getWidth(),H=doc.internal.pageSize.getHeight();
   const G_DARK=[20,83,45],G_MED=[22,163,74],G_LIGHT=[240,253,244],SLATE=[30,41,59],WHITE=[255,255,255],MUTED=[100,116,139];
   doc.setFillColor(...WHITE);doc.rect(0,0,W,H,'F');
-  
+
   // Header card
   doc.setFillColor(...G_DARK);doc.roundedRect(14,12,W-28,26,4,4,'F');
   doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(...WHITE);doc.text(labels.title,22,27);
@@ -2291,7 +2296,7 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   doc.setFontSize(9);doc.setTextColor(...WHITE);doc.text('Timedoor Academy',W/2,27,{align:'center'});
   doc.setFont('helvetica','normal');doc.setFontSize(9.5);doc.setTextColor(240,253,244);doc.text(labels.labelKelas + kelas,W-22,23,{align:'right'});
   doc.text(labels.labelTanggal + tanggal,W-22,30,{align:'right'});
-  
+
   // Photos section — dynamic array
   const MARGIN=14,GAP=8,PHOTO_Y=44;
   const photoSrcs = Array.isArray(photoStore) ? photoStore : Object.values(photoStore).filter(Boolean);
@@ -2308,7 +2313,7 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     });
     photoSectionBottom = PHOTO_Y + PH;
   }
-  
+
   const TABLE_X=MARGIN,TABLE_W=W-MARGIN*2,COL_NAME_W=38,COL_LESSON_W=48;
   let rowY=photoSectionBottom+8;const HEADER_H=9;
   doc.setFillColor(...G_DARK);doc.roundedRect(TABLE_X,rowY,TABLE_W,HEADER_H,2,2,'F');
@@ -2318,13 +2323,13 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
   doc.text('COURSE & LESSON',TABLE_X+18+COL_NAME_W,rowY+6);
   doc.text(labels.colProgress,TABLE_X+18+COL_NAME_W+COL_LESSON_W,rowY+6);
   rowY+=HEADER_H;
-  
+
   doc.setFont('helvetica','normal');doc.setFontSize(9);
   students.forEach((s,idx)=>{
     if(!s.nama&&!s.progress)return;
-    const plainText = (s.progress||'—').replace(/\*/g,'');
+    const plainText = stripItalicMarkers((s.progress||'—').replace(/\*/g,''));
     const lines=doc.splitTextToSize(plainText,TABLE_W-COL_NAME_W-COL_LESSON_W-24);
-    
+
     const courseName = getStudentCourse(s);
     const sLang = s.lang || autoLang;
     const localizedCourse = getLocalizedCourseName(courseName, sLang);
@@ -2335,20 +2340,20 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
     const courseBoxH = (courseName && courseLines.length > 0) ? (courseLines.length * 3.8 + 2.5) : 0;
     const minH = Math.max(12, levelH + courseBoxH + (lessonTag ? 8 : 4));
     const cellH = Math.max(minH, lines.length * 5 + 8);
-    
+
     if(rowY+cellH>H-20){doc.addPage();rowY=20;}
     if(idx%2===0){doc.setFillColor(...G_LIGHT);doc.rect(TABLE_X,rowY,TABLE_W,cellH,'F');}
     doc.setDrawColor(226,232,240);doc.setLineWidth(0.2);doc.line(TABLE_X,rowY+cellH,TABLE_X+TABLE_W,rowY+cellH);
-    
+
     // Status dot
     const isDone = s.status === 'done' || s.status === 'double' || s.status === 'continued_done' || !/in progress|working on|sedang mempelajari|belum|absent/i.test(s.progress||'');
     doc.setFillColor(...(isDone ? [22,163,74] : [245,158,11]));
     doc.circle(TABLE_X+8,rowY+7,2.5,'F');
-    
+
     // Student Name
     doc.setFont('helvetica','bold');doc.setTextColor(...G_DARK);
     doc.text(s.nama||'—',TABLE_X+18,rowY+6.5);
-    
+
     // Course & Lesson
     let curY = rowY + 5.2;
     if (levelName) {
@@ -2374,12 +2379,12 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
       });
       const boxW = Math.min(COL_LESSON_W - 4, maxLineW + 4);
       const boxH = courseLines.length * 3.8 + 2;
-      
+
       doc.setFillColor(241, 245, 249);
       doc.setDrawColor(203, 213, 225);
       doc.setLineWidth(0.2);
       doc.roundedRect(TABLE_X + 18 + COL_NAME_W, curY - 2.8, boxW, boxH, 1, 1, 'FD');
-      
+
       doc.setTextColor(15, 23, 42);
       doc.text(courseLines, TABLE_X + 20 + COL_NAME_W, curY);
       curY += boxH + 1.8;
@@ -2394,12 +2399,12 @@ async function buildAndSavePDF({kelas, tanggal, photoStore, students, labels}) {
       doc.text(lessonTag, TABLE_X + 20 + COL_NAME_W, curY);
       doc.setFontSize(9);
     }
-    
+
     // Progress
     doc.setFont('helvetica','normal');doc.setTextColor(...SLATE);doc.text(lines,TABLE_X+18+COL_NAME_W+COL_LESSON_W,rowY+6.5);
     rowY+=cellH;
   });
-  
+
   doc.setDrawColor(...G_MED);doc.setLineWidth(0.5);
   doc.roundedRect(TABLE_X,photoSectionBottom+8,TABLE_W,rowY-(photoSectionBottom+8),2,2,'S');
   doc.save(`${labels.fileName.replace(/\s+/g,'_')}.pdf`);
@@ -2414,7 +2419,7 @@ function checkExamReminder(callback) {
     callback();
     return;
   }
-  
+
   pendingExamStudents = autoStudents.filter(s => {
     const l1 = parseInt(s.lesson) || 0;
     const l2 = parseInt(s.lesson2) || 0;
@@ -2422,7 +2427,7 @@ function checkExamReminder(callback) {
     const isFinished = s.status !== 'in_progress' && s.status !== 'in_progress_1' && s.status !== 'in_progress_2';
     return isExam && isFinished;
   });
-  
+
   if (pendingExamStudents.length > 0) {
     pendingAction = callback;
     const ul = document.getElementById('exam-student-names');
@@ -2447,15 +2452,15 @@ function sendWAReminder() {
 function addGCalReminder() {
   const tglInput = document.getElementById('auto-tanggal').value;
   const baseDate = tglInput ? new Date(tglInput) : new Date();
-  
+
   // Add 3 days and set time to 20:00 (8 PM)
   baseDate.setDate(baseDate.getDate() + 3);
   baseDate.setHours(20, 0, 0, 0);
-  
+
   const yyyy = baseDate.getFullYear();
   const mm = String(baseDate.getMonth() + 1).padStart(2, '0');
   const dd = String(baseDate.getDate()).padStart(2, '0');
-  
+
   const endDate = new Date(baseDate);
   endDate.setHours(21); // End at 21:00 (9 PM)
   endDate.setMinutes(0);
@@ -2464,14 +2469,14 @@ function addGCalReminder() {
   const endDd = String(endDate.getDate()).padStart(2, '0');
   const endHH = String(endDate.getHours()).padStart(2, '0');
   const endMin = String(endDate.getMinutes()).padStart(2, '0');
-  
+
   const dateString = `${yyyy}${mm}${dd}T200000/${endYyyy}${endMm}${endDd}T210000`;
-  
+
   const names = pendingExamStudents.map(s => s.nama || 'Unnamed').join(', ');
   const title = encodeURIComponent(`📝 Deadline Exam Report: ${names}`);
   const details = encodeURIComponent(`Pengingat otomatis untuk pembuatan Exam Report.\nSiswa: ${names}`);
   const recur = encodeURIComponent('RRULE:FREQ=DAILY;INTERVAL=3;COUNT=2');
-  
+
   const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dateString}&recur=${recur}`;
   window.open(url, '_blank');
 }
@@ -2615,8 +2620,8 @@ function applyTheme(theme) {
   try { localStorage.setItem('td_mrg_theme', theme); } catch(e){}
   const btn = document.getElementById('theme-toggle-btn');
   if (btn) {
-    btn.innerHTML = (theme === 'dark') 
-      ? '☀️ <span class="theme-btn-text">Light Mode</span>' 
+    btn.innerHTML = (theme === 'dark')
+      ? '☀️ <span class="theme-btn-text">Light Mode</span>'
       : '🌙 <span class="theme-btn-text">Dark Mode</span>';
     btn.title = (theme === 'dark') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
   }
