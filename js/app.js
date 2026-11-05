@@ -660,19 +660,19 @@ const LANG_UI = {
         const robloxVariants = [
           {
             summary: `Pada pertemuan hari ini, ${nama} menyelesaikan pembelajaran *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `Selama kelas, ${nama} terampil membangun model 3D dan mandiri menulis script Lua dengan sedikit arahan. Kreativitas dan pemahamannya sangat hebat!`
+            notes: `Selama kelas, ${nama} terampil membangun model 3D dan mandiri menulis script Lua dengan sedikit arahan. Kreativitas dan pemahamannya berkembang dengan baik. Good job ${nama}!`
           },
           {
             summary: `Dalam sesi ini, ${nama} berhasil menuntaskan projek dan script pada materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `Teramati di kelas, ${nama} sangat cermat merancang objek 3D serta memprogram mekanisme interaktif di Roblox Studio. Problem-solving yang sangat matang!`
+            notes: `Di kelas, ${nama} cermat merancang objek 3D serta memprogram mekanisme interaktif di Roblox Studio. Kemampuan menyelesaikan masalahnya sudah baik. Keep it up ${nama}!`
           },
           {
             summary: `Di pertemuan kali ini, ${nama} menyelesaikan seluruh target materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `${nama} menunjukkan dedikasi tinggi, menyusun struktur 3D dengan rapi dan memastikan seluruh script Lua berjalan lancar tanpa error!`
+            notes: `Di kelas, ${nama} fokus menyusun struktur 3D dengan rapi dan memastikan seluruh script Lua berjalan lancar tanpa error. Good job ${nama}!`
           },
           {
             summary: `Hari ini, ${nama} berhasil menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `Di kelas, ${nama} tekun membangun dunia 3D dan menyusun baris kode script secara metodis. Hasil projek Roblox-nya sangat memuaskan!`
+            notes: `Di kelas, ${nama} tekun membangun dunia 3D dan menyusun baris kode script secara runtut. Di rumah, orang tua bisa meminta ${nama} menunjukkan hasil projeknya. Keep it up ${nama}!`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -681,11 +681,11 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Hari ini, ${nama} berhasil menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `Di kelas, ${nama} teliti dan bisa memperbaiki sendiri saat ada susunan _code_ yang kurang tepat. Di rumah, _project_-nya boleh dicoba dimainkan ulang. Good job ${nama}!`
+          notes: `Di kelas, ${nama} teliti dan bisa memperbaiki sendiri saat ada susunan _code_ yang kurang tepat. Di rumah, orang tua bisa meminta ${nama} menunjukkan _project_ yang dibuat hari ini. Good job ${nama}!`
         },
         {
           summary: `Di pertemuan kali ini, ${nama} menyelesaikan seluruh target materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} tampak sangat antusias dan menambahkan ide kreatifnya sendiri ke dalam _project_. Minggu depan, kreativitas ini akan dilanjutkan ke materi baru. Keep it up ${nama}!`
+          notes: `${nama} tampak antusias dan menambahkan ide kreatifnya sendiri ke dalam _project_. Minggu depan, kreativitas ini akan dilanjutkan ke materi baru. Keep it up ${nama}!`
         },
         {
           summary: `Hari ini, ${nama} berhasil menyelesaikan materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
@@ -716,7 +716,7 @@ const LANG_UI = {
           },
           {
             summary: `Dalam sesi ini, ${nama} menuntaskan kelanjutan projek *${lessonTitle}* dari minggu lalu. ${nama} ${ensurePeriod(action)}`,
-            notes: `${nama} menunjukkan kegigihan hebat melintasi beberapa sesi, menyempurnakan tata letak 3D dan memeriksa setiap script hingga projek berjalan mulus!`
+            notes: `${nama} tekun menyelesaikan projek ini dari sesi sebelumnya, merapikan tata letak 3D, dan memeriksa setiap script hingga berjalan lancar. Keep it up ${nama}!`
           },
           {
             summary: `Di pertemuan kali ini, ${nama} menuntaskan tahap akhir materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
@@ -729,7 +729,7 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Hari ini, ${nama} menyelesaikan _project_ *${lessonTitle}* yang dikerjakan sejak minggu lalu. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} menyelesaikan sisa _code_ dan menggabungkannya ke _project_ dengan baik. Di rumah, hasil _project_-nya bisa ditunjukkan ke keluarga. Good job ${nama}!`
+          notes: `${nama} menyelesaikan sisa _code_ dan menggabungkannya ke _project_ dengan baik. Di rumah, orang tua bisa meminta ${nama} menceritakan cara kerja _project_-nya. Good job ${nama}!`
         },
         {
           summary: `Di pertemuan kali ini, ${nama} menyelesaikan bagian akhir dari materi *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
@@ -737,7 +737,7 @@ const LANG_UI = {
         },
         {
           summary: `Hari ini, ${nama} melanjutkan *${lessonTitle}* sampai selesai. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} fokus bekerja, memperbaiki sendiri _error_ yang tersisa, dan menyelesaikan seluruh bagian _project_. Semangat belajarnya sangat bagus. Good job ${nama}!`
+          notes: `${nama} fokus bekerja, memperbaiki sendiri _error_ yang tersisa, dan menyelesaikan seluruh bagian _project_ dengan baik. Pertahankan semangat belajarnya. Good job ${nama}!`
         },
         {
           summary: `Di sesi kali ini, ${nama} berhasil menyelesaikan sisa _project_ *${lessonTitle}* dengan baik. ${nama} ${ensurePeriod(action)}`,
@@ -856,7 +856,7 @@ const LANG_UI = {
         logic: [
           {
             summary: `Pada pertemuan kali ini, ${nama} mempelajari materi baru *${lessonTitle}*. ${nama} ${actionSentence}`,
-            notes: `Di kelas, ${nama} menemui tantangan logika baru. Teacher mendampingi intensif agar konsep dipahami dengan matang. Sisa pengerjaan diselesaikan di sesi berikutnya.`
+            notes: `Di kelas, ${nama} menemui tantangan logika baru. Teacher mendampingi bertahap agar konsepnya dipahami dengan baik. Sisa pengerjaan diselesaikan di sesi berikutnya.`
           },
           {
             summary: `Hari ini, ${nama} memulai langkah awal pada *${lessonTitle}*. ${nama} ${actionSentence}`,
@@ -921,7 +921,7 @@ const LANG_UI = {
           logic: [
             {
               summary: `Pada sesi kelanjutan *${lessonTitle}* ini, ${nama} mendalami logika script Lua. ${nama} ${actionSentence}`,
-              notes: `Teacher mendampingi intensif pemahaman event trigger dan alur script Lua. Mekanisme projek berfungsi baik, dan tahap akhir dituntaskan minggu depan.`
+              notes: `Teacher mendampingi pemahaman event trigger dan alur script Lua secara bertahap. Mekanisme projek berfungsi baik, dan tahap akhir dituntaskan minggu depan.`
             },
             {
               summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}*. ${nama} ${actionSentence}`,
@@ -983,7 +983,7 @@ const LANG_UI = {
           },
           {
             summary: `Hari ini, ${nama} melanjutkan materi *${lessonTitle}* pada tahap logika lanjutan bersama teacher. ${nama} ${actionSentence}`,
-            notes: `Melalui pemecahan masalah langsung di kelas, pemahaman konseptual ${nama} berkembang jauh lebih matang. Tahap akhir akan diselesaikan minggu depan.`
+            notes: `Melalui latihan langsung di kelas, pemahaman logika ${nama} berkembang dengan baik. Tahap akhir akan diselesaikan minggu depan.`
           }
         ],
         tired: [
@@ -1014,7 +1014,7 @@ const LANG_UI = {
           },
           {
             summary: `Dalam sesi ini, ${nama} menuntaskan seluruh materi *${l1Title}* di Roblox Studio, lalu langsung mengawali projek *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-            notes: `Teramati di kelas, ${nama} sangat antusias dan mampu menangkap instruksi baru dengan cepat saat memulai rancangan model 3D *${l2Title}*. Performa luar biasa!`
+            notes: `Di kelas, ${nama} antusias dan cepat memahami instruksi baru saat mulai merancang model 3D untuk *${l2Title}*. Keep it up ${nama}!`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -1023,7 +1023,7 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Hari ini, ${nama} menyelesaikan materi *${l1Title}* dengan mandiri, lalu langsung mulai mengerjakan *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `${nama} sangat antusias dan cepat memahami instruksi baru saat mulai mengerjakan *${l2Title}*. Terus pertahankan semangat belajarnya ya. Keep it up ${nama}!`
+          notes: `${nama} antusias dan cepat memahami instruksi baru saat mulai mengerjakan *${l2Title}*. Terus pertahankan semangat belajarnya ya. Keep it up ${nama}!`
         },
         {
           summary: `Di pertemuan kali ini, ${nama} menyelesaikan materi *${l1Title}* lebih cepat dan langsung lanjut ke *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
@@ -1046,11 +1046,11 @@ const LANG_UI = {
         const robloxVariants = [
           {
             summary: `${nama} menyelesaikan 2 materi Roblox sekaligus pada pertemuan hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-            notes: `Di kelas, ${nama} sangat produktif dan cekatan, membangun arena 3D serta memprogram script Lua pada kedua materi dengan rapi dan mandiri!`
+            notes: `Di kelas, ${nama} produktif dan cekatan membangun arena 3D serta memprogram script Lua pada kedua materi dengan rapi dan mandiri. Good job ${nama}!`
           },
           {
-            summary: `${nama} mencapai pencapaian luar biasa dengan menuntaskan 2 lesson Roblox hari ini (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-            notes: `Teramati di kelas, ${nama} memiliki ketelitian tinggi dalam membangun model dan menguji script secara mandiri pada kedua projek tersebut.`
+            summary: `Hari ini, ${nama} berhasil menuntaskan 2 lesson Roblox sekaligus (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+            notes: `Di kelas, ${nama} teliti dalam membangun model dan menguji script secara mandiri pada kedua projek tersebut. Keep it up ${nama}!`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -1059,7 +1059,7 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Hari ini, ${nama} berhasil menyelesaikan 2 lesson sekaligus (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `Di kelas, ${nama} teliti dan bisa memperbaiki sendiri saat ada susunan _code_ yang kurang tepat di kedua _project_. Hasilnya sudah bisa dicoba di rumah. Good job ${nama}!`
+          notes: `Di kelas, ${nama} teliti dan bisa memperbaiki sendiri saat ada susunan _code_ yang kurang tepat. Di rumah, orang tua bisa meminta ${nama} menunjukkan _project_ yang dibuat hari ini. Good job ${nama}!`
         },
         {
           summary: `Di pertemuan kali ini, ${nama} menyelesaikan 2 materi sekaligus (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
@@ -1137,19 +1137,19 @@ const LANG_UI = {
         const robloxVariants = [
           {
             summary: `In today's session, ${nama} successfully completed *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `In class, ${nama} built 3D models skillfully and wrote Lua scripts independently with minimal guidance. Great creativity and technical execution!`
+            notes: `In class, ${nama} built the 3D models neatly and wrote the Lua scripts independently with little help. Feel free to ask ${nama} to show you the project at home. Good job, ${nama}!`
           },
           {
             summary: `In this session, ${nama} finished building and scripting the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `Throughout class, ${nama} showed great precision in designing 3D assets and scripting interactive mechanics in Roblox Studio. Excellent work!`
+            notes: `In class, ${nama} carefully designed the 3D objects and wrote the scripts for the game mechanics in Roblox Studio. Next week, we are ready for a new topic. Keep it up, ${nama}!`
           },
           {
             summary: `During today's class, ${nama} achieved all learning objectives for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `${nama} demonstrated strong dedication, carefully assembling 3D structures and verifying that all Lua scripts ran smoothly without bugs!`
+            notes: `In class, ${nama} stayed focused, arranged the 3D objects neatly, and made sure all Lua scripts ran smoothly without errors. Good job, ${nama}!`
           },
           {
             summary: `Today, ${nama} completed all instructions in *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `In class, ${nama} showed great persistence in Roblox Studio, designing 3D models and coding interactive scripts methodically. Well done!`
+            notes: `In class, ${nama} worked steadily in Roblox Studio, designing 3D models and writing the scripts step by step. At home, you can ask ${nama} about today's game. Keep it up, ${nama}!`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -1158,19 +1158,19 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Today, ${nama} finished the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `In class, ${nama} worked carefully and fixed any errors in the code independently. At home, the project can be played again or expanded with new ideas. Good job, ${nama}!`
+          notes: `In class, ${nama} worked carefully and fixed any errors in the code independently. At home, feel free to ask ${nama} to show you the project we made today. Good job, ${nama}!`
         },
         {
           summary: `In class today, ${nama} completed all the goals of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} was very enthusiastic and added creative ideas to the project. Next time, we will build on this creativity with more fun projects. Keep it up, ${nama}!`
+          notes: `${nama} was enthusiastic in class and added creative ideas to the project. Next time, we will continue with a new topic. Keep it up, ${nama}!`
         },
         {
           summary: `Today, ${nama} completed *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `In class, ${nama} followed every coding step carefully and did not give up when parts were challenging. Please keep supporting this great spirit at home. Good job, ${nama}!`
+          notes: `In class, ${nama} followed every coding step well and did not give up on tricky parts. At home, you can ask ${nama} to tell you about the project we made today. Good job, ${nama}!`
         },
         {
           summary: `In this class, ${nama} finished *${lessonTitle}* with great results. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} asked good questions about how the code works, showing strong curiosity. This is a great foundation for our next topic next week. Keep it up, ${nama}!`
+          notes: `${nama} asked good questions about how the code works and showed curiosity during class. This is a good foundation for our new topic next week. Keep it up, ${nama}!`
         },
         {
           summary: `In today's lesson, ${nama} reached all the goals of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
@@ -1178,7 +1178,7 @@ const LANG_UI = {
         },
         {
           summary: `In today's session, ${nama} successfully finished *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} stayed focused and put the code together with very little help from the teacher. Next meeting, we are ready for more fun challenges. Keep it up, ${nama}!`
+          notes: `${nama} stayed focused and put the code together with little help from the teacher. Next meeting, we are ready to move on to the next lesson. Keep it up, ${nama}!`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
@@ -1189,15 +1189,15 @@ const LANG_UI = {
         const robloxVariants = [
           {
             summary: `In today's session, ${nama} continued and successfully finalized the project for *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `In class, ${nama} seamlessly connected 3D models with Lua scripts, finalizing all game mechanics and testing gameplay thoroughly. Outstanding result!`
+            notes: `In class, ${nama} connected the 3D models with the Lua scripts and tested the gameplay from start to finish. At home, feel free to ask ${nama} to show you the finished game!`
           },
           {
             summary: `In this class, ${nama} concluded the ongoing project in *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `${nama} demonstrated great perseverance across sessions, perfecting 3D assets and debugging interactive scripts until the game ran flawlessly!`
+            notes: `${nama} worked steadily across sessions, finishing the 3D layout and fixing the scripts until the game ran smoothly. Good job, ${nama}!`
           },
           {
             summary: `During today's lesson, ${nama} accomplished the final stage of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
-            notes: `${nama} diligently reviewed all 3D components and Lua scripts, verifying that every mechanism responded accurately without glitches!`
+            notes: `${nama} checked the 3D objects and Lua scripts carefully to make sure everything worked properly. Next week, we are ready for a new lesson. Keep it up, ${nama}!`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -1206,7 +1206,7 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Today, ${nama} finished the project in *${lessonTitle}* that started last week. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} completed the remaining code and connected all parts of the project well. At home, the finished project is ready to show to the family. Good job, ${nama}!`
+          notes: `${nama} completed the remaining code and connected all parts of the project well. At home, you can ask ${nama} to show you how the finished project works. Good job, ${nama}!`
         },
         {
           summary: `In today's lesson, ${nama} finished the last part of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
@@ -1214,7 +1214,7 @@ const LANG_UI = {
         },
         {
           summary: `Today, ${nama} continued *${lessonTitle}* and finished it. ${nama} ${ensurePeriod(action)}`,
-          notes: `${nama} stayed focused, fixed the remaining bugs, and finished all parts of the project. Great effort and focus throughout today's class. Good job, ${nama}!`
+          notes: `${nama} stayed focused, fixed the remaining bugs, and finished all parts of the project. At home, feel free to ask ${nama} to show you the finished project. Good job, ${nama}!`
         },
         {
           summary: `In this session, ${nama} finished the rest of *${lessonTitle}*. ${nama} ${ensurePeriod(action)}`,
@@ -1249,7 +1249,7 @@ const LANG_UI = {
             },
             {
               summary: `In this session, ${nama} started *${lessonTitle}* in Roblox Studio. ${nama} ${actionSentence}`,
-              notes: `In class, ${nama} constructed 3D assets with great precision. As the project is in the building stage, the ${targetType} continues next week and scripting will begin after that.`
+              notes: `In class, ${nama} constructed the 3D assets carefully and neatly. As the project is in the building stage, the ${targetType} continues next week and scripting will begin after that.`
             }
           ],
           focus: [
@@ -1313,7 +1313,7 @@ const LANG_UI = {
         focus: [
           {
             summary: `Today, ${nama} started learning *${lessonTitle}*. ${nama} ${actionSentence}`,
-            notes: `In class, ${nama} had strong curiosity, though attention occasionally shifted to other apps. Guided by teacher, code progress continues next week.`
+            notes: `In class, ${nama} showed curiosity, though attention occasionally shifted to other apps. Guided by teacher, code progress continues next week.`
           },
           {
             summary: `During today's class, ${nama} initiated *${lessonTitle}*. ${nama} ${actionSentence}`,
@@ -1333,7 +1333,7 @@ const LANG_UI = {
         logic: [
           {
             summary: `During today's class, ${nama} explored the new topic *${lessonTitle}*. ${nama} ${actionSentence}`,
-            notes: `The teacher provided intensive guidance to ensure ${nama} truly understood new coding logic before moving forward. Progress continues next class.`
+            notes: `The teacher provided step-by-step guidance so ${nama} understood the new coding logic before moving forward. Progress continues next class.`
           },
           {
             summary: `Today, ${nama} commenced *${lessonTitle}*. ${nama} ${actionSentence}`,
@@ -1426,7 +1426,7 @@ const LANG_UI = {
         detail: [
           {
             summary: `In this second session for *${lessonTitle}*, ${nama} continued developing the project code from last week. ${nama} ${actionSentence}`,
-            notes: `In class, ${nama} meticulously verified that all interactions responded accurately. Final testing and polish will wrap up next class.`
+            notes: `In class, ${nama} carefully checked that all parts of the project worked properly. Final testing and polish will wrap up next class.`
           },
           {
             summary: `In this follow-up session for *${lessonTitle}*, ${nama} progressed with project development. ${nama} ${actionSentence}`,
@@ -1487,11 +1487,11 @@ const LANG_UI = {
         const robloxVariants = [
           {
             summary: `In today's session, ${nama} completed *${l1Title}* and immediately initiated the next topic in Roblox Studio. ${nama} ${ensurePeriod(action1)}`,
-            notes: `In class, ${nama} completed 3D models and scripts with great speed and accuracy, using remaining time to start designing the next Roblox project layout.`
+            notes: `In class, ${nama} completed the 3D models and scripts quickly and neatly, using the remaining time to start designing the next Roblox project layout.`
           },
           {
             summary: `In this session, ${nama} completed *${l1Title}* independently and immediately initiated the next project *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-            notes: `In class, ${nama} showed high enthusiasm and picked up new concepts rapidly, completing initial 3D models for *${l2Title}* with ease.`
+            notes: `In class, ${nama} was enthusiastic and understood the new concepts quickly, completing the initial 3D models for *${l2Title}* smoothly.`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -1508,7 +1508,7 @@ const LANG_UI = {
         },
         {
           summary: `Today, ${nama} finished *${l1Title}* and started *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
-          notes: `${nama} worked with great focus, leaving extra time to begin *${l2Title}*. In the next class, we will continue and complete this project. Keep it up, ${nama}!`
+          notes: `${nama} stayed focused in class, leaving extra time to begin *${l2Title}*. In the next class, we will continue and complete this project. Keep it up, ${nama}!`
         },
         {
           summary: `In today's session, ${nama} finished *${l1Title}* and got a head start on *${l2Title}*. ${nama} ${ensurePeriod(action1)}`,
@@ -1523,11 +1523,11 @@ const LANG_UI = {
         const robloxVariants = [
           {
             summary: `${nama} completed 2 full Roblox lessons during today's class (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-            notes: `In class, ${nama} showed exceptional productivity, building 3D environments and programming Lua scripts across both lessons smoothly without missing a detail!`
+            notes: `In class, ${nama} worked productively, building the 3D environments and writing the Lua scripts for both lessons neatly. Good job, ${nama}!`
           },
           {
-            summary: `${nama} achieved an exceptional milestone by finishing 2 full Roblox lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-            notes: `In class, ${nama} demonstrated great skill in both 3D model construction and Lua scripting, finishing all interactive challenges with minimal guidance!`
+            summary: `${nama} finished 2 full Roblox lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
+            notes: `In class, ${nama} did well in both 3D model building and Lua scripting, finishing the tasks for both lessons with little help. Keep it up, ${nama}!`
           }
         ];
         const chosen = pickVariant(robloxVariants, idx, seed);
@@ -1536,7 +1536,7 @@ const LANG_UI = {
       const variants = [
         {
           summary: `Today, ${nama} finished 2 lessons (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `In class, ${nama} worked carefully and fixed any code errors across both projects independently. At home, you can try the finished projects together. Good job, ${nama}!`
+          notes: `In class, ${nama} worked carefully and fixed any code errors independently. At home, you can ask ${nama} to show you what we built in class today. Good job, ${nama}!`
         },
         {
           summary: `In today's session, ${nama} completed 2 lessons (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
@@ -1544,11 +1544,11 @@ const LANG_UI = {
         },
         {
           summary: `Great news! ${nama} finished 2 lessons today (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `In class, ${nama} stayed focused and completed both projects neatly with very little help. Next week, we are ready to move on to the next lesson. Good job, ${nama}!`
+          notes: `In class, ${nama} stayed focused and completed both projects neatly with little help. Next week, we are ready to move on to the next lesson. Good job, ${nama}!`
         },
         {
           summary: `In this meeting, ${nama} finished 2 lessons (*Lesson ${l1Num}* & *Lesson ${l2Num}*):\n\n• *${l1Title}*: ${nama} ${ensurePeriod(action1)}\n• *${l2Title}*: ${nama} ${ensurePeriod(action2)}`,
-          notes: `${nama} stayed very focused, solved the coding challenges independently, and kept both projects neat. Next meeting, we can move on to a new topic. Keep it up, ${nama}!`
+          notes: `${nama} stayed focused, solved the coding challenges independently, and kept both projects neat. Next meeting, we can move on to a new topic. Keep it up, ${nama}!`
         }
       ];
       const chosen = pickVariant(variants, idx, seed);
