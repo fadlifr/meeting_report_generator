@@ -44,8 +44,63 @@ function formatObjectives(objectives, lang) {
   return obj.join(', ') + `, ${andWord} ` + last;
 }
 
-function extractAction(template, nama, lang) {
+function getPronouns(lang = 'en', gender = 'm') {
+  const isFemale = gender === 'f';
+  if (lang === 'id') {
+    return { subj: 'ia', Subj: 'Ia', obj: 'ia', poss: 'nya', Poss: 'Ia' };
+  }
+  return isFemale
+    ? { subj: 'she', Subj: 'She', obj: 'her', poss: 'her', Poss: 'Her', refl: 'herself' }
+    : { subj: 'he', Subj: 'He', obj: 'him', poss: 'his', Poss: 'His', refl: 'himself' };
+}
+
+function inferGenderFromName(name) {
+  if (!name || !name.trim()) return 'm';
+  const first = name.trim().split(/\s+/)[0].toLowerCase().replace(/[^a-z]/g, '');
+  if (!first) return 'm';
+  const knownMale = new Set(['cedric','kevin','budi','rafi','arjuna','kenzo','darren','nathan','muhammad','mohammad','ahmad','reza','aditya','bima','daffa','fajar','rizky','rizki','joshua','jason','justin','brandon','ryan','rayhan','raihan','farhan','bagas','dimas','galih','gilang','satria','arya','aryo','diego','ezra','evan','ethan','lucas','lukas','liam','noah','oliver','william','james','benjamin','henry','alexander','michael','daniel','matthew','david','joseph','samuel','sebastian','jack','owen','gabriel','carter','jayden','luke','isaac','anthony','dylan','leo','lincoln','jaxon','asher','christopher','josiah','andrew','thomas','josh','christian','hunter','eli','jonathan','connor','landon','adrian','cameron','nolan','easton','jeremiah','robert','nicholas','austin','ian','adam','elijah','aaron','charles','caleb','cooper','gavin','chase','myles','tyler','zachary','xavier','declan','kyle','marco','dante','hugo','leon','max','theo','felix','oscar','arthur','louis','timothy','vincent','victor','kenneth','steven','stephen','edward','brian','ronald','tim','eric','erik','patrick','sean','shane','marcus','mark','paul','peter','philip','george','frank','scott','gregory','raymond','jerry','dennis','walter','harold','carl','douglas','roger','gerald','joe','albert','lawrence','willie','roy','ralph','eugene','russell','bobby','harry','logan','mason','jacob','jackson','aiden','elias','miles','devon','rafael','alvaro','arkan','azka','azzam','dzaki','zaki','farel','farrel','hafiz','haikal','ilham','irfan','iqbal','luthfi','naufal','pandu','raditya','rakha','rasya','rendi','reyhan','ridho','rifqi','salman','syafiq','taufik','wahyu','yusuf','zaidan','zidan']);
+  if (knownMale.has(first)) return 'm';
+  const knownFemale = new Set(['putri','sarah','sara','alya','chloe','kayla','nabila','siti','aisyah','michelle','jessica','alicia','amanda','amelia','anisa','annisa','aura','aurel','aurelia','azzahra','zahra','bella','bianca','bilqis','cahaya','callista','cantika','carissa','chelsea','cinta','citra','clara','clarissa','cynthia','dea','della','dewi','diana','dinda','diva','elena','elisa','elizabeth','elsa','emily','emma','eva','evelyn','fanny','farah','fatimah','febri','felicia','fiona','fitri','freya','gabriella','gita','grace','hana','hanna','hannah','hasna','helen','helena','indah','intan','irene','isabella','jasmine','jennifer','karen','karina','kartika','keisya','keysha','khansa','kirana','laura','leila','lidia','linda','lisa','luna','lydia','maria','marsha','maya','meisya','melati','melissa','mutiara','nadia','nadine','nadya','naomi','natasha','nathania','nayla','nisa','novia','nur','nurul','olivia','patricia','priscilla','queen','queenza','rachel','rahma','raisya','rani','rania','ratna','rebecca','regina','renata','ria','rina','risa','rosa','sabrina','safa','salma','salwa','samantha','sandra','saskia','shafa','shania','shannon','sheila','sherina','sheryl','silvia','sofia','sonia','sophia','sophie','stephanie','suci','syifa','talitha','tamara','tania','tara','tasya','tiara','tiffany','ulfa','valerie','vanessa','vania','vera','veronica','victoria','vina','vio','violet','vivi','vivian','wanda','widya','winda','yasmin','yasmine','yulia','yuni','zoe']);
+  if (knownFemale.has(first)) return 'f';
+  if (/(?:ia|ya|na|la|ra|sa|ta|da|fa|ha|ka|ma|pa|va|za|ah|ni|ri|si|ti|li|mi|fi|vi|yn|elle|ine|ette|een|ice|isya|sya)$/.test(first)) return 'f';
+  return 'm';
+}
+
+function extractAction(template, nama, lang, gender = 'm', seed = 0) {
   if (!template) return '';
+  const p = getPronouns(lang, gender);
+  const sIdx = Math.abs(parseInt(seed) || 0);
+  let t = template.trim();
+  if (lang === 'id') {
+    t = t.replace(/^(?:Pada pertemuan ini|Dalam sesi ini|Di pertemuan kali ini|Pada sesi kali ini|Dalam pertemuan kali ini|Di sesi ini),?\s*\{nama\}\s*/i, '');
+    t = t.replace(/^\{nama\}\s*/i, '');
+    const idAlso = ['. Selain itu, ia juga ', ', serta ia juga ', '. Di samping itu, ia juga '];
+    const idNext = ['. Selanjutnya, ia ', '. Selain itu, ia ', ', kemudian ia '];
+    t = t.replace(/\.\s*Selain itu,\s*\{nama\}\s+juga\s+/gi, idAlso[sIdx % idAlso.length]);
+    t = t.replace(/\.\s*Tak hanya itu,\s*\{nama\}\s+juga\s+/gi, sIdx % 2 === 0 ? '. Tak hanya itu, ia juga ' : '. Di samping itu, ia juga ');
+    t = t.replace(/\.\s*\{nama\}\s+juga\s+/gi, idAlso[sIdx % idAlso.length]);
+    t = t.replace(/\.\s*\{nama\}\s+/gi, idNext[sIdx % idNext.length]);
+    t = t.replace(/\{nama\}/g, 'ia');
+    return finalizeActionCase(t);
+  }
+  t = t.replace(/^(?:In today's class|Today|In this session|In this class|In this final session|In this final class),?\s*\{nama\}\s*/i, '');
+  t = t.replace(/^\{nama\}\s*/i, '');
+  t = t.replace(/\btheir\s+(?!boat\b)/gi, `${p.poss} `);
+  const enAlso = [`, and ${p.subj} also `, `. In addition, ${p.subj} `, `. Alongside that, ${p.subj} also `];
+  const enThen = [`, and then ${p.subj} `, `. After that, ${p.subj} `, `. From there, ${p.subj} `];
+  const enNext = [`. After that, ${p.subj} `, `, and ${p.subj} then `, `. Additionally, ${p.subj} `, `. Along the way, ${p.subj} `];
+  t = t.replace(/\.\s*\{nama\}\s+also\s+/gi, enAlso[sIdx % enAlso.length]);
+  t = t.replace(/\.\s*\{nama\}\s+was\s+also\s+/gi, sIdx % 2 === 0 ? `, and ${p.subj} was also ` : `. In addition, ${p.subj} was also `);
+  t = t.replace(/\.\s*\{nama\}\s+then\s+/gi, enThen[sIdx % enThen.length]);
+  t = t.replace(/!\s*\{nama\}\s+/gi, `! In this activity, ${p.subj} `);
+  t = t.replace(/\.\s*\{nama\}\s+/gi, enNext[sIdx % enNext.length]);
+  t = t.replace(/\{nama\}/g, p.subj);
+  return finalizeActionCase(t);
+}
+
+function finalizeActionCase(t) {
+  if (!t) return '';
+  let _unused = (template = '', lang = '', nama = '') => {
   let t = template.trim();
   if (lang === 'id') {
     t = t.replace(/^(?:Pada pertemuan ini|Dalam sesi ini|Di pertemuan kali ini|Pada sesi kali ini|Dalam pertemuan kali ini|Di sesi ini),?\s*\{nama\}\s*/i, '');
@@ -54,7 +109,7 @@ function extractAction(template, nama, lang) {
     t = t.replace(/^(?:In today's class|Today|In this session|In this class|In this final session|In this final class),?\s*\{nama\}\s*/i, '');
     t = t.replace(/^\{nama\}\s*/i, '');
   }
-  t = t.replace(/\{nama\}/g, nama);
+  };
   if (t && t.length > 1) {
     const firstWord = t.split(/\s+/)[0];
     if (!/^[A-Z0-9]{2,}$/.test(firstWord)) {
@@ -74,7 +129,7 @@ function ensurePeriod(str) {
 function getPartialAction(action, nama) {
   if (!action) return '';
   const escapedNama = (nama || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const splitRegex = new RegExp(`\\.\\s+(?=(?:Selain itu,\\s*|Tak hanya itu,\\s*)?${escapedNama}\\b)`, 'i');
+  const splitRegex = new RegExp(`(?:\\.\\s+(?=(?:Selain itu,\\s*|Tak hanya itu,\\s*|Di samping itu,\\s*|Selanjutnya,\\s*|In addition,\\s*|After that,\\s*|Alongside that,\\s*|Additionally,\\s*|Along the way,\\s*|From there,\\s*)?(?:ia|he|she|${escapedNama})\\b)|,\\s+(?:and\\s+(?:then\\s+)?(?:he|she)\\b|serta\\s+ia\\b|kemudian\\s+ia\\b))`, 'i');
   const parts = action.split(splitRegex);
   return ensurePeriod(parts[0]);
 }
@@ -1837,13 +1892,15 @@ function onLesson2Change(idx, selectEl) {
   autoUpdateTable();
 }
 
-function buildStudentSplitResult(idx, seed) {
+function buildMeetingSummary(idx, seed = 0) {
   const s = autoStudents[idx];
-  if (!s || !s.course || !s.lesson) return null;
-  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) return null;
-  if (typeof COURSE_DATA === 'undefined' || !COURSE_DATA[s.course] || COURSE_DATA[s.course].length === 0) return null;
+  if (!s || !s.course || !s.lesson) return '';
+  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) return '';
+  if (typeof COURSE_DATA === 'undefined' || !COURSE_DATA[s.course] || COURSE_DATA[s.course].length === 0) return '';
 
   const sLang = s.lang || autoLang;
+  const sGender = s.gender || inferGenderFromName(s.nama);
+  const p = getPronouns(sLang, sGender);
   const L = LANG_UI[sLang];
   const nama = (s.nama && s.nama.trim()) ? s.nama.trim() : (sLang === 'id' ? 'Siswa' : 'Student');
 
@@ -1859,66 +1916,477 @@ function buildStudentSplitResult(idx, seed) {
     ? templateMap[s.course][s.lesson]
     : '';
   const localizedCourse = getLocalizedCourseName(s.course, sLang);
+  const obj1 = l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [];
   const action1 = raw1
-    ? extractAction(raw1, nama, sLang)
-    : L.fallbackProgress(nama, s.lesson, localizedCourse, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
+    ? ensurePeriod(extractAction(raw1, nama, sLang, sGender, seed))
+    : ensurePeriod(L.fallbackProgress(nama, s.lesson, localizedCourse, obj1));
+  const partial1 = getPartialAction(action1, nama);
+  const isRoblox = isRobloxCourse(s.course);
 
-  let result = null;
+  if (sLang === 'id') {
+    if (s.status === 'done') {
+      const variants = isRoblox ? [
+        `Pada pertemuan hari ini, ${nama} menyelesaikan materi *${l1Title}*, di mana ia ${action1}`,
+        `Dalam sesi ini, ${nama} berhasil menuntaskan _project_ dan _script_ pada *${l1Title}*. Selama kelas berlangsung, ia ${action1}`,
+        `Di pertemuan kali ini, ${nama} menyelesaikan seluruh target materi *${l1Title}*, yang mana ia ${action1}`,
+        `Hari ini, ${nama} berhasil merampungkan *${l1Title}* di Roblox Studio. Pada sesi ini, ia ${action1}`
+      ] : [
+        `Hari ini, ${nama} berhasil menyelesaikan materi *${l1Title}*, di mana ia ${action1}`,
+        `Di pertemuan kali ini, ${nama} menuntaskan seluruh target pada *${l1Title}*. Selama sesi ini, ia ${action1}`,
+        `Pada kelas hari ini, ${nama} menyelesaikan _project_ *${l1Title}*, yang mana ia ${action1}`,
+        `Dalam sesi pembelajaran hari ini, ${nama} berhasil merampungkan materi *${l1Title}*. Pada pertemuan ini, ia ${action1}`,
+        `Di sesi kali ini, ${nama} menuntaskan tahapan pembelajaran pada *${l1Title}*, di mana ia ${action1}`,
+        `Pada pertemuan hari ini, ${nama} menyelesaikan materi *${l1Title}* dengan baik. Sepanjang kelas, ia ${action1}`
+      ];
+      return pickVariant(variants, 0, seed);
+    }
+    if (s.status === 'continued_done') {
+      const variants = isRoblox ? [
+        `Pada pertemuan hari ini, ${nama} melanjutkan dan menuntaskan _project_ *${l1Title}*, di mana ia ${action1}`,
+        `Dalam sesi ini, ${nama} merampungkan kelanjutan _project_ *${l1Title}* dari minggu lalu. Selama pembelajaran ini, ia ${action1}`,
+        `Di pertemuan kali ini, ${nama} menyelesaikan tahap akhir *${l1Title}* di Roblox Studio, yang mana ia ${action1}`
+      ] : [
+        `Hari ini, ${nama} menyelesaikan _project_ *${l1Title}* yang dimulai minggu lalu, di mana ia ${action1}`,
+        `Di pertemuan kali ini, ${nama} menuntaskan bagian akhir dari materi *${l1Title}*. Dalam rangkaian materi ini, ia ${action1}`,
+        `Hari ini, ${nama} melanjutkan pengerjaan *${l1Title}* sampai selesai, yang mana ia ${action1}`,
+        `Di sesi kali ini, ${nama} berhasil merampungkan sisa _project_ *${l1Title}*. Selama mempelajari topik ini, ia ${action1}`,
+        `Pada pertemuan hari ini, ${nama} menyelesaikan seluruh bagian akhir *${l1Title}*, di mana ia ${action1}`,
+        `Hari ini, ${nama} meneruskan dan menuntaskan _project_ *${l1Title}* dari sesi sebelumnya. Pada materi ini, ia ${action1}`
+      ];
+      return pickVariant(variants, 0, seed);
+    }
+    if (s.status === 'in_progress_1' || s.status === 'in_progress') {
+      const act = partial1 || action1;
+      const variants = [
+        `Hari ini, ${nama} mulai mempelajari materi *${l1Title}*, di mana ia ${act}`,
+        `Dalam sesi ini, ${nama} mengawali pengerjaan *${l1Title}*. Pada tahap awal ini, ia ${act}`,
+        `Pada pertemuan hari ini, ${nama} memulai langkah pertama untuk *${l1Title}*. Selama sesi berlangsung, ia ${act}`,
+        `Di kelas hari ini, ${nama} mulai mengerjakan _project_ *${l1Title}*, yang mana ia ${act}`,
+        `Hari ini, ${nama} memasuki pertemuan pertama materi *${l1Title}*. Di sesi pembuka ini, ia ${act}`,
+        `Pada sesi kali ini, ${nama} mulai mengeksplorasi *${l1Title}*, di mana ia ${act}`
+      ];
+      return pickVariant(variants, 0, seed);
+    }
+    if (s.status === 'in_progress_2') {
+      const act = partial1 || action1;
+      const variants = [
+        `Pada pertemuan kedua materi *${l1Title}* ini, ${nama} melanjutkan _project_-nya dari minggu lalu, di mana ia ${act}`,
+        `Dalam sesi lanjutan *${l1Title}* hari ini, ${nama} meneruskan tahap pengembangan _project_. Pada sesi ini, ia ${act}`,
+        `Hari ini, ${nama} kembali melanjutkan pengerjaan *${l1Title}* yang sedang berjalan, yang mana ia ${act}`,
+        `Di pertemuan kedua untuk *${l1Title}* ini, ${nama} menyambung progres minggu lalu. Selama kelas berlangsung, ia ${act}`,
+        `Pada sesi kali ini, ${nama} meneruskan bagian tengah dari _project_ *${l1Title}*, di mana ia ${act}`,
+        `Hari ini, ${nama} melanjutkan tahap berikutnya pada materi *${l1Title}*. Dalam prosesnya, ia ${act}`
+      ];
+      return pickVariant(variants, 0, seed);
+    }
+    if (s.status === 'one_and_half') {
+      const variants = [
+        `Hari ini, ${nama} menyelesaikan materi *${l1Title}*, di mana ia ${action1} Setelah itu, ia memanfaatkan sisa waktu untuk mulai mengerjakan *${l2Title}*.`,
+        `Di pertemuan kali ini, ${nama} menuntaskan *${l1Title}* lebih awal lalu mulai mempelajari *${l2Title}*. Pada materi pertama, ia ${action1}`,
+        `Hari ini, ${nama} berhasil merampungkan *${l1Title}*, yang mana ia ${action1} Selanjutnya, ia langsung mengawali tahap pertama pada *${l2Title}*.`,
+        `Pada sesi hari ini, ${nama} menyelesaikan *${l1Title}* sekaligus mencicil bagian awal *${l2Title}*. Selama materi utama, ia ${action1}`,
+        `Dalam kelas hari ini, ${nama} menuntaskan seluruh tahapan *${l1Title}*, di mana ia ${action1} Kemudian, ia mulai menyusun bagian pembuka *${l2Title}*.`,
+        `Pada pertemuan kali ini, ${nama} menyelesaikan *${l1Title}* dengan lancar dan lanjut membuka materi *${l2Title}*. Di topik pertama, ia ${action1}`
+      ];
+      return pickVariant(variants, 0, seed);
+    }
+    if (s.status === 'double') {
+      const raw2 = (templateMap && templateMap[s.course] && templateMap[s.course][s.lesson2]) ? templateMap[s.course][s.lesson2] : '';
+      const obj2 = l2Obj ? (l2Obj.objectives || []) : [];
+      const action2 = raw2
+        ? ensurePeriod(extractAction(raw2, nama, sLang, sGender, seed + 1))
+        : ensurePeriod(L.fallbackProgress(nama, s.lesson2, localizedCourse, obj2));
+      const variants = [
+        `Hari ini, ${nama} berhasil menyelesaikan 2 lesson sekaligus (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Selanjutnya, ia ${action2}`,
+        `Di pertemuan kali ini, ${nama} menuntaskan 2 materi sekaligus (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: Ia ${action1}\n• *${l2Title}*: Setelah itu, ia ${action2}`,
+        `Di kelas hari ini, ${nama} menyelesaikan 2 lesson (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Berikutnya, ia juga ${action2}`,
+        `Pada sesi hari ini, ${nama} berhasil merampungkan 2 materi (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: Ia ${action1}\n• *${l2Title}*: Selain itu, ia ${action2}`
+      ];
+      return pickVariant(variants, 0, seed);
+    }
+    return '';
+  }
+
+  // English (EN) Meeting Summary Variations
   if (s.status === 'done') {
-    result = L.doneText(nama, l1Title, action1, 0, seed, s.course);
-  } else if (s.status === 'continued_done') {
-    result = L.continuedDoneText(nama, l1Title, action1, 0, seed, s.course);
-  } else if (s.status === 'in_progress_1' || s.status === 'in_progress') {
-    result = (L.inProgress1Text || L.inProgressText)(nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', 0, seed, s.course, action1);
-  } else if (s.status === 'in_progress_2') {
-    result = (L.inProgress2Text || L.inProgressText)(nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', 0, seed, s.course, action1);
-  } else if (s.status === 'one_and_half') {
-    result = L.oneAndHalfText(nama, s.lesson, l1Title, action1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : [], 0, seed, s.course);
-  } else if (s.status === 'double') {
-    const raw2 = (templateMap && templateMap[s.course] && templateMap[s.course][s.lesson2])
-      ? templateMap[s.course][s.lesson2]
-      : '';
+    const variants = isRoblox ? [
+      `In today's session, ${nama} completed *${l1Title}*, where ${p.subj} ${action1}`,
+      `During today's class, ${nama} finished building and scripting the project for *${l1Title}*. Throughout the session, ${p.subj} ${action1}`,
+      `Today, ${nama} achieved all the learning objectives for *${l1Title}*, in which ${p.subj} ${action1}`,
+      `In this session, ${nama} completed all steps in *${l1Title}* in Roblox Studio. Along the way, ${p.subj} ${action1}`
+    ] : [
+      `Today, ${nama} completed *${l1Title}*, where ${p.subj} ${action1}`,
+      `In today's class, ${nama} finished the project for *${l1Title}*. During the session, ${p.subj} ${action1}`,
+      `Today, ${nama} achieved all the learning goals for *${l1Title}*. Throughout the lesson, ${p.subj} ${action1}`,
+      `In this session, ${nama} finished *${l1Title}*, in which ${p.subj} ${action1}`,
+      `Today, ${nama} worked through and completed *${l1Title}*. In this lesson, ${p.subj} ${action1}`,
+      `In today's lesson, ${nama} successfully wrapped up *${l1Title}*. Along the way, ${p.subj} ${action1}`
+    ];
+    return pickVariant(variants, 0, seed);
+  }
+  if (s.status === 'continued_done') {
+    const variants = isRoblox ? [
+      `In today's session, ${nama} continued and finalized the project for *${l1Title}*, where ${p.subj} ${action1}`,
+      `In this class, ${nama} concluded the ongoing Roblox project in *${l1Title}*. Across the lesson, ${p.subj} ${action1}`,
+      `During today's lesson, ${nama} completed the final stage of *${l1Title}*, in which ${p.subj} ${action1}`
+    ] : [
+      `Today, ${nama} finished the project in *${l1Title}* that started last week, where ${p.subj} ${action1}`,
+      `In today's lesson, ${nama} completed the remaining part of *${l1Title}*. Across this topic, ${p.subj} ${action1}`,
+      `Today, ${nama} resumed *${l1Title}* from our previous session and finished it, in which ${p.subj} ${action1}`,
+      `In this session, ${nama} wrapped up the rest of *${l1Title}*. Throughout the lesson, ${p.subj} ${action1}`,
+      `Today, ${nama} finalized all remaining steps for *${l1Title}*, where ${p.subj} ${action1}`,
+      `In today's class, ${nama} picked up where ${p.subj} left off last week and completed *${l1Title}*. Along the way, ${p.subj} ${action1}`
+    ];
+    return pickVariant(variants, 0, seed);
+  }
+  if (s.status === 'in_progress_1' || s.status === 'in_progress') {
+    const act = partial1 || action1;
+    const variants = [
+      `Today, ${nama} started working on *${l1Title}*, where ${p.subj} ${act}`,
+      `In today's session, ${nama} began *${l1Title}*. For the first part of the project, ${p.subj} ${act}`,
+      `Today, ${nama} was introduced to *${l1Title}* and started the opening stage, in which ${p.subj} ${act}`,
+      `In this class, ${nama} began the first meeting for *${l1Title}*. During the session, ${p.subj} ${act}`,
+      `Today, ${nama} kicked off the project for *${l1Title}*. In this initial stage, ${p.subj} ${act}`,
+      `During today's lesson, ${nama} started exploring *${l1Title}*, where ${p.subj} ${act}`
+    ];
+    return pickVariant(variants, 0, seed);
+  }
+  if (s.status === 'in_progress_2') {
+    const act = partial1 || action1;
+    const variants = [
+      `In this second session for *${l1Title}*, ${nama} continued developing ${p.poss} project from last week, where ${p.subj} ${act}`,
+      `Today, ${nama} resumed the ongoing project for *${l1Title}*. During this follow-up session, ${p.subj} ${act}`,
+      `In today's class, ${nama} entered the second meeting for *${l1Title}* and continued the next stage, in which ${p.subj} ${act}`,
+      `During this follow-up lesson on *${l1Title}*, ${nama} built upon last week's progress. Specifically, ${p.subj} ${act}`,
+      `Today, ${nama} continued working through the middle phase of *${l1Title}*, where ${p.subj} ${act}`,
+      `In this session, ${nama} picked up ${p.poss} ongoing work on *${l1Title}*. Throughout the class, ${p.subj} ${act}`
+    ];
+    return pickVariant(variants, 0, seed);
+  }
+  if (s.status === 'one_and_half') {
+    const variants = [
+      `Today, ${nama} completed *${l1Title}*, where ${p.subj} ${action1} With the remaining time, ${p.subj} also started working on *${l2Title}*.`,
+      `In today's class, ${nama} finished *${l1Title}* early and moved on to *${l2Title}*. During the first lesson, ${p.subj} ${action1}`,
+      `Today, ${nama} wrapped up *${l1Title}*, in which ${p.subj} ${action1} After finishing that, ${p.subj} got a head start on the first part of *${l2Title}*.`,
+      `In this session, ${nama} completed all the steps in *${l1Title}* and began *${l2Title}*. Specifically, ${p.subj} ${action1}`,
+      `Today, ${nama} finished *${l1Title}*, where ${p.subj} ${action1} ${p.Subj} then used the extra time in class to begin *${l2Title}*.`,
+      `During today's lesson, ${nama} completed *${l1Title}* and started the opening stage of *${l2Title}*. Throughout the main lesson, ${p.subj} ${action1}`
+    ];
+    return pickVariant(variants, 0, seed);
+  }
+  if (s.status === 'double') {
+    const raw2 = (templateMap && templateMap[s.course] && templateMap[s.course][s.lesson2]) ? templateMap[s.course][s.lesson2] : '';
+    const obj2 = l2Obj ? (l2Obj.objectives_en || []) : [];
     const action2 = raw2
-      ? extractAction(raw2, nama, sLang)
-      : L.fallbackProgress(nama, s.lesson2, localizedCourse, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
-    result = L.doubleText(nama, s.lesson, l1Title, action1, s.lesson2, l2Title, action2, 0, seed, s.course);
+      ? ensurePeriod(extractAction(raw2, nama, sLang, sGender, seed + 1))
+      : ensurePeriod(L.fallbackProgress(nama, s.lesson2, localizedCourse, obj2));
+    const variants = [
+      `Today, ${nama} finished 2 lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: ${p.Subj} then ${action2}`,
+      `In today's session, ${nama} completed 2 lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${p.Subj} ${action1}\n• *${l2Title}*: After that, ${p.subj} ${action2}`,
+      `During today's class, ${nama} worked through and finished 2 lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Next, ${p.subj} ${action2}`,
+      `In this meeting, ${nama} completed 2 full lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${p.Subj} ${action1}\n• *${l2Title}*: ${p.Subj} also ${action2}`
+    ];
+    return pickVariant(variants, 0, seed);
   }
-
-  if (!result) return null;
-  if (typeof result === 'object' && result.summary !== undefined) {
-    return { summary: result.summary || '', notes: result.notes || '' };
-  }
-  return { summary: String(result || ''), notes: '' };
+  return '';
 }
 
-function pickRandomSeedForField(idx, field) {
+function getStandaloneTeacherNotesPool(lang, nama, p) {
+  if (lang === 'id') {
+    return {
+      done: [
+        `Di kelas, ${nama} mengikuti langkah _coding_ dengan runtut dan memperbaiki sendiri _error_ kecil. Di rumah, silakan minta ia menunjukkan _project_ hari ini. Good job, ${nama}!`,
+        `${nama} fokus menyusun _code_ dan menguji _project_-nya sampai berjalan lancar. Di pertemuan berikutnya, kita siap lanjut ke materi baru. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} aktif bertanya saat mencoba fungsi _code_ baru dan merapikan tampilan _project_-nya. Di rumah, orang tua bisa menanyakan cara kerjanya. Well done, ${nama}!`,
+        `Selama sesi, ${nama} menyambungkan setiap blok _code_ sesuai urutan dengan sedikit arahan. Minggu depan ia sudah siap masuk ke materi berikutnya. Nice work, ${nama}!`,
+        `${nama} menyimak penjelasan dengan baik dan menambahkan ide kreatifnya pada _project_ hari ini. Di rumah, silakan minta ia memperlihatkan hasil karyanya. Keep it up, ${nama}!`,
+        `Di kelas, ${nama} mengecek ulang setiap langkah _code_ dan menyelesaikan bagian yang menantang dengan tenang. Pertemuan depan kita lanjut ke topik baru. Good job, ${nama}!`,
+        `${nama} memahami konsep hari ini dengan baik dan langsung menerapkannya hingga _project_ selesai. Di rumah, orang tua bisa mengajak ia bercerita tentang karyanya. Keep it up, ${nama}!`,
+        `Selama kelas, ${nama} bekerja dengan tempo yang stabil dan memastikan semua fitur berfungsi sebelum selesai. Minggu depan kita siap masuk ke lesson baru. Well done, ${nama}!`,
+        `${nama} memperhatikan arahan dan menulis susunan _code_ secara rapi dari awal sampai akhir. Di rumah, orang tua bisa melihat _project_ yang ia buat hari ini. Good job, ${nama}!`,
+        `Saat uji coba, ${nama} menemukan beberapa _bug_ dan berhasil memperbaikinya dengan sedikit panduan. Pemahaman ini menjadi bekal baik untuk minggu depan. Nice work, ${nama}!`,
+        `Di kelas, ${nama} aktif mencoba perintah _coding_ baru dan menyelesaikan seluruh tugas _project_ tepat waktu. Di rumah, silakan tanya fitur apa yang ia buat. Keep it up, ${nama}!`,
+        `${nama} menata alur logika programnya secara runtut dan memastikan tidak ada langkah yang terlewat. Di pertemuan selanjutnya kita akan lanjut ke topik baru. Good job, ${nama}!`,
+        `Selama pembelajaran, ${nama} berlatih menerapkan konsep baru dengan sabar hingga programnya berjalan baik. Di rumah, silakan minta ia mencoba _project_-nya. Well done, ${nama}!`,
+        `${nama} menjaga fokusnya saat merakit _code_ dan memeriksa hasil akhirnya dengan teliti. Ia sudah siap melanjutkan ke materi berikutnya pada sesi mendatang. Nice work, ${nama}!`,
+        `Di kelas, ${nama} menyelesaikan setiap tahapan _coding_ secara berurutan dan memahami fungsi _code_ yang ditulisnya. Di rumah, silakan tanya cerita belajarnya. Keep it up, ${nama}!`
+      ],
+      continued_done: [
+        `${nama} mengingat kembali alur _code_ minggu lalu dengan baik dan menyelesaikan sisa _project_-nya. Di rumah, silakan minta ia menunjukkan hasil akhirnya. Good job, ${nama}!`,
+        `Di kelas, ${nama} langsung melanjutkan bagian yang tersisa dan menguji semua fitur sampai berjalan lancar. Minggu depan kita siap mulai materi baru. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} memperbaiki sisa _bug_ dari pertemuan sebelumnya dan merampungkan seluruh bagian _project_. Di rumah, silakan tanya cara kerja _project_-nya. Well done, ${nama}!`,
+        `${nama} fokus menyambungkan fitur baru hari ini dengan _code_ yang sudah dibuat minggu lalu. Seluruh tahapan sudah tuntas dan ia siap lanjut ke topik baru. Nice work, ${nama}!`,
+        `Selama sesi, ${nama} memeriksa kembali _code_ awalnya dengan teliti lalu menambahkan bagian penutupnya. Di rumah, orang tua bisa melihat hasil _project_ hari ini. Good job, ${nama}!`,
+        `${nama} bekerja dengan tenang untuk menuntaskan sisa _project_ dan memastikan setiap interaksi berjalan baik. Pertemuan depan kita siap masuk ke lesson baru. Keep it up, ${nama}!`,
+        `Di kelas, ${nama} mengikuti instruksi tahap akhir secara runtut dan merapikan tampilan _project_-nya. Di rumah, silakan minta ia mencoba _project_ tersebut bersama. Well done, ${nama}!`,
+        `Hari ini, ${nama} menguji keseluruhan program dari awal hingga akhir dan menyesuaikan detailnya secara mandiri. Minggu depan ia siap mempelajari materi baru. Nice work, ${nama}!`,
+        `Setelah mereview singkat progres minggu lalu, ${nama} dapat menyusun bagian akhir _code_ dengan lancar. Di rumah, silakan tanya fitur yang ia tambahkan hari ini. Good job, ${nama}!`,
+        `Di kelas, ${nama} sabar memperbaiki bagian akhir _code_ saat uji coba hingga semuanya berjalan baik. Di pertemuan selanjutnya kita siap beralih ke materi baru. Keep it up, ${nama}!`,
+        `${nama} menyelesaikan sisa tugas _project_ secara berurutan dan memastikan tidak ada _error_ yang tertinggal. Di rumah, silakan minta ia menunjukkan hasilnya. Well done, ${nama}!`,
+        `Selama sesi hari ini, ${nama} menghubungkan _code_ lanjutan dengan rapi dan memeriksa hasil akhirnya. Minggu depan kita bisa langsung masuk ke lesson berikutnya. Good job, ${nama}!`,
+        `${nama} cepat mengingat struktur _project_ sebelumnya dan menuntaskan tahap akhir dengan sedikit arahan. Di rumah, silakan tanya bagian mana yang ia sukai. Keep it up, ${nama}!`,
+        `Di kelas, ${nama} mengecek setiap fungsi _code_ saat merampungkan tahap penutup _project_ ini. Ia sudah siap untuk lanjut ke topik baru pada sesi mendatang. Nice work, ${nama}!`,
+        `Hari ini, ${nama} melengkapi bagian terakhir pada _code_-nya dan melakukan uji coba penuh hingga tuntas. Di rumah, orang tua bisa melihat _project_ yang ia selesaikan. Keep it up, ${nama}!`
+      ],
+      in_progress_1: [
+        `Di kelas, ${nama} menyusun _code_ tahap awal secara bertahap dan teliti. Karena fitur _project_ ini cukup banyak, sisa pengerjaannya dilanjutkan minggu depan. Good effort, ${nama}!`,
+        `Hari ini, ${nama} membangun kerangka dasar _project_ dengan rapi. Mengingat tahapan teknisnya cukup panjang, bagian berikutnya kita lanjutkan pertemuan depan. Keep it up, ${nama}!`,
+        `${nama} mengerjakan bagian awal _project_ dan menguji setiap langkahnya sebelum lanjut. Sisa fitur pada materi ini akan diteruskan pada sesi berikutnya. Nice work, ${nama}!`,
+        `Di kelas, perhatian ${nama} sesekali teralihkan, namun dengan arahan teacher ia berhasil menyelesaikan bagian awal _code_. Sisa _project_ lanjut minggu depan. Keep it up, ${nama}!`,
+        `${nama} beberapa kali diingatkan agar tetap fokus pada layar kerja, dan bagian dasar _project_ sudah selesai dibuat. Tahap selanjutnya diteruskan sesi depan. Good effort, ${nama}!`,
+        `Dengan pendampingan teacher untuk menjaga fokus pada langkah materi, ${nama} dapat menyusun _code_ pembuka dengan baik. Sisa _project_ dilanjutkan minggu depan. Keep it up, ${nama}!`,
+        `Di kelas, ${nama} bekerja dengan tempo santai dan stabil agar memahami setiap instruksi. Bagian awal sudah selesai dan akan dilanjutkan minggu depan. Good job, ${nama}!`,
+        `${nama} mengecek setiap langkah dengan perlahan dan teliti saat membangun fondasi _project_ hari ini. Sisa tahapan _coding_ akan diteruskan pertemuan berikutnya. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} mengikuti materi dengan ritme yang nyaman dan merampungkan tahap awal secara rapi. Kelanjutan _project_ akan dikerjakan pada sesi mendatang. Nice work, ${nama}!`,
+        `Karena materi hari ini mengenalkan logika _coding_ baru, teacher mendampingi ${nama} berlatih bertahap hingga paham. Pengerjaan _project_ lanjut minggu depan. Good effort, ${nama}!`,
+        `Di kelas, ${nama} meluangkan waktu memahami cara kerja blok logika baru bersama teacher. Setelah konsep dasarnya jelas, _project_ akan diteruskan sesi depan. Keep it up, ${nama}!`,
+        `${nama} belajar memahami alur logika program yang baru dan berhasil menyusun bagian awal _code_-nya. Sisa fitur akan kita lanjutkan di pertemuan berikutnya. Well done, ${nama}!`,
+        `${nama} tampak sedikit lelah sepulang sekolah, sehingga ritme belajar disesuaikan saat ia menyelesaikan bagian awal _project_. Sisa materi lanjut minggu depan. Good effort, ${nama}!`,
+        `Meski energinya sedikit menurun setelah sekolah, ${nama} tetap mengikuti arahan dan menyelesaikan _code_ pembuka. Tahap berikutnya dilanjutkan pertemuan depan. Keep it up, ${nama}!`,
+        `Teacher menyesuaikan tempo belajar hari ini agar ${nama} tetap nyaman menyerap materi tanpa terburu-buru. Bagian awal sudah siap dan lanjut sesi berikutnya. Nice work, ${nama}!`
+      ],
+      in_progress_2: [
+        `Di kelas, ${nama} melanjutkan penambahan fitur utama dan memastikan setiap bagian terhubung baik. Tahap uji coba akhir akan dituntaskan pertemuan depan. Good job, ${nama}!`,
+        `${nama} menunjukkan progres yang stabil pada bagian tengah _code_ hari ini. Sebagian besar logika utama sudah siap dan tinggal diselesaikan minggu depan. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} menyambungkan beberapa fungsi baru ke _project_ minggu lalu dengan teliti. Tinggal sedikit penyesuaian akhir yang dirampungkan sesi depan. Nice work, ${nama}!`,
+        `Dengan arahan untuk tetap fokus pada layar kerja, ${nama} berhasil melanjutkan pembuatan fitur utama _project_ hari ini. Tahap akhirnya kita selesaikan minggu depan. Keep it up, ${nama}!`,
+        `Teacher mendampingi ${nama} menjaga fokus selama sesi sehingga bagian inti _code_ dapat disusun dengan baik. Penyelesaian akhir dilanjutkan pertemuan depan. Good effort, ${nama}!`,
+        `${nama} menunjukkan progres yang baik saat fokus mengikuti tahapan _coding_, dan sebagian besar _project_ sudah berjalan. Bagian penutupnya kita tuntaskan sesi depan. Keep it up, ${nama}!`,
+        `Di kelas, ${nama} mengerjakan tahapan lanjutan dengan tempo yang tenang dan stabil. Sebagian besar _project_ sudah terbentuk dan siap dituntaskan minggu depan. Good job, ${nama}!`,
+        `${nama} menguji setiap tambahan _code_ secara perlahan dan teliti saat melanjutkan _project_ hari ini. Sisa detail akhirnya akan diselesaikan pertemuan berikutnya. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} menjaga ritme kerja yang nyaman saat menyambung _code_ dari minggu lalu. _Project_ sudah hampir selesai dan akan dirampungkan sesi depan. Nice work, ${nama}!`,
+        `Dengan bimbingan bertahap pada bagian logika lanjutan, ${nama} berhasil memperbaiki _error_ sebelumnya. Tahap penyelesaian akhir akan dilanjutkan minggu depan. Good effort, ${nama}!`,
+        `Di kelas, ${nama} berlatih melakukan _debugging_ bersama teacher hingga fitur utamanya berjalan. Pengujian akhir _project_ akan kita tuntaskan sesi berikutnya. Keep it up, ${nama}!`,
+        `Pemahaman ${nama} terhadap hubungan antar-blok _code_ makin baik hari ini dan mekanisme utamanya sudah berfungsi. Bagian penutup akan diselesaikan sesi depan. Well done, ${nama}!`,
+        `Walaupun sedikit lelah sepulang sekolah, ${nama} tetap berusaha melanjutkan _code_ utama dengan progres yang baik. Tahap penyempurnaan akhir lanjut minggu depan. Good effort, ${nama}!`,
+        `Teacher menjaga tempo belajar yang nyaman hari ini agar ${nama} tetap bisa melanjutkan _project_ sepulang sekolah. Bagian terakhir dituntaskan pertemuan depan. Keep it up, ${nama}!`,
+        `Meski staminanya berkurang setelah sekolah, ${nama} tetap mengikuti sesi dan menghubungkan fitur penting _project_-nya. Tahap akhir dilanjutkan minggu depan. Nice work, ${nama}!`
+      ],
+      one_and_half: [
+        `Di kelas, ${nama} menyelesaikan materi pertama dengan lancar lalu memanfaatkan sisa waktu untuk mulai mengerjakan materi berikutnya. Sisanya lanjut minggu depan. Good job, ${nama}!`,
+        `${nama} tetap fokus hingga _project_ pertama tuntas lebih awal, sehingga ia bisa mulai mencicil topik selanjutnya. Pertemuan depan kita lanjutkan sisa _project_-nya. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} cepat memahami instruksi dan langsung masuk ke tahap awal materi kedua. Di rumah, orang tua bisa menanyakan _project_ yang ia buat hari ini. Well done, ${nama}!`,
+        `${nama} mengerjakan materi pertama secara teliti dengan sedikit bantuan dan sudah memulai bagian awal materi berikutnya. Minggu depan kita tuntaskan _project_ kedua. Nice work, ${nama}!`,
+        `Selama sesi, ${nama} menguji _project_ pertamanya sampai berjalan baik sebelum mulai menyusun kerangka materi kedua. Pertemuan depan kita lanjutkan dari tahap ini. Keep it up, ${nama}!`,
+        `${nama} mengikuti setiap langkah _coding_ secara berurutan sehingga masih ada waktu untuk mengeksplorasi awal materi baru. Di rumah, silakan lihat hasil karyanya. Good job, ${nama}!`,
+        `Di kelas, ${nama} menyelesaikan tantangan di materi pertama dengan tenang dan beralih dengan baik ke materi kedua. Sisa pengerjaannya akan diteruskan sesi depan. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} menjaga ritme kerja yang stabil sehingga dapat merampungkan satu _project_ penuh dan membuka materi berikutnya. Minggu depan kita selesaikan sisanya. Well done, ${nama}!`,
+        `${nama} cepat beradaptasi saat masuk ke topik kedua dan menyusun _code_ awalnya dengan rapi. Di rumah, silakan minta ia memperlihatkan _project_ yang sudah selesai. Good job, ${nama}!`,
+        `Di kelas, ${nama} memperbaiki sendiri _error_ kecil pada _project_ pertama dan mulai mengerjakan materi kedua dengan baik. Kelanjutannya diteruskan minggu depan. Keep it up, ${nama}!`,
+        `${nama} menjaga fokusnya dari awal hingga akhir sesi, menuntaskan materi utama hari ini sekaligus memulai lesson berikutnya. Pertemuan depan kita lengkapi sisanya. Nice work, ${nama}!`,
+        `Selama pembelajaran, ${nama} menata _code_ _project_ pertama dengan rapi dan membuat langkah awal yang baik di materi kedua. Di rumah, silakan tanya cerita belajarnya. Good job, ${nama}!`,
+        `${nama} merampungkan seluruh tugas di materi pertama tepat waktu dan lanjut mencoba bagian pembuka _project_ berikutnya. Minggu depan kita lanjutkan kembali. Keep it up, ${nama}!`,
+        `Di kelas, ${nama} menerapkan konsep hari ini dengan baik pada _project_ pertama lalu mulai menyiapkan kerangka materi kedua. Sisa tahapannya berlanjut sesi depan. Well done, ${nama}!`,
+        `Hari ini, ${nama} bekerja cukup mandiri saat menuntaskan topik pertama dan mengawali materi selanjutnya. Di rumah, silakan minta ia menceritakan karya hari ini. Keep it up, ${nama}!`
+      ],
+      double: [
+        `Di kelas, ${nama} bekerja teliti dan memperbaiki sendiri susunan _code_ yang kurang tepat di kedua materi. Di rumah, silakan minta ia menunjukkan _project_ hari ini. Good job, ${nama}!`,
+        `${nama} tetap fokus sepanjang sesi dan menyelesaikan kedua _project_ dengan rapi tanpa banyak bantuan. Minggu depan kita sudah siap lanjut ke materi baru. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} mengikuti tahapan pada kedua materi dengan baik dan menguji setiap _project_ hingga berjalan lancar. Di rumah, silakan tanya tentang karyanya. Well done, ${nama}!`,
+        `${nama} memahami instruksi dengan cepat sehingga dapat menuntaskan dua lesson penuh dalam satu pertemuan. Di sesi berikutnya kita akan lanjut ke topik baru. Nice work, ${nama}!`,
+        `Di kelas, ${nama} menjaga ritme kerja yang stabil dan menyusun blok _code_ kedua _project_ sesuai urutan. Di rumah, orang tua bisa menanyakan cara kerja _project_-nya. Keep it up, ${nama}!`,
+        `Selama sesi berlangsung, ${nama} beralih dari materi pertama ke materi kedua dengan lancar dan menyelesaikan tugas _coding_-nya. Minggu depan kita masuk ke lesson baru. Good job, ${nama}!`,
+        `${nama} menyimak penjelasan dengan baik dan langsung menerapkan konsep baru pada kedua _project_ hari ini. Di rumah, silakan minta ia mencoba _project_-nya bersama. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} memeriksa _code_-nya secara bertahap di kedua lesson dan memperbaiki _bug_ kecil saat uji coba. Ia sudah siap untuk mengikuti materi minggu depan. Well done, ${nama}!`,
+        `Di kelas, ${nama} menata alur kerjanya dengan rapi dan merampungkan seluruh tugas untuk dua materi tepat waktu. Di rumah, silakan tanya _project_ mana yang ia sukai. Good job, ${nama}!`,
+        `${nama} menunjukkan fokus dan kemandirian yang baik saat merakit _code_ untuk dua lesson hari ini. Pada pertemuan mendatang kita siap melangkah ke materi berikutnya. Keep it up, ${nama}!`,
+        `Selama kelas, ${nama} aktif berdiskusi dan memastikan setiap fitur pada kedua _project_ berfungsi sesuai target. Di rumah, silakan minta ia memperlihatkan hasilnya. Nice work, ${nama}!`,
+        `${nama} memanfaatkan waktu kelas dengan efektif hari ini hingga _project_ pertama dan kedua selesai dengan rapi. Pertemuan depan kita akan lanjut ke topik baru. Good job, ${nama}!`,
+        `Di kelas, ${nama} mempraktikkan perintah _coding_ baru pada dua materi sekaligus dan mengecek hasil akhirnya. Di rumah, silakan tanya apa saja yang ia pelajari. Keep it up, ${nama}!`,
+        `Hari ini, ${nama} menyelesaikan tantangan _coding_ di kedua lesson dengan sabar dan hanya butuh sedikit arahan. Minggu depan ia siap mempelajari topik selanjutnya. Well done, ${nama}!`,
+        `${nama} mengikuti alur logika pada kedua materi dengan baik dan menuntaskan dua _project_ dari awal sampai akhir. Di rumah, silakan minta ia menunjukkan karyanya. Keep it up, ${nama}!`
+      ]
+    };
+  }
+
+  return {
+    done: [
+      `In class, ${nama} followed the steps well and fixed small code errors independently. At home, feel free to ask ${p.obj} to show you today's project. Good job, ${nama}!`,
+      `${nama} stayed focused during class and tested ${p.poss} code carefully until it ran smoothly. Next meeting, we are ready to move on to a new topic. Keep it up, ${nama}!`,
+      `Today, ${nama} asked good questions about the new blocks and put the project together neatly. At home, you can ask ${p.obj} how today's project works. Well done, ${nama}!`,
+      `In class, ${nama} connected each part of the code in the right order with little help. ${p.Subj} is ready to continue to the next lesson next week. Nice work, ${nama}!`,
+      `${nama} paid attention to the instructions and added ${p.poss} own creative ideas to the project. At home, feel free to ask ${p.obj} to show you what we built. Keep it up, ${nama}!`,
+      `During class, ${nama} checked ${p.poss} code step by step and solved the tricky parts calmly. Next week, we will move on to the next lesson. Good job, ${nama}!`,
+      `${nama} understood today's coding concept well and applied it directly to finish the project. At home, you can ask ${p.obj} to tell you about today's work. Nice effort, ${nama}!`,
+      `In class, ${nama} worked at a steady pace and made sure every feature worked before wrapping up. We are ready for a new topic next session. Keep up the good work, ${nama}!`,
+      `${nama} listened carefully to the explanation and wrote the code neatly from start to finish. At home, feel free to ask ${p.obj} to try the project with you. Well done, ${nama}!`,
+      `Today, ${nama} spotted a few bugs during testing and corrected them with minimal guidance. ${p.Subj} has a good grasp of this topic for next week. Good work, ${nama}!`,
+      `In class, ${nama} tried the new coding commands actively and completed all project tasks on time. At home, you can ask ${p.obj} what ${p.subj} created today. Keep it up, ${nama}!`,
+      `${nama} organized ${p.poss} workspace neatly and followed the logic flow from beginning to end. Next meeting, we will build on this in a new lesson. Good job, ${nama}!`,
+      `During the lesson, ${nama} practiced the new steps patiently until the program responded properly. At home, feel free to ask ${p.obj} to show you today's result. Nice work, ${nama}!`,
+      `${nama} showed good focus while assembling the code and tested the final output carefully. ${p.Subj} is ready to start the next lesson at our next meeting. Well done, ${nama}!`,
+      `In class, ${nama} completed each coding task in sequence and explained how ${p.poss} project worked. At home, you can ask ${p.obj} to share what we learned today. Keep it up, ${nama}!`
+    ],
+    continued_done: [
+      `${nama} remembered last week's logic well and connected the remaining code to finish the project. At home, feel free to ask ${p.obj} to show you the result. Good job, ${nama}!`,
+      `In class, ${nama} picked up right where ${p.subj} left off and tested every feature until it ran smoothly. Next week, we are ready to start a new lesson. Keep it up, ${nama}!`,
+      `Today, ${nama} fixed the remaining bugs from our previous session and completed all parts of the project. At home, you can ask ${p.obj} how the project works. Well done, ${nama}!`,
+      `${nama} stayed focused while combining today's new features with last week's code. Everything is complete, and ${p.subj} is ready for the next topic. Nice work, ${nama}!`,
+      `During class, ${nama} reviewed ${p.poss} earlier code carefully and added the final steps with little help. At home, feel free to ask ${p.obj} to show you today's work. Good job, ${nama}!`,
+      `${nama} worked steadily to finish the rest of the project and checked that all interactions worked properly. Next meeting, we will move on to a new topic. Keep it up, ${nama}!`,
+      `In class, ${nama} followed the final instructions step by step and wrapped up the project neatly. At home, you can ask ${p.obj} to try the finished project with you. Nice effort, ${nama}!`,
+      `Today, ${nama} tested the full program from start to finish and adjusted a few details independently. ${p.Subj} is ready to begin the next lesson next week. Well done, ${nama}!`,
+      `${nama} connected the final code blocks smoothly after a quick review of last week's progress. At home, feel free to ask ${p.obj} about the features ${p.subj} added today. Good work, ${nama}!`,
+      `In class, ${nama} showed good patience while troubleshooting the last part of the code until it worked. We are ready to start a new lesson next session. Keep it up, ${nama}!`,
+      `${nama} completed the remaining project tasks in order and made sure no errors were left behind. At home, you can ask ${p.obj} to demonstrate today's finished work. Good job, ${nama}!`,
+      `During today's session, ${nama} linked the new code with ${p.poss} previous work and verified the final output. Next meeting, we can move forward to the next lesson. Keep it up, ${nama}!`,
+      `${nama} recalled the project structure quickly and finished the closing steps with minimal guidance. At home, feel free to ask ${p.obj} what ${p.subj} enjoyed building. Nice work, ${nama}!`,
+      `In class, ${nama} checked each function carefully as ${p.subj} completed the final stage of the project. ${p.Subj} is well prepared for our new topic next week. Well done, ${nama}!`,
+      `Today, ${nama} put the finishing touches on ${p.poss} code and ran a full test to confirm everything worked. At home, you can ask ${p.obj} to show you the project. Keep it up, ${nama}!`
+    ],
+    in_progress_1: [
+      `In class, ${nama} built the initial code step by step with close attention to detail. Since this project has many features, we will continue the rest next week. Good effort, ${nama}!`,
+      `${nama} set up the main structure of the project carefully today. Because there are several technical steps involved, ${p.subj} will continue the next part next class. Keep it up, ${nama}!`,
+      `Today, ${nama} worked on the core setup and tested each part before moving forward. We will continue building the remaining features in the next session. Nice work, ${nama}!`,
+      `In class, ${nama} was curious about the tools, and with reminders to stay on the coding tab, ${p.subj} finished the initial setup. We will continue next week. Keep it up, ${nama}!`,
+      `${nama} needed a few gentle prompts to keep ${p.poss} focus on the screen today, and ${p.subj} completed the starting code well. The rest of the project continues next session. Good effort, ${nama}!`,
+      `With teacher guidance to stay focused on the current step, ${nama} put together the first part of the project. We will continue the remaining tasks next meeting. Nice try today, ${nama}!`,
+      `In class, ${nama} worked at a calm, steady pace to make sure ${p.subj} understood each instruction. The first half is ready, and we will continue next week. Keep it up, ${nama}!`,
+      `${nama} took ${p.poss} time checking each step carefully as ${p.subj} built the foundation of the project. We will pick up the remaining steps in our next meeting. Good job, ${nama}!`,
+      `Today, ${nama} followed the lesson at a comfortable rhythm and completed the opening stage neatly. The rest of the project will be continued next class. Nice work, ${nama}!`,
+      `Because today's lesson introduced new coding logic, we practiced it step by step until ${nama} understood the flow. We will continue the project next week. Good effort, ${nama}!`,
+      `In class, ${nama} took time to learn how the new code blocks work with teacher guidance. Now that the basics are clear, ${p.subj} will continue the project next session. Keep it up, ${nama}!`,
+      `${nama} practiced breaking down the new logic rules today and built the first part of the code. We will continue applying this in our next meeting. Well done, ${nama}!`,
+      `${nama} seemed a bit tired after school today, so we adjusted the pace while ${p.subj} completed the initial project setup. We will continue the rest next week. Good effort, ${nama}!`,
+      `Even with lower energy after school, ${nama} followed along and finished the starting section of the code. We will continue the remaining steps next meeting. Keep it up, ${nama}!`,
+      `We kept a comfortable learning pace today so ${nama} could absorb the material without feeling rushed. The project is off to a good start and continues next class. Nice work, ${nama}!`
+    ],
+    in_progress_2: [
+      `In class, ${nama} continued adding the main features and checked that each part worked together. Final testing and polish will wrap up in our next meeting. Good job, ${nama}!`,
+      `${nama} made steady progress on the middle part of the code today. The main logic is now in place, and ${p.subj} will finish the remaining steps next week. Keep it up, ${nama}!`,
+      `Today, ${nama} connected several new functions to last week's project carefully. Only the final adjustments remain for our next session. Nice work, ${nama}!`,
+      `With reminders to stay focused on the workspace, ${nama} continued building the main features of the project today. We will wrap up the final stage next week. Keep it up, ${nama}!`,
+      `In class, the teacher helped keep ${nama} on track whenever ${p.poss} attention drifted, allowing ${p.obj} to finish the core code. Final completion is set for next meeting. Good effort, ${nama}!`,
+      `${nama} made good progress once ${p.subj} focused on the coding steps, getting the main features working. We will finish the last part in our next class. Nice effort, ${nama}!`,
+      `In class, ${nama} worked through the follow-up steps at a comfortable, steady pace. The main part of the project is ready, and ${p.subj} will complete it next week. Good job, ${nama}!`,
+      `${nama} took time to test each addition carefully as ${p.subj} continued the project today. The remaining details will be finished in our next session. Keep it up, ${nama}!`,
+      `Today, ${nama} maintained a calm work rhythm while building on last week's code. The project is nearly done and will wrap up next meeting. Nice work, ${nama}!`,
+      `With step-by-step guidance on the harder logic sections, ${nama} resolved earlier errors and moved the project forward. We will finish the final part next week. Good effort, ${nama}!`,
+      `In class, ${nama} practiced debugging the multi-step code with the teacher and got the main features running. Final testing will continue in our next session. Keep it up, ${nama}!`,
+      `${nama} gained a better grasp of how the code connects today and completed the core mechanics. The closing steps will be wrapped up next meeting. Well done, ${nama}!`,
+      `Although ${nama} was a bit tired after school, ${p.subj} kept working on the main code and made solid progress. We will finish the final touches next week. Good effort, ${nama}!`,
+      `We kept a supportive pace today so ${nama} could continue building the project comfortably after school. The last stage will be completed next session. Keep it up, ${nama}!`,
+      `Even with lower energy today, ${nama} stayed engaged and connected the key features of ${p.poss} project. Final testing and wrap-up will continue next class. Nice work, ${nama}!`
+    ],
+    one_and_half: [
+      `In class, ${nama} finished the first lesson smoothly and used the remaining time to start the next project. We will continue the rest of it next week. Good job, ${nama}!`,
+      `${nama} stayed focused and completed the first project early, giving ${p.obj} time to begin the next topic. Next meeting, ${p.subj} will continue building it. Keep it up, ${nama}!`,
+      `Today, ${nama} understood the instructions quickly and moved right into the opening steps of the second lesson. At home, you can ask ${p.obj} about today's projects. Well done, ${nama}!`,
+      `${nama} worked carefully through the first lesson with little help and got a good head start on the next one. We will wrap up the second project next class. Nice work, ${nama}!`,
+      `During class, ${nama} tested ${p.poss} first project carefully before starting the initial setup for the next lesson. Next week, we will continue from where ${p.subj} left off. Keep it up, ${nama}!`,
+      `${nama} followed each coding step in order, allowing extra time to explore the beginning of the next topic. At home, feel free to ask ${p.obj} what ${p.subj} built today. Good job, ${nama}!`,
+      `In class, ${nama} solved the coding tasks in the first lesson calmly and transitioned smoothly into the second lesson. We will finish the remaining part next session. Nice effort, ${nama}!`,
+      `Today, ${nama} kept a steady work pace, finishing one full project and setting up the foundation for the next. ${p.Subj} will complete the rest in our next meeting. Well done, ${nama}!`,
+      `${nama} adapted quickly when we introduced the second topic and completed its starting code neatly. At home, you can ask ${p.obj} to show you today's finished project. Good work, ${nama}!`,
+      `In class, ${nama} fixed small code errors independently on the first project and began the next lesson with confidence. We will continue the second project next week. Keep it up, ${nama}!`,
+      `${nama} showed good focus from start to finish, wrapping up today's main lesson and starting the next one. Next meeting, we will complete the remaining features. Good job, ${nama}!`,
+      `During the session, ${nama} organized ${p.poss} code neatly on the first project and made a solid start on the second topic. At home, feel free to ask ${p.obj} about today's class. Nice work, ${nama}!`,
+      `${nama} completed all tasks for the first lesson on time and eagerly started the opening part of the next project. We will pick it up again next week. Keep up the good work, ${nama}!`,
+      `In class, ${nama} applied today's concepts well to finish the first project and began setting up the next lesson. The remaining steps will continue next session. Well done, ${nama}!`,
+      `Today, ${nama} worked with good independence to finish the first topic and start the next one. At home, you can ask ${p.obj} to explain what we created today. Keep it up, ${nama}!`
+    ],
+    double: [
+      `In class, ${nama} worked carefully and fixed any code errors independently across both lessons. At home, you can ask ${p.obj} to show you what we built today. Good job, ${nama}!`,
+      `${nama} stayed focused throughout the session and completed both projects neatly with little help. Next week, we are ready to move on to the next lesson. Keep it up, ${nama}!`,
+      `Today, ${nama} followed the steps for both topics well and tested each project to make sure it ran smoothly. At home, feel free to ask ${p.obj} about today's work. Well done, ${nama}!`,
+      `${nama} understood the instructions quickly, allowing ${p.obj} to finish two full lessons in one session. Next meeting, we will continue with a new topic. Nice work, ${nama}!`,
+      `In class, ${nama} kept a steady pace and connected the code blocks for both projects in the right order. At home, you can ask ${p.obj} how today's projects work. Keep it up, ${nama}!`,
+      `During the session, ${nama} transitioned smoothly from the first topic to the second and solved the coding tasks calmly. We are ready for the next lesson next week. Good job, ${nama}!`,
+      `${nama} paid close attention to the explanations and applied the new concepts directly in both projects. At home, feel free to ask ${p.obj} to try the projects with you. Nice effort, ${nama}!`,
+      `Today, ${nama} checked ${p.poss} code step by step on both lessons and corrected small bugs during testing. ${p.Subj} is well prepared for next week's topic. Well done, ${nama}!`,
+      `In class, ${nama} organized ${p.poss} workspace neatly and finished all tasks for both lessons on time. At home, you can ask ${p.obj} which project ${p.subj} enjoyed building today. Good work, ${nama}!`,
+      `${nama} showed good focus and independence while putting together the code for two lessons today. Next session, we will move forward to a new lesson. Keep up the good work, ${nama}!`,
+      `During class, ${nama} asked helpful questions and made sure every feature in both projects worked properly. At home, feel free to ask ${p.obj} to show you today's results. Good job, ${nama}!`,
+      `${nama} managed ${p.poss} class time well today, completing the first project and wrapping up the second one neatly. We will continue with the next topic next meeting. Keep it up, ${nama}!`,
+      `In class, ${nama} practiced the new coding commands across two lessons and verified the output of each project. At home, you can ask ${p.obj} what ${p.subj} learned today. Nice work, ${nama}!`,
+      `Today, ${nama} worked through the coding challenges in both lessons patiently and finished them with minimal guidance. ${p.Subj} is ready for our next topic next week. Well done, ${nama}!`,
+      `${nama} followed the logic flow of both lessons clearly and completed the two projects from start to finish. At home, feel free to ask ${p.obj} to demonstrate today's projects. Keep it up, ${nama}!`
+    ]
+  };
+}
+
+function buildTeacherNotes(idx, seed = 0) {
   const s = autoStudents[idx];
-  const currentVal = (s && s[field]) ? s[field].trim() : '';
+  if (!s) return '';
+  const sLang = s.lang || autoLang;
+  const sGender = s.gender || inferGenderFromName(s.nama);
+  const p = getPronouns(sLang, sGender);
+  const nama = (s.nama && s.nama.trim()) ? s.nama.trim() : (sLang === 'id' ? 'Siswa' : 'Student');
+  const pool = getStandaloneTeacherNotesPool(sLang, nama, p);
+  const statusKey = (s.status === 'in_progress') ? 'in_progress_1' : (s.status || 'done');
+  const list = pool[statusKey] || pool.done;
+  return pickVariant(list, 0, seed);
+}
+
+function buildStudentSplitResult(idx, seed) {
+  return {
+    summary: buildMeetingSummary(idx, seed),
+    notes: buildTeacherNotes(idx, seed)
+  };
+}
+
+function pickRandomSummarySeed(idx) {
+  const s = autoStudents[idx];
+  const currentVal = (s && s.summary) ? s.summary.trim() : '';
   const usedSeeds = new Set();
   autoStudents.forEach((other, j) => {
-    if (j !== idx && other && other[`${field}Seed`] !== undefined) {
-      usedSeeds.add(other[`${field}Seed`] % 6);
+    if (j !== idx && other && other.summarySeed !== undefined) {
+      usedSeeds.add(other.summarySeed % 6);
     }
   });
-
-  const candidates = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const candidates = [0, 1, 2, 3, 4, 5];
   for (let i = candidates.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
   }
-
   for (const cand of candidates) {
-    if (usedSeeds.has(cand % 6)) continue;
-    const res = buildStudentSplitResult(idx, cand);
-    if (res && res[field] && res[field].trim() !== currentVal) {
-      return cand;
-    }
+    if (usedSeeds.has(cand)) continue;
+    const res = buildMeetingSummary(idx, cand);
+    if (res && res.trim() !== currentVal) return cand;
   }
   for (const cand of candidates) {
-    const res = buildStudentSplitResult(idx, cand);
-    if (res && res[field] && res[field].trim() !== currentVal) {
-      return cand;
+    const res = buildMeetingSummary(idx, cand);
+    if (res && res.trim() !== currentVal) return cand;
+  }
+  return candidates[0];
+}
+
+function pickRandomNotesSeed(idx, preferContext = false) {
+  const s = autoStudents[idx];
+  const currentVal = (s && s.notes) ? s.notes.trim() : '';
+  const usedSeeds = new Set();
+  autoStudents.forEach((other, j) => {
+    if (j !== idx && other && other.notesSeed !== undefined) {
+      usedSeeds.add(other.notesSeed % 15);
     }
+  });
+
+  const shuffle = (arr) => {
+    const copy = arr.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]];
+    }
+    return copy;
+  };
+
+  let candidates = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
+  const isProg = s && (s.status === 'in_progress_1' || s.status === 'in_progress_2' || s.status === 'in_progress');
+  if (isProg && preferContext) {
+    const ctxMap = { detail: [0, 1, 2], focus: [3, 4, 5], pace: [6, 7, 8], logic: [9, 10, 11], tired: [12, 13, 14] };
+    const primary = shuffle(ctxMap[s.context || 'detail'] || [0, 1, 2]);
+    const rest = candidates.filter(c => !primary.includes(c));
+    candidates = primary.concat(rest);
+  }
+
+  for (const cand of candidates) {
+    if (usedSeeds.has(cand)) continue;
+    const res = buildTeacherNotes(idx, cand);
+    if (res && res.trim() !== currentVal) return cand;
+  }
+  for (const cand of candidates) {
+    const res = buildTeacherNotes(idx, cand);
+    if (res && res.trim() !== currentVal) return cand;
   }
   return candidates[0];
 }
@@ -1926,23 +2394,26 @@ function pickRandomSeedForField(idx, field) {
 function autoGenerateSummary(idx, pickNewRandom = false, alsoRefreshNotes = false) {
   syncStudentFromDOM(idx);
   const s = autoStudents[idx];
-  if (!s || !s.course || !s.lesson) return false;
-  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) return false;
-
-  if (pickNewRandom || s.summarySeed === undefined) {
-    s.summarySeed = pickRandomSeedForField(idx, 'summary');
+  if (!s) return false;
+  if (!s.genderManual && s.nama) {
+    s.gender = inferGenderFromName(s.nama);
   }
-  const sumRes = buildStudentSplitResult(idx, s.summarySeed);
-  if (!sumRes) return false;
-
-  s.summary = sumRes.summary;
-  const sumEl = document.getElementById(`auto-summary-${idx}`);
-  if (sumEl) sumEl.value = s.summary;
+  if (s.course && s.lesson && !((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2)) {
+    if (pickNewRandom || s.summarySeed === undefined) {
+      s.summarySeed = pickRandomSummarySeed(idx);
+    }
+    const sumText = buildMeetingSummary(idx, s.summarySeed);
+    if (sumText) {
+      s.summary = sumText;
+      const sumEl = document.getElementById(`auto-summary-${idx}`);
+      if (sumEl) sumEl.value = s.summary;
+    }
+  }
 
   if (alsoRefreshNotes && s.notesSeed !== undefined && s.notes) {
-    const noteRes = buildStudentSplitResult(idx, s.notesSeed);
-    if (noteRes && noteRes.notes) {
-      s.notes = noteRes.notes;
+    const noteText = buildTeacherNotes(idx, s.notesSeed);
+    if (noteText) {
+      s.notes = noteText;
       const noteEl = document.getElementById(`auto-notes-${idx}`);
       if (noteEl) noteEl.value = s.notes;
       updateNotesCounter(idx);
@@ -1956,10 +2427,33 @@ function autoGenerateSummary(idx, pickNewRandom = false, alsoRefreshNotes = fals
   return true;
 }
 
+function updateGenderToggleUI(idx) {
+  const s = autoStudents[idx];
+  if (!s) return;
+  const g = s.gender || 'm';
+  const btnM = document.getElementById(`auto-gender-m-${idx}`);
+  const btnF = document.getElementById(`auto-gender-f-${idx}`);
+  if (btnM) btnM.classList.toggle('active', g === 'm');
+  if (btnF) btnF.classList.toggle('active', g === 'f');
+}
+
+function setStudentGender(idx, gender) {
+  if (!autoStudents[idx]) return;
+  syncStudentFromDOM(idx);
+  autoStudents[idx].gender = gender;
+  autoStudents[idx].genderManual = true;
+  updateGenderToggleUI(idx);
+  autoGenerateSummary(idx, false, true);
+}
+
 function onStudentNameInput(idx, val) {
   if (!autoStudents[idx]) return;
   autoStudents[idx].nama = val;
-  if (autoStudents[idx].course && autoStudents[idx].lesson) {
+  if (!autoStudents[idx].genderManual) {
+    autoStudents[idx].gender = inferGenderFromName(val);
+    updateGenderToggleUI(idx);
+  }
+  if ((autoStudents[idx].course && autoStudents[idx].lesson) || autoStudents[idx].notesSeed !== undefined) {
     autoGenerateSummary(idx, false, true);
   } else {
     autoUpdateTable();
@@ -1983,18 +2477,21 @@ function generateTeacherNotes(idx) {
   }
   if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) { toast(L.errLesson2, 'error'); return; }
 
-  // Ensure Meeting Summary is also populated & synced with student name
-  if (!s.summary || s.summarySeed === undefined) {
-    autoGenerateSummary(idx, true, false);
-  } else {
-    autoGenerateSummary(idx, false, false);
+  if (!s.genderManual && s.nama) {
+    s.gender = inferGenderFromName(s.nama);
+    updateGenderToggleUI(idx);
   }
 
-  // Pick a random Teacher Notes variant guaranteed to differ from current notes
-  s.notesSeed = pickRandomSeedForField(idx, 'notes');
-  const noteRes = buildStudentSplitResult(idx, s.notesSeed);
-  if (noteRes) {
-    s.notes = noteRes.notes;
+  // Ensure Meeting Summary is populated if empty, without changing an already-generated summary
+  if (!s.summary || s.summarySeed === undefined) {
+    autoGenerateSummary(idx, true, false);
+  }
+
+  // Independently pick a random Teacher Notes variant out of the 15 standalone variations
+  s.notesSeed = pickRandomNotesSeed(idx, true);
+  const noteText = buildTeacherNotes(idx, s.notesSeed);
+  if (noteText) {
+    s.notes = noteText;
     const noteEl = document.getElementById(`auto-notes-${idx}`);
     if (noteEl) noteEl.value = s.notes;
     updateNotesCounter(idx);
@@ -2222,6 +2719,10 @@ function renderAutoInputs(){
       <div class="student-card-header">
         <div class="student-num">${i+1}</div>
         <input type="text" id="auto-name-${i}" placeholder="${L.studentPlaceholder}" value="${escHtml(s.nama)}" oninput="onStudentNameInput(${i},this.value)">
+        <div class="student-lang-toggle" title="Pronoun (He / She)">
+          <button type="button" id="auto-gender-m-${i}" class="student-lang-btn ${(s.gender||inferGenderFromName(s.nama))==='m'?'active':''}" onclick="setStudentGender(${i},'m')">He</button>
+          <button type="button" id="auto-gender-f-${i}" class="student-lang-btn ${(s.gender||inferGenderFromName(s.nama))==='f'?'active':''}" onclick="setStudentGender(${i},'f')">She</button>
+        </div>
         <div class="student-lang-toggle" title="Student Report Language">
           <button type="button" class="student-lang-btn ${sLang==='id'?'active':''}" onclick="setStudentLang(${i},'id')">ID</button>
           <button type="button" class="student-lang-btn ${sLang==='en'?'active':''}" onclick="setStudentLang(${i},'en')">EN</button>
