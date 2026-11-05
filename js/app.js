@@ -161,6 +161,7 @@ const resizeObserver = new ResizeObserver(() => {
 });
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.preview-scroll').forEach(el => resizeObserver.observe(el));
+  if (autoStudents.length === 0 && typeof window.initApp === 'function') window.initApp();
   renderAutoPhotoInputs();
 });
 
@@ -201,15 +202,15 @@ function escHtml(s) {
   if (!s) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-const ITALIC_MARKER_RE = /(?<=^|[^A-Za-z0-9_])_([^_\n]+?)_(?![A-Za-z0-9_])/g;
+const ITALIC_MARKER_RE = /(^|[^A-Za-z0-9_])_([^_\n]+?)_(?![A-Za-z0-9_])/g;
 function stripItalicMarkers(text) {
-  return String(text || '').replace(ITALIC_MARKER_RE, '$1');
+  return String(text || '').replace(ITALIC_MARKER_RE, '$1$2');
 }
 function formatProgressHTML(text) {
   if (!text) return '<em style="color:#94a3b8">—</em>';
   let formatted = escHtml(text);
   formatted = formatted.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
-  formatted = formatted.replace(ITALIC_MARKER_RE, '<em>$1</em>');
+  formatted = formatted.replace(ITALIC_MARKER_RE, '$1<em>$2</em>');
   formatted = formatted.replace(/\n/g, '<br>');
   return formatted;
 }
@@ -1720,9 +1721,9 @@ function populateCourseDropdown(idx) {
   const s = autoStudents[idx];
   const sLang = s.lang || autoLang;
   courseSelect.innerHTML = `<option value="">${LANG_UI[sLang].coursePlaceholder}</option>`;
-  const courseList = (s.criteria && COURSE_MAP[s.criteria])
+  const courseList = (typeof COURSE_MAP !== 'undefined' && s.criteria && COURSE_MAP[s.criteria])
     ? COURSE_MAP[s.criteria]
-    : ((s.criteria === 'Juniors' || s.criteria === 'Junior') ? (COURSE_MAP['Juniors'] || COURSE_MAP['Junior']) : null);
+    : ((typeof COURSE_MAP !== 'undefined' && (s.criteria === 'Juniors' || s.criteria === 'Junior')) ? (COURSE_MAP['Juniors'] || COURSE_MAP['Junior']) : null);
   if (courseList) {
     courseList.forEach(c => {
       const opt = document.createElement('option');
@@ -1748,7 +1749,7 @@ function populateLessonDropdown(idx) {
     lesson2Select.style.display = (s.status === 'double' || s.status === 'one_and_half') ? 'block' : 'none';
   }
 
-  if (s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length > 0) {
+  if (typeof COURSE_DATA !== 'undefined' && s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length > 0) {
     COURSE_DATA[s.course].forEach(l => {
       const lTitle = (sLang === 'id' && l.title_id) ? l.title_id : (l.title_en || l.title);
       const opt1 = document.createElement('option');
@@ -1763,7 +1764,7 @@ function populateLessonDropdown(idx) {
         lesson2Select.appendChild(opt2);
       }
     });
-  } else if (s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length === 0) {
+  } else if (typeof COURSE_DATA !== 'undefined' && s.course && COURSE_DATA[s.course] && COURSE_DATA[s.course].length === 0) {
     const noOpt = document.createElement('option');
     noOpt.value = "";
     noOpt.textContent = sLang === 'id' ? "(Ketik progress manual)" : "(Type progress manually)";
@@ -2160,7 +2161,7 @@ function autoUpdateTable(){
   tbody.innerHTML = '';
   autoStudents.forEach((s, idx) => {
     syncStudentFromDOM(idx);
-    if(!s.nama && !s.progress) return;
+    if(!s.nama && !s.progress && !s.criteria && !s.course && !s.lesson) return;
 
     // Status dot color
     const isDone = s.status === 'done' || s.status === 'double' || s.status === 'continued_done';
@@ -2195,6 +2196,29 @@ function autoUpdateTable(){
   });
   autoUpdateWA();
   fitPreviewScale();
+  if (tbody && !tbody.children.length) {
+    const emptyHint = autoLang === 'id'
+      ? 'Data & laporan progress siswa akan tampil di sini setelah Anda mengisi nama siswa dan klik Generate...'
+      : 'Student learning progress will appear here once you enter a student name and click Generate...';
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'rpt-student-card';
+    emptyDiv.innerHTML = `
+      <div class="card-status-col">
+        <div class="timeline-node"><span class="timeline-dot dot-done"></span></div>
+      </div>
+      <div class="card-name-col">
+        <span class="student-name-text"><em style="color:#94a3b8">—</em></span>
+      </div>
+      <div class="card-lesson-col">
+        <span class="lesson-pill" style="opacity:0.6;">—</span>
+      </div>
+      <div class="card-progress-col">
+        <em style="color:#94a3b8">${emptyHint}</em>
+      </div>
+    `;
+    tbody.appendChild(emptyDiv);
+    fitPreviewScale();
+  }
   if (typeof updateMascots === 'function') updateMascots();
 }
 
@@ -2597,7 +2621,12 @@ window.initApp = function() {
   ];
   setLang('en');
   autoUpdatePreview();
+  isAutoFit = true;
+  const kelasInput = document.getElementById('auto-kelas');
+  if (kelasInput) kelasInput.value = '';
+  fitPreviewScale();
   setTimeout(fitPreviewScale, 100);
+  setTimeout(fitPreviewScale, 300);
 
   // Sync theme toggle state on UI
   const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
