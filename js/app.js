@@ -74,10 +74,32 @@ function extractAction(template, nama, lang, gender = 'm', seed = 0) {
   if (lang === 'id') {
     t = t.replace(/^(?:Pada pertemuan ini|Dalam sesi ini|Di pertemuan kali ini|Pada sesi kali ini|Dalam pertemuan kali ini|Di sesi ini),?\s*\{nama\}\s*/i, '');
     t = t.replace(/^\{nama\}\s*/i, '');
-    const idAlso = ['. Selain itu, ia juga ', ', serta ia juga ', '. Di samping itu, ia juga '];
-    const idNext = ['. Selanjutnya, ia ', '. Selain itu, ia ', ', kemudian ia '];
+    const idAlso = [
+      '. Selain itu, ia juga ',
+      ', serta ia juga ',
+      '. Di samping itu, ia juga ',
+      '. Pada sesi ini, ia turut ',
+      ', dan ia juga ',
+      '. Berikutnya, ia juga '
+    ];
+    const idTakHanya = [
+      '. Tak hanya itu, ia juga ',
+      '. Di samping itu, ia juga ',
+      '. Selain itu, ia turut ',
+      ', serta ia juga ',
+      '. Dalam latihan ini, ia juga ',
+      '. Selanjutnya, ia turut '
+    ];
+    const idNext = [
+      '. Selanjutnya, ia ',
+      '. Selain itu, ia ',
+      ', kemudian ia ',
+      '. Pada tahap berikutnya, ia ',
+      '. Setelah itu, ia ',
+      ', lalu ia '
+    ];
     t = t.replace(/\.\s*Selain itu,\s*\{nama\}\s+juga\s+/gi, idAlso[sIdx % idAlso.length]);
-    t = t.replace(/\.\s*Tak hanya itu,\s*\{nama\}\s+juga\s+/gi, sIdx % 2 === 0 ? '. Tak hanya itu, ia juga ' : '. Di samping itu, ia juga ');
+    t = t.replace(/\.\s*Tak hanya itu,\s*\{nama\}\s+juga\s+/gi, idTakHanya[sIdx % idTakHanya.length]);
     t = t.replace(/\.\s*\{nama\}\s+juga\s+/gi, idAlso[sIdx % idAlso.length]);
     t = t.replace(/\.\s*\{nama\}\s+/gi, idNext[sIdx % idNext.length]);
     t = t.replace(/\{nama\}/g, 'ia');
@@ -86,11 +108,40 @@ function extractAction(template, nama, lang, gender = 'm', seed = 0) {
   t = t.replace(/^(?:In today's class|Today|In this session|In this class|In this final session|In this final class),?\s*\{nama\}\s*/i, '');
   t = t.replace(/^\{nama\}\s*/i, '');
   t = t.replace(/\btheir\s+(?!boat\b)/gi, `${p.poss} `);
-  const enAlso = [`, and ${p.subj} also `, `. In addition, ${p.subj} `, `. Alongside that, ${p.subj} also `];
-  const enThen = [`, and then ${p.subj} `, `. After that, ${p.subj} `, `. From there, ${p.subj} `];
-  const enNext = [`. After that, ${p.subj} `, `, and ${p.subj} then `, `. Additionally, ${p.subj} `, `. Along the way, ${p.subj} `];
+  const enAlso = [
+    `, and ${p.subj} also `,
+    `. In addition, ${p.subj} `,
+    `. Alongside that, ${p.subj} also `,
+    `. Beyond that, ${p.subj} also `,
+    `. During the activity, ${p.subj} also `,
+    `, and along the way ${p.subj} `
+  ];
+  const enWasAlso = [
+    `, and ${p.subj} was also `,
+    `. In addition, ${p.subj} was also `,
+    `. Alongside that, ${p.subj} was also `,
+    `. During the session, ${p.subj} was also `,
+    `, while ${p.subj} was also `,
+    `. Beyond that, ${p.subj} was also `
+  ];
+  const enThen = [
+    `, and then ${p.subj} `,
+    `. After that, ${p.subj} `,
+    `. From there, ${p.subj} `,
+    `. Next, ${p.subj} `,
+    `, after which ${p.subj} `,
+    `. Following that, ${p.subj} `
+  ];
+  const enNext = [
+    `. After that, ${p.subj} `,
+    `, and ${p.subj} then `,
+    `. Additionally, ${p.subj} `,
+    `. Along the way, ${p.subj} `,
+    `. Next, ${p.subj} `,
+    `. In the next part, ${p.subj} `
+  ];
   t = t.replace(/\.\s*\{nama\}\s+also\s+/gi, enAlso[sIdx % enAlso.length]);
-  t = t.replace(/\.\s*\{nama\}\s+was\s+also\s+/gi, sIdx % 2 === 0 ? `, and ${p.subj} was also ` : `. In addition, ${p.subj} was also `);
+  t = t.replace(/\.\s*\{nama\}\s+was\s+also\s+/gi, enWasAlso[sIdx % enWasAlso.length]);
   t = t.replace(/\.\s*\{nama\}\s+then\s+/gi, enThen[sIdx % enThen.length]);
   t = t.replace(/!\s*\{nama\}\s+/gi, `! In this activity, ${p.subj} `);
   t = t.replace(/\.\s*\{nama\}\s+/gi, enNext[sIdx % enNext.length]);
@@ -1932,15 +1983,25 @@ function buildMeetingSummary(idx, seed = 0) {
       const variants = isRoblox ? [
         `Pada pertemuan hari ini, ${nama} menyelesaikan materi *${l1Title}*, di mana ia ${action1}`,
         `Dalam sesi ini, ${nama} berhasil menuntaskan _project_ dan _script_ pada *${l1Title}*. Selama kelas berlangsung, ia ${action1}`,
-        `Di pertemuan kali ini, ${nama} menyelesaikan seluruh target materi *${l1Title}*, yang mana ia ${action1}`,
-        `Hari ini, ${nama} berhasil merampungkan *${l1Title}* di Roblox Studio. Pada sesi ini, ia ${action1}`
+        `Melalui materi *${l1Title}* hari ini, ${nama} ${action1} Seluruh tahapan _project_ di Roblox Studio telah diselesaikan dengan baik.`,
+        `Hari ini, ${nama} berhasil merampungkan *${l1Title}* di Roblox Studio. Pada sesi ini, ia ${action1}`,
+        `Fokus pembelajaran ${nama} hari ini adalah *${l1Title}*, yang mana ia ${action1}`,
+        `${nama} menuntaskan seluruh target pengembangan game pada *${l1Title}* hari ini. Sepanjang sesi, ia ${action1}`,
+        `Saat mengerjakan *${l1Title}* di kelas hari ini, ${nama} ${action1} Semua objektif pada materi ini sudah tercapai.`,
+        `Di sesi Roblox Studio kali ini, ${nama} menyelesaikan *${l1Title}*, di mana ia ${action1}`,
+        `Materi *${l1Title}* berhasil diselesaikan oleh ${nama} pada pertemuan hari ini. Dalam prosesnya, ia ${action1}`,
+        `Pada kelas hari ini, ${nama} fokus mempraktikkan *${l1Title}*. Selama pembelajaran, ia ${action1}`
       ] : [
         `Hari ini, ${nama} berhasil menyelesaikan materi *${l1Title}*, di mana ia ${action1}`,
         `Di pertemuan kali ini, ${nama} menuntaskan seluruh target pada *${l1Title}*. Selama sesi ini, ia ${action1}`,
-        `Pada kelas hari ini, ${nama} menyelesaikan _project_ *${l1Title}*, yang mana ia ${action1}`,
+        `Melalui materi *${l1Title}* hari ini, ${nama} ${action1} Seluruh tahapan pada lesson ini telah selesai dikerjakan.`,
+        `Fokus pembelajaran ${nama} di kelas hari ini adalah *${l1Title}*, yang mana ia ${action1}`,
         `Dalam sesi pembelajaran hari ini, ${nama} berhasil merampungkan materi *${l1Title}*. Pada pertemuan ini, ia ${action1}`,
-        `Di sesi kali ini, ${nama} menuntaskan tahapan pembelajaran pada *${l1Title}*, di mana ia ${action1}`,
-        `Pada pertemuan hari ini, ${nama} menyelesaikan materi *${l1Title}* dengan baik. Sepanjang kelas, ia ${action1}`
+        `${nama} menyelesaikan seluruh tahapan pada *${l1Title}* hari ini. Sepanjang kelas berlangsung, ia ${action1}`,
+        `Saat mempelajari *${l1Title}* di sesi kali ini, ${nama} ${action1} Semua target materi hari ini sudah tuntas.`,
+        `Materi *${l1Title}* berhasil dituntaskan oleh ${nama} pada pertemuan ini, di mana ia ${action1}`,
+        `Pada kelas hari ini, ${nama} mempraktikkan materi *${l1Title}*. Dalam kegiatan tersebut, ia ${action1}`,
+        `Di sesi kali ini, ${nama} mengerjakan dan menyelesaikan _project_ *${l1Title}*, yang mana ia ${action1}`
       ];
       return pickVariant(variants, 0, seed);
     }
@@ -1948,14 +2009,25 @@ function buildMeetingSummary(idx, seed = 0) {
       const variants = isRoblox ? [
         `Pada pertemuan hari ini, ${nama} melanjutkan dan menuntaskan _project_ *${l1Title}*, di mana ia ${action1}`,
         `Dalam sesi ini, ${nama} merampungkan kelanjutan _project_ *${l1Title}* dari minggu lalu. Selama pembelajaran ini, ia ${action1}`,
-        `Di pertemuan kali ini, ${nama} menyelesaikan tahap akhir *${l1Title}* di Roblox Studio, yang mana ia ${action1}`
+        `Di pertemuan kali ini, ${nama} menyelesaikan tahap akhir *${l1Title}* di Roblox Studio, yang mana ia ${action1}`,
+        `Melanjutkan progres minggu lalu pada *${l1Title}*, hari ini ${nama} ${action1} Seluruh tahapan _project_ kini telah selesai.`,
+        `${nama} berhasil menuntaskan sisa _project_ *${l1Title}* di Roblox Studio hari ini. Pada rangkaian materi ini, ia ${action1}`,
+        `Hari ini, ${nama} fokus merampungkan bagian penutup dari *${l1Title}*, di mana ia ${action1}`,
+        `Tahap akhir *${l1Title}* berhasil diselesaikan oleh ${nama} pada sesi ini. Selama pengerjaan berlangsung, ia ${action1}`,
+        `Saat meneruskan _project_ *${l1Title}* hari ini, ${nama} ${action1} Dengan demikian, seluruh target lesson telah tercapai.`,
+        `Pada sesi lanjutan hari ini, ${nama} menyambung dan menuntaskan *${l1Title}* di Roblox Studio, yang mana ia ${action1}`,
+        `Di kelas hari ini, ${nama} menyelesaikan seluruh bagian yang tersisa pada *${l1Title}*. Dalam topik ini, ia ${action1}`
       ] : [
         `Hari ini, ${nama} menyelesaikan _project_ *${l1Title}* yang dimulai minggu lalu, di mana ia ${action1}`,
         `Di pertemuan kali ini, ${nama} menuntaskan bagian akhir dari materi *${l1Title}*. Dalam rangkaian materi ini, ia ${action1}`,
-        `Hari ini, ${nama} melanjutkan pengerjaan *${l1Title}* sampai selesai, yang mana ia ${action1}`,
+        `Melanjutkan progres pertemuan sebelumnya pada *${l1Title}*, hari ini ${nama} ${action1} Seluruh tahapan _project_ kini sudah selesai.`,
         `Di sesi kali ini, ${nama} berhasil merampungkan sisa _project_ *${l1Title}*. Selama mempelajari topik ini, ia ${action1}`,
-        `Pada pertemuan hari ini, ${nama} menyelesaikan seluruh bagian akhir *${l1Title}*, di mana ia ${action1}`,
-        `Hari ini, ${nama} meneruskan dan menuntaskan _project_ *${l1Title}* dari sesi sebelumnya. Pada materi ini, ia ${action1}`
+        `${nama} meneruskan dan menyelesaikan seluruh rangkaian *${l1Title}* di kelas hari ini, yang mana ia ${action1}`,
+        `Hari ini, ${nama} fokus menuntaskan tahap penutup pada *${l1Title}*. Pada materi ini, ia ${action1}`,
+        `Saat melanjutkan *${l1Title}* di pertemuan ini, ${nama} ${action1} Semua target pembelajaran pada lesson ini telah tuntas.`,
+        `Bagian akhir dari materi *${l1Title}* berhasil diselesaikan oleh ${nama} hari ini, di mana ia ${action1}`,
+        `Pada kelas lanjutan hari ini, ${nama} merampungkan pengerjaan *${l1Title}*. Sepanjang sesi, ia ${action1}`,
+        `Setelah menyambung progres minggu lalu, ${nama} hari ini menuntaskan *${l1Title}*, yang mana ia ${action1}`
       ];
       return pickVariant(variants, 0, seed);
     }
@@ -1964,10 +2036,14 @@ function buildMeetingSummary(idx, seed = 0) {
       const variants = [
         `Hari ini, ${nama} mulai mempelajari materi *${l1Title}*, di mana ia ${act}`,
         `Dalam sesi ini, ${nama} mengawali pengerjaan *${l1Title}*. Pada tahap awal ini, ia ${act}`,
-        `Pada pertemuan hari ini, ${nama} memulai langkah pertama untuk *${l1Title}*. Selama sesi berlangsung, ia ${act}`,
+        `Pada pertemuan pertama untuk *${l1Title}* hari ini, ${nama} ${act}`,
         `Di kelas hari ini, ${nama} mulai mengerjakan _project_ *${l1Title}*, yang mana ia ${act}`,
-        `Hari ini, ${nama} memasuki pertemuan pertama materi *${l1Title}*. Di sesi pembuka ini, ia ${act}`,
-        `Pada sesi kali ini, ${nama} mulai mengeksplorasi *${l1Title}*, di mana ia ${act}`
+        `Fokus awal ${nama} hari ini adalah membuka materi *${l1Title}*. Di sesi pembuka ini, ia ${act}`,
+        `Pada sesi kali ini, ${nama} mulai mengeksplorasi *${l1Title}*, di mana ia ${act}`,
+        `${nama} memulai langkah pertama pada materi *${l1Title}* hari ini. Selama sesi berlangsung, ia ${act}`,
+        `Saat memasuki materi baru *${l1Title}* hari ini, ${nama} ${act}`,
+        `Tahap awal *${l1Title}* mulai dikerjakan oleh ${nama} pada pertemuan ini, yang mana ia ${act}`,
+        `Dalam kelas hari ini, ${nama} mulai menyusun bagian pembuka untuk *${l1Title}*. Pada sesi ini, ia ${act}`
       ];
       return pickVariant(variants, 0, seed);
     }
@@ -1976,10 +2052,14 @@ function buildMeetingSummary(idx, seed = 0) {
       const variants = [
         `Pada pertemuan kedua materi *${l1Title}* ini, ${nama} melanjutkan _project_-nya dari minggu lalu, di mana ia ${act}`,
         `Dalam sesi lanjutan *${l1Title}* hari ini, ${nama} meneruskan tahap pengembangan _project_. Pada sesi ini, ia ${act}`,
-        `Hari ini, ${nama} kembali melanjutkan pengerjaan *${l1Title}* yang sedang berjalan, yang mana ia ${act}`,
-        `Di pertemuan kedua untuk *${l1Title}* ini, ${nama} menyambung progres minggu lalu. Selama kelas berlangsung, ia ${act}`,
-        `Pada sesi kali ini, ${nama} meneruskan bagian tengah dari _project_ *${l1Title}*, di mana ia ${act}`,
-        `Hari ini, ${nama} melanjutkan tahap berikutnya pada materi *${l1Title}*. Dalam prosesnya, ia ${act}`
+        `Melanjutkan progres minggu lalu pada *${l1Title}*, hari ini ${nama} ${act}`,
+        `Di pertemuan kedua untuk *${l1Title}* ini, ${nama} menyambung progres sebelumnya. Selama kelas berlangsung, ia ${act}`,
+        `Pada sesi kali ini, ${nama} meneruskan bagian tengah dari _project_ *${l1Title}*, yang mana ia ${act}`,
+        `Hari ini, ${nama} melanjutkan tahap berikutnya pada materi *${l1Title}*. Dalam prosesnya, ia ${act}`,
+        `${nama} kembali meneruskan pengerjaan *${l1Title}* yang sedang berjalan hari ini, di mana ia ${act}`,
+        `Saat melanjutkan pertemuan kedua *${l1Title}* hari ini, ${nama} ${act}`,
+        `Progres pengerjaan *${l1Title}* diteruskan oleh ${nama} pada sesi hari ini. Sepanjang kelas, ia ${act}`,
+        `Di kelas lanjutan hari ini, ${nama} fokus mengembangkan tahap berikutnya dari *${l1Title}*, yang mana ia ${act}`
       ];
       return pickVariant(variants, 0, seed);
     }
@@ -1990,7 +2070,11 @@ function buildMeetingSummary(idx, seed = 0) {
         `Hari ini, ${nama} berhasil merampungkan *${l1Title}*, yang mana ia ${action1} Selanjutnya, ia langsung mengawali tahap pertama pada *${l2Title}*.`,
         `Pada sesi hari ini, ${nama} menyelesaikan *${l1Title}* sekaligus mencicil bagian awal *${l2Title}*. Selama materi utama, ia ${action1}`,
         `Dalam kelas hari ini, ${nama} menuntaskan seluruh tahapan *${l1Title}*, di mana ia ${action1} Kemudian, ia mulai menyusun bagian pembuka *${l2Title}*.`,
-        `Pada pertemuan kali ini, ${nama} menyelesaikan *${l1Title}* dengan lancar dan lanjut membuka materi *${l2Title}*. Di topik pertama, ia ${action1}`
+        `Pada pertemuan kali ini, ${nama} menyelesaikan *${l1Title}* dengan lancar dan lanjut membuka materi *${l2Title}*. Di topik pertama, ia ${action1}`,
+        `Melalui sesi hari ini, ${nama} ${action1} Setelah seluruh tahapan *${l1Title}* tuntas, ia mulai mempelajari bagian awal *${l2Title}*.`,
+        `${nama} berhasil merampungkan *${l1Title}* hari ini dan langsung melanjutkan ke tahap pembuka *${l2Title}*. Pada lesson pertama, ia ${action1}`,
+        `Setelah menuntaskan *${l1Title}* di kelas hari ini—di mana ia ${action1.replace(/\.$/, '')}—${nama} menggunakan waktu tersisa untuk mulai mengerjakan *${l2Title}*.`,
+        `Fokus utama ${nama} hari ini adalah menyelesaikan *${l1Title}*, yang mana ia ${action1} Di akhir sesi, ia juga mulai masuk ke materi *${l2Title}*.`
       ];
       return pickVariant(variants, 0, seed);
     }
@@ -2004,27 +2088,43 @@ function buildMeetingSummary(idx, seed = 0) {
         `Hari ini, ${nama} berhasil menyelesaikan 2 lesson sekaligus (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Selanjutnya, ia ${action2}`,
         `Di pertemuan kali ini, ${nama} menuntaskan 2 materi sekaligus (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: Ia ${action1}\n• *${l2Title}*: Setelah itu, ia ${action2}`,
         `Di kelas hari ini, ${nama} menyelesaikan 2 lesson (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Berikutnya, ia juga ${action2}`,
-        `Pada sesi hari ini, ${nama} berhasil merampungkan 2 materi (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: Ia ${action1}\n• *${l2Title}*: Selain itu, ia ${action2}`
+        `Pada sesi hari ini, ${nama} berhasil merampungkan 2 materi (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: Ia ${action1}\n• *${l2Title}*: Selain itu, ia ${action2}`,
+        `Dalam pertemuan hari ini, ${nama} menuntaskan rangkaian *Lesson ${s.lesson}* dan *Lesson ${s.lesson2}*:\n\n• *${l1Title}*: Pada materi pertama, ia ${action1}\n• *${l2Title}*: Di materi kedua, ia ${action2}`,
+        `${nama} menyelesaikan 2 topik pembelajaran sekaligus pada kelas hari ini (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Kemudian, ia ${action2}`,
+        `Berikut adalah 2 materi yang berhasil diselesaikan ${nama} hari ini (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: Ia ${action1}\n• *${l2Title}*: Selanjutnya, ia ${action2}`,
+        `Hari ini, ${nama} mempelajari dan menuntaskan *${l1Title}*, di mana ia ${action1} Setelah itu, ia lanjut menyelesaikan *${l2Title}*, yang mana ia ${action2}`,
+        `Pada kelas kali ini, ${nama} merampungkan *${l1Title}* serta *${l2Title}*. Di materi pertama, ia ${action1} Kemudian pada materi kedua, ia ${action2}`,
+        `Selama sesi hari ini, ${nama} berhasil menyelesaikan dua lesson penuh:\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Pada tahap selanjutnya, ia ${action2}`
       ];
       return pickVariant(variants, 0, seed);
     }
     return '';
   }
 
-  // English (EN) Meeting Summary Variations
+  // English (EN) Meeting Summary Variations (10 distinct variations per status)
   if (s.status === 'done') {
     const variants = isRoblox ? [
       `In today's session, ${nama} completed *${l1Title}*, where ${p.subj} ${action1}`,
       `During today's class, ${nama} finished building and scripting the project for *${l1Title}*. Throughout the session, ${p.subj} ${action1}`,
-      `Today, ${nama} achieved all the learning objectives for *${l1Title}*, in which ${p.subj} ${action1}`,
-      `In this session, ${nama} completed all steps in *${l1Title}* in Roblox Studio. Along the way, ${p.subj} ${action1}`
+      `For today's Roblox Studio lesson on *${l1Title}*, ${nama} ${action1} ${p.Subj} completed all target steps for this session.`,
+      `In this session, ${nama} completed all steps in *${l1Title}* in Roblox Studio. Along the way, ${p.subj} ${action1}`,
+      `Working on *${l1Title}* in Roblox Studio today, ${nama} ${action1}`,
+      `${nama} finished the game development tasks for *${l1Title}* today, in which ${p.subj} ${action1}`,
+      `Today's Roblox session covered *${l1Title}*, where ${nama} ${action1}`,
+      `During our class on *${l1Title}* today, ${nama} ${action1} All project goals for this lesson are now complete.`,
+      `${nama} worked through and wrapped up *${l1Title}* in Roblox Studio today. Specifically, ${p.subj} ${action1}`,
+      `In today's lesson, ${nama} focused on *${l1Title}* and completed the full activity, where ${p.subj} ${action1}`
     ] : [
       `Today, ${nama} completed *${l1Title}*, where ${p.subj} ${action1}`,
       `In today's class, ${nama} finished the project for *${l1Title}*. During the session, ${p.subj} ${action1}`,
-      `Today, ${nama} achieved all the learning goals for *${l1Title}*. Throughout the lesson, ${p.subj} ${action1}`,
-      `In this session, ${nama} finished *${l1Title}*, in which ${p.subj} ${action1}`,
-      `Today, ${nama} worked through and completed *${l1Title}*. In this lesson, ${p.subj} ${action1}`,
-      `In today's lesson, ${nama} successfully wrapped up *${l1Title}*. Along the way, ${p.subj} ${action1}`
+      `For today's lesson on *${l1Title}*, ${nama} ${action1} ${p.Subj} completed all target steps for this topic.`,
+      `During our session on *${l1Title}* today, ${nama} ${action1}`,
+      `${nama} worked through and finished *${l1Title}* today, in which ${p.subj} ${action1}`,
+      `In today's session, ${nama} focused on *${l1Title}*. Throughout the lesson, ${p.subj} ${action1}`,
+      `Working on *${l1Title}* in class today, ${nama} ${action1} All learning objectives for this lesson are now complete.`,
+      `Today's lesson covered *${l1Title}*, where ${nama} ${action1}`,
+      `In this meeting, ${nama} wrapped up all activities for *${l1Title}*. Along the way, ${p.subj} ${action1}`,
+      `${nama} completed all stages of *${l1Title}* in today's class. Specifically, ${p.subj} ${action1}`
     ];
     return pickVariant(variants, 0, seed);
   }
@@ -2032,14 +2132,25 @@ function buildMeetingSummary(idx, seed = 0) {
     const variants = isRoblox ? [
       `In today's session, ${nama} continued and finalized the project for *${l1Title}*, where ${p.subj} ${action1}`,
       `In this class, ${nama} concluded the ongoing Roblox project in *${l1Title}*. Across the lesson, ${p.subj} ${action1}`,
-      `During today's lesson, ${nama} completed the final stage of *${l1Title}*, in which ${p.subj} ${action1}`
+      `During today's lesson, ${nama} completed the final stage of *${l1Title}*, in which ${p.subj} ${action1}`,
+      `Picking up from last week's progress on *${l1Title}*, ${nama} ${action1} The full Roblox project is now complete.`,
+      `${nama} finished the remaining steps of *${l1Title}* in Roblox Studio today. Throughout this topic, ${p.subj} ${action1}`,
+      `For the closing part of *${l1Title}* today, ${nama} ${action1} ${p.Subj} has now completed the entire lesson.`,
+      `Today, ${nama} resumed *${l1Title}* in Roblox Studio and wrapped it up, where ${p.subj} ${action1}`,
+      `Continuing our work on *${l1Title}* today, ${nama} ${action1} All remaining project tasks are now finished.`,
+      `${nama} completed the rest of *${l1Title}* in today's Roblox session. Specifically, ${p.subj} ${action1}`,
+      `In today's follow-up session, ${nama} finalized all parts of *${l1Title}*, where ${p.subj} ${action1}`
     ] : [
       `Today, ${nama} finished the project in *${l1Title}* that started last week, where ${p.subj} ${action1}`,
       `In today's lesson, ${nama} completed the remaining part of *${l1Title}*. Across this topic, ${p.subj} ${action1}`,
-      `Today, ${nama} resumed *${l1Title}* from our previous session and finished it, in which ${p.subj} ${action1}`,
+      `Picking up from our previous session on *${l1Title}*, ${nama} ${action1} The entire lesson is now complete.`,
       `In this session, ${nama} wrapped up the rest of *${l1Title}*. Throughout the lesson, ${p.subj} ${action1}`,
-      `Today, ${nama} finalized all remaining steps for *${l1Title}*, where ${p.subj} ${action1}`,
-      `In today's class, ${nama} picked up where ${p.subj} left off last week and completed *${l1Title}*. Along the way, ${p.subj} ${action1}`
+      `${nama} resumed *${l1Title}* today and finalized all remaining steps, in which ${p.subj} ${action1}`,
+      `In today's class, ${nama} picked up where ${p.subj} left off last week and completed *${l1Title}*. Along the way, ${p.subj} ${action1}`,
+      `For the final part of *${l1Title}* today, ${nama} ${action1} All target steps for this project are now finished.`,
+      `Continuing ${p.poss} work on *${l1Title}* today, ${nama} completed the lesson, where ${p.subj} ${action1}`,
+      `${nama} brought *${l1Title}* to completion in today's session. Across this project, ${p.subj} ${action1}`,
+      `During today's follow-up class on *${l1Title}*, ${nama} ${action1} ${p.Subj} has now finished all parts of this topic.`
     ];
     return pickVariant(variants, 0, seed);
   }
@@ -2048,10 +2159,14 @@ function buildMeetingSummary(idx, seed = 0) {
     const variants = [
       `Today, ${nama} started working on *${l1Title}*, where ${p.subj} ${act}`,
       `In today's session, ${nama} began *${l1Title}*. For the first part of the project, ${p.subj} ${act}`,
-      `Today, ${nama} was introduced to *${l1Title}* and started the opening stage, in which ${p.subj} ${act}`,
-      `In this class, ${nama} began the first meeting for *${l1Title}*. During the session, ${p.subj} ${act}`,
+      `For our first meeting on *${l1Title}* today, ${nama} ${act}`,
+      `In this class, ${nama} began the first stage of *${l1Title}*. During the session, ${p.subj} ${act}`,
       `Today, ${nama} kicked off the project for *${l1Title}*. In this initial stage, ${p.subj} ${act}`,
-      `During today's lesson, ${nama} started exploring *${l1Title}*, where ${p.subj} ${act}`
+      `During today's lesson, ${nama} started exploring *${l1Title}*, where ${p.subj} ${act}`,
+      `${nama} was introduced to *${l1Title}* today and completed the opening steps, in which ${p.subj} ${act}`,
+      `Starting the new topic *${l1Title}* in class today, ${nama} ${act}`,
+      `Today's session introduced *${l1Title}*, where ${nama} began the project and ${act}`,
+      `${nama} started building the foundation for *${l1Title}* today. Specifically, ${p.subj} ${act}`
     ];
     return pickVariant(variants, 0, seed);
   }
@@ -2060,10 +2175,14 @@ function buildMeetingSummary(idx, seed = 0) {
     const variants = [
       `In this second session for *${l1Title}*, ${nama} continued developing ${p.poss} project from last week, where ${p.subj} ${act}`,
       `Today, ${nama} resumed the ongoing project for *${l1Title}*. During this follow-up session, ${p.subj} ${act}`,
-      `In today's class, ${nama} entered the second meeting for *${l1Title}* and continued the next stage, in which ${p.subj} ${act}`,
+      `Continuing last week's progress on *${l1Title}*, today ${nama} ${act}`,
       `During this follow-up lesson on *${l1Title}*, ${nama} built upon last week's progress. Specifically, ${p.subj} ${act}`,
       `Today, ${nama} continued working through the middle phase of *${l1Title}*, where ${p.subj} ${act}`,
-      `In this session, ${nama} picked up ${p.poss} ongoing work on *${l1Title}*. Throughout the class, ${p.subj} ${act}`
+      `In this session, ${nama} picked up ${p.poss} ongoing work on *${l1Title}*. Throughout the class, ${p.subj} ${act}`,
+      `${nama} entered the second meeting for *${l1Title}* today and moved on to the next stage, in which ${p.subj} ${act}`,
+      `For our second class on *${l1Title}* today, ${nama} continued the project and ${act}`,
+      `Building on ${p.poss} earlier setup for *${l1Title}*, ${nama} spent today's session working on the next features, where ${p.subj} ${act}`,
+      `In today's follow-up class, ${nama} advanced ${p.poss} ongoing *${l1Title}* project. Along the way, ${p.subj} ${act}`
     ];
     return pickVariant(variants, 0, seed);
   }
@@ -2074,7 +2193,11 @@ function buildMeetingSummary(idx, seed = 0) {
       `Today, ${nama} wrapped up *${l1Title}*, in which ${p.subj} ${action1} After finishing that, ${p.subj} got a head start on the first part of *${l2Title}*.`,
       `In this session, ${nama} completed all the steps in *${l1Title}* and began *${l2Title}*. Specifically, ${p.subj} ${action1}`,
       `Today, ${nama} finished *${l1Title}*, where ${p.subj} ${action1} ${p.Subj} then used the extra time in class to begin *${l2Title}*.`,
-      `During today's lesson, ${nama} completed *${l1Title}* and started the opening stage of *${l2Title}*. Throughout the main lesson, ${p.subj} ${action1}`
+      `During today's lesson, ${nama} completed *${l1Title}* and started the opening stage of *${l2Title}*. Throughout the main lesson, ${p.subj} ${action1}`,
+      `For the first part of class today, ${nama} finished *${l1Title}*, where ${p.subj} ${action1} Afterward, ${p.subj} moved ahead to start *${l2Title}*.`,
+      `${nama} completed all tasks for *${l1Title}* today and also began exploring *${l2Title}*. In the first lesson, ${p.subj} ${action1}`,
+      `Working through *${l1Title}* today, ${nama} ${action1} Since ${p.subj} finished early, ${p.subj} also started the initial setup for *${l2Title}*.`,
+      `Today's session covered the full completion of *${l1Title}*—where ${nama} ${action1.replace(/\.$/, '')}—followed by the opening steps of *${l2Title}*.`
     ];
     return pickVariant(variants, 0, seed);
   }
@@ -2088,7 +2211,13 @@ function buildMeetingSummary(idx, seed = 0) {
       `Today, ${nama} finished 2 lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: ${p.Subj} then ${action2}`,
       `In today's session, ${nama} completed 2 lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${p.Subj} ${action1}\n• *${l2Title}*: After that, ${p.subj} ${action2}`,
       `During today's class, ${nama} worked through and finished 2 lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Next, ${p.subj} ${action2}`,
-      `In this meeting, ${nama} completed 2 full lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${p.Subj} ${action1}\n• *${l2Title}*: ${p.Subj} also ${action2}`
+      `In this meeting, ${nama} completed 2 full lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${p.Subj} ${action1}\n• *${l2Title}*: ${p.Subj} also ${action2}`,
+      `${nama} completed both *Lesson ${s.lesson}* and *Lesson ${s.lesson2}* in today's class:\n\n• *${l1Title}*: In the first topic, ${p.subj} ${action1}\n• *${l2Title}*: In the second topic, ${p.subj} ${action2}`,
+      `Here is a summary of the 2 lessons ${nama} completed today (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Moving on, ${p.subj} ${action2}`,
+      `Today, ${nama} completed *${l1Title}*, where ${p.subj} ${action1} ${p.Subj} then moved on and finished *${l2Title}*, in which ${p.subj} ${action2}`,
+      `In today's class, ${nama} wrapped up two full lessons: *${l1Title}* and *${l2Title}*. First, ${p.subj} ${action1} Afterward, ${p.subj} ${action2}`,
+      `Across today's session, ${nama} achieved the learning goals for two lessons (*Lesson ${s.lesson}* & *Lesson ${s.lesson2}*):\n\n• *${l1Title}*: ${p.Subj} ${action1}\n• *${l2Title}*: Following that, ${p.subj} ${action2}`,
+      `Working through two topics today, ${nama} completed *${l1Title}* and *${l2Title}*:\n\n• *${l1Title}*: ${nama} ${action1}\n• *${l2Title}*: Additionally, ${p.subj} ${action2}`
     ];
     return pickVariant(variants, 0, seed);
   }
@@ -2331,39 +2460,61 @@ function buildStudentSplitResult(idx, seed) {
 
 function pickRandomSummarySeed(idx) {
   const s = autoStudents[idx];
-  const currentVal = (s && s.summary) ? s.summary.trim() : '';
-  const usedSeeds = new Set();
-  autoStudents.forEach((other, j) => {
-    if (j !== idx && other && other.summarySeed !== undefined) {
-      usedSeeds.add(other.summarySeed % 6);
+  if (!s) return 0;
+  const currentVal = (s.summary || '').trim();
+  const summaryKey = `${s.course || ''}|${s.lesson || ''}|${s.lesson2 || ''}|${s.status || 'done'}|${s.lang || autoLang}`;
+  if (s._lastSummaryKey !== summaryKey) {
+    s._lastSummaryKey = summaryKey;
+    s.summarySeedQueue = [];
+  }
+
+  const refillQueue = () => {
+    const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
-  });
-  const candidates = [0, 1, 2, 3, 4, 5];
-  for (let i = candidates.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    const usedSeeds = new Set();
+    autoStudents.forEach((other, j) => {
+      if (j !== idx && other && other.summarySeed !== undefined) {
+        usedSeeds.add(other.summarySeed % 10);
+      }
+    });
+    const unused = arr.filter(x => !usedSeeds.has(x) && x !== s.summarySeed);
+    const rest = arr.filter(x => !unused.includes(x) && x !== s.summarySeed);
+    const ordered = unused.concat(rest);
+    if (s.summarySeed !== undefined) ordered.push(s.summarySeed % 10);
+    return ordered;
+  };
+
+  if (!Array.isArray(s.summarySeedQueue) || s.summarySeedQueue.length === 0) {
+    s.summarySeedQueue = refillQueue();
   }
-  for (const cand of candidates) {
-    if (usedSeeds.has(cand)) continue;
+
+  while (s.summarySeedQueue.length > 0) {
+    const cand = s.summarySeedQueue.shift();
     const res = buildMeetingSummary(idx, cand);
     if (res && res.trim() !== currentVal) return cand;
   }
-  for (const cand of candidates) {
+
+  s.summarySeedQueue = refillQueue();
+  while (s.summarySeedQueue.length > 0) {
+    const cand = s.summarySeedQueue.shift();
     const res = buildMeetingSummary(idx, cand);
     if (res && res.trim() !== currentVal) return cand;
   }
-  return candidates[0];
+  return ((s.summarySeed || 0) + 1) % 10;
 }
 
 function pickRandomNotesSeed(idx, preferContext = false) {
   const s = autoStudents[idx];
-  const currentVal = (s && s.notes) ? s.notes.trim() : '';
-  const usedSeeds = new Set();
-  autoStudents.forEach((other, j) => {
-    if (j !== idx && other && other.notesSeed !== undefined) {
-      usedSeeds.add(other.notesSeed % 15);
-    }
-  });
+  if (!s) return 0;
+  const currentVal = (s.notes || '').trim();
+  const notesKey = `${s.status || 'done'}|${s.context || 'detail'}|${s.lang || autoLang}`;
+  if (s._lastNotesKey !== notesKey) {
+    s._lastNotesKey = notesKey;
+    s.notesSeedQueue = [];
+  }
 
   const shuffle = (arr) => {
     const copy = arr.slice();
@@ -2374,25 +2525,49 @@ function pickRandomNotesSeed(idx, preferContext = false) {
     return copy;
   };
 
-  let candidates = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
-  const isProg = s && (s.status === 'in_progress_1' || s.status === 'in_progress_2' || s.status === 'in_progress');
-  if (isProg && preferContext) {
-    const ctxMap = { detail: [0, 1, 2], focus: [3, 4, 5], pace: [6, 7, 8], logic: [9, 10, 11], tired: [12, 13, 14] };
-    const primary = shuffle(ctxMap[s.context || 'detail'] || [0, 1, 2]);
-    const rest = candidates.filter(c => !primary.includes(c));
-    candidates = primary.concat(rest);
+  const refillQueue = () => {
+    const usedSeeds = new Set();
+    autoStudents.forEach((other, j) => {
+      if (j !== idx && other && other.notesSeed !== undefined) {
+        usedSeeds.add(other.notesSeed % 15);
+      }
+    });
+
+    let candidates = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
+    const isProg = (s.status === 'in_progress_1' || s.status === 'in_progress_2' || s.status === 'in_progress');
+    if (isProg && preferContext) {
+      const ctxMap = { detail: [0, 1, 2], focus: [3, 4, 5], pace: [6, 7, 8], logic: [9, 10, 11], tired: [12, 13, 14] };
+      const primary = shuffle(ctxMap[s.context || 'detail'] || [0, 1, 2]);
+      const rest = candidates.filter(c => !primary.includes(c));
+      candidates = primary.concat(rest);
+    } else {
+      const unused = candidates.filter(x => !usedSeeds.has(x));
+      const used = candidates.filter(x => usedSeeds.has(x));
+      candidates = unused.concat(used);
+    }
+
+    const withoutCurrent = candidates.filter(x => x !== s.notesSeed);
+    if (s.notesSeed !== undefined) withoutCurrent.push(s.notesSeed % 15);
+    return withoutCurrent;
+  };
+
+  if (!Array.isArray(s.notesSeedQueue) || s.notesSeedQueue.length === 0) {
+    s.notesSeedQueue = refillQueue();
   }
 
-  for (const cand of candidates) {
-    if (usedSeeds.has(cand)) continue;
+  while (s.notesSeedQueue.length > 0) {
+    const cand = s.notesSeedQueue.shift();
     const res = buildTeacherNotes(idx, cand);
     if (res && res.trim() !== currentVal) return cand;
   }
-  for (const cand of candidates) {
+
+  s.notesSeedQueue = refillQueue();
+  while (s.notesSeedQueue.length > 0) {
+    const cand = s.notesSeedQueue.shift();
     const res = buildTeacherNotes(idx, cand);
     if (res && res.trim() !== currentVal) return cand;
   }
-  return candidates[0];
+  return ((s.notesSeed || 0) + 1) % 15;
 }
 
 function autoGenerateSummary(idx, pickNewRandom = false, alsoRefreshNotes = false) {
