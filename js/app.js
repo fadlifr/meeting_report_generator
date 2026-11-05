@@ -638,7 +638,7 @@ const LANG_UI = {
     contextPace: '☕ Ritme / Tempo Pengerjaan Santai',
     contextLogic: '💡 Bimbingan Konsep & Logika Baru',
     contextTired: '🔋 Penyesuaian Stamina Setelah Sekolah',
-    generateBtn: '⚡ Generate Progress',
+    generateBtn: '⚡ Generate Teacher Notes',
     studentPlaceholder: 'Nama siswa…',
     progressPlaceholder: 'Progress akan ter-generate otomatis, atau ketik manual…',
     toastGenerated: '✓ Progress berhasil di-generate!',
@@ -1115,7 +1115,7 @@ const LANG_UI = {
     contextPace: '☕ Relaxed & Steady Work Rhythm',
     contextLogic: '💡 Step-by-Step Logic Guidance',
     contextTired: '🔋 Pacing After-School Energy',
-    generateBtn: '⚡ Generate Report',
+    generateBtn: '⚡ Generate Teacher Notes',
     studentPlaceholder: 'Student name…',
     progressPlaceholder: 'Progress will be auto-generated, or type manually…',
     toastGenerated: '✓ Progress generated!',
@@ -1797,6 +1797,7 @@ function onCourseChange(idx, selectEl) {
 
 function onStatusChange(idx, selectEl) {
   const status = selectEl.value;
+  setTimeout(() => autoGenerateSummary(idx, true, true), 0);
   autoStudents[idx].status = status;
   setupCustomSelect(selectEl);
   const lesson2Select = document.getElementById(`auto-lesson2-${idx}`);
@@ -1818,22 +1819,198 @@ function onStatusChange(idx, selectEl) {
 function onContextChange(idx, selectEl) {
   if (!autoStudents[idx]) return;
   autoStudents[idx].context = selectEl.value;
+  setTimeout(() => autoGenerateSummary(idx, false, true), 0);
   setupCustomSelect(selectEl);
 }
 
 function onLessonChange(idx, selectEl) {
   autoStudents[idx].lesson = selectEl.value;
+  setTimeout(() => autoGenerateSummary(idx, true), 0);
   setupCustomSelect(selectEl);
   autoUpdateTable();
 }
 
 function onLesson2Change(idx, selectEl) {
   autoStudents[idx].lesson2 = selectEl.value;
+  setTimeout(() => autoGenerateSummary(idx, true), 0);
   setupCustomSelect(selectEl);
   autoUpdateTable();
 }
 
+function buildStudentSplitResult(idx, seed) {
+  const s = autoStudents[idx];
+  if (!s || !s.course || !s.lesson) return null;
+  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) return null;
+  if (typeof COURSE_DATA === 'undefined' || !COURSE_DATA[s.course] || COURSE_DATA[s.course].length === 0) return null;
+
+  const sLang = s.lang || autoLang;
+  const L = LANG_UI[sLang];
+  const nama = (s.nama && s.nama.trim()) ? s.nama.trim() : (sLang === 'id' ? 'Siswa' : 'Student');
+
+  const courseList = COURSE_DATA[s.course];
+  const l1Obj = courseList ? courseList.find(item => item.num == s.lesson) : null;
+  const l2Obj = (courseList && s.lesson2) ? courseList.find(item => item.num == s.lesson2) : null;
+
+  const l1Title = l1Obj ? ((sLang === 'id' && l1Obj.title_id) ? l1Obj.title_id : (l1Obj.title_en || l1Obj.title)) : `Lesson ${s.lesson}`;
+  const l2Title = l2Obj ? ((sLang === 'id' && l2Obj.title_id) ? l2Obj.title_id : (l2Obj.title_en || l2Obj.title)) : `Lesson ${s.lesson2}`;
+
+  const templateMap = sLang === 'en' ? TEMPLATES_EN : TEMPLATES;
+  const raw1 = (templateMap && templateMap[s.course] && templateMap[s.course][s.lesson])
+    ? templateMap[s.course][s.lesson]
+    : '';
+  const localizedCourse = getLocalizedCourseName(s.course, sLang);
+  const action1 = raw1
+    ? extractAction(raw1, nama, sLang)
+    : L.fallbackProgress(nama, s.lesson, localizedCourse, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : []);
+
+  let result = null;
+  if (s.status === 'done') {
+    result = L.doneText(nama, l1Title, action1, 0, seed, s.course);
+  } else if (s.status === 'continued_done') {
+    result = L.continuedDoneText(nama, l1Title, action1, 0, seed, s.course);
+  } else if (s.status === 'in_progress_1' || s.status === 'in_progress') {
+    result = (L.inProgress1Text || L.inProgressText)(nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', 0, seed, s.course, action1);
+  } else if (s.status === 'in_progress_2') {
+    result = (L.inProgress2Text || L.inProgressText)(nama, s.lesson, l1Title, l1Obj ? (sLang === 'en' && l1Obj.objectives_en ? l1Obj.objectives_en : (sLang === 'en' ? [] : l1Obj.objectives)) : [], s.context || 'detail', 0, seed, s.course, action1);
+  } else if (s.status === 'one_and_half') {
+    result = L.oneAndHalfText(nama, s.lesson, l1Title, action1, s.lesson2, l2Title, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : [], 0, seed, s.course);
+  } else if (s.status === 'double') {
+    const raw2 = (templateMap && templateMap[s.course] && templateMap[s.course][s.lesson2])
+      ? templateMap[s.course][s.lesson2]
+      : '';
+    const action2 = raw2
+      ? extractAction(raw2, nama, sLang)
+      : L.fallbackProgress(nama, s.lesson2, localizedCourse, l2Obj ? (sLang === 'en' && l2Obj.objectives_en ? l2Obj.objectives_en : (sLang === 'en' ? [] : l2Obj.objectives)) : []);
+    result = L.doubleText(nama, s.lesson, l1Title, action1, s.lesson2, l2Title, action2, 0, seed, s.course);
+  }
+
+  if (!result) return null;
+  if (typeof result === 'object' && result.summary !== undefined) {
+    return { summary: result.summary || '', notes: result.notes || '' };
+  }
+  return { summary: String(result || ''), notes: '' };
+}
+
+function pickRandomSeedForField(idx, field) {
+  const s = autoStudents[idx];
+  const currentVal = (s && s[field]) ? s[field].trim() : '';
+  const usedSeeds = new Set();
+  autoStudents.forEach((other, j) => {
+    if (j !== idx && other && other[`${field}Seed`] !== undefined) {
+      usedSeeds.add(other[`${field}Seed`] % 6);
+    }
+  });
+
+  const candidates = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  for (let i = candidates.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+  }
+
+  for (const cand of candidates) {
+    if (usedSeeds.has(cand % 6)) continue;
+    const res = buildStudentSplitResult(idx, cand);
+    if (res && res[field] && res[field].trim() !== currentVal) {
+      return cand;
+    }
+  }
+  for (const cand of candidates) {
+    const res = buildStudentSplitResult(idx, cand);
+    if (res && res[field] && res[field].trim() !== currentVal) {
+      return cand;
+    }
+  }
+  return candidates[0];
+}
+
+function autoGenerateSummary(idx, pickNewRandom = false, alsoRefreshNotes = false) {
+  syncStudentFromDOM(idx);
+  const s = autoStudents[idx];
+  if (!s || !s.course || !s.lesson) return false;
+  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) return false;
+
+  if (pickNewRandom || s.summarySeed === undefined) {
+    s.summarySeed = pickRandomSeedForField(idx, 'summary');
+  }
+  const sumRes = buildStudentSplitResult(idx, s.summarySeed);
+  if (!sumRes) return false;
+
+  s.summary = sumRes.summary;
+  const sumEl = document.getElementById(`auto-summary-${idx}`);
+  if (sumEl) sumEl.value = s.summary;
+
+  if (alsoRefreshNotes && s.notesSeed !== undefined && s.notes) {
+    const noteRes = buildStudentSplitResult(idx, s.notesSeed);
+    if (noteRes && noteRes.notes) {
+      s.notes = noteRes.notes;
+      const noteEl = document.getElementById(`auto-notes-${idx}`);
+      if (noteEl) noteEl.value = s.notes;
+      updateNotesCounter(idx);
+    }
+  }
+
+  const cleanSummary = (s.summary || '').trim();
+  const cleanNotes = (s.notes || '').trim();
+  s.progress = cleanSummary && cleanNotes ? `${cleanSummary}\n\n${cleanNotes}` : (cleanSummary || cleanNotes);
+  autoUpdateTable();
+  return true;
+}
+
+function onStudentNameInput(idx, val) {
+  if (!autoStudents[idx]) return;
+  autoStudents[idx].nama = val;
+  if (autoStudents[idx].course && autoStudents[idx].lesson) {
+    autoGenerateSummary(idx, false, true);
+  } else {
+    autoUpdateTable();
+  }
+}
+
+function generateTeacherNotes(idx) {
+  syncStudentFromDOM(idx);
+  const s = autoStudents[idx];
+  const sLang = s.lang || autoLang;
+  const L = LANG_UI[sLang];
+
+  if (!s.nama || !s.nama.trim()) { toast(L.errName, 'error'); return; }
+  if (!s.course) { toast(L.errCourse, 'error'); return; }
+  if (!s.lesson) {
+    if (typeof COURSE_DATA !== 'undefined' && COURSE_DATA[s.course] && COURSE_DATA[s.course].length === 0) {
+      toast(sLang === 'id' ? 'Course ini belum memiliki data lesson otomatis. Silakan tulis progress langsung di kotak teks.' : 'This course has no automated lessons yet. Please write progress directly in the text area.', 'error');
+      return;
+    }
+    toast(L.errLesson, 'error'); return;
+  }
+  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) { toast(L.errLesson2, 'error'); return; }
+
+  // Ensure Meeting Summary is also populated & synced with student name
+  if (!s.summary || s.summarySeed === undefined) {
+    autoGenerateSummary(idx, true, false);
+  } else {
+    autoGenerateSummary(idx, false, false);
+  }
+
+  // Pick a random Teacher Notes variant guaranteed to differ from current notes
+  s.notesSeed = pickRandomSeedForField(idx, 'notes');
+  const noteRes = buildStudentSplitResult(idx, s.notesSeed);
+  if (noteRes) {
+    s.notes = noteRes.notes;
+    const noteEl = document.getElementById(`auto-notes-${idx}`);
+    if (noteEl) noteEl.value = s.notes;
+    updateNotesCounter(idx);
+  }
+
+  const cleanSummary = (s.summary || '').trim();
+  const cleanNotes = (s.notes || '').trim();
+  s.progress = cleanSummary && cleanNotes ? `${cleanSummary}\n\n${cleanNotes}` : (cleanSummary || cleanNotes);
+  autoUpdateTable();
+  toast(L.toastGenerated, 'success');
+}
+
 function generateProgress(idx) {
+  return generateTeacherNotes(idx);
+}
+function _legacyGenerateProgress_unused(idx) {
   syncStudentFromDOM(idx);
   const s = autoStudents[idx];
   const sLang = s.lang || autoLang;
@@ -2011,6 +2188,7 @@ function setStudentLang(idx, lang) {
   if (!autoStudents[idx]) return;
   syncStudentFromDOM(idx);
   autoStudents[idx].lang = lang;
+  autoGenerateSummary(idx, false, true);
   renderAutoInputs();
 }
 
@@ -2043,7 +2221,7 @@ function renderAutoInputs(){
     div.innerHTML = `
       <div class="student-card-header">
         <div class="student-num">${i+1}</div>
-        <input type="text" id="auto-name-${i}" placeholder="${L.studentPlaceholder}" value="${escHtml(s.nama)}" oninput="autoStudents[${i}].nama=this.value;autoUpdateTable()">
+        <input type="text" id="auto-name-${i}" placeholder="${L.studentPlaceholder}" value="${escHtml(s.nama)}" oninput="onStudentNameInput(${i},this.value)">
         <div class="student-lang-toggle" title="Student Report Language">
           <button type="button" class="student-lang-btn ${sLang==='id'?'active':''}" onclick="setStudentLang(${i},'id')">ID</button>
           <button type="button" class="student-lang-btn ${sLang==='en'?'active':''}" onclick="setStudentLang(${i},'en')">EN</button>
@@ -2091,7 +2269,7 @@ function renderAutoInputs(){
             <option value="">${L.lesson2Placeholder}</option>
           </select>
         </div>
-        <button class="btn-generate" onclick="generateProgress(${i})" style="margin-top:4px;">${L.generateBtn}</button>
+
       </div>
 
       <!-- CMS Split Output: Meeting Summary & Teacher Notes -->
@@ -2127,6 +2305,7 @@ function renderAutoInputs(){
             </div>
           </div>
           <textarea id="auto-notes-${i}" class="cms-textarea" placeholder="${sLang === 'id' ? 'Catatan observasi guru di kelas (maks 200 karakter)...' : 'Teacher observation notes in class (max 200 chars)...'}" oninput="onStudentFieldInput(${i},'notes',this.value)">${escHtml(s.notes || '')}</textarea>
+          <button type="button" class="btn-generate" onclick="generateTeacherNotes(${i})" style="margin-top:4px;">${L.generateBtn}</button>
         </div>
       </div>`;
     c.appendChild(div);
