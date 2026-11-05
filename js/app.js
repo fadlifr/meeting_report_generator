@@ -693,6 +693,7 @@ const LANG_UI = {
     contextPace: '☕ Ritme / Tempo Pengerjaan Santai',
     contextLogic: '💡 Bimbingan Konsep & Logika Baru',
     contextTired: '🔋 Penyesuaian Stamina Setelah Sekolah',
+    generateSummaryBtn: '⚡ Generate Summary',
     generateBtn: '⚡ Generate Teacher Notes',
     studentPlaceholder: 'Nama siswa…',
     progressPlaceholder: 'Progress akan ter-generate otomatis, atau ketik manual…',
@@ -1170,6 +1171,7 @@ const LANG_UI = {
     contextPace: '☕ Relaxed & Steady Work Rhythm',
     contextLogic: '💡 Step-by-Step Logic Guidance',
     contextTired: '🔋 Pacing After-School Energy',
+    generateSummaryBtn: '⚡ Generate Summary',
     generateBtn: '⚡ Generate Teacher Notes',
     studentPlaceholder: 'Student name…',
     progressPlaceholder: 'Progress will be auto-generated, or type manually…',
@@ -2460,6 +2462,33 @@ function onStudentNameInput(idx, val) {
   }
 }
 
+function generateMeetingSummary(idx) {
+  syncStudentFromDOM(idx);
+  const s = autoStudents[idx];
+  const sLang = s.lang || autoLang;
+  const L = LANG_UI[sLang];
+
+  if (!s.nama || !s.nama.trim()) { toast(L.errName, 'error'); return; }
+  if (!s.course) { toast(L.errCourse, 'error'); return; }
+  if (!s.lesson) {
+    if (typeof COURSE_DATA !== 'undefined' && COURSE_DATA[s.course] && COURSE_DATA[s.course].length === 0) {
+      toast(sLang === 'id' ? 'Course ini belum memiliki data lesson otomatis. Silakan tulis progress langsung di kotak teks.' : 'This course has no automated lessons yet. Please write progress directly in the text area.', 'error');
+      return;
+    }
+    toast(L.errLesson, 'error'); return;
+  }
+  if ((s.status === 'double' || s.status === 'one_and_half') && !s.lesson2) { toast(L.errLesson2, 'error'); return; }
+
+  if (!s.genderManual && s.nama) {
+    s.gender = inferGenderFromName(s.nama);
+    updateGenderToggleUI(idx);
+  }
+
+  // Pick new random summary variant and update
+  autoGenerateSummary(idx, true, false);
+  toast(sLang === 'id' ? '✓ Meeting Summary diperbarui!' : '✓ Meeting Summary updated!', 'success');
+}
+
 function generateTeacherNotes(idx) {
   syncStudentFromDOM(idx);
   const s = autoStudents[idx];
@@ -2788,6 +2817,7 @@ function renderAutoInputs(){
             </button>
           </div>
           <textarea id="auto-summary-${i}" class="cms-textarea" placeholder="${sLang === 'id' ? 'Ringkasan materi & capaian projek...' : 'Lesson summary & project objectives...'}" oninput="onStudentFieldInput(${i},'summary',this.value)">${escHtml(s.summary || '')}</textarea>
+          <button type="button" class="btn-generate btn-generate-summary" onclick="generateMeetingSummary(${i})" style="margin-top:4px;">${L.generateSummaryBtn || '⚡ Generate Summary'}</button>
         </div>
 
         <!-- Box 2: Teacher Notes (Target max 200 chars for Timedoor CMS) -->
