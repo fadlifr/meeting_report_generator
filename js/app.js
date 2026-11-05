@@ -694,6 +694,7 @@ const LANG_UI = {
     contextLogic: '💡 Bimbingan Konsep & Logika Baru',
     contextTired: '🔋 Penyesuaian Stamina Setelah Sekolah',
     generateSummaryBtn: '⚡ Generate Summary',
+    changeSummaryBtn: '⚡ Change Summary',
     generateBtn: '⚡ Generate Teacher Notes',
     studentPlaceholder: 'Nama siswa…',
     progressPlaceholder: 'Progress akan ter-generate otomatis, atau ketik manual…',
@@ -1172,6 +1173,7 @@ const LANG_UI = {
     contextLogic: '💡 Step-by-Step Logic Guidance',
     contextTired: '🔋 Pacing After-School Energy',
     generateSummaryBtn: '⚡ Generate Summary',
+    changeSummaryBtn: '⚡ Change Summary',
     generateBtn: '⚡ Generate Teacher Notes',
     studentPlaceholder: 'Student name…',
     progressPlaceholder: 'Progress will be auto-generated, or type manually…',
@@ -2485,7 +2487,10 @@ function generateMeetingSummary(idx) {
   }
 
   // Pick new random summary variant and update
+  s.summaryClicked = true;
   autoGenerateSummary(idx, true, false);
+  const sumBtn = document.getElementById(`auto-btn-gen-summary-${idx}`);
+  if (sumBtn) sumBtn.textContent = L.changeSummaryBtn || '⚡ Change Summary';
   toast(sLang === 'id' ? '✓ Meeting Summary diperbarui!' : '✓ Meeting Summary updated!', 'success');
 }
 
@@ -2817,7 +2822,7 @@ function renderAutoInputs(){
             </button>
           </div>
           <textarea id="auto-summary-${i}" class="cms-textarea" placeholder="${sLang === 'id' ? 'Ringkasan materi & capaian projek...' : 'Lesson summary & project objectives...'}" oninput="onStudentFieldInput(${i},'summary',this.value)">${escHtml(s.summary || '')}</textarea>
-          <button type="button" class="btn-generate btn-generate-summary" onclick="generateMeetingSummary(${i})" style="margin-top:4px;">${L.generateSummaryBtn || '⚡ Generate Summary'}</button>
+          <button type="button" id="auto-btn-gen-summary-${i}" class="btn-generate btn-generate-summary" onclick="generateMeetingSummary(${i})" style="margin-top:4px;">${s.summaryClicked ? (L.changeSummaryBtn || '⚡ Change Summary') : (L.generateSummaryBtn || '⚡ Generate Summary')}</button>
         </div>
 
         <!-- Box 2: Teacher Notes (Target max 200 chars for Timedoor CMS) -->
